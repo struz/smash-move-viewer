@@ -1,0 +1,22 @@
+{
+  "name": "smash-move-viewer",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Struz <gbbwhittington@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "gifuct-js": "^1.0.0",
+    "js-binary-schema-parser": "^1.0.1"
+  }
+}
