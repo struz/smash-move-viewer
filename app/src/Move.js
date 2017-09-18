@@ -14,24 +14,31 @@ class Move extends Component {
       frameHeight: 1
     };
 
-    // Required for drawing temporary updates
+    // Required for drawing patch updates to the gif
     this.tempCanvas = document.createElement('canvas');
     this.tempCtx = this.tempCanvas.getContext('2d');
     this.frameImageData = null;
-    
+
+    // Bindings
+    this.frameChanged = this.frameChanged.bind(this);
+
     this.loadGIF();
   }
 
   componentDidMount() {
-    // 1fps frame updates
-    this.timerID = setInterval(
-      () => this.tick(),
-      100
-    );
+    // 10fps frame updates
+    // this.timerID = setInterval(
+    //   () => this.tick(),
+    //   100
+    // );
   }
   componentWillUnmount() {
-    clearInterval(this.timerID);
+    // clearInterval(this.timerID);
   }
+  componentWillUpdate() {
+
+  }
+
   tick() {
     var newState = this.state;
     newState.frameIndex = newState.frameIndex + 1;
@@ -41,7 +48,7 @@ class Move extends Component {
     this.setState(newState);
 
     var context = this.refs.canvas.getContext('2d');
-    this.renderFrame(context);
+    this.renderFrame(context, this.state.frames[this.state.frameIndex]);
   }
 
   // componentDidUpdate() {
@@ -54,6 +61,7 @@ class Move extends Component {
     return (
       <div className="Move">
         <canvas ref="canvas" width={this.state.frameWidth} height={this.state.frameHeight} className="Move-anim"/>
+        <input type="number" onChange={ this.frameChanged } value={ this.state.frameIndex } className="Move-frame"/>
       </div>
     );
   }
@@ -77,7 +85,9 @@ class Move extends Component {
               frameHeight: frames[0].dims.height
             });
 
-            console.log(_this.state);
+            // Render initial frame
+            var context = _this.refs.canvas.getContext('2d');
+            _this.renderFrame(context, frames[0]);
   	    } else {
           console.error('Could not load gif');
         }
@@ -86,8 +96,43 @@ class Move extends Component {
   	oReq.send(null);
   }
 
-  renderFrame(context) {
-    var frame = this.state.frames[this.state.frameIndex];
+  frameChanged(e) {
+    this.renderToFrame(e.target.value);
+  }
+
+  renderToFrame(frame) {
+    if (frame == this.state.frameIndex) {
+      return;
+    }
+    if (frame < 0) {
+      frame = 0;
+    }
+    if (frame >= this.state.frames.length) {
+      frame = this.state.frames.length - 1;
+    }
+
+    var context = this.refs.canvas.getContext('2d');
+    var startFrame = this.state.frameIndex;  // Current frame
+    if (frame < startFrame) {
+      // Going backwards, so we need to reset the gif to frame 0
+      // and patch our way back up to the requested frame
+      context.clearRect(0, 0, this.state.frameWidth, this.state.frameHeight);
+      startFrame = 0;
+    }
+
+    var i;
+    for (i = startFrame; i <= frame; i++) {
+      // Patch each frame til we get there
+      this.renderFrame(context, this.state.frames[i]);
+    }
+    var newState = this.state;
+    newState.frameIndex = frame;
+    this.setState(newState);
+  }
+
+  // Assumes the frame being rendered is always the next frame from the last
+  // one rendered, or the first frame itself.
+  renderFrame(context, frame) {
     var dims = frame.dims;
 
     if(!this.frameImageData || dims.width != this.frameImageData.width || dims.height != this.frameImageData.height){
