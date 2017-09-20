@@ -1,0 +1,19 @@
+.Frame-label {
+  padding-right: 10px;
+}
+
+.Move-controls * {
+  display: inline-block;
+}
+
+.Move-controls img {
+  height: 24px;
+  cursor: pointer;
+  vertical-align: bottom;
+  padding-right: 3px;
+}
+
+.Move-frame {
+  width: 3ch;
+  text-align: right;
+}
