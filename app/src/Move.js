@@ -19,8 +19,9 @@ import GIF from './gifuct.js';
 class PlayPauseButton extends Component {
   constructor(props) {
     super(props);
+    this.state = {src: this.props.isPlaying ? iconPause : iconPlay};
+
     this.handleClick = this.handleClick.bind(this);
-    this.state = {src: this.props.isPlaying ? iconPlay : iconPause};
   }
 
   handleClick(e) {
@@ -46,7 +47,8 @@ class Move extends Component {
       gif: null,
       frames: [],
       frameWidth: 1,
-      frameHeight: 1
+      frameHeight: 1,
+      isPlaying: false
     };
 
     // Required for drawing patch updates to the gif
@@ -93,9 +95,19 @@ class Move extends Component {
         () => this.tick(),
         1000 / 60
       );
+      this.setState(function (prevState, props) {
+        var newState = prevState;
+        newState.isPlaying = true;
+        return newState;
+      });
     } else {
       clearInterval(this.timerID);
       this.timerID = undefined;
+      this.setState(function (prevState, props) {
+        var newState = prevState;
+        newState.isPlaying = false;
+        return newState;
+      });
     }
   }
 
@@ -114,8 +126,7 @@ class Move extends Component {
   }
 
   render() {
-    // TODO: make me a state bool so that i don't break
-    const isPlaying = (this.timerID === undefined);
+    const isPlaying = (this.state.isPlaying);
 
     return (
       <div className="Move">
