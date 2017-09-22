@@ -460,6 +460,7 @@
         var frameOffsets = []; // elements have .x and .y properties
 
         var gif = options.gif;
+        var gifDisplayStyle = gif.style.display;
         if (typeof options.auto_play == 'undefined')
             options.auto_play = (!gif.getAttribute('rel:auto_play') || gif.getAttribute('rel:auto_play') == '1');
 
@@ -859,27 +860,38 @@
         var init = function () {
             var parent = gif.parentNode;
 
-            var div = document.createElement('div');
+            jsgifDiv = document.createElement('div');
             canvas = document.createElement('canvas');
             ctx = canvas.getContext('2d');
             toolbar = document.createElement('div');
 
             tmpCanvas = document.createElement('canvas');
 
-            div.width = canvas.width = gif.width;
-            div.height = canvas.height = gif.height;
+            jsgifDiv.width = canvas.width = gif.width;
+            jsgifDiv.height = canvas.height = gif.height;
             toolbar.style.minWidth = gif.width + 'px';
 
-            div.className = 'jsgif';
+            jsgifDiv.className = 'jsgif';
             toolbar.className = 'jsgif_toolbar';
-            div.appendChild(canvas);
-            div.appendChild(toolbar);
+            jsgifDiv.appendChild(canvas);
+            jsgifDiv.appendChild(toolbar);
 
-            parent.insertBefore(div, gif);
-            parent.removeChild(gif);
+            parent.insertBefore(jsgifDiv, gif);
+            gif.style.display = 'none';
+            //parent.removeChild(gif);
 
             if (options.c_w && options.c_h) setSizes(options.c_w, options.c_h);
             initialized=true;
+        };
+
+        // Created for compatibility with react-js. Must be called before
+        // in-place replacing an existing SuperGif.
+        var destroy = function () {
+          tmpCanvas.remove();
+          toolbar.remove();
+          canvas.remove();
+          jsgifDiv.remove();
+          gif.style.display = gifDisplayStyle;
         };
 
         var get_canvas_scale = function() {
@@ -893,7 +905,7 @@
             return scale;
         }
 
-        var canvas, ctx, toolbar, tmpCanvas;
+        var canvas, ctx, toolbar, tmpCanvas, jsgifDiv;
         var initialized = false;
         var load_callback = false;
 
@@ -914,6 +926,9 @@
         }
 
         return {
+            // Lifecycle
+            destroy: destroy,
+
             // play controls
             play: player.play,
             pause: player.pause,
@@ -967,6 +982,7 @@
                     }
 
                     stream = new Stream(data);
+                    // TODO: need way to abort this
                     setTimeout(doParse, 0);
                 };
                 h.onprogress = function (e) {
@@ -982,6 +998,7 @@
                 if (!load_setup(callback)) return;
                 if (!initialized) init();
                 stream = new Stream(arr);
+                // TODO: need way to abort this
                 setTimeout(doParse, 0);
             },
             set_frame_offset: setFrameOffset

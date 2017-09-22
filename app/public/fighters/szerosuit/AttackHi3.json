@@ -1,0 +1,518 @@
+{
+  "moveName": "Up Tilt",
+  "faf": 46,
+  "intangibilityStart": 0,
+  "intangibilityEnd": 0,
+  "frames": [
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 150.0,
+          "knockbackGrowth": 30.0,
+          "knockbackBase": 55.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": true,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.0,
+          "x": 0.0,
+          "y": 14.0,
+          "z": 8.0,
+          "x2": 0.0,
+          "y2": 14.0,
+          "z2": -8.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 130.0,
+          "knockbackGrowth": 50.0,
+          "knockbackBase": 85.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": true,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.0,
+          "x": 0.0,
+          "y": 11.0,
+          "z": 10.0,
+          "x2": 0.0,
+          "y2": 11.0,
+          "z2": -10.0
+        }
+      ],
+      "intangibleBones": [
+        9,
+        5
+      ],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 150.0,
+          "knockbackGrowth": 30.0,
+          "knockbackBase": 55.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": true,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.0,
+          "x": 0.0,
+          "y": 14.0,
+          "z": 8.0,
+          "x2": 0.0,
+          "y2": 14.0,
+          "z2": -8.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 130.0,
+          "knockbackGrowth": 50.0,
+          "knockbackBase": 85.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": true,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.0,
+          "x": 0.0,
+          "y": 11.0,
+          "z": 10.0,
+          "x2": 0.0,
+          "y2": 11.0,
+          "z2": -10.0
+        }
+      ],
+      "intangibleBones": [
+        9,
+        5
+      ],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [
+        9,
+        5
+      ],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [
+        9,
+        5
+      ],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [
+        9,
+        5
+      ],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [
+        9,
+        5
+      ],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 7.0,
+          "angle": 90.0,
+          "knockbackGrowth": 90.0,
+          "knockbackBase": 70.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 7.0,
+          "x": 0.0,
+          "y": 20.0,
+          "z": 0.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 7.0,
+          "angle": 90.0,
+          "knockbackGrowth": 90.0,
+          "knockbackBase": 70.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 6.0,
+          "x": 0.0,
+          "y": 14.0,
+          "z": 0.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [
+        9,
+        5
+      ],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 7.0,
+          "angle": 90.0,
+          "knockbackGrowth": 90.0,
+          "knockbackBase": 70.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 7.0,
+          "x": 0.0,
+          "y": 20.0,
+          "z": 0.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 7.0,
+          "angle": 90.0,
+          "knockbackGrowth": 90.0,
+          "knockbackBase": 70.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 6.0,
+          "x": 0.0,
+          "y": 14.0,
+          "z": 0.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [
+        9,
+        5
+      ],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    }
+  ],
+  "camera": {
+    "game_view": {
+      "zoom": -55.0,
+      "rot": 1.57079,
+      "lookup": 0.0125,
+      "x": 0.0,
+      "y": 0.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    },
+    "top_view": {
+      "zoom": -55.0,
+      "rot": 1.57079,
+      "lookup": 1.57079,
+      "x": 0.0,
+      "y": 0.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    },
+    "front_view": {
+      "zoom": -55.0,
+      "rot": 0.0,
+      "lookup": 0.0125,
+      "x": 0.0,
+      "y": 1.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    }
+  }
+}

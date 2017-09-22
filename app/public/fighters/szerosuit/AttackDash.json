@@ -1,0 +1,913 @@
+{
+  "moveName": "Dash Attack",
+  "faf": 52,
+  "intangibilityStart": 0,
+  "intangibilityEnd": 0,
+  "frames": [
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 8.0,
+          "angle": 70.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 100.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.5,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 8.0,
+          "angle": 70.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 100.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.5,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 8.0,
+          "angle": 70.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 100.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.5,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 8.0,
+          "angle": 70.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 100.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.5,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 8.0,
+          "angle": 70.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 100.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.5,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 8.0,
+          "angle": 70.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 100.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.5,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 3.1,
+          "x": 0.0,
+          "y": 10.5,
+          "z": 7.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        },
+        {
+          "id": 1,
+          "damage": 5.0,
+          "angle": 60.0,
+          "knockbackGrowth": 40.0,
+          "knockbackBase": 80.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 4.1,
+          "x": 0.0,
+          "y": 10.0,
+          "z": 1.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    }
+  ],
+  "camera": {
+    "game_view": {
+      "zoom": -55.0,
+      "rot": 1.57079,
+      "lookup": 0.0125,
+      "x": -6.0,
+      "y": 0.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    },
+    "top_view": {
+      "zoom": -55.0,
+      "rot": 1.57079,
+      "lookup": 1.57079,
+      "x": -6.0,
+      "y": 0.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    },
+    "front_view": {
+      "zoom": -75.0,
+      "rot": 0.0,
+      "lookup": 0.0125,
+      "x": 0.0,
+      "y": 1.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    }
+  }
+}

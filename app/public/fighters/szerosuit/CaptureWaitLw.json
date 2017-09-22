@@ -1,0 +1,195 @@
+{
+  "moveName": "Held by short character",
+  "faf": 0,
+  "intangibilityStart": 0,
+  "intangibilityEnd": 0,
+  "frames": [
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    },
+    {
+      "hitboxes": [],
+      "intangibleBones": [],
+      "invincibleBones": []
+    }
+  ],
+  "camera": {
+    "game_view": {
+      "zoom": -55.0,
+      "rot": 1.57079,
+      "lookup": 0.0125,
+      "x": 0.0,
+      "y": 0.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    },
+    "top_view": {
+      "zoom": -55.0,
+      "rot": 1.57079,
+      "lookup": 1.57079,
+      "x": 0.0,
+      "y": 0.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    },
+    "front_view": {
+      "zoom": -55.0,
+      "rot": 0.0,
+      "lookup": 0.0125,
+      "x": 0.0,
+      "y": 1.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    }
+  }
+}
