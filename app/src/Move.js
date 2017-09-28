@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+import SuperGif from './libgif.js';
+import logo from './img/SmashBall.svg';
 
 import './Move.css';
+
 // Gif control icons
 import iconPlay from './img/icons/285-play3.svg'
 import iconPause from './img/icons/286-pause2.svg'
@@ -14,50 +19,192 @@ import iconLoop from './img/icons/302-loop.svg'
 // General icons
 import cross from './img/icons/272-cross.svg'
 
-import GIF from './gifuct.js';
+const gifStore = "https://s3-us-west-1.amazonaws.com/smash-move-viewer/fighters/";
+
+class FighterPicker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {options: []};
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.props.onFighterChange(e.target.value);
+  }
+
+  render() {
+    return(
+      <div className="Fighter-picker">
+        <select onChange={this.handleChange}  className="Dropdown">
+          <option value="">Character</option>
+          {this.state.options}
+        </select>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    var _this = this;
+    axios.get(this.props.url).then(function(response) {
+      var json = response.data;  // JSON is auto parsed by axios
+      var options = [];
+      json.fighters.forEach(function(fighter) {
+        options.push(<option key={fighter.key} value={fighter.key}>{fighter.name}</option>);
+      });
+      _this.setState({options: options});
+    });
+  }
+}
+
+class MovePicker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {options: []};
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.props.onMoveChange(e.target.value);
+  }
+
+  render() {
+    const options = this.state.options;
+    const disabled = !this.props.url;
+
+    return(
+      <div className="Move-picker">
+        <select onChange={this.handleChange} className="Dropdown" disabled={disabled}>
+          <option value="">Move</option>
+          {options}
+        </select>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    this.updateOptions(this.props.url);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Reload the json only if they selected a new option and not the same one again
+    if (this.props.url !== nextProps.url) {
+      this.updateOptions(nextProps.url);
+    }
+  }
+
+  updateOptions(url) {
+    if (!url) {
+      return;
+    }
+
+    var _this = this;
+    axios.get(url).then(function(response) {
+      var json = response.data;  // JSON is auto parsed by axios
+      var options = [];
+      json.moves.forEach(function(move) {
+        options.push(<option key={move} value={move}>{move}</option>);
+      });
+      _this.setState({options: options});
+    });
+  }
+}
+
+class Move extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fighter: '',
+      move: ''
+    };
+
+    this.fighterSelected = this.fighterSelected.bind(this);
+    this.moveSelected = this.moveSelected.bind(this);
+  }
+
+  fighterSelected(fighter) {
+    this.setState(function(prevState, props) {
+      prevState.fighter = fighter;
+      return prevState;
+    });
+  }
+  moveSelected(move) {
+    this.setState(function(prevState, props) {
+      prevState.move = move;
+      return prevState;
+    });
+  }
+
+  // Gets the list of moves for a character
+  static makeMoveIndexUrl(fighter) {
+    if (!fighter) {
+      return '';
+    }
+    return window.location.href + "fighters/" + fighter + ".json";
+  }
+
+  // Gets move info to be displayed about the move
+  static makeMoveUrl(fighter, move) {
+    if (!fighter || !move) {
+      return '';
+    }
+    return window.location.href + "fighters/" + fighter + "/" + move + ".json";
+  }
+
+  // Gets gif url to display move
+  static makeGifUrl(fighter, move) {
+    if (!fighter || !move) {
+      return '';
+    }
+    return gifStore + fighter + "/game_view/" + move + ".gif";
+  }
+
+  render() {
+    const fighterIndexUrl = window.location.href + "fighters/index.json";
+    const fighter = this.state.fighter;
+    const move = this.state.move;
+    const moveIndexUrl = Move.makeMoveIndexUrl(fighter);
+    const moveUrl = Move.makeMoveUrl(fighter, move);
+    const gifUrl = Move.makeGifUrl(fighter, move);
+
+    return(
+      <div className="Move" style={{display: 'inline-block'}}>
+        <FighterPicker url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
+        <MovePicker url={moveIndexUrl} onMoveChange={this.moveSelected}/>
+        <MoveGif url={gifUrl}/>
+      </div>
+    );
+  }
+}
 
 class PlayPauseButton extends Component {
   constructor(props) {
     super(props);
-    this.state = {src: this.props.isPlaying ? iconPause : iconPlay};
-
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
-    var state = this.state;
-    state.src = this.props.isPlaying ? iconPlay : iconPause;
-    this.setState(state);
     this.props.playPauseChange();
   }
 
   render() {
     return (
-      <img src={this.state.src} className="Frame-control-icon" alt="play-pause" onClick={ this.handleClick } />
+      <img src={this.props.isPlaying ? iconPause : iconPlay} className="Frame-control-icon" alt="play-pause" onClick={ this.handleClick } />
     );
   }
 }
 
-// TODO: do some frame preprocessing as soon as we load to reduce burden when user clicks "lastFrame" button raw
-class Move extends Component {
+class MoveGif extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      frameIndex: 0,
+      frameIndex: 1,
+      isPlaying: false,
+      timerID: undefined,
       gif: null,
-      frames: [],
-      frameWidth: 1,
-      frameHeight: 1,
-      isPlaying: false
+      fps: 60,
+      loaded: false
     };
-
-    // Required for drawing patch updates to the gif
-    this.tempCanvas = document.createElement('canvas');
-    this.tempCtx = this.tempCanvas.getContext('2d');
-    this.renderedFrames = {};  // For speedy frame transitions later
-
-    // Required for playing / pausing the gif
-    this.timerID = undefined;
 
     // Bindings
     this.frameTextChanged = this.frameTextChanged.bind(this);
@@ -67,73 +214,80 @@ class Move extends Component {
     this.lastFrameHandler = this.lastFrameHandler.bind(this);
     this.firstFrameHandler = this.firstFrameHandler.bind(this);
 
-    this.loadGIF();
+    this.fpsTextChanged = this.fpsTextChanged.bind(this);
+
+    this.gifLoaded = this.gifLoaded.bind(this);
+  }
+
+  loadGif(url) {
+    // Destroy any leftover timers
+    if (this.state.timerID !== undefined) {
+      clearInterval(this.state.timerID);
+    }
+
+    if (!url) {
+      return;
+    }
+    if (this.state.gif !== null) {
+      // Make sure we clean up the old div before loading a new one
+      // TODO: this should also immediately terminate all loading functions going on at the time.
+      this.state.gif.destroy();
+    }
+
+    this.refs.gif.src = url;
+    var gif = new SuperGif({
+      gif: this.refs.gif,
+      auto_play: false,
+      progressbar_height: 5
+    });
+    gif.load(this.gifLoaded);
+    this.setState(function(prevState, props) {
+      prevState.gif = gif;
+      prevState.loaded = false;
+      prevState.timerID = undefined;
+      return prevState;
+    });
+  }
+
+  gifLoaded() {
+    this.setState(function(prevState, props) {
+      prevState.loaded = true;
+      return prevState;
+    });
   }
 
   componentDidMount() {
-    // TODO: autoplay stuff goes here
+    this.loadGif(this.props.url);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Reload only if they selected a different move and not the same one
+    if (this.props.url !== nextProps.url) {
+      this.loadGif(nextProps.url);
+    }
   }
 
   componentWillUnmount() {
-    if (this.timerID !== undefined) {
-      clearInterval(this.timerID);
-      this.timerID = undefined;
+    if (this.state.timerID !== undefined) {
+      clearInterval(this.state.timerID);
     }
-  }
-  componentWillUpdate() {
-
-  }
-
-  // Play / pause
-  playPauseHandler(e) {
-    this.playPause();
-  }
-  playPause() {
-    if (this.timerID === undefined) {
-      // 60fps frame updates
-      this.timerID = setInterval(
-        () => this.tick(),
-        1000 / 60
-      );
-      this.setState(function (prevState, props) {
-        var newState = prevState;
-        newState.isPlaying = true;
-        return newState;
-      });
-    } else {
-      clearInterval(this.timerID);
-      this.timerID = undefined;
-      this.setState(function (prevState, props) {
-        var newState = prevState;
-        newState.isPlaying = false;
-        return newState;
-      });
+    if (this.state.gif !== null) {
+      this.state.gif.destroy();
     }
-  }
-
-  tick() {
-    this.setState(function(prevState, props) {
-      var newState = prevState;
-      newState.frameIndex = newState.frameIndex + 1;
-      if (newState.frameIndex >= newState.frames.length) {
-        newState.frameIndex = 0;
-      }
-      return newState;
-    });
-
-    var context = this.refs.canvas.getContext('2d');
-    this.renderPatchFrame(context, this.state.frameIndex);
   }
 
   render() {
-    const isPlaying = (this.state.isPlaying);
+    const isPlaying = this.state.isPlaying;
+    const gifLoaded = this.state.loaded;
 
     return (
-      <div className="Move">
-        <canvas ref="canvas" width={this.state.frameWidth} height={this.state.frameHeight} className="Move-anim"/>
-        <div className="Move-controls">
-          <label className="Frame-label">Frame:</label>
-          <input type="text" onChange={this.frameTextChanged} value={this.state.frameIndex} className="Move-frame"/>
+      <div className="Move-gif" style={{display: 'inline-block'}}>
+        <img ref="gif" alt="move-gif" className="Plain-move-gif" src={logo}/>
+        <div className="Move-controls" style={!gifLoaded ? {display: 'none'} : {}}>
+          <label>Play FPS:</label>
+          <input type="number" onChange={this.fpsTextChanged} value={this.state.fps} className="Move-frame"/>
+          <label>Frame:</label>
+          <input type="number" onChange={this.frameTextChanged} value={this.state.frameIndex} className="Move-frame"/>
           <img src={iconFirst} alt="first" onClick={this.firstFrameHandler}/>
           <img src={iconPrevious} alt="previous" onClick={this.prevFrameHandler}/>
           <PlayPauseButton playPauseChange={this.playPauseHandler} isPlaying={isPlaying} />
@@ -144,123 +298,101 @@ class Move extends Component {
     );
   }
 
-  loadGIF() {
-  	var oReq = new XMLHttpRequest();
-  	oReq.open("GET", this.props.url, true);
-  	oReq.responseType = "arraybuffer";
-
-    var _this = this;
-  	oReq.onload = function (oEvent) {
-  	    var arrayBuffer = oReq.response; // Note: not oReq.responseText
-  	    if (arrayBuffer) {
-            var gif = new GIF(arrayBuffer);
-            var frames = gif.decompressFrames(true);
-            _this.setState({
-              frameIndex: 0,
-              gif: gif,
-              frames: frames,
-              frameWidth: frames[0].dims.width,
-              frameHeight: frames[0].dims.height
-            });
-
-            // Render initial frame
-            var context = _this.refs.canvas.getContext('2d');
-            _this.renderPatchFrame(context, 0);
-  	    } else {
-          console.error('Could not load gif');
-        }
-  	};
-
-  	oReq.send(null);
+  // Play / pause
+  playPauseHandler(e) {
+    this.playPause();
   }
-
-  nextFrameHandler(e) {
-    this.renderToFrame(this.state.frameIndex + 1);
-  }
-  prevFrameHandler(e) {
-    this.renderToFrame(this.state.frameIndex - 1);
-  }
-  lastFrameHandler(e) {
-    this.renderToFrame(this.state.frames.length);
-  }
-  firstFrameHandler(e) {
-    this.renderToFrame(0);
-  }
-  frameTextChanged(e) {
-    this.renderToFrame(e.target.value);
-  }
-  renderToFrame(frame) {
-    // TODO: memoize the frames so that switching around is easier
-    if (frame === this.state.frameIndex) {
-      return;
-    }
-    if (frame < 0) {
-      frame = 0;
-    }
-    if (frame >= this.state.frames.length) {
-      frame = this.state.frames.length - 1;
-    }
-
-    var context = this.refs.canvas.getContext('2d');
-    var startFrame = this.state.frameIndex;  // Current frame
-    if (frame < startFrame) {
-      // Going backwards, so we need to reset the gif to frame 0
-      // and patch our way back up to the requested frame
-      context.clearRect(0, 0, this.state.frameWidth, this.state.frameHeight);
-      startFrame = 0;
-    }
-
-    // Try rendering memoized frame first
-    if (!this.renderMemoizedFrame(context, frame)) {
-      var i;
-      for (i = startFrame; i <= frame; i++) {
-        // Patch each frame til we get there
-        this.renderPatchFrame(context, i);
-      }
-    }
-
+  playPause() {
     this.setState(function(prevState, props) {
-      var newState = prevState;
-      newState.frameIndex = frame;
-      return newState;
+      prevState.isPlaying = !prevState.isPlaying;
+
+      if (prevState.timerID === undefined) {
+        // 60fps frame updates
+        prevState.timerID = setInterval(
+          () => this.tick(),
+          1000 / this.state.fps
+        );
+      } else {
+        clearInterval(prevState.timerID);
+        prevState.timerID = undefined;
+      }
+
+      return prevState;
     });
   }
 
-  // Assumes the frame being rendered is always the next frame from the last
-  // one rendered, or the first frame itself.
-  renderPatchFrame(context, frameNum) {
-    var frame = this.state.frames[frameNum];
-    var dims = frame.dims;
-    var frameImageData;
-
-    this.tempCanvas.width = dims.width;
-    this.tempCanvas.height = dims.height;
-    frameImageData = this.tempCtx.createImageData(dims.width, dims.height);
-
-    // set the patch data as override
-    frameImageData.data.set(frame.patch);
-
-    // draw the patch back over the canvas
-    this.tempCtx.putImageData(frameImageData, 0, 0);
-
-    // draw the entire frame
-    context.drawImage(this.tempCanvas, dims.left, dims.top);
-
-    // memoize the frame data if it doesn't exist
-    if (!(frameNum in this.renderedFrames)) {
-      this.renderedFrames[frameNum] = context.getImageData(0, 0, dims.width, dims.height);
-    }
+  tick() {
+    this.state.gif.pause();
+    this.state.gif.move_relative(1);
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = prevState.frameIndex + 1;
+      if (prevState.frameIndex > prevState.gif.get_length()) {
+        prevState.frameIndex = 1;
+      }
+      return prevState;
+    });
   }
 
-  // Returns false if the memoized frame was not able to be rendered
-  renderMemoizedFrame(context, frameNum) {
-    if (frameNum in this.renderedFrames) {
-      var dims = this.state.frames[frameNum].dims;
-      this.tempCtx.putImageData(this.renderedFrames[frameNum], 0, 0);
-      context.drawImage(this.tempCanvas, dims.left, dims.top);
-      return true;
+  nextFrameHandler(e) {
+    this.state.gif.move_relative(1);
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = prevState.frameIndex + 1;
+      if (prevState.frameIndex > prevState.gif.get_length()) {
+        prevState.frameIndex = prevState.gif.get_length();
+      }
+      return prevState;
+    });
+  }
+  prevFrameHandler(e) {
+    this.state.gif.move_relative(-1);
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = prevState.frameIndex - 1;
+      if (prevState.frameIndex < 1) {
+        prevState.frameIndex = 1;
+      }
+      return prevState;
+    });
+  }
+  lastFrameHandler(e) {
+    // 0 indexed in gif lib
+    this.state.gif.move_to(this.state.gif.get_length() - 1);
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = prevState.gif.get_length();
+      return prevState;
+    });
+  }
+  firstFrameHandler(e) {
+    this.state.gif.move_to(0);
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = 1;
+      return prevState;
+    });
+  }
+  frameTextChanged(e) {
+    var frameIndex = e.target.value;
+    if (frameIndex < 1 || frameIndex > this.state.gif.get_length()) {
+      frameIndex = this.state.frameIndex;  // No change
     }
-    return false;
+    this.state.gif.move_to(frameIndex - 1);
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = frameIndex;
+      return prevState;
+    });
+  }
+
+  fpsTextChanged(e) {
+    var fps = e.target.value;
+    if (fps < 1 || fps > 60) {
+      fps = this.state.fps;  // No change
+    }
+    this.setState(function(prevState, props) {
+      prevState.fps = fps;
+      return prevState;
+    });
+    if (this.state.isPlaying) {
+      this.playPause();
+      this.playPause();  // Hacky way to refresh the frame rate during play
+    }
   }
 }
 

@@ -1,0 +1,57 @@
+.App-logo {
+  height: 80px;
+  display: inline-block;
+  margin-right: 40px;
+}
+
+.App-logo path {
+  fill: #035073;
+}
+
+.App-header {
+  background-color: #0197a6;
+  height: 80px;
+  padding: 15px;
+  color: white;
+}
+
+/* Houses the header and logo */
+.App-intro {
+  display: inline-block;
+  width: 80%;
+  text-align: left;
+}
+
+h1 {
+  color: #f2f4f7;
+  display: inline-block;
+  font-family: "Verdana", sans-serif;
+  font-size: 2.5em;
+}
+
+.Links {
+  display: inline-block;
+  width: 19%;
+  text-align: right;
+}
+
+.Twitter-logo {
+  height: 24px;
+  width: 36px;
+  vertical-align: bottom;
+}
+
+.Link {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.Link a {
+  color: #f2f4f7;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.Link a:visited {
+  color: #035073;
+}

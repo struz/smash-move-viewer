@@ -1,3 +1,10 @@
+.Move {
+  padding: 10px 10px 10px 10px;
+  margin: 20px;
+  border-radius: 10px;
+  border: 2px solid #035073;
+}
+
 .Move-controls {
   margin: auto;
   width: 380px;
@@ -20,4 +27,27 @@
 
 .Move-frame {
   width: 3em;
+}
+
+.Dropdown {
+  border-radius: 7px;
+  color: #0197a6;
+  font-family: "Verdana", "Arial", sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 5px 3px 5px 3px;
+  margin-bottom: 5px;
+  width: 300px;
+  display: inline-block;
+  border: 2px solid #035073;
+}
+
+.Dropdown:disabled {
+  background: #cccccc;
+}
+
+.Plain-move-gif {
+  visibility: hidden;
+  width: 590px;
+  height: 410px;
 }
