@@ -13,8 +13,10 @@ class App extends Component {
         </div>
         <div className="Links">
           <div className="Link">
-            <img src={twitter_logo} className="Twitter-logo" alt="twitter-logo" />
-            <a href="https://twitter.com/StruzSmash">@StruzSmash</a>
+            <a href="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">
+              <img src={twitter_logo} className="Twitter-logo" alt="twitter-logo" />
+              <span className="Link-text">@StruzSmash</span>
+            </a>
           </div>
         </div>
       </div>
