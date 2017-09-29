@@ -244,6 +244,7 @@ class MoveGif extends Component {
     this.setState(function(prevState, props) {
       prevState.gif = gif;
       prevState.loaded = false;
+      prevState.isPlaying = false;
       prevState.timerID = undefined;
       return prevState;
     });
