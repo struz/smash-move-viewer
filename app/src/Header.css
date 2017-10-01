@@ -13,6 +13,7 @@
   height: 80px;
   padding: 15px;
   color: white;
+  white-space: nowrap;
 }
 
 /* Houses the header and logo */
@@ -33,6 +34,7 @@ h1 {
   display: inline-block;
   width: 19%;
   text-align: right;
+  white-space: nowrap;
 }
 
 .Twitter-logo {
@@ -43,7 +45,6 @@ h1 {
 
 .Link {
   display: inline-block;
-  vertical-align: middle;
 }
 
 .Link a {

@@ -5,26 +5,6 @@
   border: 2px solid #035073;
 }
 
-.Move-controls {
-  margin: auto;
-  width: 380px;
-}
-
-.Move-controls * {
-  display: inline-block;
-  margin-right: 4px;
-}
-
-.Move-controls input {
-  padding: 1px 1px;
-}
-
-.Move-controls img {
-  height: 24px;
-  cursor: pointer;
-  vertical-align: bottom;
-}
-
 .Move-frame {
   width: 3em;
 }
@@ -50,4 +30,12 @@
   visibility: hidden;
   width: 590px;
   height: 410px;
+}
+
+.View-picker {
+  display: inline-block;
+}
+.GifSizeCheckbox {
+  display: inline-block;
+  margin-left: 20px;
 }
