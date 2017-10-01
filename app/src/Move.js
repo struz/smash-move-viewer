@@ -21,6 +21,42 @@ import cross from './img/icons/272-cross.svg'
 
 const gifStore = "https://s3-us-west-1.amazonaws.com/smash-move-viewer/fighters/";
 
+class ViewPicker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.props.onViewChange(e.target.value);
+  }
+
+  render() {
+    return(
+      <div className="View-picker">
+        <select onChange={this.handleChange}  className="Dropdown">
+          <option value="game_view">Game View</option>
+          <option value="top_view">Top-down View</option>
+          <option value="front_view">Front-on View</option>
+        </select>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    var _this = this;
+    axios.get(this.props.url).then(function(response) {
+      var json = response.data;  // JSON is auto parsed by axios
+      var options = [];
+      json.fighters.forEach(function(fighter) {
+        options.push(<option key={fighter.key} value={fighter.key}>{fighter.name}</option>);
+      });
+      _this.setState({options: options});
+    });
+  }
+}
+
 class FighterPicker extends Component {
   constructor(props) {
     super(props);
@@ -115,11 +151,13 @@ class Move extends Component {
     super(props);
     this.state = {
       fighter: '',
-      move: ''
+      move: '',
+      view: ''
     };
 
     this.fighterSelected = this.fighterSelected.bind(this);
     this.moveSelected = this.moveSelected.bind(this);
+    this.viewSelected = this.viewSelected.bind(this);
   }
 
   fighterSelected(fighter) {
@@ -134,6 +172,12 @@ class Move extends Component {
       return prevState;
     });
   }
+  viewSelected(view) {
+    this.setState(function(prevState, props) {
+      prevState.view = view;
+      return prevState;
+    });
+  }
 
   // Gets the list of moves for a character
   static makeMoveIndexUrl(fighter) {
@@ -144,7 +188,7 @@ class Move extends Component {
   }
 
   // Gets move info to be displayed about the move
-  static makeMoveUrl(fighter, move) {
+  static makeMoveDataUrl(fighter, move) {
     if (!fighter || !move) {
       return '';
     }
@@ -152,23 +196,25 @@ class Move extends Component {
   }
 
   // Gets gif url to display move
-  static makeGifUrl(fighter, move) {
+  static makeGifUrl(fighter, move, view = "game_view") {
     if (!fighter || !move) {
       return '';
     }
-    return gifStore + fighter + "/game_view/" + move + ".gif";
+    return gifStore + fighter + "/" + view + "/" + move + ".gif";
   }
 
   render() {
     const fighterIndexUrl = window.location.href + "fighters/index.json";
     const fighter = this.state.fighter;
     const move = this.state.move;
+    const view = this.state.view;
     const moveIndexUrl = Move.makeMoveIndexUrl(fighter);
-    const moveUrl = Move.makeMoveUrl(fighter, move);
-    const gifUrl = Move.makeGifUrl(fighter, move);
+    const moveDataUrl = Move.makeMoveDataUrl(fighter, move);
+    const gifUrl = Move.makeGifUrl(fighter, move, view);
 
     return(
       <div className="Move" style={{display: 'inline-block'}}>
+        <ViewPicker onViewChange={this.viewSelected}/>
         <FighterPicker url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
         <MovePicker url={moveIndexUrl} onMoveChange={this.moveSelected}/>
         <MoveGif url={gifUrl}/>
