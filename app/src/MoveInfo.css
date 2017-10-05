@@ -1,15 +1,24 @@
 .Hitbox-color {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   display: inline-block;
   background: black;
   border: 1px solid black;
 }
 
 .Hitbox-info-table td,th {
-  padding: 2px 5px 2px 5px;
+  padding: 3px 6px 3px 6px;
+  /*vertical-align: bottom;*/
 }
 
 .Bold-label {
   font-weight: bold;
+}
+
+.Angle-canvas {
+  vertical-align: middle;
+}
+
+.Angle-container {
+  vertical-align: middle;
 }

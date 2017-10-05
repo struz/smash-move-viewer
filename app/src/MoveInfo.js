@@ -30,6 +30,7 @@ class MoveInfo extends Component {
     this.fetchMoveData(this.props.url);
   }
 
+  // TODO: this breaks the page?
   componentWillReceiveProps(nextProps) {
     // Reload the json only if the url has changed
     if (this.props.url !== nextProps.url) {
@@ -46,6 +47,8 @@ class MoveInfo extends Component {
     axios.get(url).then(function(response) {
       var json = response.data;  // JSON is auto parsed by axios
       _this.setState({moveData: json});
+    }).catch(function (error) {
+      console.log(error);
     });
   }
 
@@ -81,20 +84,23 @@ class MoveInfo extends Component {
       }
     }
 
+    if (!rangeString.length) {
+      return '';
+    }
     return rangeString.reduce(function(pre, next) {
       return pre + ', ' + next;
-    })
+    });
   }
 
   render() {
-    var frame = this.props.frameIndex;
-
     if (!this.state.moveData) {
       return(
         <div className="Move-info">
         </div>
       );
     }
+
+    var frame = this.props.frameIndex;
 
     const intangibilityRange = this.getIntangibilityRange();
     const hitboxRanges = this.getHitboxRanges();
@@ -165,11 +171,65 @@ class HitboxInfo extends Component {
         </td>
         <td>{hitboxData.id}</td>
         <td>{hitboxData.damage}</td>
-        <td>{hitboxData.angle}</td>
+        <td><HitboxAngle angle={hitboxData.angle} size={25}/></td>
         <td>{hitboxData.knockbackGrowth}</td>
         <td>{hitboxData.knockbackBase}</td>
         <td>{hitboxData.weightBasedKnockback}</td>
       </tr>
+    );
+  }
+}
+
+
+class HitboxAngle extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    var ctx = this.refs.canvas.getContext('2d');
+    this.renderCircleIndicator(ctx, this.props.angle);
+  }
+
+  componentDidUpdate() {
+    var ctx = this.refs.canvas.getContext('2d');
+    ctx.clearRect(0, 0, this.props.size, this.props.size);
+    this.renderCircleIndicator(ctx, this.props.angle);
+  }
+
+  static isMeteorSmash(angleDegrees) {
+    return (angleDegrees > 245 && angleDegrees < 295);
+  }
+
+  renderCircleIndicator(ctx, angleDegrees) {
+    var angleRadians = -(Math.PI / 180) * angleDegrees;
+
+    // TODO: make the maths in here not completely reliant on a 50x50 canvas
+    // Draw angle indicator
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = HitboxAngle.isMeteorSmash(angleDegrees) ? 'red' : 'purple';
+    ctx.moveTo(this.props.size / 2, this.props.size / 2);
+    ctx.arc(this.props.size / 2, this.props.size / 2, (this.props.size / 2) - 2, angleRadians, angleRadians);
+    ctx.stroke();
+
+    // Draw circle
+    ctx.beginPath();
+    ctx.lineWidth = 1.75;
+    ctx.strokeStyle = 'black';
+    ctx.arc(this.props.size / 2, this.props.size / 2, (this.props.size / 2) - 2, angleRadians, (Math.PI / 180) * 360 + angleRadians);
+    ctx.stroke();
+  }
+
+  render() {
+    return(
+      // height and lineHeight required together with vertical-align to make
+      // things sit in the middle of the cell vertically
+      <div className="Angle-container" style={{'height': this.props.size, 'lineHeight': this.props.size + 'px'}}>
+        <canvas ref="canvas" className="Angle-canvas" width={this.props.size} height={this.props.size}/>
+        <span className="Angle-text">  {this.props.angle}&deg;</span>
+      </div>
     );
   }
 }
