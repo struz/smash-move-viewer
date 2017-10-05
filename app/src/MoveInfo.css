@@ -1,0 +1,15 @@
+.Hitbox-color {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  background: black;
+  border: 1px solid black;
+}
+
+.Hitbox-info-table td,th {
+  padding: 2px 5px 2px 5px;
+}
+
+.Bold-label {
+  font-weight: bold;
+}

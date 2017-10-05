@@ -26,12 +26,6 @@
   background: #cccccc;
 }
 
-.Plain-move-gif {
-  visibility: hidden;
-  width: 590px;
-  height: 410px;
-}
-
 .View-picker {
   display: inline-block;
 }

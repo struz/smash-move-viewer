@@ -120,10 +120,11 @@ class Player extends Component {
   render() {
     const isPlaying = this.state.isPlaying;
     const gifLoaded = this.state.loaded;
+    const small = this.props.small;
 
     return (
       <div className="Move-gif" style={{display: 'inline-block'}}>
-        <img ref="gif" alt="move-gif" className="Plain-move-gif" src={logo}/>
+        <img ref="gif" alt="move-gif" className={small ? "Plain-move-gif-small" : "Plain-move-gif-large"} src={logo}/>
         <div className="Move-controls" style={!gifLoaded ? {display: 'none'} : {}}>
           <label>Play FPS:</label>
           <input type="number" onChange={this.fpsTextChanged} value={this.state.fps} className="Move-frame"/>
@@ -164,50 +165,59 @@ class Player extends Component {
 
   tick() {
     this.state.gif.pause();
-    this.state.gif.move_relative(1);
+    this.moveFrameRelative(1);
+  }
+
+  moveFrameRelative(num) {
+    this.state.gif.move_relative(num);
+
+    var frameIndex = this.state.frameIndex + num;
     this.setState(function(prevState, props) {
-      prevState.frameIndex = prevState.frameIndex + 1;
+      prevState.frameIndex = prevState.frameIndex + num;
       if (prevState.frameIndex > prevState.gif.get_length()) {
         prevState.frameIndex = 1;
       }
-      return prevState;
-    });
-  }
-
-  nextFrameHandler(e) {
-    this.state.gif.move_relative(1);
-    this.setState(function(prevState, props) {
-      prevState.frameIndex = prevState.frameIndex + 1;
-      if (prevState.frameIndex > prevState.gif.get_length()) {
-        prevState.frameIndex = prevState.gif.get_length();
-      }
-      return prevState;
-    });
-  }
-  prevFrameHandler(e) {
-    this.state.gif.move_relative(-1);
-    this.setState(function(prevState, props) {
-      prevState.frameIndex = prevState.frameIndex - 1;
       if (prevState.frameIndex < 1) {
         prevState.frameIndex = 1;
       }
       return prevState;
     });
+
+    // Notify parent of changes
+    // I don't like duplicating this logic here but until I find a nice way to
+    // do both together without race conditions I'm doing it like this.
+    if (frameIndex > this.state.gif.get_length()) {
+      frameIndex = 1
+    }
+    if (frameIndex < 1) {
+      frameIndex = 1;
+    }
+    this.props.onFrameChange(frameIndex - 1);
+  }
+
+  moveFrameAbsolute(num) {
+    // 0 indexed in gif lib
+    this.state.gif.move_to(num - 1);
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = num;
+      return prevState;
+    });
+
+    // Notify parent of changes
+    this.props.onFrameChange(num - 1);
+  }
+
+  nextFrameHandler(e) {
+    this.moveFrameRelative(1);
+  }
+  prevFrameHandler(e) {
+    this.moveFrameRelative(-1);
   }
   lastFrameHandler(e) {
-    // 0 indexed in gif lib
-    this.state.gif.move_to(this.state.gif.get_length() - 1);
-    this.setState(function(prevState, props) {
-      prevState.frameIndex = prevState.gif.get_length();
-      return prevState;
-    });
+    this.moveFrameAbsolute(this.state.gif.get_length());
   }
   firstFrameHandler(e) {
-    this.state.gif.move_to(0);
-    this.setState(function(prevState, props) {
-      prevState.frameIndex = 1;
-      return prevState;
-    });
+    this.moveFrameAbsolute(1);
   }
   frameTextChanged(e) {
     var frameIndex = e.target.value;

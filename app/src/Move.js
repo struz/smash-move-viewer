@@ -158,13 +158,15 @@ class Move extends Component {
       fighter: '',
       move: '',
       view: 'game_view',
-      small: true
+      small: true,
+      frameIndex: 0
     };
 
     this.fighterSelected = this.fighterSelected.bind(this);
     this.moveSelected = this.moveSelected.bind(this);
     this.viewSelected = this.viewSelected.bind(this);
     this.gifSizeChanged = this.gifSizeChanged.bind(this);
+    this.frameChanged = this.frameChanged.bind(this);
   }
 
   fighterSelected(fighter) {
@@ -188,6 +190,12 @@ class Move extends Component {
   gifSizeChanged(small) {
     this.setState(function(prevState, props) {
       prevState.small = small;
+      return prevState;
+    });
+  }
+  frameChanged(frame) {
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = frame;
       return prevState;
     });
   }
@@ -222,6 +230,8 @@ class Move extends Component {
     const move = this.state.move;
     const view = this.state.view;
     const size = this.state.small ? 'small' : 'large';
+    const frameIndex = this.state.frameIndex;
+
     const moveIndexUrl = Move.makeMoveIndexUrl(fighter);
     const moveDataUrl = Move.makeMoveDataUrl(fighter, move);
     const gifUrl = Move.makeGifUrl(fighter, move, view, size);
@@ -232,8 +242,8 @@ class Move extends Component {
         <GifSizeCheckbox onGifSizeChange={this.gifSizeChanged} checked={this.state.small}/>
         <FighterPicker url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
         <MovePicker url={moveIndexUrl} onMoveChange={this.moveSelected}/>
-        <Player url={gifUrl}/>
-        <MoveInfo frameIndex={this.state.frameIndex} url={moveDataUrl}/>
+        <Player url={gifUrl} small={this.state.small} onFrameChange={this.frameChanged}/>
+        <MoveInfo frameIndex={frameIndex} url={moveDataUrl}/>
       </div>
     );
   }
