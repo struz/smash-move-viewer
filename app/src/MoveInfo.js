@@ -23,33 +23,15 @@ const hitboxIdColors = [
 class MoveInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = {moveData: null};
-  }
-
-  componentDidMount() {
-    this.fetchMoveData(this.props.url);
+    this.state = {moveData: this.props.moveData};
   }
 
   // TODO: this breaks the page?
   componentWillReceiveProps(nextProps) {
     // Reload the json only if the url has changed
-    if (this.props.url !== nextProps.url) {
-      this.fetchMoveData(nextProps.url);
+    if (this.props.moveData !== nextProps.moveData) {
+      this.setState({moveData: nextProps.moveData});
     }
-  }
-
-  fetchMoveData(url) {
-    if (!url) {
-      return;
-    }
-
-    var _this = this;
-    axios.get(url).then(function(response) {
-      var json = response.data;  // JSON is auto parsed by axios
-      _this.setState({moveData: json});
-    }).catch(function (error) {
-      console.log(error);
-    });
   }
 
   getIntangibilityRange() {

@@ -159,7 +159,8 @@ class Move extends Component {
       move: '',
       view: 'game_view',
       small: true,
-      frameIndex: 0
+      frameIndex: 0,
+      moveData: null
     };
 
     this.fighterSelected = this.fighterSelected.bind(this);
@@ -172,24 +173,30 @@ class Move extends Component {
   fighterSelected(fighter) {
     this.setState(function(prevState, props) {
       prevState.fighter = fighter;
+      prevState.frameIndex = 0;
       return prevState;
     });
   }
   moveSelected(move) {
     this.setState(function(prevState, props) {
       prevState.move = move;
+      prevState.moveData = null;
+      prevState.frameIndex = 0;
       return prevState;
     });
+    this.fetchMoveData(this.state.fighter, move);
   }
   viewSelected(view) {
     this.setState(function(prevState, props) {
       prevState.view = view;
+      prevState.frameIndex = 0;
       return prevState;
     });
   }
   gifSizeChanged(small) {
     this.setState(function(prevState, props) {
       prevState.small = small;
+      prevState.frameIndex = 0;
       return prevState;
     });
   }
@@ -197,6 +204,26 @@ class Move extends Component {
     this.setState(function(prevState, props) {
       prevState.frameIndex = frame;
       return prevState;
+    });
+  }
+
+  fetchMoveData(fighter, move) {
+    if (!move || !fighter) {
+      return;
+    }
+
+    // FIXME: the problem is that the test server is watching the directory we get this from and it updates something enough to make it reload the page.
+    var url = Move.makeMoveDataUrl(fighter, move);
+
+    var _this = this;
+    axios.get(url).then(function(response) {
+      var json = response.data;  // JSON is auto parsed by axios
+      _this.setState(function(prevState, props) {
+        prevState.moveData = json;
+        return prevState;
+      });
+    }).catch(function (error) {
+      console.log(error);
     });
   }
 
@@ -233,8 +260,8 @@ class Move extends Component {
     const frameIndex = this.state.frameIndex;
 
     const moveIndexUrl = Move.makeMoveIndexUrl(fighter);
-    const moveDataUrl = Move.makeMoveDataUrl(fighter, move);
     const gifUrl = Move.makeGifUrl(fighter, move, view, size);
+    const moveData = this.state.moveData;
 
     return(
       <div className="Move" style={{display: 'inline-block'}}>
@@ -243,7 +270,7 @@ class Move extends Component {
         <FighterPicker url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
         <MovePicker url={moveIndexUrl} onMoveChange={this.moveSelected}/>
         <Player url={gifUrl} small={this.state.small} onFrameChange={this.frameChanged}/>
-        <MoveInfo frameIndex={frameIndex} url={moveDataUrl}/>
+        <MoveInfo frameIndex={frameIndex} moveData={moveData}/>
       </div>
     );
   }
