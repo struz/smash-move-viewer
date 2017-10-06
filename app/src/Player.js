@@ -79,6 +79,7 @@ class Player extends Component {
       auto_play: false,
       progressbar_height: 5
     });
+    // TODO: if mobile, max_width = fits_in_screen_size
     gif.load(this.gifLoaded);
     this.setState(function(prevState, props) {
       prevState.gif = gif;

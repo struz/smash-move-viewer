@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import './Move.css';
 import './MoveInfo.css';
@@ -170,11 +169,17 @@ class HitboxAngle extends Component {
   }
 
   componentDidMount() {
+    if (!HitboxAngle.isRegularAngle(this.props.angle)) {
+      return;
+    }
     var ctx = this.refs.canvas.getContext('2d');
     this.renderCircleIndicator(ctx, this.props.angle);
   }
 
   componentDidUpdate() {
+    if (!HitboxAngle.isRegularAngle(this.props.angle)) {
+      return;
+    }
     var ctx = this.refs.canvas.getContext('2d');
     ctx.clearRect(0, 0, this.props.size, this.props.size);
     this.renderCircleIndicator(ctx, this.props.angle);
@@ -184,6 +189,12 @@ class HitboxAngle extends Component {
     return (angleDegrees > 245 && angleDegrees < 295);
   }
 
+  static isRegularAngle(angleDegrees) {
+    // 360+ is special angles, although 360 itself is never used
+    // 361 is sakurai and the rest are auto link
+    return (angleDegrees >= 0 && angleDegrees < 360);
+  }
+
   renderCircleIndicator(ctx, angleDegrees) {
     var angleRadians = -(Math.PI / 180) * angleDegrees;
 
@@ -191,7 +202,7 @@ class HitboxAngle extends Component {
     // Draw angle indicator
     ctx.beginPath();
     ctx.lineWidth = 3;
-    ctx.strokeStyle = HitboxAngle.isMeteorSmash(angleDegrees) ? 'red' : 'purple';
+    ctx.strokeStyle = HitboxAngle.isMeteorSmash(angleDegrees) ? 'red' : 'black';
     ctx.moveTo(this.props.size / 2, this.props.size / 2);
     ctx.arc(this.props.size / 2, this.props.size / 2, (this.props.size / 2) - 2, angleRadians, angleRadians);
     ctx.stroke();
@@ -205,12 +216,19 @@ class HitboxAngle extends Component {
   }
 
   render() {
+    const angle = this.props.angle;
+
+    let angleCanvas = null;
+    if (HitboxAngle.isRegularAngle(angle)) {
+      angleCanvas = <canvas ref="canvas" className="Angle-canvas" width={this.props.size} height={this.props.size}/>;
+    }
+
     return(
       // height and lineHeight required together with vertical-align to make
       // things sit in the middle of the cell vertically
       <div className="Angle-container" style={{'height': this.props.size, 'lineHeight': this.props.size + 'px'}}>
-        <canvas ref="canvas" className="Angle-canvas" width={this.props.size} height={this.props.size}/>
-        <span className="Angle-text">  {this.props.angle}&deg;</span>
+        {angleCanvas}
+        <span className="Angle-text">  {angle}&deg;</span>
       </div>
     );
   }

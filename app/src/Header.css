@@ -19,22 +19,32 @@
 /* Houses the header and logo */
 .App-intro {
   display: inline-block;
-  width: 80%;
   text-align: left;
+  vertical-align: bottom;
+  overflow: hidden;
 }
 
 h1 {
-  color: #f2f4f7;
-  display: inline-block;
-  font-family: "Verdana", sans-serif;
-  font-size: 2.5em;
+  visibility: hidden;
+}
+
+@media only screen and (min-width: 768px) {
+  h1 {
+    color: #f2f4f7;
+    display: inline-block;
+    font-family: "Verdana", sans-serif;
+    font-size: 2.5em;
+    visibility: visible;
+  }
 }
 
 .Links {
   display: inline-block;
-  width: 19%;
   text-align: right;
   white-space: nowrap;
+  vertical-align: top;
+  position: absolute;
+  right: 15px;
 }
 
 .Twitter-logo {

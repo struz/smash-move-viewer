@@ -20,12 +20,20 @@
 
 .Plain-move-gif-large {
   visibility: hidden;
-  width: 590px;
-  height: 410px;
 }
 
 .Plain-move-gif-small {
   visibility: hidden;
-  width: 384px;
-  height: 267px;
+}
+
+@media only screen and (min-width: 768px) {
+  .Plain-move-gif-large {
+    width: 590px;
+    height: 410px;
+  }
+
+  .Plain-move-gif-small {
+    width: 384px;
+    height: 267px;
+  }
 }
