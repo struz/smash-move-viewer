@@ -3,7 +3,9 @@ import ReactGA from 'react-ga';
 
 import axios from 'axios';
 import _ from 'lodash';
+import QueryString from 'query-string';
 
+import * as Env from './Env';
 import Player from './Player.js';
 import MoveInfo from './MoveInfo.js';
 
@@ -159,10 +161,19 @@ class MovePicker extends Component {
 class Move extends Component {
   constructor(props) {
     super(props);
+
+    var view, fighter, move, fps, frame, frameEnd, size;
+    [view, fighter, move, fps, frame, frameEnd, size] = this.parsePath();
+    // TODO: hookup fps onwards -->
+    // TODO: make all the select boxes auto populated, even if the move list json hasn't been loaded yet
+    // TODO: make the move info appear when parsing from a URL
+    // TODO: make the URL update as you move through the site, or alternatively have a box that provides the copy/paste URL
+    // TODO: add frame box for specifying loop frame ranges
+
     this.state = {
-      fighter: '',
-      move: '',
-      view: 'game_view',
+      fighter: fighter,
+      move: move,
+      view: view,
       small: true,
       frameIndex: 0,
       moveData: null
@@ -279,6 +290,47 @@ class Move extends Component {
       return '';
     }
     return gifStore + fighter + "/" + size + "/" + view + "/" + move + ".gif";
+  }
+
+  parsePath() {
+    // Canonical URL style: #/v1/<view>/<fighter>/<move>/<fps>/<frame>/<optional frameRangeEnd>
+    // The v1 is to allow deprecation and the ability to change this format in the future
+    // As we build the URl up, everything is optional except if you need a section, you
+    // also need all sections before it.
+
+    // Valid query paramters: ?small=[true|false]
+
+    var allVars = this.props.location.pathname.split('/');
+    // index 0 is always "" and index 1 is always <version>
+
+    // defaults
+    var view = 'game_view';
+    var fighter = '';
+    var move = '';
+    var fps = null;
+    var frame = null;
+    var frameEnd = null;
+    var small = true;
+
+    if (allVars.length >= 3)
+      view = allVars[2];
+    if (allVars.length >= 4)
+      fighter = allVars[3];
+    if (allVars.length >= 5)
+      move = allVars[4];
+    if (allVars.length >= 6)
+      fps = allVars[5];
+    if (allVars.length >= 7)
+      frame = allVars[6];
+    if (allVars.length >= 8)
+      frameEnd = allVars[7];
+
+    // Now parse the query params
+    var parsedQueryString = QueryString.parse(this.props.location.search);
+    if ('small' in parsedQueryString)
+      small = parsedQueryString['small'] === 'true';
+
+    return [view, fighter, move, fps, frame, frameEnd, small];
   }
 
   render() {
