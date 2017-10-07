@@ -89,6 +89,7 @@ class Player extends Component {
     this.beginLoadTime = new Date().getTime();
     // TODO: if mobile, max_width = fits_in_screen_size
     gif.load(this.gifLoaded);
+
     this.setState(function(prevState, props) {
       prevState.gif = gif;
       prevState.loaded = false;
@@ -143,9 +144,15 @@ class Player extends Component {
         <img ref="gif" alt="move-gif" className={small ? "Plain-move-gif-small" : "Plain-move-gif-large"} src={logo}/>
         <div className="Move-controls" style={!gifLoaded ? {display: 'none'} : {}}>
           <label>Play FPS:</label>
-          <input type="number" onChange={this.fpsTextChanged} value={this.state.fps} className="Move-frame"/>
+          <input ref="fpsNum" type="number"
+           onChange={this.fpsTextChanged}
+           value={this.state.fps}
+           className="Move-frame"/>
           <label>Frame:</label>
-          <input type="number" onChange={this.frameTextChanged} value={this.state.frameIndex} className="Move-frame"/>
+          <input ref="frameNum" type="number"
+           onChange={this.frameTextChanged}
+           value={this.state.frameIndex}
+           className="Move-frame"/>
           <img src={iconFirst} alt="first" onClick={this.firstFrameHandler} className="Player-control"/>
           <img src={iconPrevious} alt="previous" onClick={this.prevFrameHandler} className="Player-control"/>
           <PlayPauseButton playPauseChange={this.playPauseHandler} isPlaying={isPlaying} />
@@ -158,9 +165,9 @@ class Player extends Component {
 
   // Play / pause
   playPauseHandler(e) {
-    this.playPause();
+    this.playPause(this.state.fps);
   }
-  playPause() {
+  playPause(rawFps) {
     ReactGA.event({
       category: 'Player',
       action: 'Play/Pause'
@@ -172,7 +179,7 @@ class Player extends Component {
         // 60fps frame updates
         prevState.timerID = setInterval(
           () => this.tick(),
-          1000 / this.state.fps
+          1000 / this.getUsableFPSNumber(rawFps)
         );
       } else {
         clearInterval(prevState.timerID);
@@ -191,7 +198,7 @@ class Player extends Component {
   moveFrameRelative(num) {
     this.state.gif.move_relative(num);
 
-    var frameIndex = this.state.frameIndex + num;
+    var frameIndex = this.getUsableFrameIndex(this.state.frameIndex) + num;
     this.setState(function(prevState, props) {
       prevState.frameIndex = prevState.frameIndex + num;
       if (prevState.frameIndex > prevState.gif.get_length()) {
@@ -255,41 +262,61 @@ class Player extends Component {
     });
     this.moveFrameAbsolute(1);
   }
+
   frameTextChanged(e) {
+    // We store the raw frame index in state so that the control can be updated
+    // freely, and we perform validation on the input before we use it.
+    var rawFrameIndex = e.target.value;
+    var frameIndex = this.getUsableFrameIndex(parseInt(rawFrameIndex, 10));
+
     ReactGA.event({
       category: 'Player',
       action: 'Frame Number Changed'
     });
 
-    var frameIndex = e.target.value;
-    if (frameIndex < 1 || frameIndex > this.state.gif.get_length()) {
-      frameIndex = this.state.frameIndex;  // No change
-    }
     this.state.gif.move_to(frameIndex - 1);
     this.setState(function(prevState, props) {
-      prevState.frameIndex = frameIndex;
+      prevState.frameIndex = rawFrameIndex;
       return prevState;
     });
   }
 
   fpsTextChanged(e) {
+    // We store the raw fps value in state so that the control can be updated
+    // freely, and we perform validation on the input before we use it.
+    var rawFps = e.target.value;
+    var fps = parseInt(rawFps, 10);
+
     ReactGA.event({
       category: 'Player',
       action: 'FPS Number Changed'
     });
 
-    var fps = e.target.value;
-    if (fps < 1 || fps > 60) {
-      fps = this.state.fps;  // No change
-    }
+    var _this = this;
     this.setState(function(prevState, props) {
-      prevState.fps = fps;
+      prevState.fps = rawFps;
+
+      if (_this.state.isPlaying) {
+        _this.playPause(rawFps);
+        _this.playPause(rawFps);  // Hacky way to refresh the frame rate during play
+      }
       return prevState;
     });
-    if (this.state.isPlaying) {
-      this.playPause();
-      this.playPause();  // Hacky way to refresh the frame rate during play
+  }
+
+  // Validation functions since we are potentially storing unusable values in the state
+  getUsableFrameIndex(frameIndex) {
+    if (isNaN(frameIndex) || frameIndex < 1 ||
+        frameIndex > this.state.gif.get_length()) {
+      return 1;  // No change
     }
+    return frameIndex;
+  }
+  getUsableFPSNumber(fps) {
+    if (isNaN(fps) || fps < 1 || fps > 60) {
+      return 60;  // No change
+    }
+    return fps;
   }
 }
 
