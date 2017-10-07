@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
+
 import axios from 'axios';
 import _ from 'lodash';
 
@@ -8,9 +10,12 @@ import MoveInfo from './MoveInfo.js';
 import './Move.css';
 
 // General icons
-import cross from './img/icons/272-cross.svg'
+import cross from './img/icons/272-cross.svg';
 
 const gifStore = "https://s3-us-west-1.amazonaws.com/smash-move-viewer/fighters/";
+
+
+ReactGA.initialize('UA-107697636-1');
 
 class GifSizeCheckbox extends Component {
   constructor(props) {
@@ -171,6 +176,11 @@ class Move extends Component {
   }
 
   fighterSelected(fighter) {
+    ReactGA.event({
+      category: 'Move',
+      action: 'Fighter selected',
+      label: fighter
+    });
     this.setState(function(prevState, props) {
       prevState.fighter = fighter;
       prevState.frameIndex = 0;
@@ -178,6 +188,11 @@ class Move extends Component {
     });
   }
   moveSelected(move) {
+    ReactGA.event({
+      category: 'Move',
+      action: 'Move selected',
+      label: move
+    });
     this.setState(function(prevState, props) {
       prevState.move = move;
       prevState.moveData = null;
@@ -187,6 +202,11 @@ class Move extends Component {
     this.fetchMoveData(this.state.fighter, move);
   }
   viewSelected(view) {
+    ReactGA.event({
+      category: 'Move',
+      action: 'View selected',
+      label: view
+    });
     this.setState(function(prevState, props) {
       prevState.view = view;
       prevState.frameIndex = 0;
@@ -194,6 +214,11 @@ class Move extends Component {
     });
   }
   gifSizeChanged(small) {
+    ReactGA.event({
+      category: 'Move',
+      action: 'Toggle GIF size',
+      label: '' + small
+    });
     this.setState(function(prevState, props) {
       prevState.small = small;
       prevState.frameIndex = 0;
@@ -213,7 +238,7 @@ class Move extends Component {
     }
 
     // FIXME: the problem is that the test server is watching the directory we get this from and it updates something enough to make it reload the page.
-    var url = Move.makeMoveDataUrl(fighter, move);
+    var url = this.makeMoveDataUrl(fighter, move);
 
     var _this = this;
     axios.get(url).then(function(response) {
@@ -228,23 +253,28 @@ class Move extends Component {
   }
 
   // Gets the list of moves for a character
-  static makeMoveIndexUrl(fighter) {
+  makeMoveIndexUrl(fighter) {
     if (!fighter) {
       return '';
     }
-    return window.location.href + "fighters/" + fighter + ".json";
+    return process.env.PUBLIC_URL + "/fighters/" + fighter + ".json";
   }
 
   // Gets move info to be displayed about the move
-  static makeMoveDataUrl(fighter, move) {
+  makeMoveDataUrl(fighter, move) {
     if (!fighter || !move) {
       return '';
     }
-    return window.location.href + "fighters/" + fighter + "/" + move + ".json";
+    return process.env.PUBLIC_URL + "/fighters/" + fighter + "/" + move + ".json";
+  }
+
+  // Gets the list of all fighters
+  makeFighterIndexUrl() {
+    return process.env.PUBLIC_URL + "/fighters/index.json";
   }
 
   // Gets gif url to display move
-  static makeGifUrl(fighter, move, view, size) {
+  makeGifUrl(fighter, move, view, size) {
     if (!fighter || !move) {
       return '';
     }
@@ -252,15 +282,15 @@ class Move extends Component {
   }
 
   render() {
-    const fighterIndexUrl = window.location.href + "fighters/index.json";
+    const fighterIndexUrl = this.makeFighterIndexUrl();
     const fighter = this.state.fighter;
     const move = this.state.move;
     const view = this.state.view;
     const size = this.state.small ? 'small' : 'large';
     const frameIndex = this.state.frameIndex;
 
-    const moveIndexUrl = Move.makeMoveIndexUrl(fighter);
-    const gifUrl = Move.makeGifUrl(fighter, move, view, size);
+    const moveIndexUrl = this.makeMoveIndexUrl(fighter);
+    const gifUrl = this.makeGifUrl(fighter, move, view, size);
     const moveData = this.state.moveData;
 
     return(

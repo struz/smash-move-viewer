@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 
 import SuperGif from './libgif.js';
 import logo from './img/SmashBall.svg';
@@ -15,6 +16,9 @@ import iconNext from './img/icons/293-next2.svg';
 import iconLoop from './img/icons/302-loop.svg';
 
 import './Player.css';
+
+
+ReactGA.initialize('UA-107697636-1');
 
 class PlayPauseButton extends Component {
   constructor(props) {
@@ -56,6 +60,9 @@ class Player extends Component {
     this.fpsTextChanged = this.fpsTextChanged.bind(this);
 
     this.gifLoaded = this.gifLoaded.bind(this);
+
+    // Analytics
+    this.beginLoadTime = undefined;
   }
 
   loadGif(url) {
@@ -79,6 +86,7 @@ class Player extends Component {
       auto_play: false,
       progressbar_height: 5
     });
+    this.beginLoadTime = new Date().getTime();
     // TODO: if mobile, max_width = fits_in_screen_size
     gif.load(this.gifLoaded);
     this.setState(function(prevState, props) {
@@ -92,6 +100,13 @@ class Player extends Component {
   }
 
   gifLoaded() {
+    var endLoadTime = new Date().getTime();
+    var timeSpent = endLoadTime - this.beginLoadTime;
+    ReactGA.timing({
+      category: 'Player',
+      variable: 'Load GIF',
+      value: timeSpent
+    });
     this.setState(function(prevState, props) {
       prevState.loaded = true;
       return prevState;
@@ -146,6 +161,10 @@ class Player extends Component {
     this.playPause();
   }
   playPause() {
+    ReactGA.event({
+      category: 'Player',
+      action: 'Play/Pause'
+    });
     this.setState(function(prevState, props) {
       prevState.isPlaying = !prevState.isPlaying;
 
@@ -209,18 +228,39 @@ class Player extends Component {
   }
 
   nextFrameHandler(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'Next Frame'
+    });
     this.moveFrameRelative(1);
   }
   prevFrameHandler(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'Prev Frame'
+    });
     this.moveFrameRelative(-1);
   }
   lastFrameHandler(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'Last Frame'
+    });
     this.moveFrameAbsolute(this.state.gif.get_length());
   }
   firstFrameHandler(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'First Frame'
+    });
     this.moveFrameAbsolute(1);
   }
   frameTextChanged(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'Frame Number Changed'
+    });
+
     var frameIndex = e.target.value;
     if (frameIndex < 1 || frameIndex > this.state.gif.get_length()) {
       frameIndex = this.state.frameIndex;  // No change
@@ -233,6 +273,11 @@ class Player extends Component {
   }
 
   fpsTextChanged(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'FPS Number Changed'
+    });
+
     var fps = e.target.value;
     if (fps < 1 || fps > 60) {
       fps = this.state.fps;  // No change

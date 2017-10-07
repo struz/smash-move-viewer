@@ -1,0 +1,17 @@
+/*
+  Site-wide styles that are overridden in more specific components
+
+  Color scheme:
+  #035073
+  #00738d
+  #0197a6
+  #23d7c8
+  #f2f4f7
+*/
+body {
+  font-family: "Verdana", "Arial", sans-serif;
+  color: #0197a6;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}

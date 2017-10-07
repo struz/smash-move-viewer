@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
+
 import logo from './img/SmashBall.svg';
 import twitter_logo from './img/twitter.svg';
 import './Header.css';
+
+
+ReactGA.initialize('UA-107697636-1');
 
 class App extends Component {
   render() {
@@ -13,10 +18,10 @@ class App extends Component {
         </div>
         <div className="Links">
           <div className="Link">
-            <a href="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">
+            <ReactGA.OutboundLink eventLabel="Twitter" to="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">
               <img src={twitter_logo} className="Twitter-logo" alt="twitter-logo" />
               <span className="Link-text">@StruzSmash</span>
-            </a>
+            </ReactGA.OutboundLink>
           </div>
         </div>
       </div>
