@@ -116,7 +116,7 @@ class Player extends Component {
       prevState.loaded = true;
       return prevState;
     });
-    this.moveFrameAbsolute(frameIndex);
+    this.moveFrameAbsolute(frameIndex, true);
   }
 
   componentDidMount() {
@@ -189,6 +189,9 @@ class Player extends Component {
       } else {
         clearInterval(prevState.timerID);
         prevState.timerID = undefined;
+
+        // Purely to trigger a URL frame update
+        this.moveFrameAbsolute(prevState.frameIndex, true);
       }
 
       return prevState;
@@ -197,10 +200,10 @@ class Player extends Component {
 
   tick() {
     this.state.gif.pause();
-    this.moveFrameRelative(1);
+    this.moveFrameRelative(1, false);
   }
 
-  moveFrameRelative(num) {
+  moveFrameRelative(num, updateUrl = false) {
     this.state.gif.move_relative(num);
 
     var frameIndex = this.getUsableFrameIndex(this.state.frameIndex) + num;
@@ -224,10 +227,10 @@ class Player extends Component {
     if (frameIndex < 1) {
       frameIndex = 1;
     }
-    this.props.onFrameChange(frameIndex - 1);
+    this.props.onFrameChange(frameIndex - 1, updateUrl);
   }
 
-  moveFrameAbsolute(num) {
+  moveFrameAbsolute(num, updateUrl = false) {
     // 0 indexed in gif lib
     this.state.gif.move_to(num - 1);
     this.setState(function(prevState, props) {
@@ -236,7 +239,7 @@ class Player extends Component {
     });
 
     // Notify parent of changes
-    this.props.onFrameChange(num - 1);
+    this.props.onFrameChange(num - 1, updateUrl);
   }
 
   nextFrameHandler(e) {
@@ -244,28 +247,28 @@ class Player extends Component {
       category: 'Player',
       action: 'Next Frame'
     });
-    this.moveFrameRelative(1);
+    this.moveFrameRelative(1, true);
   }
   prevFrameHandler(e) {
     ReactGA.event({
       category: 'Player',
       action: 'Prev Frame'
     });
-    this.moveFrameRelative(-1);
+    this.moveFrameRelative(-1, true);
   }
   lastFrameHandler(e) {
     ReactGA.event({
       category: 'Player',
       action: 'Last Frame'
     });
-    this.moveFrameAbsolute(this.state.gif.get_length());
+    this.moveFrameAbsolute(this.state.gif.get_length(), true);
   }
   firstFrameHandler(e) {
     ReactGA.event({
       category: 'Player',
       action: 'First Frame'
     });
-    this.moveFrameAbsolute(1);
+    this.moveFrameAbsolute(1, true);
   }
 
   frameTextChanged(e) {
@@ -279,11 +282,15 @@ class Player extends Component {
       action: 'Frame Number Changed'
     });
 
-    this.state.gif.move_to(frameIndex - 1);
-    this.setState(function(prevState, props) {
-      prevState.frameIndex = rawFrameIndex;
-      return prevState;
-    });
+    if (!this.isValidFrameIndex(frameIndex)) {
+      this.moveFrameAbsolute(frameIndex, true);
+    } else {
+      // Store the invalid frame index but don't move the frame
+      this.setState(function(prevState, props) {
+        prevState.frameIndex = rawFrameIndex;
+        return prevState;
+      });
+    }
   }
 
   fpsTextChanged(e) {
@@ -309,9 +316,15 @@ class Player extends Component {
   }
 
   // Validation functions since we are potentially storing unusable values in the state
-  getUsableFrameIndex(frameIndex) {
+  isValidFrameIndex(frameIndex) {
     if (isNaN(frameIndex) || frameIndex < 1 ||
         frameIndex > this.state.gif.get_length()) {
+      return false;
+    }
+    return true;
+  }
+  getUsableFrameIndex(frameIndex) {
+    if (!this.isValidFrameIndex(frameIndex)) {
       return 1;  // No change
     }
     return frameIndex;

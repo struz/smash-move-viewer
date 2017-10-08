@@ -296,8 +296,19 @@ class Move extends Component {
       return prevState;
     });
   }
-  frameChanged(frame) {
-    // We deliberately do not update the URL for this because it would be spammy
+  frameChanged(frame, updateUrl = false) {
+    if (updateUrl) {
+      var [location, search] = Common.generateAppUrl({
+        path: this.props.location.pathname,
+        search: this.props.location.search,
+        frame: frame + 1
+      });
+      this.props.history.push({
+        pathname: location,
+        search: search
+      });
+    }
+
     this.setState(function(prevState, props) {
       prevState.frameIndex = frame;
       return prevState;
