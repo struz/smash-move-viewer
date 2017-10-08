@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router'
 import ReactGA from 'react-ga';
 
 import SuperGif from './libgif.js';
@@ -41,11 +42,11 @@ class Player extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      frameIndex: 1,
+      frameIndex: this.props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
       isPlaying: false,
       timerID: undefined,
       gif: null,
-      fps: 60,
+      fps: this.props.fps,  // same as frameIndex
       loaded: false
     };
 
@@ -65,7 +66,8 @@ class Player extends Component {
     this.beginLoadTime = undefined;
   }
 
-  loadGif(url) {
+  /* Load a gif, optionally starting display on a given frame */
+  loadGif(url, frameIndex = 1) {
     // Destroy any leftover timers
     if (this.state.timerID !== undefined) {
       clearInterval(this.state.timerID);
@@ -88,19 +90,21 @@ class Player extends Component {
     });
     this.beginLoadTime = new Date().getTime();
     // TODO: if mobile, max_width = fits_in_screen_size
-    gif.load(this.gifLoaded);
+
+
+    gif.load(() => { this.gifLoaded(frameIndex); });
 
     this.setState(function(prevState, props) {
       prevState.gif = gif;
       prevState.loaded = false;
       prevState.isPlaying = false;
       prevState.timerID = undefined;
-      prevState.frameIndex = 1;
+      prevState.frameIndex = frameIndex;
       return prevState;
     });
   }
 
-  gifLoaded() {
+  gifLoaded(frameIndex) {
     var endLoadTime = new Date().getTime();
     var timeSpent = endLoadTime - this.beginLoadTime;
     ReactGA.timing({
@@ -112,10 +116,11 @@ class Player extends Component {
       prevState.loaded = true;
       return prevState;
     });
+    this.moveFrameAbsolute(frameIndex);
   }
 
   componentDidMount() {
-    this.loadGif(this.props.url);
+    this.loadGif(this.props.url, this.state.frameIndex);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -285,7 +290,6 @@ class Player extends Component {
     // We store the raw fps value in state so that the control can be updated
     // freely, and we perform validation on the input before we use it.
     var rawFps = e.target.value;
-    var fps = parseInt(rawFps, 10);
 
     ReactGA.event({
       category: 'Player',
@@ -320,4 +324,4 @@ class Player extends Component {
   }
 }
 
-export default Player;
+export default withRouter(Player);

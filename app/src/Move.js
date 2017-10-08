@@ -3,9 +3,8 @@ import ReactGA from 'react-ga';
 
 import axios from 'axios';
 import _ from 'lodash';
-import QueryString from 'query-string';
 
-import * as Env from './Env';
+import * as Common from './Common';
 import Player from './Player.js';
 import MoveInfo from './MoveInfo.js';
 
@@ -57,9 +56,12 @@ class ViewPicker extends Component {
   }
 
   render() {
+    const currentView = this.props.view;
+
     return(
       <div className="Form-element View-picker">
-        <select onChange={this.handleChange}  className="Dropdown">
+        <select onChange={this.handleChange} value={currentView} className="Dropdown">
+          <option value="">Select a view</option>
           <option value="game_view">Game View</option>
           <option value="top_view">Top-down View</option>
           <option value="front_view">Front-on View</option>
@@ -81,9 +83,11 @@ class FighterPicker extends Component {
   }
 
   render() {
+    const currentFighter = this.props.fighter;
+
     return(
       <div className="Form-element Fighter-picker">
-        <select onChange={this.handleChange}  className="Dropdown">
+        <select onChange={this.handleChange} value={currentFighter} className="Dropdown">
           <option value="">Character</option>
           {this.state.options}
         </select>
@@ -119,10 +123,11 @@ class MovePicker extends Component {
   render() {
     const options = this.state.options;
     const disabled = !this.props.url;
+    const currentMove = this.props.move;
 
     return(
       <div className="Form-element Move-picker">
-        <select onChange={this.handleChange} className="Dropdown" disabled={disabled}>
+        <select onChange={this.handleChange} value={currentMove} className="Dropdown" disabled={disabled}>
           <option value="">Move</option>
           {options}
         </select>
@@ -158,12 +163,22 @@ class MovePicker extends Component {
   }
 }
 
+
+/*
+ Central component of the app. This is the canonical state store for the app,
+ and delegates to sub-components for other important things or state that won't
+ be redistributed.
+
+ The idea for this component is to let the user select a fighter/view/move and
+ view the resulting animation.
+*/
 class Move extends Component {
   constructor(props) {
     super(props);
 
-    var view, fighter, move, fps, frame, frameEnd, size;
-    [view, fighter, move, fps, frame, frameEnd, size] = this.parsePath();
+    var [view, fighter, move, fps, frame, frameEnd, small] = Common.parsePath(
+      this.props.location.pathname, this.props.location.search
+    );
     // TODO: hookup fps onwards -->
     // TODO: make all the select boxes auto populated, even if the move list json hasn't been loaded yet
     // TODO: make the move info appear when parsing from a URL
@@ -171,11 +186,13 @@ class Move extends Component {
     // TODO: add frame box for specifying loop frame ranges
 
     this.state = {
+      view: view,
       fighter: fighter,
       move: move,
-      view: view,
-      small: true,
-      frameIndex: 0,
+      fps: fps,
+      frameIndex: frame,
+      frameEnd: frameEnd,
+      small: small,
       moveData: null
     };
 
@@ -186,17 +203,30 @@ class Move extends Component {
     this.frameChanged = this.frameChanged.bind(this);
   }
 
+  /* Callback handlers */
   fighterSelected(fighter) {
     ReactGA.event({
       category: 'Move',
       action: 'Fighter selected',
       label: fighter
     });
+
     this.setState(function(prevState, props) {
       prevState.fighter = fighter;
       prevState.frameIndex = 0;
+
+      var [location, search] = Common.generateAppUrl({
+        path: this.props.location.pathname,
+        search: this.props.location.search,
+        fighter: fighter
+      });
+      this.props.history.push({
+        pathname: location,
+        search: search
+      });
       return prevState;
     });
+    this.fetchFighterMoveData(fighter);
   }
   moveSelected(move) {
     ReactGA.event({
@@ -208,6 +238,16 @@ class Move extends Component {
       prevState.move = move;
       prevState.moveData = null;
       prevState.frameIndex = 0;
+
+      var [location, search] = Common.generateAppUrl({
+        path: this.props.location.pathname,
+        search: this.props.location.search,
+        move: move
+      });
+      this.props.history.push({
+        pathname: location,
+        search: search
+      });
       return prevState;
     });
     this.fetchMoveData(this.state.fighter, move);
@@ -221,6 +261,16 @@ class Move extends Component {
     this.setState(function(prevState, props) {
       prevState.view = view;
       prevState.frameIndex = 0;
+
+      var [location, search] = Common.generateAppUrl({
+        path: this.props.location.pathname,
+        search: this.props.location.search,
+        view: view
+      });
+      this.props.history.push({
+        pathname: location,
+        search: search
+      });
       return prevState;
     });
   }
@@ -233,22 +283,37 @@ class Move extends Component {
     this.setState(function(prevState, props) {
       prevState.small = small;
       prevState.frameIndex = 0;
+
+      var [location, search] = Common.generateAppUrl({
+        path: this.props.location.pathname,
+        search: this.props.location.search,
+        small: small
+      });
+      this.props.history.push({
+        pathname: location,
+        search: search
+      });
       return prevState;
     });
   }
   frameChanged(frame) {
+    // We deliberately do not update the URL for this because it would be spammy
     this.setState(function(prevState, props) {
       prevState.frameIndex = frame;
       return prevState;
     });
   }
+  /* End callback handlers */
 
+  /* Data management */
+  /* Gets the avaialble information about a move for a given fighter */
   fetchMoveData(fighter, move) {
     if (!move || !fighter) {
       return;
     }
 
-    // FIXME: the problem is that the test server is watching the directory we get this from and it updates something enough to make it reload the page.
+    // FIXME: there is a problem where the test server is watching the directory
+    // we get this from and it updates something enough to make it reload the page.
     var url = this.makeMoveDataUrl(fighter, move);
 
     var _this = this;
@@ -263,7 +328,7 @@ class Move extends Component {
     });
   }
 
-  // Gets the list of moves for a character
+  /* Gets the list of moves for a character */
   makeMoveIndexUrl(fighter) {
     if (!fighter) {
       return '';
@@ -271,7 +336,7 @@ class Move extends Component {
     return process.env.PUBLIC_URL + "/fighters/" + fighter + ".json";
   }
 
-  // Gets move info to be displayed about the move
+  /* Gets move info to be displayed about the move */
   makeMoveDataUrl(fighter, move) {
     if (!fighter || !move) {
       return '';
@@ -279,79 +344,51 @@ class Move extends Component {
     return process.env.PUBLIC_URL + "/fighters/" + fighter + "/" + move + ".json";
   }
 
-  // Gets the list of all fighters
+  /* Gets the list of all fighters */
   makeFighterIndexUrl() {
     return process.env.PUBLIC_URL + "/fighters/index.json";
   }
 
-  // Gets gif url to display move
+  /* Gets gif url to display move */
   makeGifUrl(fighter, move, view, size) {
     if (!fighter || !move) {
       return '';
     }
     return gifStore + fighter + "/" + size + "/" + view + "/" + move + ".gif";
   }
+  /* End data management */
 
-  parsePath() {
-    // Canonical URL style: #/v1/<view>/<fighter>/<move>/<fps>/<frame>/<optional frameRangeEnd>
-    // The v1 is to allow deprecation and the ability to change this format in the future
-    // As we build the URl up, everything is optional except if you need a section, you
-    // also need all sections before it.
-
-    // Valid query paramters: ?small=[true|false]
-
-    var allVars = this.props.location.pathname.split('/');
-    // index 0 is always "" and index 1 is always <version>
-
-    // defaults
-    var view = 'game_view';
-    var fighter = '';
-    var move = '';
-    var fps = null;
-    var frame = null;
-    var frameEnd = null;
-    var small = true;
-
-    if (allVars.length >= 3)
-      view = allVars[2];
-    if (allVars.length >= 4)
-      fighter = allVars[3];
-    if (allVars.length >= 5)
-      move = allVars[4];
-    if (allVars.length >= 6)
-      fps = allVars[5];
-    if (allVars.length >= 7)
-      frame = allVars[6];
-    if (allVars.length >= 8)
-      frameEnd = allVars[7];
-
-    // Now parse the query params
-    var parsedQueryString = QueryString.parse(this.props.location.search);
-    if ('small' in parsedQueryString)
-      small = parsedQueryString['small'] === 'true';
-
-    return [view, fighter, move, fps, frame, frameEnd, small];
+  componentWillMount() {
+    // Handle the edge case where on first-load there is a move selected
+    this.fetchMoveData(this.state.fighter, this.state.move);
   }
 
   render() {
     const fighterIndexUrl = this.makeFighterIndexUrl();
+    const view = this.state.view;
     const fighter = this.state.fighter;
     const move = this.state.move;
-    const view = this.state.view;
-    const size = this.state.small ? 'small' : 'large';
+    const fps = this.state.fps;
     const frameIndex = this.state.frameIndex;
+    const frameEnd = this.state.frameEnd;
+    const size = this.state.small ? 'small' : 'large';
 
     const moveIndexUrl = this.makeMoveIndexUrl(fighter);
     const gifUrl = this.makeGifUrl(fighter, move, view, size);
+
     const moveData = this.state.moveData;
 
     return(
       <div className="Move" style={{display: 'inline-block'}}>
-        <ViewPicker onViewChange={this.viewSelected}/>
+        <ViewPicker view={view} onViewChange={this.viewSelected}/>
         <GifSizeCheckbox onGifSizeChange={this.gifSizeChanged} checked={this.state.small}/>
-        <FighterPicker url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
-        <MovePicker url={moveIndexUrl} onMoveChange={this.moveSelected}/>
-        <Player url={gifUrl} small={this.state.small} onFrameChange={this.frameChanged}/>
+        <FighterPicker fighter={fighter} url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
+        <MovePicker move={move} url={moveIndexUrl} onMoveChange={this.moveSelected}/>
+        <Player url={gifUrl}
+                fps={fps}
+                frameIndex={frameIndex}
+                small={this.state.small}
+                onFrameChange={this.frameChanged}/>
         <MoveInfo frameIndex={frameIndex} moveData={moveData}/>
       </div>
     );
