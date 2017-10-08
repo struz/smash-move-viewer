@@ -16,6 +16,14 @@ const hitboxIdColors = [
   '#AA6E28'
 ]
 
+// Hitbox types, matches Smash-Forge types
+const HITBOX_TYPE = {
+  0: 'Hitbox',
+  1: 'Grabbox',
+  2: 'Windbox',
+  3: 'Searchbox'
+}
+
 // TODO: make a concrete class to use, that parses the JSON rather than just
 // assuming the files are in the right format.
 
@@ -96,6 +104,7 @@ class MoveInfo extends Component {
             <tr>
               <th>Color</th>
               <th>ID</th>
+              <th>Type</th>
               <th>Damage</th>
               <th>Angle</th>
               <th>KBG</th>
@@ -151,6 +160,7 @@ class HitboxInfo extends Component {
           <div className="Hitbox-color" style={{'background': hitboxIdColors[hitboxData.id]}}></div>
         </td>
         <td>{hitboxData.id}</td>
+        <td>{HITBOX_TYPE[hitboxData.type]}</td>
         <td>{hitboxData.damage}</td>
         <td><HitboxAngle angle={hitboxData.angle} size={25}/></td>
         <td>{hitboxData.knockbackGrowth}</td>
