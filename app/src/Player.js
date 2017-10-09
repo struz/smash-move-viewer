@@ -275,15 +275,15 @@ class Player extends Component {
     // We store the raw frame index in state so that the control can be updated
     // freely, and we perform validation on the input before we use it.
     var rawFrameIndex = e.target.value;
-    var frameIndex = this.getUsableFrameIndex(parseInt(rawFrameIndex, 10));
+    var frameIndex = parseInt(rawFrameIndex, 10);
 
     ReactGA.event({
       category: 'Player',
       action: 'Frame Number Changed'
     });
 
-    if (!this.isValidFrameIndex(frameIndex)) {
-      this.moveFrameAbsolute(frameIndex, true);
+    if (this.isValidFrameIndex(frameIndex)) {
+      this.moveFrameAbsolute(this.getUsableFrameIndex(frameIndex), true);
     } else {
       // Store the invalid frame index but don't move the frame
       this.setState(function(prevState, props) {

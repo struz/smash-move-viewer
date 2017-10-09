@@ -226,7 +226,6 @@ class Move extends Component {
       });
       return prevState;
     });
-    this.fetchFighterMoveData(fighter);
   }
   moveSelected(move) {
     ReactGA.event({
