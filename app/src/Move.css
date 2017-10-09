@@ -1,8 +1,10 @@
 .Move {
   padding: 10px 10px 10px 10px;
-  margin: 20px;
+  margin-top: 5px;
   border-radius: 10px;
   border: 2px solid #035073;
+  display: inline-block;
+  text-align: left;
 }
 
 .Move-frame {
@@ -19,7 +21,7 @@
   margin-bottom: 5px;
   width: 300px;
   display: inline-block;
-  border: 2px solid #035073;
+  border: 1px solid #035073;
 }
 
 .Dropdown:disabled {

@@ -123,12 +123,13 @@ class MovePicker extends Component {
   render() {
     const options = this.state.options;
     const disabled = !this.props.url;
+    const defaultOptionDisabled = this.state.options.length > 0;
     const currentMove = this.props.move;
 
     return(
       <div className="Form-element Move-picker">
         <select onChange={this.handleChange} value={currentMove} className="Dropdown" disabled={disabled}>
-          <option value="">Move</option>
+          <option value="" disabled={defaultOptionDisabled}>Move</option>
           {options}
         </select>
       </div>
@@ -155,9 +156,23 @@ class MovePicker extends Component {
     axios.get(url).then(function(response) {
       var json = response.data;  // JSON is auto parsed by axios
       var options = [];
-      json.moves.forEach(function(move) {
-        options.push(<option key={move} value={move}>{move}</option>);
-      });
+      // Put moves with hitboxes first
+      options.push(<option value='' disabled>-----------------------</option>);
+      options.push(<option value='' disabled>Moves with hitboxes</option>);
+      options.push(<option value='' disabled>-----------------------</option>);
+      json.moves.filter((move) => {return move.category === 'has_hitbox';})
+        .forEach(function(move) {
+          options.push(<option key={move.rawName} value={move.rawName}>{move.prettyName}</option>);
+        });
+      // Now moves without hitboxes
+      options.push(<option value='' disabled>-----------------------</option>);
+      options.push(<option value='' disabled>No hitboxes below</option>);
+      options.push(<option value='' disabled>-----------------------</option>);
+      json.moves.filter((move) => {return move.category === 'no_hitbox';})
+        .forEach(function(move) {
+          options.push(<option key={move.rawName} value={move.rawName}>{move.prettyName}</option>);
+        });
+
       _this.setState({options: options});
     });
   }
