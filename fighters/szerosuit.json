@@ -177,7 +177,7 @@
     },
     {
       "rawName": "CatchAttack",
-      "prettyName": "CatchAttack",
+      "prettyName": "Pummel",
       "category": "has_hitbox"
     },
     {
@@ -227,7 +227,7 @@
     },
     {
       "rawName": "CliffWait",
-      "prettyName": "CliffWait",
+      "prettyName": "Ledge Hang",
       "category": "no_hitbox"
     },
     {
@@ -302,7 +302,7 @@
     },
     {
       "rawName": "DownSpotD",
-      "prettyName": "DownSpotD",
+      "prettyName": "Crumple",
       "category": "no_hitbox"
     },
     {
@@ -447,12 +447,12 @@
     },
     {
       "rawName": "LandingHeavy",
-      "prettyName": "LandingHeavy",
+      "prettyName": "Heavy Landing",
       "category": "no_hitbox"
     },
     {
       "rawName": "LandingLight",
-      "prettyName": "LandingLight",
+      "prettyName": "Light Landing",
       "category": "no_hitbox"
     },
     {
@@ -522,7 +522,7 @@
     },
     {
       "rawName": "SlipDown",
-      "prettyName": "Slip (Down??)",
+      "prettyName": "Slip (while down)",
       "category": "no_hitbox"
     },
     {
@@ -572,12 +572,12 @@
     },
     {
       "rawName": "SpecialAirNShoot",
-      "prettyName": "SpecialAirNShoot",
+      "prettyName": "Neutral Special Shoot (Air)",
       "category": "no_hitbox"
     },
     {
       "rawName": "SpecialAirNShootH",
-      "prettyName": "SpecialAirNShootH",
+      "prettyName": "Neutral Special Shoot Heavy (Air)",
       "category": "no_hitbox"
     },
     {
@@ -612,17 +612,17 @@
     },
     {
       "rawName": "SpecialNLanding",
-      "prettyName": "SpecialNLanding",
+      "prettyName": "Neutral Special (Landing)",
       "category": "no_hitbox"
     },
     {
       "rawName": "SpecialNShoot",
-      "prettyName": "SpecialNShoot",
+      "prettyName": "Neutral Special Shoot (Ground)",
       "category": "no_hitbox"
     },
     {
       "rawName": "SpecialNShootH",
-      "prettyName": "SpecialNShootH",
+      "prettyName": "Neutral Special Shoot Heavy (Ground)",
       "category": "no_hitbox"
     },
     {
