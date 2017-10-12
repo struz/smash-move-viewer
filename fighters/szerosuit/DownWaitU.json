@@ -462,31 +462,31 @@
   ],
   "camera": {
     "game_view": {
-      "zoom": -55.0,
-      "rot": 1.57079,
-      "lookup": 0.0125,
+      "zoom": -70.0,
+      "horizontalRotation": 1.57079,
+      "verticalRotation": 0.0,
       "x": 0.0,
-      "y": 0.0,
+      "y": 5.0,
       "modelPosX": 0.0,
       "modelPosY": 0.0,
       "modelPosZ": 0.0
     },
     "top_view": {
-      "zoom": -55.0,
-      "rot": 1.57079,
-      "lookup": 1.57079,
+      "zoom": -70.0,
+      "horizontalRotation": 1.57079,
+      "verticalRotation": 1.57079,
       "x": 0.0,
-      "y": 0.0,
+      "y": 5.0,
       "modelPosX": 0.0,
       "modelPosY": 0.0,
       "modelPosZ": 0.0
     },
     "front_view": {
-      "zoom": -55.0,
-      "rot": 0.0,
-      "lookup": 0.0125,
+      "zoom": -70.0,
+      "horizontalRotation": 0.0,
+      "verticalRotation": 0.0125,
       "x": 0.0,
-      "y": 1.0,
+      "y": 10.0,
       "modelPosX": 0.0,
       "modelPosY": 0.0,
       "modelPosZ": 0.0
