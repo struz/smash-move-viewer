@@ -19,35 +19,23 @@ import iconLoop from './img/icons/302-loop.svg';
 import './Player.css';
 
 
+const VideoFrame = require('./VideoFrame.js');
+const uuidv4 = require('uuid/v4');
+
+const DEFAULT_MOVE_VIDEO_FPS = 60;
+
 ReactGA.initialize('UA-107697636-1');
-
-class PlayPauseButton extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
-    this.props.playPauseChange();
-  }
-
-  render() {
-    return (
-      <img src={this.props.isPlaying ? iconPause : iconPlay} alt="play-pause" onClick={this.handleClick} className="Player-control" />
-    );
-  }
-}
 
 class Player extends Component {
   constructor(props) {
     super(props);
     this.state = {
       frameIndex: this.props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
-      isPlaying: false,
-      timerID: undefined,
-      gif: null,
       fps: this.props.fps,  // same as frameIndex
-      loaded: false
+      loaded: false,
+      uuid: uuidv4(),
+      video: null,
+      paused: true
     };
 
     // Bindings
@@ -60,93 +48,45 @@ class Player extends Component {
 
     this.fpsTextChanged = this.fpsTextChanged.bind(this);
 
-    this.gifLoaded = this.gifLoaded.bind(this);
-
-    // Analytics
-    this.beginLoadTime = undefined;
-  }
-
-  /* Load a gif, optionally starting display on a given frame */
-  loadGif(url, frameIndex = 1) {
-    // Destroy any leftover timers
-    if (this.state.timerID !== undefined) {
-      clearInterval(this.state.timerID);
-    }
-
-    if (!url) {
-      return;
-    }
-    if (this.state.gif !== null) {
-      // Make sure we clean up the old div before loading a new one
-      // TODO: this should also immediately terminate all loading functions going on at the time.
-      this.state.gif.destroy();
-    }
-
-    this.refs.gif.src = url;
-    var gif = new SuperGif({
-      gif: this.refs.gif,
-      auto_play: false,
-      progressbar_height: 5
-    });
-    this.beginLoadTime = new Date().getTime();
-    // TODO: if mobile, max_width = fits_in_screen_size
-
-
-    gif.load(() => { this.gifLoaded(frameIndex); });
-
-    this.setState(function(prevState, props) {
-      prevState.gif = gif;
-      prevState.loaded = false;
-      prevState.isPlaying = false;
-      prevState.timerID = undefined;
-      prevState.frameIndex = frameIndex;
-      return prevState;
-    });
-  }
-
-  gifLoaded(frameIndex) {
-    var endLoadTime = new Date().getTime();
-    var timeSpent = endLoadTime - this.beginLoadTime;
-    ReactGA.timing({
-      category: 'Player',
-      variable: 'Load GIF',
-      value: timeSpent
-    });
-    this.setState(function(prevState, props) {
-      prevState.loaded = true;
-      return prevState;
-    });
-    this.moveFrameAbsolute(frameIndex, true);
+    this.videoEventHandler = this.videoEventHandler.bind(this);
   }
 
   componentDidMount() {
-    this.loadGif(this.props.url, this.state.frameIndex);
+    var video = new VideoFrame.VideoFrame({
+      id : this.state.uuid,
+      frameRate: VideoFrame.FrameRates.high,
+      callback : function(response) {
+        console.log('callback response: ' + response);
+      }
+    });
+    this.setState(function(prevState, props) {
+      prevState.video = video;
+      return prevState;
+    });
   }
 
   componentWillReceiveProps(nextProps) {
-    // Reload only if they selected a different move and not the same one
-    if (this.props.url !== nextProps.url) {
-      this.loadGif(nextProps.url);
-    }
+    // TODO: they selected a different move, load it
   }
 
   componentWillUnmount() {
-    if (this.state.timerID !== undefined) {
-      clearInterval(this.state.timerID);
-    }
-    if (this.state.gif !== null) {
-      this.state.gif.destroy();
-    }
   }
 
   render() {
-    const isPlaying = this.state.isPlaying;
-    const gifLoaded = this.state.loaded;
+    const gifLoaded = true;
     const small = this.props.small;
+    const uuid = this.state.uuid;
+
+    const playIcon = this.state.paused ? iconPlay : iconPause;
 
     return (
       <div className="Move-gif" style={{display: 'inline-block'}}>
-        <img ref="gif" alt="move-gif" className={small ? "Plain-move-gif-small" : "Plain-move-gif-large"} src={logo}/>
+        <video id={uuid} ref="moveVideo"
+         onEnded={this.videoEventHandler}
+         onPause={this.videoEventHandler}
+         onPlay={this.videoEventHandler}>
+          <source src={this.props.url} type="video/mp4"></source>
+        </video>
         <div className="Move-controls" style={!gifLoaded ? {display: 'none'} : {}}>
           <label>Play FPS:</label>
           <input ref="fpsNum" type="number"
@@ -160,7 +100,7 @@ class Player extends Component {
            className="Move-frame"/>
           <img src={iconFirst} alt="first" onClick={this.firstFrameHandler} className="Player-control"/>
           <img src={iconPrevious} alt="previous" onClick={this.prevFrameHandler} className="Player-control"/>
-          <PlayPauseButton playPauseChange={this.playPauseHandler} isPlaying={isPlaying} />
+          <img src={playIcon} alt="play/pause" onClick={this.playPauseHandler} className="Player-control" />
           <img src={iconNext} alt="next" onClick={this.nextFrameHandler} className="Player-control"/>
           <img src={iconLast} alt="last" onClick={this.lastFrameHandler} className="Player-control"/>
         </div>
@@ -168,71 +108,72 @@ class Player extends Component {
     );
   }
 
-  // Play / pause
-  playPauseHandler(e) {
-    this.playPause(this.state.fps);
+  // Get the move frame for the video, bounded to be inside the range of frames
+  // that actually define the move
+  getMoveFrame(video) {
+    var realFrame = video.get();
+
+    if (realFrame > this.props.numFrames) {
+      realFrame = this.props.numFrames;
+    } else if (realFrame < 1) {
+      realFrame = 1;
+    }
+    return realFrame;
   }
-  playPause(rawFps) {
+
+  // Generic handler for all video events
+  videoEventHandler() {
+    this.setState(function(prevState, props) {
+      prevState.paused = this.refs.moveVideo.paused;
+      prevState.frameIndex = this.getMoveFrame(prevState.video);
+      return prevState;
+    });
+  }
+
+  // Play / pause
+  playPauseHandler() {
     ReactGA.event({
       category: 'Player',
       action: 'Play/Pause'
     });
-    this.setState(function(prevState, props) {
-      prevState.isPlaying = !prevState.isPlaying;
-
-      if (prevState.timerID === undefined) {
-        // 60fps frame updates
-        prevState.timerID = setInterval(
-          () => this.tick(),
-          1000 / this.getUsableFPSNumber(rawFps)
-        );
-      } else {
-        clearInterval(prevState.timerID);
-        prevState.timerID = undefined;
-
-        // Purely to trigger a URL frame update
-        this.moveFrameAbsolute(prevState.frameIndex, true);
-      }
-
-      return prevState;
-    });
-  }
-
-  tick() {
-    this.state.gif.pause();
-    this.moveFrameRelative(1, false);
+    var video = this.refs.moveVideo;
+    if (video.paused) {
+      video.play();
+      this.setState(function(prevState, props) {
+        prevState.paused = false;
+        return prevState;
+      });
+    } else {
+      video.pause();
+      this.setState(function(prevState, props) {
+        prevState.paused = true;
+        return prevState;
+      });
+    }
   }
 
   moveFrameRelative(num, updateUrl = false) {
-    this.state.gif.move_relative(num);
+    if (num > 0) {
+      if (this.state.frameIndex + num > this.props.numFrames)
+        return;
+      this.state.video.seekForward(num);
+    } else {
+      if (this.state.frameIndex + num < 1)
+        return;
+      this.state.video.seekBackward(-num);
+    }
 
     var frameIndex = this.getUsableFrameIndex(this.state.frameIndex) + num;
     this.setState(function(prevState, props) {
-      prevState.frameIndex = prevState.frameIndex + num;
-      if (prevState.frameIndex > prevState.gif.get_length()) {
-        prevState.frameIndex = 1;
-      }
-      if (prevState.frameIndex < 1) {
-        prevState.frameIndex = 1;
-      }
+      prevState.frameIndex = this.getMoveFrame(prevState.video);
       return prevState;
     });
 
-    // Notify parent of changes
-    // I don't like duplicating this logic here but until I find a nice way to
-    // do both together without race conditions I'm doing it like this.
-    if (frameIndex > this.state.gif.get_length()) {
-      frameIndex = 1
-    }
-    if (frameIndex < 1) {
-      frameIndex = 1;
-    }
-    this.props.onFrameChange(frameIndex - 1, updateUrl);
+    this.props.onFrameChange(this.state.video.get() - 1, updateUrl);
   }
 
   moveFrameAbsolute(num, updateUrl = false) {
-    // 0 indexed in gif lib
-    this.state.gif.move_to(num - 1);
+    this.state.video.seekTo({frame: num});
     this.setState(function(prevState, props) {
       prevState.frameIndex = num;
       return prevState;
@@ -261,7 +202,7 @@ class Player extends Component {
       category: 'Player',
       action: 'Last Frame'
     });
-    this.moveFrameAbsolute(this.state.gif.get_length(), true);
+    this.moveFrameAbsolute(this.props.numFrames, true);
   }
   firstFrameHandler(e) {
     ReactGA.event({
@@ -303,14 +244,10 @@ class Player extends Component {
       action: 'FPS Number Changed'
     });
 
-    var _this = this;
+    // e.g. 1.0 for 60, 0.5 for 30, 2.0 for 120
+    this.refs.moveVideo.playbackRate = rawFps / DEFAULT_MOVE_VIDEO_FPS;
     this.setState(function(prevState, props) {
       prevState.fps = rawFps;
-
-      if (_this.state.isPlaying) {
-        _this.playPause(rawFps);
-        _this.playPause(rawFps);  // Hacky way to refresh the frame rate during play
-      }
       return prevState;
     });
   }
@@ -318,7 +255,7 @@ class Player extends Component {
   // Validation functions since we are potentially storing unusable values in the state
   isValidFrameIndex(frameIndex) {
     if (isNaN(frameIndex) || frameIndex < 1 ||
-        frameIndex > this.state.gif.get_length()) {
+        frameIndex > this.props.numFrames) {
       return false;
     }
     return true;

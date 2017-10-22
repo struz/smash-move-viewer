@@ -157,17 +157,17 @@ class MovePicker extends Component {
       var json = response.data;  // JSON is auto parsed by axios
       var options = [];
       // Put moves with hitboxes first
-      options.push(<option value='' disabled>-----------------------</option>);
-      options.push(<option value='' disabled>Moves with hitboxes</option>);
-      options.push(<option value='' disabled>-----------------------</option>);
+      options.push(<option key="header1_1" value='' disabled>-----------------------</option>);
+      options.push(<option key="header1_2" value='' disabled>Moves with hitboxes</option>);
+      options.push(<option key="header1_3" value='' disabled>-----------------------</option>);
       json.moves.filter((move) => {return move.category === 'has_hitbox';})
         .forEach(function(move) {
           options.push(<option key={move.rawName} value={move.rawName}>{move.prettyName}</option>);
         });
       // Now moves without hitboxes
-      options.push(<option value='' disabled>-----------------------</option>);
-      options.push(<option value='' disabled>No hitboxes below</option>);
-      options.push(<option value='' disabled>-----------------------</option>);
+      options.push(<option key="header2_1" value='' disabled>-----------------------</option>);
+      options.push(<option key="header2_2" value='' disabled>No hitboxes below</option>);
+      options.push(<option key="header2_3"  value='' disabled>-----------------------</option>);
       json.moves.filter((move) => {return move.category === 'no_hitbox';})
         .forEach(function(move) {
           options.push(<option key={move.rawName} value={move.rawName}>{move.prettyName}</option>);
@@ -379,6 +379,7 @@ class Move extends Component {
     if (!fighter || !move) {
       return '';
     }
+    return process.env.PUBLIC_URL + "/fighters/output.mp4";
     return gifStore + fighter + "/" + size + "/" + view + "/" + move + ".gif";
   }
   /* End data management */
@@ -402,6 +403,7 @@ class Move extends Component {
     const gifUrl = this.makeGifUrl(fighter, move, view, size);
 
     const moveData = this.state.moveData;
+    const numFrames = this.state.moveData ? this.state.moveData.frames.length : 1;
 
     return(
       <div className="Move" style={{display: 'inline-block'}}>
@@ -412,6 +414,7 @@ class Move extends Component {
         <Player url={gifUrl}
                 fps={fps}
                 frameIndex={frameIndex}
+                numFrames={numFrames}
                 small={this.state.small}
                 onFrameChange={this.frameChanged}/>
         <MoveInfo frameIndex={frameIndex} moveData={moveData}/>
