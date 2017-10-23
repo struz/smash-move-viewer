@@ -17,9 +17,22 @@
   font-family: "Verdana", "Arial", sans-serif;
   font-weight: bold;
   font-size: 15px;
+  display: inline-block;
+  border: 1px solid #035073;
+}
+
+.Main-dropdown {
   padding: 5px 3px 5px 3px;
   margin-bottom: 5px;
   width: 300px;
+}
+
+.Text-input {
+  border-radius: 7px;
+  color: #0197a6;
+  font-family: "Verdana", "Arial", sans-serif;
+  font-weight: bold;
+  font-size: 15px;
   display: inline-block;
   border: 1px solid #035073;
 }

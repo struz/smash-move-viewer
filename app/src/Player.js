@@ -20,8 +20,6 @@ import './Player.css';
 const VideoFrame = require('./VideoFrame.js');
 const uuidv4 = require('uuid/v4');
 
-const DEFAULT_MOVE_VIDEO_FPS = 60;
-
 ReactGA.initialize('UA-107697636-1');
 
 class Player extends Component {
@@ -29,7 +27,7 @@ class Player extends Component {
     super(props);
     this.state = {
       frameIndex: this.props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
-      fps: this.props.fps,  // same as frameIndex
+      playbackSpeed: this.props.playbackSpeed,  // same as frameIndex
       uuid: uuidv4(),
       videoData: null,
       video: null,
@@ -44,7 +42,7 @@ class Player extends Component {
     this.lastFrameHandler = this.lastFrameHandler.bind(this);
     this.firstFrameHandler = this.firstFrameHandler.bind(this);
 
-    this.fpsTextChanged = this.fpsTextChanged.bind(this);
+    this.speedChanged = this.speedChanged.bind(this);
 
     this.videoEventHandler = this.videoEventHandler.bind(this);
   }
@@ -123,21 +121,29 @@ class Player extends Component {
          src={videoSrc}>
         </video>
         <div className="Move-controls" style={!vidLoaded ? {display: 'none'} : {}}>
-          <label>Play FPS:</label>
-          <input ref="fpsNum" type="number"
-           onChange={this.fpsTextChanged}
-           value={this.state.fps}
-           className="Move-frame"/>
-          <label>Frame:</label>
-          <input ref="frameNum" type="number"
-           onChange={this.frameTextChanged}
-           value={this.state.frameIndex}
-           className="Move-frame"/>
-          <img src={iconFirst} alt="first" onClick={this.firstFrameHandler} className="Player-control"/>
-          <img src={iconPrevious} alt="previous" onClick={this.prevFrameHandler} className="Player-control"/>
-          <img src={playIcon} alt="play/pause" onClick={this.playPauseHandler} className="Player-control" />
-          <img src={iconNext} alt="next" onClick={this.nextFrameHandler} className="Player-control"/>
-          <img src={iconLast} alt="last" onClick={this.lastFrameHandler} className="Player-control"/>
+          <div className="Player-controls">
+            <img src={iconFirst} alt="first" onClick={this.firstFrameHandler} className="Player-control"/>
+            <img src={iconPrevious} alt="previous" onClick={this.prevFrameHandler} className="Player-control"/>
+            <img src={playIcon} alt="play/pause" onClick={this.playPauseHandler} className="Player-control" />
+            <img src={iconNext} alt="next" onClick={this.nextFrameHandler} className="Player-control"/>
+            <img src={iconLast} alt="last" onClick={this.lastFrameHandler} className="Player-control"/>
+          </div>
+
+          <div className="Frame-controls">
+            <label>Play speed:</label>
+            <select onChange={this.speedChanged} value={this.state.playbackSpeed} className="Dropdown">
+              <option value="2">2x</option>
+              <option value="1">1x</option>
+              <option value="0.5">0.5x</option>
+              <option value="0.25">0.25x</option>
+              <option value="0.1">0.1x</option>
+            </select>
+            <label>Frame:</label>
+            <input ref="frameNum" type="number"
+             onChange={this.frameTextChanged}
+             value={this.state.frameIndex}
+             className="Move-frame Text-input"/>
+          </div>
         </div>
       </div>
     );
@@ -281,20 +287,19 @@ class Player extends Component {
     }
   }
 
-  fpsTextChanged(e) {
+  speedChanged(e) {
     // We store the raw fps value in state so that the control can be updated
     // freely, and we perform validation on the input before we use it.
-    var rawFps = e.target.value;
+    var playbackSpeed = e.target.value;
 
     ReactGA.event({
       category: 'Player',
-      action: 'FPS Number Changed'
+      action: 'Playback Speed Changed'
     });
 
-    // e.g. 1.0 for 60, 0.5 for 30, 2.0 for 120
-    this.refs.moveVideo.playbackRate = rawFps / DEFAULT_MOVE_VIDEO_FPS;
+    this.refs.moveVideo.playbackRate = playbackSpeed;
     this.setState(function(prevState, props) {
-      prevState.fps = rawFps;
+      prevState.playbackSpeed = playbackSpeed;
       return prevState;
     });
   }

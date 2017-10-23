@@ -60,7 +60,7 @@ class FighterPicker extends Component {
 
     return(
       <div className="Form-element Fighter-picker">
-        <select onChange={this.handleChange} value={currentFighter} className="Dropdown">
+        <select onChange={this.handleChange} value={currentFighter} className="Dropdown Main-dropdown">
           <option value="">Character</option>
           {this.state.options}
         </select>
@@ -101,7 +101,7 @@ class MovePicker extends Component {
 
     return(
       <div className="Form-element Move-picker">
-        <select onChange={this.handleChange} value={currentMove} className="Dropdown" disabled={disabled}>
+        <select onChange={this.handleChange} value={currentMove} className="Dropdown Main-dropdown" disabled={disabled}>
           <option value="" disabled={defaultOptionDisabled}>Move</option>
           {options}
         </select>
@@ -164,10 +164,10 @@ class Move extends Component {
   constructor(props) {
     super(props);
 
-    var [view, fighter, move, fps, frame, frameEnd, small] = Common.parsePath(
+    var [view, fighter, move, speed, frame, frameEnd] = Common.parsePath(
       this.props.location.pathname, this.props.location.search
     );
-    // TODO: hookup fps onwards -->
+    // TODO: hookup speed onwards -->
     // TODO: make all the select boxes auto populated, even if the move list json hasn't been loaded yet
     // TODO: make the move info appear when parsing from a URL
     // TODO: make the URL update as you move through the site, or alternatively have a box that provides the copy/paste URL
@@ -177,10 +177,9 @@ class Move extends Component {
       view: view,
       fighter: fighter,
       move: move,
-      fps: fps,
+      speed: speed,
       frameIndex: frame,
       frameEnd: frameEnd,
-      small: small,
       moveData: null
     };
 
@@ -344,7 +343,7 @@ class Move extends Component {
     const view = this.state.view;
     const fighter = this.state.fighter;
     const move = this.state.move;
-    const fps = this.state.fps;
+    const speed = this.state.speed;
     const frameIndex = this.state.frameIndex;
 
     // TODO: this should be usable to make ranges of frames to play through, eventually
@@ -362,7 +361,7 @@ class Move extends Component {
         <FighterPicker fighter={fighter} url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
         <MovePicker move={move} url={moveIndexUrl} onMoveChange={this.moveSelected}/>
         <Player url={gifUrl}
-                fps={fps}
+                playbackSpeed={speed}
                 frameIndex={frameIndex}
                 numFrames={numFrames}
                 onFrameChange={this.frameChanged}/>

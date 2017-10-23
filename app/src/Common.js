@@ -10,7 +10,7 @@ export function parsePath(path, search) {
   // As we build the URl up, everything is optional except if you need a section, you
   // also need all sections before it.
 
-  // Valid query paramters: ?small=[true|false]&fps=[int]
+  // Valid query paramters: ?speed=[int]
 
   var allVars = path.split('/');
   // index 0 is always "" and index 1 is always <version>
@@ -19,10 +19,9 @@ export function parsePath(path, search) {
   var view = 'game_view';
   var fighter = '';
   var move = '';
-  var fps = 60;
+  var speed = 1.0;
   var frame = 1;
   var frameEnd = -1;
-  var small = true;
 
   if (allVars.length >= 3)
     view = allVars[2];
@@ -37,12 +36,10 @@ export function parsePath(path, search) {
 
   // Now parse the query params
   var parsedQueryString = QueryString.parse(search);
-  if ('small' in parsedQueryString)
-    small = parsedQueryString['small'] === 'true';
-  if ('fps' in parsedQueryString)
-    fps = parseInt(parsedQueryString['fps'], 10);
+  if ('speed' in parsedQueryString)
+    speed = parseFloat(parsedQueryString['speed'], 10);
 
-  var returnVars = [view, fighter, move, fps, frame, frameEnd, small];
+  var returnVars = [view, fighter, move, speed, frame, frameEnd];
   return returnVars;
 }
 
@@ -53,10 +50,9 @@ export function generateAppUrl({
   view = null,
   fighter = null,
   move = null,
-  fps = null,
+  speed = null,
   frame = null,
-  frameEnd = null,
-  small = null
+  frameEnd = null
 }) {
   var splitCurrentPath = path.split('/');
   var numParams = splitCurrentPath.length - 2;  // '/' and 'vX'
@@ -94,11 +90,8 @@ export function generateAppUrl({
 
   // Search query parsing
   var parsedQueryString = QueryString.parse(search);
-  if (small !== null && small !== undefined) {
-    parsedQueryString['small'] = small;
-  }
-  if (fps)
-    parsedQueryString['fps'] = fps;
+  if (speed)
+    parsedQueryString['speed'] = speed;
 
   // Returns [location, search_query]
   return [splitCurrentPath.join('/'), '?' + QueryString.stringify(parsedQueryString)];
