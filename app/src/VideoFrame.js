@@ -28,6 +28,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 // Logic for determning <script>/module taken from Q project (https://github.com/kriskowal/q)
 
+// Because this is an external dependency
+/* eslint-disable */
 /*global
   bootstrap, define, ses, self
 */

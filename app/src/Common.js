@@ -20,7 +20,7 @@ export function parsePath(path, search) {
   var fighter = '';
   var move = '';
   var fps = 60;
-  var frame = 0;
+  var frame = 1;
   var frameEnd = -1;
   var small = true;
 

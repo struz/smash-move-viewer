@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 
 import axios from 'axios';
-import _ from 'lodash';
 
 import * as Common from './Common';
 import Player from './Player.js';
@@ -11,65 +10,39 @@ import MoveInfo from './MoveInfo.js';
 import './Move.css';
 
 // General icons
-import cross from './img/icons/272-cross.svg';
+//import cross from './img/icons/272-cross.svg';
 
 const gifStore = "https://s3-us-west-1.amazonaws.com/smash-move-viewer/fighters/";
 
 
 ReactGA.initialize('UA-107697636-1');
 
-class GifSizeCheckbox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {id: null};
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(e) {
-    this.props.onGifSizeChange(e.target.checked);
-  }
-
-  componentWillMount() {
-    const id = _.uniqueId("gsc-");
-    this.setState({id: id});
-  }
-
-  render() {
-    return(
-      <div className="Form-element GifSizeCheckbox">
-        <input type="checkbox" id={this.state.id} checked={this.props.checked} onChange={this.handleChange}/>
-        <label htmlFor={this.state.id}>Smaller viewport (loads faster)</label>
-      </div>
-    );
-  }
-}
-
-class ViewPicker extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(e) {
-    this.props.onViewChange(e.target.value);
-  }
-
-  render() {
-    const currentView = this.props.view;
-
-    return(
-      <div className="Form-element View-picker">
-        <select onChange={this.handleChange} value={currentView} className="Dropdown">
-          <option value="">Select a view</option>
-          <option value="game_view">Game View</option>
-          <option value="top_view">Top-down View</option>
-          <option value="front_view">Front-on View</option>
-        </select>
-      </div>
-    );
-  }
-}
+// class ViewPicker extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {};
+//     this.handleChange = this.handleChange.bind(this);
+//   }
+//
+//   handleChange(e) {
+//     this.props.onViewChange(e.target.value);
+//   }
+//
+//   render() {
+//     const currentView = this.props.view;
+//
+//     return(
+//       <div className="Form-element View-picker">
+//         <select onChange={this.handleChange} value={currentView} className="Dropdown">
+//           <option value="">Select a view</option>
+//           <option value="game_view">Game View</option>
+//           <option value="top_view">Top-down View</option>
+//           <option value="front_view">Front-on View</option>
+//         </select>
+//       </div>
+//     );
+//   }
+// }
 
 class FighterPicker extends Component {
   constructor(props) {
@@ -214,7 +187,6 @@ class Move extends Component {
     this.fighterSelected = this.fighterSelected.bind(this);
     this.moveSelected = this.moveSelected.bind(this);
     this.viewSelected = this.viewSelected.bind(this);
-    this.gifSizeChanged = this.gifSizeChanged.bind(this);
     this.frameChanged = this.frameChanged.bind(this);
   }
 
@@ -228,7 +200,7 @@ class Move extends Component {
 
     this.setState(function(prevState, props) {
       prevState.fighter = fighter;
-      prevState.frameIndex = 0;
+      prevState.frameIndex = 1;
 
       var [location, search] = Common.generateAppUrl({
         path: this.props.location.pathname,
@@ -251,7 +223,7 @@ class Move extends Component {
     this.setState(function(prevState, props) {
       prevState.move = move;
       prevState.moveData = null;
-      prevState.frameIndex = 0;
+      prevState.frameIndex = 1;
 
       var [location, search] = Common.generateAppUrl({
         path: this.props.location.pathname,
@@ -274,7 +246,7 @@ class Move extends Component {
     });
     this.setState(function(prevState, props) {
       prevState.view = view;
-      prevState.frameIndex = 0;
+      prevState.frameIndex = 1;
 
       var [location, search] = Common.generateAppUrl({
         path: this.props.location.pathname,
@@ -288,29 +260,8 @@ class Move extends Component {
       return prevState;
     });
   }
-  gifSizeChanged(small) {
-    ReactGA.event({
-      category: 'Move',
-      action: 'Toggle GIF size',
-      label: '' + small
-    });
-    this.setState(function(prevState, props) {
-      prevState.small = small;
-      prevState.frameIndex = 0;
-
-      var [location, search] = Common.generateAppUrl({
-        path: this.props.location.pathname,
-        search: this.props.location.search,
-        small: small
-      });
-      this.props.history.push({
-        pathname: location,
-        search: search
-      });
-      return prevState;
-    });
-  }
   frameChanged(frame, updateUrl = false) {
+    // Note that any frame coming from within will be 1-indexed
     if (updateUrl) {
       var [location, search] = Common.generateAppUrl({
         path: this.props.location.pathname,
@@ -324,7 +275,7 @@ class Move extends Component {
     }
 
     this.setState(function(prevState, props) {
-      prevState.frameIndex = frame;
+      prevState.frameIndex = frame + 1;
       return prevState;
     });
   }
@@ -375,12 +326,11 @@ class Move extends Component {
   }
 
   /* Gets gif url to display move */
-  makeGifUrl(fighter, move, view, size) {
+  makeGifUrl(fighter, move, view) {
     if (!fighter || !move) {
       return '';
     }
-    return process.env.PUBLIC_URL + "/fighters/output.mp4";
-    return gifStore + fighter + "/" + size + "/" + view + "/" + move + ".gif";
+    return gifStore + fighter + "/videos/" + view + "/" + move + ".mp4";
   }
   /* End data management */
 
@@ -396,28 +346,27 @@ class Move extends Component {
     const move = this.state.move;
     const fps = this.state.fps;
     const frameIndex = this.state.frameIndex;
-    const frameEnd = this.state.frameEnd;
-    const size = this.state.small ? 'small' : 'large';
+
+    // TODO: this should be usable to make ranges of frames to play through, eventually
+    //const frameEnd = this.state.frameEnd;
 
     const moveIndexUrl = this.makeMoveIndexUrl(fighter);
-    const gifUrl = this.makeGifUrl(fighter, move, view, size);
+    const gifUrl = this.makeGifUrl(fighter, move, view);
 
     const moveData = this.state.moveData;
     const numFrames = this.state.moveData ? this.state.moveData.frames.length : 1;
 
     return(
       <div className="Move" style={{display: 'inline-block'}}>
-        <ViewPicker view={view} onViewChange={this.viewSelected}/>
-        <GifSizeCheckbox onGifSizeChange={this.gifSizeChanged} checked={this.state.small}/>
+        {/*<ViewPicker view={view} onViewChange={this.viewSelected}/>*/}
         <FighterPicker fighter={fighter} url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
         <MovePicker move={move} url={moveIndexUrl} onMoveChange={this.moveSelected}/>
         <Player url={gifUrl}
                 fps={fps}
                 frameIndex={frameIndex}
                 numFrames={numFrames}
-                small={this.state.small}
                 onFrameChange={this.frameChanged}/>
-        <MoveInfo frameIndex={frameIndex} moveData={moveData}/>
+        <MoveInfo frameIndex={frameIndex - 1} moveData={moveData}/>
       </div>
     );
   }

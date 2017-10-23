@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router'
 import ReactGA from 'react-ga';
+import axios from 'axios';
 
-import SuperGif from './libgif.js';
-import logo from './img/SmashBall.svg';
+//import logo from './img/SmashBall.svg';
 
 // Gif control icons
 import iconPlay from './img/icons/285-play3.svg';
 import iconPause from './img/icons/286-pause2.svg';
-import iconBackward from './img/icons/288-backward2.svg';
-import iconForward from './img/icons/289-forward3.svg';
 import iconFirst from './img/icons/290-first.svg';
 import iconLast from './img/icons/291-last.svg';
 import iconPrevious from './img/icons/292-previous2.svg';
 import iconNext from './img/icons/293-next2.svg';
-import iconLoop from './img/icons/302-loop.svg';
+//import iconLoop from './img/icons/302-loop.svg';
 
 import './Player.css';
 
@@ -32,8 +30,8 @@ class Player extends Component {
     this.state = {
       frameIndex: this.props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
       fps: this.props.fps,  // same as frameIndex
-      loaded: false,
       uuid: uuidv4(),
+      videoData: null,
       video: null,
       paused: true
     };
@@ -51,7 +49,27 @@ class Player extends Component {
     this.videoEventHandler = this.videoEventHandler.bind(this);
   }
 
-  componentDidMount() {
+  loadVideo(url, defaultFrame) {
+    if (!url)
+      return;
+    var _this = this;
+    axios.request({
+      'url': url,
+      'responseType': 'blob'
+    }).then(function(response) {
+      var blob = URL.createObjectURL(response.data);
+      _this.setState(function(prevState, props) {
+        prevState.videoData = blob;
+        prevState.video = null;  // to force refresh in next render
+        prevState.frameIndex = defaultFrame;
+        return prevState;
+      });
+    }).catch(function (error) {
+      console.error('Error downloading move video: ' + error);
+    });
+  }
+
+  processVideo() {
     var video = new VideoFrame.VideoFrame({
       id : this.state.uuid,
       frameRate: VideoFrame.FrameRates.high,
@@ -59,23 +77,40 @@ class Player extends Component {
         console.log('callback response: ' + response);
       }
     });
+
     this.setState(function(prevState, props) {
       prevState.video = video;
       return prevState;
     });
+
+    // Set up some defaults with the video
+    this.moveFrameAbsolute(this.state.frameIndex, video);
+  }
+
+  componentDidMount() {
+    this.loadVideo(this.props.url, this.props.frameIndex);
   }
 
   componentWillReceiveProps(nextProps) {
-    // TODO: they selected a different move, load it
+    if (this.props.url !== nextProps.url) {
+      this.loadVideo(nextProps.url, nextProps.frameIndex);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.videoData && !this.state.video) {
+      // Make sure we have an up to date video object after each render
+      this.processVideo();
+    }
   }
 
   componentWillUnmount() {
   }
 
   render() {
-    const gifLoaded = true;
-    const small = this.props.small;
     const uuid = this.state.uuid;
+    const videoSrc = this.state.videoData ? this.state.videoData : '';
+    const vidLoaded = this.state.video !== null;
 
     const playIcon = this.state.paused ? iconPlay : iconPause;
 
@@ -84,10 +119,10 @@ class Player extends Component {
         <video id={uuid} ref="moveVideo"
          onEnded={this.videoEventHandler}
          onPause={this.videoEventHandler}
-         onPlay={this.videoEventHandler}>
-          <source src={this.props.url} type="video/mp4"></source>
+         onPlay={this.videoEventHandler}
+         src={videoSrc}>
         </video>
-        <div className="Move-controls" style={!gifLoaded ? {display: 'none'} : {}}>
+        <div className="Move-controls" style={!vidLoaded ? {display: 'none'} : {}}>
           <label>Play FPS:</label>
           <input ref="fpsNum" type="number"
            onChange={this.fpsTextChanged}
@@ -123,9 +158,16 @@ class Player extends Component {
 
   // Generic handler for all video events
   videoEventHandler() {
+    var moveFrame = this.getMoveFrame(this.state.video);
+
+    if (moveFrame !== this.state.frameIndex) {
+      // Notify parent of changes
+      this.props.onFrameChange(moveFrame - 1, true);
+    }
+
     this.setState(function(prevState, props) {
       prevState.paused = this.refs.moveVideo.paused;
-      prevState.frameIndex = this.getMoveFrame(prevState.video);
+      prevState.frameIndex = moveFrame;
       return prevState;
     });
   }
@@ -163,7 +205,6 @@ class Player extends Component {
       this.state.video.seekBackward(-num);
     }
 
-    var frameIndex = this.getUsableFrameIndex(this.state.frameIndex) + num;
     this.setState(function(prevState, props) {
       prevState.frameIndex = this.getMoveFrame(prevState.video);
       return prevState;
@@ -172,8 +213,14 @@ class Player extends Component {
     this.props.onFrameChange(this.state.video.get() - 1, updateUrl);
   }
 
-  moveFrameAbsolute(num, updateUrl = false) {
-    this.state.video.seekTo({frame: num});
+  moveFrameAbsolute(num, video, updateUrl = false) {
+    if (num > this.props.numFrames) {
+      num = this.props.numFrames;
+    } else if (num < 1) {
+      num = 1;
+    }
+
+    video.seekTo({frame: num});
     this.setState(function(prevState, props) {
       prevState.frameIndex = num;
       return prevState;
@@ -202,14 +249,14 @@ class Player extends Component {
       category: 'Player',
       action: 'Last Frame'
     });
-    this.moveFrameAbsolute(this.props.numFrames, true);
+    this.moveFrameAbsolute(this.props.numFrames, this.state.video, true);
   }
   firstFrameHandler(e) {
     ReactGA.event({
       category: 'Player',
       action: 'First Frame'
     });
-    this.moveFrameAbsolute(1, true);
+    this.moveFrameAbsolute(1, this.state.video, true);
   }
 
   frameTextChanged(e) {
@@ -224,7 +271,7 @@ class Player extends Component {
     });
 
     if (this.isValidFrameIndex(frameIndex)) {
-      this.moveFrameAbsolute(this.getUsableFrameIndex(frameIndex), true);
+      this.moveFrameAbsolute(this.getUsableFrameIndex(frameIndex), this.state.video, true);
     } else {
       // Store the invalid frame index but don't move the frame
       this.setState(function(prevState, props) {
