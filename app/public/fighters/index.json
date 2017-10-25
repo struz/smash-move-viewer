@@ -1,6 +1,10 @@
 {
   "fighters": [
     {
+      "name": "Ike",
+      "key": "ike"
+    },
+    {
       "name": "Zero Suit Samus",
       "key": "szerosuit"
     }
