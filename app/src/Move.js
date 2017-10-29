@@ -260,7 +260,7 @@ class Move extends Component {
     });
   }
   frameChanged(frame, updateUrl = false) {
-    // Note that any frame coming from within will be 1-indexed
+    // Note that any frame coming from within will be 0-indexed
     if (updateUrl) {
       var [location, search] = Common.generateAppUrl({
         path: this.props.location.pathname,

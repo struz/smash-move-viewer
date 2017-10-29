@@ -26,8 +26,9 @@ class Player extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      frameIndex: this.props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
-      playbackSpeed: this.props.playbackSpeed,  // same as frameIndex
+      // frameIndex is 1-indexed in this store
+      frameIndex: props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
+      playbackSpeed: props.playbackSpeed,  // same as frameIndex
       uuid: uuidv4(),
       videoData: null,
       video: null,
@@ -97,6 +98,7 @@ class Player extends Component {
 
     // Set up some defaults with the video
     this.moveFrameAbsolute(this.state.frameIndex, video);
+    this.refs.moveVideo.playbackRate = this.state.playbackSpeed;
   }
 
   componentDidMount() {
@@ -123,8 +125,10 @@ class Player extends Component {
     const uuid = this.state.uuid;
     const videoSrc = this.state.videoData ? this.state.videoData : '';
     const vidLoaded = this.state.video !== null;
-
     const playIcon = this.state.paused ? iconPlay : iconPause;
+
+    const displayFrame = this.state.frameIndex;
+    console.log('displayFrame:' + displayFrame);
 
     return (
       <div className="Move-gif" style={{display: 'inline-block'}}>
@@ -132,6 +136,7 @@ class Player extends Component {
          onEnded={this.videoEventHandler}
          onPause={this.videoEventHandler}
          onPlay={this.videoEventHandler}
+         onTimeUpdate={this.videoEventHandler}
          src={videoSrc}>
         </video>
         <div className="Move-controls" style={!vidLoaded ? {display: 'none'} : {}}>
@@ -155,7 +160,7 @@ class Player extends Component {
             <label>Frame:</label>
             <input ref="frameNum" type="number"
              onChange={this.frameTextChanged}
-             value={this.state.frameIndex}
+             value={displayFrame}
              className="Move-frame Text-input"/>
           </div>
         </div>
@@ -168,7 +173,7 @@ class Player extends Component {
   getMoveFrame(video) {
     var realFrame = video.get();
 
-    if (realFrame > this.props.numFrames) {
+    if (realFrame >= this.props.numFrames) {
       realFrame = this.props.numFrames;
     } else if (realFrame < 1) {
       realFrame = 1;
@@ -214,15 +219,15 @@ class Player extends Component {
     }
   }
 
-  moveFrameRelative(num, updateUrl = false) {
+  moveFrameRelative(num, video, updateUrl = false) {
     if (num > 0) {
-      if (this.state.frameIndex + num > this.props.numFrames)
+      if (this.state.frameIndex + num >= this.props.numFrames)
         return;
-      this.state.video.seekForward(num);
+      video.seekForward(num);
     } else {
-      if (this.state.frameIndex + num < 1)
+      if (this.state.frameIndex + num < 0)
         return;
-      this.state.video.seekBackward(-num);
+      video.seekBackward(-num);
     }
 
     this.setState(function(prevState, props) {
@@ -230,15 +235,24 @@ class Player extends Component {
       return prevState;
     });
 
-    this.props.onFrameChange(this.state.video.get() - 1, updateUrl);
+    // Notify parent of changes
+    this.props.onFrameChange(this.getMoveFrame(video) - 1, updateUrl);
   }
 
   moveFrameAbsolute(num, video, updateUrl = false) {
-    if (num > this.props.numFrames) {
+    // Num here is the 1-indexed frame number
+    if (num >= this.props.numFrames) {
       num = this.props.numFrames;
     } else if (num < 1) {
       num = 1;
     }
+
+    // weird edge case hack - library doesn't like going to frame 0
+    // if (num === 0) {
+    //   video.seekTo({frame: 1});
+    //   this.moveFrameRelative(-1, video, updateUrl);
+    //   return;
+    // }
 
     video.seekTo({frame: num});
     this.setState(function(prevState, props) {
@@ -255,14 +269,14 @@ class Player extends Component {
       category: 'Player',
       action: 'Next Frame'
     });
-    this.moveFrameRelative(1, true);
+    this.moveFrameRelative(1, this.state.video, true);
   }
   prevFrameHandler(e) {
     ReactGA.event({
       category: 'Player',
       action: 'Prev Frame'
     });
-    this.moveFrameRelative(-1, true);
+    this.moveFrameRelative(-1, this.state.video, true);
   }
   lastFrameHandler(e) {
     ReactGA.event({
@@ -289,6 +303,9 @@ class Player extends Component {
       category: 'Player',
       action: 'Frame Number Changed'
     });
+
+    console.log('raw: ' + rawFrameIndex);
+    console.log('usable: ' + this.getUsableFrameIndex(frameIndex));
 
     if (this.isValidFrameIndex(frameIndex)) {
       this.moveFrameAbsolute(this.getUsableFrameIndex(frameIndex), this.state.video, true);
@@ -321,22 +338,16 @@ class Player extends Component {
   // Validation functions since we are potentially storing unusable values in the state
   isValidFrameIndex(frameIndex) {
     if (isNaN(frameIndex) || frameIndex < 1 ||
-        frameIndex > this.props.numFrames) {
+        frameIndex >= this.props.numFrames) {
       return false;
     }
     return true;
   }
   getUsableFrameIndex(frameIndex) {
     if (!this.isValidFrameIndex(frameIndex)) {
-      return 1;  // No change
+      return 1;
     }
     return frameIndex;
-  }
-  getUsableFPSNumber(fps) {
-    if (isNaN(fps) || fps < 1 || fps > 60) {
-      return 60;  // No change
-    }
-    return fps;
   }
 }
 
