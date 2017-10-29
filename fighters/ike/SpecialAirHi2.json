@@ -1,5 +1,5 @@
 {
-  "moveName": "SpecialAirHi2",
+  "moveName": "Up Special (Air) Part 2",
   "faf": 0,
   "intangibilityStart": 0,
   "intangibilityEnd": 0,
@@ -1825,11 +1825,11 @@
   ],
   "camera": {
     "game_view": {
-      "zoom": -70.0,
+      "zoom": -90.0,
       "horizontalRotation": 1.57079,
       "verticalRotation": 0.0,
       "x": 0.0,
-      "y": 5.0,
+      "y": 42.5,
       "modelPosX": 0.0,
       "modelPosY": 0.0,
       "modelPosZ": 0.0
