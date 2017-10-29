@@ -51,6 +51,18 @@ class Player extends Component {
     if (!url)
       return;
     var _this = this;
+    var beginLoadTime = new Date().getTime();
+
+    var sendVideoLoadAnalytics = function() {
+      var endLoadTime = new Date().getTime();
+      var timeSpent = endLoadTime - beginLoadTime;
+      ReactGA.timing({
+        category: 'Player',
+        variable: 'Load video',
+        value: timeSpent
+      });
+    }
+
     axios.request({
       'url': url,
       'responseType': 'blob'
@@ -62,6 +74,8 @@ class Player extends Component {
         prevState.frameIndex = defaultFrame;
         return prevState;
       });
+      sendVideoLoadAnalytics();
+
     }).catch(function (error) {
       console.error('Error downloading move video: ' + error);
     });
