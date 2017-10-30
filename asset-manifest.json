@@ -1,14 +1,14 @@
 {
   "main.css": "static/css/main.f9c38072.css",
   "main.css.map": "static/css/main.f9c38072.css.map",
-  "main.js": "static/js/main.a91d66ba.js",
-  "main.js.map": "static/js/main.a91d66ba.js.map",
-  "static\\media\\285-play3.svg": "static/media/285-play3.56dc70c2.svg",
-  "static\\media\\286-pause2.svg": "static/media/286-pause2.7ffb735f.svg",
-  "static\\media\\290-first.svg": "static/media/290-first.752ad60c.svg",
-  "static\\media\\291-last.svg": "static/media/291-last.06bba1f2.svg",
-  "static\\media\\292-previous2.svg": "static/media/292-previous2.a7ca63b3.svg",
-  "static\\media\\293-next2.svg": "static/media/293-next2.ca943667.svg",
-  "static\\media\\SmashBall.svg": "static/media/SmashBall.88703ae0.svg",
-  "static\\media\\twitter.svg": "static/media/twitter.44b08116.svg"
+  "main.js": "static/js/main.0aa90f9a.js",
+  "main.js.map": "static/js/main.0aa90f9a.js.map",
+  "static/media/285-play3.svg": "static/media/285-play3.56dc70c2.svg",
+  "static/media/286-pause2.svg": "static/media/286-pause2.7ffb735f.svg",
+  "static/media/290-first.svg": "static/media/290-first.752ad60c.svg",
+  "static/media/291-last.svg": "static/media/291-last.06bba1f2.svg",
+  "static/media/292-previous2.svg": "static/media/292-previous2.a7ca63b3.svg",
+  "static/media/293-next2.svg": "static/media/293-next2.ca943667.svg",
+  "static/media/SmashBall.svg": "static/media/SmashBall.88703ae0.svg",
+  "static/media/twitter.svg": "static/media/twitter.44b08116.svg"
 }
