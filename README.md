@@ -23,3 +23,5 @@ ScanMountGoat - tireless work furthering rendering in Smash Forge.
 [@Ruben\_dal](https://twitter.com/Ruben_dal) - one of, if not the best smash scientist around. Has helped directly and indirectly in too many ways to list. Owner/creator of [the smash calculator](http://rubendal.github.io/Sm4sh-Calculator/). Walking encyclopaedia of smash knowledge.
 
 [@KuroganeHammer](https://twitter.com/KuroganeHammer) - super helpful frame data man of legend. Owner/creator of frame data website [kuroganehammer.com](http://kuroganehammer.com/Smash4). He and his discord members have been very helpful along the way.
+
+[@Meshima_](https://twitter.com/Meshima_) - smash scientist from Japan. Maintains the [very comprehensive spreadsheet for Smash4 params](https://docs.google.com/spreadsheets/d/1FgOsGYfTD4nQo4jFGJ22nz5baU1xihT5lreNinY5nNQ). I have used some of the descriptions from this spreadsheet as tooltips to make reading the hitbox data easier.

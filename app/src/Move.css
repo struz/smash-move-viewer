@@ -4,7 +4,22 @@
   border-radius: 10px;
   border: 2px solid #035073;
   display: inline-block;
-  text-align: left;
+  text-align: center;
+
+  /* just to make sure 100% internal divs work properly */
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* #### Desktops #### */
+@media screen and (min-width: 1024px){
+  .Move {
+    /* just to make sure 100% internal divs work properly */
+    width: 1024px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 
 .Move-frame {
@@ -38,7 +53,7 @@
 }
 
 .Dropdown:disabled {
-  background: #cccccc;
+  background: #999999;
 }
 
 .View-picker {

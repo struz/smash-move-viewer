@@ -70,6 +70,11 @@ class Player extends Component {
     }).then(function(response) {
       var blob = URL.createObjectURL(response.data);
       _this.setState(function(prevState, props) {
+        if (prevState.videoData) {
+          // Clean up after ourselves
+          URL.revokeObjectURL(prevState.videoData);
+        }
+
         prevState.videoData = blob;
         prevState.video = null;  // to force refresh in next render
         prevState.frameIndex = defaultFrame;
@@ -128,11 +133,10 @@ class Player extends Component {
     const playIcon = this.state.paused ? iconPlay : iconPause;
 
     const displayFrame = this.state.frameIndex;
-    console.log('displayFrame:' + displayFrame);
 
     return (
       <div className="Move-gif" style={{display: 'inline-block'}}>
-        <video id={uuid} ref="moveVideo"
+        <video className="Move-video" id={uuid} ref="moveVideo"
          onEnded={this.videoEventHandler}
          onPause={this.videoEventHandler}
          onPlay={this.videoEventHandler}
@@ -221,11 +225,11 @@ class Player extends Component {
 
   moveFrameRelative(num, video, updateUrl = false) {
     if (num > 0) {
-      if (this.state.frameIndex + num >= this.props.numFrames)
+      if (this.state.frameIndex + num > this.props.numFrames)
         return;
       video.seekForward(num);
     } else {
-      if (this.state.frameIndex + num < 0)
+      if (this.state.frameIndex + num < 1)
         return;
       video.seekBackward(-num);
     }

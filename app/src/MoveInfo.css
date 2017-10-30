@@ -1,3 +1,13 @@
+.Move-info {
+  width: 100%;
+  text-align: left;
+}
+
+.Hitbox-table-container {
+  overflow-x: auto;
+  box-sizing : border-box;
+}
+
 .Hitbox-color {
   width: 20px;
   height: 20px;
@@ -6,13 +16,18 @@
   border: 1px solid black;
 }
 
+.Hitbox-info-table {
+  width: 100%;
+  white-space: nowrap;
+}
+
 .Hitbox-info-table td {
-  padding: 3px 6px 3px 6px;
+  padding: 3px 12px 3px 0px;
   text-align: center;
 }
 
 .Hitbox-info-table th {
-  padding: 3px 6px 3px 6px;
+  padding: 3px 12px 3px 0px;
   text-align: left;
 }
 
@@ -26,4 +41,8 @@
 
 .Angle-container {
   vertical-align: middle;
+}
+
+.Angle-td {
+  width: 100%;
 }

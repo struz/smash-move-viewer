@@ -1,3 +1,7 @@
+.Move-gif {
+  max-width: 100%;
+}
+
 .Move-controls {
   margin: auto;
   width: 380px;
@@ -41,4 +45,8 @@
     width: 384px;
     height: 267px;
   }
+}
+
+.Move-video {
+  max-width: 100%;
 }
