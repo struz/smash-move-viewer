@@ -81,29 +81,6 @@ const FACING_RESTRICTION = {
   9: {name: 'Front', tooltip: 'Unused'},
 }
 
-
-// if (hitboxData.blockability) {
-//   statusString += 'B';
-// }
-// if (hitboxData.reflectable) {
-//   statusString += 'Rf';
-// }
-// if (hitboxData.absorbable) {
-//   statusString += 'A';
-// }
-// if (hitboxData.clang) {
-//   statusString += 'C';
-// }
-// if (hitboxData.rebound) {
-//   statusString += 'Rb';
-// }
-// if (hitboxData.flinchless) {
-//   statusString += 'F';
-// }
-// if (hitboxData.disableHitlag) {
-//   statusString += 'H';
-// }
-
 const TOOLTIPS = {
   faf: 'First Active Frame<br />The first frame on which this animation can be interrupted<br />by another action or input',
   intFrames: 'Intangible frames<br />The range(s) of frames in this move in which all character hurtboxes are disabled',
@@ -139,7 +116,6 @@ class MoveInfo extends Component {
     this.state = {moveData: this.props.moveData};
   }
 
-  // TODO: this breaks the page?
   componentWillReceiveProps(nextProps) {
     // Reload the json only if the url has changed
     if (this.props.moveData !== nextProps.moveData) {
@@ -195,13 +171,14 @@ class MoveInfo extends Component {
       );
     }
 
-    var frame = this.props.frameIndex;
+    const frame = this.props.frameIndex;
+    const hitboxes = this.state.moveData.frames[frame].hitboxes;
 
     const intangibilityRange = this.getIntangibilityRange();
     const hitboxRanges = this.getHitboxRanges();
 
     var hitboxTable = null;
-    if (this.state.moveData.frames[frame].hitboxes.length > 0) {
+    if (hitboxes.length > 0) {
       hitboxTable = (
         <div className='Hitbox-table-container'>
           <table className='Hitbox-info-table'>
@@ -227,11 +204,13 @@ class MoveInfo extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.moveData.frames[frame].hitboxes.map(function(hitbox) {
-                return <HitboxInfo key={hitbox.id} hitboxData={hitbox}/>;
+              {hitboxes.map(function(hitbox) {
+                // TODO: ideally this should be a hash function so we don't re-render unless something has changed
+                return <HitboxInfo key={frame + "-" + hitbox.id} hitboxData={hitbox}/>;
               })}
             </tbody>
           </table>
+          <ReactTooltip multiline={true} delayShow={160} effect={'solid'} place={'right'} />
         </div>);
     }
 
@@ -241,7 +220,7 @@ class MoveInfo extends Component {
         <p><span className='Bold-label' data-tip={TOOLTIPS['intFrames']}>Intangible frames:</span> {intangibilityRange}</p>
         <p><span className='Bold-label' data-tip={TOOLTIPS['hitActive']}>Hitbox active:</span> {hitboxRanges}</p>
         {hitboxTable}
-        <ReactTooltip data-html={true} multiline={true} delayShow={160} effect={'solid'} />
+        <ReactTooltip multiline={true} delayShow={160} effect={'solid'} place={'right'} />
       </div>
     );
     // TODO: camera details displayed nicely, in a hideable box

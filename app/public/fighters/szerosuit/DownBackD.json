@@ -1,8 +1,8 @@
 {
   "moveName": "Floor Roll Backward (Face Down)",
   "faf": 0,
-  "intangibilityStart": 1,
-  "intangibilityEnd": 23,
+  "intangibilityStart": 0,
+  "intangibilityEnd": 0,
   "frames": [
     {
       "hitboxes": [],
@@ -192,26 +192,6 @@
       "verticalRotation": 0.0,
       "x": 15.0,
       "y": 5.0,
-      "modelPosX": 0.0,
-      "modelPosY": 0.0,
-      "modelPosZ": 0.0
-    },
-    "top_view": {
-      "zoom": -70.0,
-      "horizontalRotation": 1.57079,
-      "verticalRotation": 1.57079,
-      "x": 15.0,
-      "y": 5.0,
-      "modelPosX": 0.0,
-      "modelPosY": 0.0,
-      "modelPosZ": 0.0
-    },
-    "front_view": {
-      "zoom": -70.0,
-      "horizontalRotation": 0.0,
-      "verticalRotation": 0.0125,
-      "x": 0.0,
-      "y": 10.0,
       "modelPosX": 0.0,
       "modelPosY": 0.0,
       "modelPosZ": 0.0

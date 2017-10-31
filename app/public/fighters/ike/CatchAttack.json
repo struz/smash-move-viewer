@@ -55,6 +55,7 @@
           "groundAir": 3,
           "directIndirect": 1,
           "gameType": 1,
+          "special": true,
           "action": 63,
           "blockability": 1,
           "reflectable": 0,
