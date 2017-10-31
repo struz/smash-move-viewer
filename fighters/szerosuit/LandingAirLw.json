@@ -35,6 +35,7 @@
           "groundAir": 3,
           "directIndirect": 1,
           "gameType": 6,
+          "special": true,
           "action": 63,
           "blockability": 1,
           "reflectable": 0,
@@ -81,6 +82,7 @@
           "groundAir": 3,
           "directIndirect": 1,
           "gameType": 6,
+          "special": true,
           "action": 63,
           "blockability": 1,
           "reflectable": 0,
@@ -249,26 +251,6 @@
       "verticalRotation": 0.0,
       "x": 0.0,
       "y": 5.0,
-      "modelPosX": 0.0,
-      "modelPosY": 0.0,
-      "modelPosZ": 0.0
-    },
-    "top_view": {
-      "zoom": -70.0,
-      "horizontalRotation": 1.57079,
-      "verticalRotation": 1.57079,
-      "x": 0.0,
-      "y": 5.0,
-      "modelPosX": 0.0,
-      "modelPosY": 0.0,
-      "modelPosZ": 0.0
-    },
-    "front_view": {
-      "zoom": -70.0,
-      "horizontalRotation": 0.0,
-      "verticalRotation": 0.0125,
-      "x": 0.0,
-      "y": 10.0,
       "modelPosX": 0.0,
       "modelPosY": 0.0,
       "modelPosZ": 0.0
