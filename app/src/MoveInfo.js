@@ -19,9 +19,9 @@ const hitboxIdColors = [
 
 // Hitbox types, matches Smash-Forge types
 const HITBOX_TYPE = {
-  0: {name: 'Hitbox', tooltip: 'Damage hitbox<br />When this collides with a hurtbox a special effect may happen based on<br />the "effect" type of the hitbox. The victim will have their<br />% increased by it\'s "damage"'},
+  0: {name: 'Hitbox', tooltip: 'Damage hitbox<br />When this collides with a hurtbox a special effect may happen based on the "effect" type of the hitbox.<br />The victim will have their % increased by it\'s "damage"'},
   1: {name: 'Grabbox', tooltip: 'Grab hitbox<br />When this collides with a hurtbox the victim will be grabbed, allowing them to be thrown soon afterwards'},
-  2: {name: 'Windbox', tooltip: 'Wind hitbox<br />When this collides with a hurtbox the victim will be pushed away <br />based on the "angle" and other knockback properties of the hitbox'},
+  2: {name: 'Windbox', tooltip: 'Wind hitbox<br />When this collides with a hurtbox the victim will be pushed away based on the "angle" and other knockback properties of the hitbox'},
   3: {name: 'Searchbox', tooltip: 'Searchbox<br />Depending on the character scripts this can do many different things.<br />Generally it will search for hitboxes or hurtboxes and perform an action if any are found'}
 }
 
@@ -82,7 +82,7 @@ const FACING_RESTRICTION = {
 }
 
 const TOOLTIPS = {
-  faf: 'First Active Frame<br />The first frame on which this animation can be interrupted<br />by another action or input',
+  faf: 'First Active Frame<br />The first frame on which this animation can be interrupted by another action or input',
   intFrames: 'Intangible frames<br />The range(s) of frames in this move in which all character hurtboxes are disabled',
   hitActive: 'Hitbox active frames<br />The range(s) of frames in this move which have an active hitbox',
 
@@ -90,20 +90,20 @@ const TOOLTIPS = {
   props: 'Properties<br />B: Hitbox is not blockable<br />Rf: Hitbox is reflectable<br />A: Hitbox is absorbable<br />C: Hitbox does not clang<br/>Rb: Hitbox does not rebound<br />F: Hitbox is flinchless<br />H: Hitbox has hitlag disabled',
   groundAir: 'Ground/Air<br />Which types of opponent this hitbox can hit',
   direct: 'Direct<br />If "Yes" then the hitbox will put the attacker in hitlag.<br />If "No" then the hitbox will usually not put the attacker in hitlag',
-  direction: 'Facing direction<br />Determines which way the hitbox will send the victim.<br />Directions are reversed if the victim\'s TransN bone has<br />passed the attacker\'s TransN bone when the hit registers.<br />Mouse over the individual value for more info',
+  direction: 'Facing direction<br />Determines which way the hitbox will send the victim.<br />Directions are reversed if the victim\'s TransN bone has passed the attacker\'s TransN bone when the hit registers.<br />Mouse over the individual value for more info',
   hitlag: 'Hitlag modifier<br />Multiplier on how many frames your character will freeze after connecting with this hitbox.<br />>1 means more than usual, <1 means less than usual',
-  sdi: 'SDI modifier<br />Multiplier on how far each SDI input will move the victim<br />>1 means more distance than usual, <1 means less distance than usual',
-  trip: 'Tripping rate<br />Percentage of time the hitbox will trip an opponent<br />Can be negative for some unknown reason',
+  sdi: 'SDI modifier<br />Multiplier on how far each SDI input will move the victim.<br />>1 means more distance than usual, <1 means less distance than usual',
+  trip: 'Tripping rate<br />Percentage of time the hitbox will trip an opponent.<br />Can be negative for some unknown reason',
   rehit: 'Rehit rate<br />If 0 the hitbox does not rehit. If >0 then the hitbox can hit an opponent again after the specified number of frames',
   collateral: 'Throw collateral<br />If "yes" then the hitbox cannot hit the currently grabbed opponent',
-  effect: 'Hitbox effect<br />Different effects make hitboxes act differently<br />Mouse over the effect names to find out more about the specific effect',
+  effect: 'Hitbox effect<br />Different effects make hitboxes act differently.<br />Mouse over the effect names to find out more about the specific effect',
   wbkb: 'Weight based knockback<br />If the value is >0 then this hitbox has set knockback based on the weight of the victim',
-  bkb: 'Base knockback<br />The base knockback of the hitbox. This is multiplied with other factors like <br />damage, kbg, rage, and victim % to produce the in-game knockback received by the victim',
-  kbg: 'Knockback growth<br />The knockback growth of the hitbox. The higher this value is the more the <br />victim\'s % will affect the in-game knockback received by the victim',
+  bkb: 'Base knockback<br />The base knockback of the hitbox.<br />This is multiplied with other factors like damage, kbg, rage, and victim % to produce the in-game knockback received by the victim',
+  kbg: 'Knockback growth<br />The knockback growth of the hitbox.<br />The higher this value is the more the victim\'s % will affect the in-game knockback received by the victim',
   angle: 'Angle<br />The angle at which the opponent will be knocked away by the hitbox.<br />See "Hit direction" column for other factors that affect this',
-  damage: 'Damage<br />The amount of % that will be added to the victim\'s total %.<br />In general, higher damage hitboxes will produce more in-game knockback to the victim.<br /><br />Any number shown in brackets is the amount of damage done when the move hits a shield<br />instead of a hurtbox.',
+  damage: 'Damage<br />The amount of % that will be added to the victim\'s total %.<br />In general, higher damage hitboxes will produce more in-game knockback to the victim.<br />Any number shown in brackets is the amount of damage done when the move hits a shield instead of a hurtbox.',
   type: 'Hitbox type<br />The type of hitbox. One of: Hitbox, Grabbox, Windbox, Searchbox.<br />Mouse over the individual type for more info',
-  id: 'Hitbox ID<br />The ID of the hitbox. Hitboxes with lower IDs take precedence when <br />calculating which hitbox has hit. Usually only one<br />hitbox from a move can hit the victim in a single frame',
+  id: 'Hitbox ID<br />The ID of the hitbox. Hitboxes with lower IDs take precedence when calculating which hitbox has hit.<br />Usually only one hitbox from a move can hit the victim in a single frame',
   color: 'Hitbox color<br />The color of the hitbox in the visualization.<br />If you cannot see this colour it is likely hidden behind another hitbox with a lower ID number'
 }
 
