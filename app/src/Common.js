@@ -3,14 +3,18 @@
 //import * as Env from './Env';
 import QueryString from 'query-string';
 
+// Make sure these match values in Player.js "speed" dropdown
+const VALID_SPEEDS = [2, 1, 0.5, 0.25, 0.1];
+
 /* Parse the app URL and retrieve information about requested state from it */
 export function parsePath(path, search) {
-  // Canonical URL style: #/v1/<view>/<fighter>/<move>/<frame>/<optional frameRangeEnd>
+  // Canonical URL style: #/v1/<fighter>/<move>/<frame>/<optional frameRangeEnd>
   // The v1 is to allow deprecation and the ability to change this format in the future
   // As we build the URl up, everything is optional except if you need a section, you
   // also need all sections before it.
 
-  // Valid query paramters: ?speed=[int]
+  // Valid query paramters: ?speed=[string]&view=[string]
+  // Speed string is like '1x', '0.25x', etc
 
   var allVars = path.split('/');
   // index 0 is always "" and index 1 is always <version>
@@ -19,25 +23,29 @@ export function parsePath(path, search) {
   var view = 'game_view';
   var fighter = '';
   var move = '';
-  var speed = 1.0;
+  var speed = 1;
   var frame = 1;
   var frameEnd = -1;
 
   if (allVars.length >= 3)
-    view = allVars[2];
+    fighter = allVars[2];
   if (allVars.length >= 4)
-    fighter = allVars[3];
+    move = allVars[3];
   if (allVars.length >= 5)
-    move = allVars[4];
+    frame = parseInt(allVars[4], 10);
   if (allVars.length >= 6)
-    frame = parseInt(allVars[5], 10);
-  if (allVars.length >= 7)
-    frameEnd = parseInt(allVars[6], 10);
+    frameEnd = parseInt(allVars[5], 10);
 
   // Now parse the query params
   var parsedQueryString = QueryString.parse(search);
-  if ('speed' in parsedQueryString)
+  if ('speed' in parsedQueryString) {
     speed = parseFloat(parsedQueryString['speed'], 10);
+    if (!VALID_SPEEDS.includes(speed)) {
+      speed = 1;
+    }
+  }
+  if ('view' in parsedQueryString)
+    view = parsedQueryString['view'];
 
   var returnVars = [view, fighter, move, speed, frame, frameEnd];
   return returnVars;
@@ -57,41 +65,37 @@ export function generateAppUrl({
   var splitCurrentPath = path.split('/');
   var numParams = splitCurrentPath.length - 2;  // '/' and 'vX'
 
-  if (view) {
+  if (numParams >= 0 && fighter) {
     if (numParams === 0)
-      splitCurrentPath.push(view);
-    else
-      splitCurrentPath[2] = view;
-  }
-  if (numParams >= 1 && fighter) {
-    if (numParams === 1)
       splitCurrentPath.push(fighter);
     else
-      splitCurrentPath[3] = fighter;
+      splitCurrentPath[2] = fighter;
   }
-  if (numParams >= 2 && move) {
-    if (numParams === 2)
+  if (numParams >= 1 && move) {
+    if (numParams === 1)
       splitCurrentPath.push(move);
     else
-      splitCurrentPath[4] = move;
+      splitCurrentPath[3] = move;
   }
-  if (numParams >= 3 && frame) {
-    if (numParams === 3)
+  if (numParams >= 2 && frame) {
+    if (numParams === 2)
       splitCurrentPath.push(frame);
     else
-      splitCurrentPath[5] = frame;
+      splitCurrentPath[4] = frame;
   }
-  if (numParams >= 4 && frameEnd) {
-    if (numParams === 4)
+  if (numParams >= 3 && frameEnd) {
+    if (numParams === 3)
       splitCurrentPath.push(frameEnd);
     else
-      splitCurrentPath[6] = frameEnd;
+      splitCurrentPath[5] = frameEnd;
   }
 
   // Search query parsing
   var parsedQueryString = QueryString.parse(search);
   if (speed)
     parsedQueryString['speed'] = speed;
+  if (view)
+    parsedQueryString['view'] = view;
 
   // Returns [location, search_query]
   return [splitCurrentPath.join('/'), '?' + QueryString.stringify(parsedQueryString)];

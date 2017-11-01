@@ -26,7 +26,7 @@ class Player extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // frameIndex is 1-indexed in this store
+      // frameIndex is 0-indexed in this store
       frameIndex: props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
       playbackSpeed: props.playbackSpeed,  // same as frameIndex
       uuid: uuidv4(),
@@ -132,7 +132,7 @@ class Player extends Component {
     const vidLoaded = this.state.video !== null;
     const playIcon = this.state.paused ? iconPlay : iconPause;
 
-    const displayFrame = this.state.frameIndex;
+    const displayFrame = this.state.frameIndex + 1;
 
     return (
       <div className="Move-gif" style={{display: 'inline-block'}}>
@@ -140,7 +140,7 @@ class Player extends Component {
          onEnded={this.videoEventHandler}
          onPause={this.videoEventHandler}
          onPlay={this.videoEventHandler}
-         onTimeUpdate={this.videoEventHandler}
+         //onTimeUpdate={this.videoEventHandler}
          src={videoSrc}>
         </video>
         <div className="Move-controls" style={!vidLoaded ? {display: 'none'} : {}}>
@@ -178,9 +178,9 @@ class Player extends Component {
     var realFrame = video.get();
 
     if (realFrame >= this.props.numFrames) {
-      realFrame = this.props.numFrames;
-    } else if (realFrame < 1) {
-      realFrame = 1;
+      realFrame = this.props.numFrames - 1;
+    } else if (realFrame < 0) {
+      realFrame = 0;
     }
     return realFrame;
   }
@@ -191,7 +191,7 @@ class Player extends Component {
 
     if (moveFrame !== this.state.frameIndex) {
       // Notify parent of changes
-      this.props.onFrameChange(moveFrame - 1, true);
+      this.props.onFrameChange(moveFrame, true);
     }
 
     this.setState(function(prevState, props) {
@@ -209,6 +209,11 @@ class Player extends Component {
     });
     var video = this.refs.moveVideo;
     if (video.paused) {
+      // Handle case where we pressed play on the final frame of the video
+      // and we want to make sure it starts at the beginning
+      if (this.state.frameIndex >= this.props.numFrames - 1) {
+        video.currentTime = 0;
+      }
       video.play();
       this.setState(function(prevState, props) {
         prevState.paused = false;
@@ -225,30 +230,31 @@ class Player extends Component {
 
   moveFrameRelative(num, video, updateUrl = false) {
     if (num > 0) {
-      if (this.state.frameIndex + num > this.props.numFrames)
+      if (this.state.frameIndex + num >= this.props.numFrames)
         return;
       video.seekForward(num);
     } else {
-      if (this.state.frameIndex + num < 1)
+      if (this.state.frameIndex + num < 0)
         return;
       video.seekBackward(-num);
     }
 
+    var frameIndex = this.getMoveFrame(video);
     this.setState(function(prevState, props) {
-      prevState.frameIndex = this.getMoveFrame(prevState.video);
+      prevState.frameIndex = frameIndex;
       return prevState;
     });
 
     // Notify parent of changes
-    this.props.onFrameChange(this.getMoveFrame(video) - 1, updateUrl);
+    this.props.onFrameChange(frameIndex, updateUrl);
   }
 
   moveFrameAbsolute(num, video, updateUrl = false) {
-    // Num here is the 1-indexed frame number
+    // Num here is the 0-indexed frame number
     if (num >= this.props.numFrames) {
-      num = this.props.numFrames;
-    } else if (num < 1) {
-      num = 1;
+      num = this.props.numFrames - 1;
+    } else if (num < 0) {
+      num = 0;
     }
 
     // weird edge case hack - library doesn't like going to frame 0
@@ -265,7 +271,7 @@ class Player extends Component {
     });
 
     // Notify parent of changes
-    this.props.onFrameChange(num - 1, updateUrl);
+    this.props.onFrameChange(num, updateUrl);
   }
 
   nextFrameHandler(e) {
@@ -287,14 +293,14 @@ class Player extends Component {
       category: 'Player',
       action: 'Last Frame'
     });
-    this.moveFrameAbsolute(this.props.numFrames, this.state.video, true);
+    this.moveFrameAbsolute(this.props.numFrames - 1, this.state.video, true);
   }
   firstFrameHandler(e) {
     ReactGA.event({
       category: 'Player',
       action: 'First Frame'
     });
-    this.moveFrameAbsolute(1, this.state.video, true);
+    this.moveFrameAbsolute(0, this.state.video, true);
   }
 
   frameTextChanged(e) {
@@ -308,9 +314,6 @@ class Player extends Component {
       action: 'Frame Number Changed'
     });
 
-    console.log('raw: ' + rawFrameIndex);
-    console.log('usable: ' + this.getUsableFrameIndex(frameIndex));
-
     if (this.isValidFrameIndex(frameIndex)) {
       this.moveFrameAbsolute(this.getUsableFrameIndex(frameIndex), this.state.video, true);
     } else {
@@ -323,8 +326,6 @@ class Player extends Component {
   }
 
   speedChanged(e) {
-    // We store the raw fps value in state so that the control can be updated
-    // freely, and we perform validation on the input before we use it.
     var playbackSpeed = e.target.value;
 
     ReactGA.event({
@@ -337,11 +338,14 @@ class Player extends Component {
       prevState.playbackSpeed = playbackSpeed;
       return prevState;
     });
+
+    // Notify parent of change
+    this.props.onSpeedChange(playbackSpeed);
   }
 
   // Validation functions since we are potentially storing unusable values in the state
   isValidFrameIndex(frameIndex) {
-    if (isNaN(frameIndex) || frameIndex < 1 ||
+    if (isNaN(frameIndex) || frameIndex < 0 ||
         frameIndex >= this.props.numFrames) {
       return false;
     }
@@ -349,7 +353,7 @@ class Player extends Component {
   }
   getUsableFrameIndex(frameIndex) {
     if (!this.isValidFrameIndex(frameIndex)) {
-      return 1;
+      return 0;
     }
     return frameIndex;
   }

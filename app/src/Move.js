@@ -4,6 +4,7 @@ import ReactGA from 'react-ga';
 import axios from 'axios';
 
 import * as Common from './Common';
+import * as Env from './Env';
 import Player from './Player.js';
 import MoveInfo from './MoveInfo.js';
 
@@ -187,6 +188,7 @@ class Move extends Component {
     this.moveSelected = this.moveSelected.bind(this);
     this.viewSelected = this.viewSelected.bind(this);
     this.frameChanged = this.frameChanged.bind(this);
+    this.speedChanged = this.speedChanged.bind(this);
   }
 
   /* Callback handlers */
@@ -227,7 +229,8 @@ class Move extends Component {
       var [location, search] = Common.generateAppUrl({
         path: this.props.location.pathname,
         search: this.props.location.search,
-        move: move
+        move: move,
+        frame: 1
       });
       this.props.history.push({
         pathname: location,
@@ -275,6 +278,22 @@ class Move extends Component {
 
     this.setState(function(prevState, props) {
       prevState.frameIndex = frame + 1;
+      return prevState;
+    });
+  }
+  speedChanged(speed) {
+    // Speed is a string like '1x' or '0.25x'
+    var [location, search] = Common.generateAppUrl({
+      path: this.props.location.pathname,
+      search: this.props.location.search,
+      speed: speed
+    });
+    this.props.history.push({
+      pathname: location,
+      search: search
+    });
+    this.setState(function(prevState, props) {
+      prevState.speed = speed;
       return prevState;
     });
   }
@@ -329,7 +348,7 @@ class Move extends Component {
     if (!fighter || !move) {
       return '';
     }
-    return gifStore + fighter + "/videos/" + view + "/" + move + ".mp4";
+    return gifStore + fighter + "/videos/" + view + "/" + move + ".mp4" + "?" + Env.VIDEO_VERSION;
   }
   /* End data management */
 
@@ -362,9 +381,10 @@ class Move extends Component {
         <MovePicker move={move} url={moveIndexUrl} onMoveChange={this.moveSelected}/>
         <Player url={gifUrl}
                 playbackSpeed={speed}
-                frameIndex={frameIndex}
+                frameIndex={frameIndex - 1}
                 numFrames={numFrames}
-                onFrameChange={this.frameChanged}/>
+                onFrameChange={this.frameChanged}
+                onSpeedChange={this.speedChanged}/>
         <MoveInfo frameIndex={frameIndex - 1} moveData={moveData}/>
       </div>
     );

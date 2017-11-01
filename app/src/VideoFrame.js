@@ -192,7 +192,10 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
      * @return {String} Returns a SMPTE Time code in HH:MM:SS:FF format
      */
     VideoFrame.prototype.toSMPTE = function(frame) {
-        if (!frame) { return this.toTime(this.video.currentTime); }
+        if (isNaN(frame) || frame === null || frame === undefined) {
+          return this.toTime(this.video.currentTime);
+        }
+
         var frameNumber = Number(frame);
         var fps = this.frameRate;
         function wrap(n) { return ((n < 10) ? '0' + n : n); }
