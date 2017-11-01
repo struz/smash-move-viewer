@@ -87,7 +87,7 @@ const TOOLTIPS = {
   hitActive: 'Hitbox active frames<br />The range(s) of frames in this move which have an active hitbox',
 
   // Table stuff
-  props: 'Properties<br />B: Hitbox is not blockable<br />Rf: Hitbox is reflectable<br />A: Hitbox is absorbable<br />C: Hitbox does not clang<br/>Rb: Hitbox does not rebound<br />F: Hitbox is flinchless<br />H: Hitbox has hitlag disabled',
+  props: 'Properties<br />B: Hitbox is ~not~ blockable<br />Rf: Hitbox is reflectable<br />A: Hitbox is absorbable<br />C: Hitbox ~does not~ clang<br/>Rb: Hitbox ~does not~ rebound<br />F: Hitbox is flinchless<br />H: Hitbox has hitlag disabled',
   groundAir: 'Ground/Air<br />Which types of opponent this hitbox can hit',
   direct: 'Direct<br />If "Yes" then the hitbox will put the attacker in hitlag.<br />If "No" then the hitbox will usually not put the attacker in hitlag',
   direction: 'Facing direction<br />Determines which way the hitbox will send the victim.<br />Directions are reversed if the victim\'s TransN bone has passed the attacker\'s TransN bone when the hit registers.<br />Mouse over the individual value for more info',
@@ -334,15 +334,17 @@ class HitboxInfo extends Component {
     var statusString = '';
     // TODO: re enable these after rebuilding json files with special=true/false
     // since they default to 1 with special=false
-    // if (hitboxData.blockability) {
-    //   statusString += 'B ';
-    // }
-    // if (hitboxData.reflectable) {
-    //   statusString += 'Rf ';
-    // }
-    // if (hitboxData.absorbable) {
-    //   statusString += 'A ';
-    // }
+    if (hitboxData.special) {
+      if (!hitboxData.blockability) {
+        statusString += 'B ';
+      }
+      if (hitboxData.reflectable) {
+        statusString += 'Rf ';
+      }
+      if (hitboxData.absorbable) {
+        statusString += 'A ';
+      }
+    }
     if (!hitboxData.clang) {
       statusString += 'C ';
     }

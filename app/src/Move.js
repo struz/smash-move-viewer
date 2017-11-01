@@ -348,7 +348,7 @@ class Move extends Component {
     if (!fighter || !move) {
       return '';
     }
-    return gifStore + fighter + "/videos/" + view + "/" + move + ".mp4" + "?" + Env.VIDEO_VERSION;
+    return gifStore + fighter + "/videos/" + view + "/" + move + ".mp4?" + Env.VIDEO_VERSION;
   }
   /* End data management */
 
