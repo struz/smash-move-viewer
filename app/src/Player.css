@@ -35,6 +35,12 @@
   width: 3.5em;
 }
 
+.Frame-controls option {
+  /* Fix for firefox which will make the box as wide as all the options if
+     they are inline-block */
+  display: block;
+}
+
 @media only screen and (min-width: 768px) {
   .Plain-move-gif-large {
     width: 590px;
