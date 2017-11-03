@@ -1,6 +1,10 @@
 {
   "fighters": [
     {
+      "name": "Cloud",
+      "key": "cloud"
+    },
+    {
       "name": "Diddy Kong",
       "key": "diddy"
     },
