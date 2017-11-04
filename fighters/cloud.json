@@ -337,7 +337,7 @@
     },
     {
       "rawName": "Fall",
-      "prettyName": "Fall (ed)",
+      "prettyName": "Fall",
       "category": "no_hitbox"
     },
     {
@@ -357,12 +357,12 @@
     },
     {
       "rawName": "FallB",
-      "prettyName": "Fall Backward (ed)",
+      "prettyName": "Fall Backward",
       "category": "no_hitbox"
     },
     {
       "rawName": "FallF",
-      "prettyName": "Fall Forward (ed)",
+      "prettyName": "Fall Forward",
       "category": "no_hitbox"
     },
     {
@@ -571,33 +571,23 @@
       "category": "no_hitbox"
     },
     {
-      "rawName": "SpecialAirS1Limit",
-      "prettyName": "SpecialAirS1Limit",
-      "category": "has_hitbox"
-    },
-    {
       "rawName": "SpecialAirS1Regular",
-      "prettyName": "SpecialAirS1Regular",
-      "category": "has_hitbox"
-    },
-    {
-      "rawName": "SpecialAirS2Limit",
-      "prettyName": "SpecialAirS2Limit",
+      "prettyName": "Side Special Part 1 (Air)",
       "category": "has_hitbox"
     },
     {
       "rawName": "SpecialAirS2Regular",
-      "prettyName": "SpecialAirS2Regular",
-      "category": "has_hitbox"
-    },
-    {
-      "rawName": "SpecialAirS3Limit",
-      "prettyName": "SpecialAirS3Limit",
+      "prettyName": "Side Special Part 2 (Air)",
       "category": "has_hitbox"
     },
     {
       "rawName": "SpecialAirS3Regular",
-      "prettyName": "SpecialAirS3Regular",
+      "prettyName": "Side Special Part 3 (Air)",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "SpecialAirSLimit",
+      "prettyName": "Side Special [Limit] (Air)",
       "category": "has_hitbox"
     },
     {
@@ -632,7 +622,7 @@
     },
     {
       "rawName": "SpecialLw",
-      "prettyName": "Down Special ()",
+      "prettyName": "Down Special",
       "category": "has_hitbox"
     },
     {
@@ -661,33 +651,23 @@
       "category": "has_hitbox"
     },
     {
-      "rawName": "SpecialS1Limit",
-      "prettyName": "SpecialS1Limit",
-      "category": "has_hitbox"
-    },
-    {
       "rawName": "SpecialS1Regular",
-      "prettyName": "SpecialS1Regular",
-      "category": "has_hitbox"
-    },
-    {
-      "rawName": "SpecialS2Limit",
-      "prettyName": "SpecialS2Limit",
+      "prettyName": "Side Special Part 1",
       "category": "has_hitbox"
     },
     {
       "rawName": "SpecialS2Regular",
-      "prettyName": "SpecialS2Regular",
-      "category": "has_hitbox"
-    },
-    {
-      "rawName": "SpecialS3Limit",
-      "prettyName": "SpecialS3Limit",
+      "prettyName": "Side Special Part 2",
       "category": "has_hitbox"
     },
     {
       "rawName": "SpecialS3Regular",
-      "prettyName": "SpecialS3Regular",
+      "prettyName": "Side Special Part 3",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "SpecialSLimit",
+      "prettyName": "Side Special [Limit]",
       "category": "has_hitbox"
     },
     {

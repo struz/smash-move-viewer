@@ -1,8 +1,8 @@
 {
   "moveName": "Neutral Special [Limit]",
   "faf": 61,
-  "intangibilityStart": 0,
-  "intangibilityEnd": 0,
+  "intangibilityStart": 10,
+  "intangibilityEnd": 18,
   "frames": [
     {
       "hitboxes": [],
