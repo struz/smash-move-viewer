@@ -547,7 +547,7 @@
     },
     {
       "rawName": "SpecialAirLw",
-      "prettyName": "Down Special (Air)",
+      "prettyName": "Down Special [Limit] (Air)",
       "category": "has_hitbox"
     },
     {
@@ -622,7 +622,7 @@
     },
     {
       "rawName": "SpecialLw",
-      "prettyName": "Down Special",
+      "prettyName": "Down Special [Limit]",
       "category": "has_hitbox"
     },
     {
