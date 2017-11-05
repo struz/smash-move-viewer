@@ -93,7 +93,7 @@ const TOOLTIPS = {
   direction: 'Facing direction<br />Determines which way the hitbox will send the victim.<br />Directions are reversed if the victim\'s TransN bone has passed the attacker\'s TransN bone when the hit registers.<br />Mouse over the individual value for more info',
   hitlag: 'Hitlag modifier<br />Multiplier on how many frames your character will freeze after connecting with this hitbox.<br />>1 means more than usual, <1 means less than usual',
   sdi: 'SDI modifier<br />Multiplier on how far each SDI input will move the victim.<br />>1 means more distance than usual, <1 means less distance than usual',
-  trip: 'Tripping rate<br />Percentage of time the hitbox will trip an opponent.<br />Can be negative for some unknown reason',
+  trip: 'Tripping chance<br />Percentage chance the hitbox will trip an opponent.<br />Can be negative for some unknown reason',
   rehit: 'Rehit rate<br />If 0 the hitbox does not rehit. If >0 then the hitbox can hit an opponent again after the specified number of frames',
   collateral: 'Throw collateral<br />If "yes" then the hitbox cannot hit the currently grabbed opponent',
   effect: 'Hitbox effect<br />Different effects make hitboxes act differently.<br />Mouse over the effect names to find out more about the specific effect',
@@ -322,7 +322,7 @@ class HitboxInfo extends Component {
         <td>{groundAir}</td>
         <td>{hitboxData.hitlag}</td>
         <td>{hitboxData.sdi}</td>
-        <td>{hitboxData.trip}</td>
+        <td>{hitboxData.trip * 100 + "%"}</td>
         <td>{hitboxData.rehit}</td>
         <td>{hitboxData.ignoreThrow ? 'Yes' : 'No'}</td>
         <td>{propsString}</td>
