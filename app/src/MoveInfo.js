@@ -82,7 +82,7 @@ const FACING_RESTRICTION = {
 }
 
 const TOOLTIPS = {
-  faf: 'First Active Frame<br />The first frame on which this animation can be interrupted by another action or input',
+  faf: 'First Actionable Frame<br />The first frame on which this animation can be interrupted by another action or input',
   intFrames: 'Intangible frames<br />The range(s) of frames in this move in which all character hurtboxes are disabled',
   hitActive: 'Hitbox active frames<br />The range(s) of frames in this move which have an active hitbox',
 
@@ -124,8 +124,7 @@ class MoveInfo extends Component {
   }
 
   getIntangibilityRange() {
-    if (this.state.moveData.intangibilityStart === 0 ||
-        this.state.moveData.intangibilityEnd < this.state.moveData.intangibilityStart) {
+    if (this.state.moveData.intangibilityEnd <= this.state.moveData.intangibilityStart) {
       return 'N/A'
     }
     // Intangibility end is the *frame on which* the intangibility ends i.e. the frame
@@ -216,7 +215,7 @@ class MoveInfo extends Component {
 
     return(
       <div className="Move-info">
-        <p><span className='Bold-label' data-tip={TOOLTIPS['faf']}>FAF:</span> {this.state.moveData.faf === 0 ? 'N/A' : this.state.moveData.faf}</p>
+        <p><span className='Bold-label' data-tip={TOOLTIPS['faf']}>First Actionable Frame:</span> {this.state.moveData.faf === 0 ? 'N/A' : this.state.moveData.faf}</p>
         <p><span className='Bold-label' data-tip={TOOLTIPS['intFrames']}>Intangible frames:</span> {intangibilityRange}</p>
         <p><span className='Bold-label' data-tip={TOOLTIPS['hitActive']}>Hitbox active:</span> {hitboxRanges}</p>
         {hitboxTable}
