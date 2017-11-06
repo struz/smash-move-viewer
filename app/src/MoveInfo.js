@@ -187,20 +187,20 @@ class MoveInfo extends Component {
                 <th data-tip={TOOLTIPS['color']}>Color</th>
                 <th data-tip={TOOLTIPS['id']}>ID</th>
                 <th data-tip={TOOLTIPS['type']}>Type</th>
-                <th data-tip={TOOLTIPS['damage']}>Damage</th>
+                <th data-tip={TOOLTIPS['damage']}>Dmg.</th>
                 <th data-tip={TOOLTIPS['angle']}>Angle</th>
                 <th data-tip={TOOLTIPS['kbg']}>KBG</th>
                 <th data-tip={TOOLTIPS['bkb']}>BKB</th>
                 <th data-tip={TOOLTIPS['wbkb']}>WBKB</th>
                 <th data-tip={TOOLTIPS['effect']}>Effect</th>
-                <th data-tip={TOOLTIPS['direction']}>Hit direction</th>
+                <th data-tip={TOOLTIPS['direction']}>Dir.</th>
                 <th data-tip={TOOLTIPS['groundAir']}>Ground/Air</th>
                 <th data-tip={TOOLTIPS['hitlag']}>Hitlag</th>
                 <th data-tip={TOOLTIPS['sdi']}>SDI</th>
                 <th data-tip={TOOLTIPS['trip']}>Trip</th>
                 <th data-tip={TOOLTIPS['rehit']}>Rehit</th>
-                <th data-tip={TOOLTIPS['collateral']}>Collateral</th>
-                <th data-tip={TOOLTIPS['props']}>Properties</th>
+                <th data-tip={TOOLTIPS['collateral']}>Coll.</th>
+                <th data-tip={TOOLTIPS['props']}>Props.</th>
               </tr>
             </thead>
             <tbody>
@@ -216,9 +216,9 @@ class MoveInfo extends Component {
 
     return(
       <div className="Move-info">
-        <p><span className='Bold-label' data-tip={TOOLTIPS['faf']}>FAF:</span> {this.state.moveData.faf === 0 ? 'N/A' : this.state.moveData.faf}</p>
-        <p><span className='Bold-label' data-tip={TOOLTIPS['intFrames']}>Intangible frames:</span> {intangibilityRange}</p>
-        <p><span className='Bold-label' data-tip={TOOLTIPS['hitActive']}>Hitbox active:</span> {hitboxRanges}</p>
+        <p><span data-tip={TOOLTIPS['faf']}>First Actionable Frame:</span> <span className='Bold-label'>{this.state.moveData.faf === 0 ? 'N/A' : this.state.moveData.faf}</span></p>
+        <p><span data-tip={TOOLTIPS['intFrames']}>Intangible frames:</span> <span className='Bold-label'>{intangibilityRange}</span></p>
+        <p><span data-tip={TOOLTIPS['hitActive']}>Hitbox active:</span> <span className='Bold-label'>{hitboxRanges}</span></p>
         {hitboxTable}
         <ReactTooltip multiline={true} delayShow={160} effect={'solid'} place={'right'} />
       </div>

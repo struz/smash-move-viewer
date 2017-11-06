@@ -6,12 +6,12 @@ import axios from 'axios';
 //import logo from './img/SmashBall.svg';
 
 // Gif control icons
-import iconPlay from './img/icons/285-play3.svg';
-import iconPause from './img/icons/286-pause2.svg';
-import iconFirst from './img/icons/290-first.svg';
-import iconLast from './img/icons/291-last.svg';
-import iconPrevious from './img/icons/292-previous2.svg';
-import iconNext from './img/icons/293-next2.svg';
+import iconPlay from './img/icons/play.png';
+import iconPause from './img/icons/pause.png'; //YEET
+import iconFirst from './img/icons/first.png';
+import iconLast from './img/icons/last.png';
+import iconPrevious from './img/icons/previous.png';
+import iconNext from './img/icons/next.png';
 //import iconLoop from './img/icons/302-loop.svg';
 
 import './Player.css';
@@ -151,7 +151,9 @@ class Player extends Component {
             <img src={iconNext} alt="next" onClick={this.nextFrameHandler} className="Player-control"/>
             <img src={iconLast} alt="last" onClick={this.lastFrameHandler} className="Player-control"/>
           </div>
-
+          <div>
+		    <hr />
+		  </div>
           <div className="Frame-controls">
             <label>Play speed:</label>
             <select onChange={this.speedChanged} value={this.state.playbackSpeed} className="Dropdown">
@@ -167,6 +169,9 @@ class Player extends Component {
              value={displayFrame}
              className="Move-frame Text-input"/>
           </div>
+		  <div>
+		    <hr />
+		  </div>
         </div>
       </div>
     );

@@ -152,7 +152,6 @@ class MovePicker extends Component {
   }
 }
 
-
 /*
  Central component of the app. This is the canonical state store for the app,
  and delegates to sub-components for other important things or state that won't

@@ -9,30 +9,33 @@
 }
 
 .Hitbox-color {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   display: inline-block;
-  background: black;
-  border: 1px solid black;
+  border: 1px solid #00123e;
+  margin: 3px 0px 0px 0px;
 }
 
 .Hitbox-info-table {
   width: 100%;
+  padding: 0px 0px 0px 0px;
   white-space: nowrap;
+  text-align: left;
+  border-collapse:collapse;
 }
 
 .Hitbox-info-table td {
-  padding: 3px 12px 3px 0px;
-  text-align: center;
+  padding: 0px 5px 0px 5px;
+  border: 1px solid #c6c5c6;
 }
 
 .Hitbox-info-table th {
-  padding: 3px 12px 3px 0px;
-  text-align: left;
+  padding: 3px 5px 3px 5px;
+  border: 1px solid #c6c5c6;
 }
 
 .Bold-label {
-  font-weight: bold;
+  font-family: "bwmodelica-bold", sans-serif;
 }
 
 .Angle-canvas {

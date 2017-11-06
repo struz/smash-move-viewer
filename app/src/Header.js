@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 
-import logo from './img/SmashBall.svg';
 import twitter_logo from './img/twitter.svg';
 import './Header.css';
 
@@ -13,17 +12,15 @@ class App extends Component {
     return (
       <div className="App-header">
         <div className="App-intro">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1>Smash Move Viewer</h1>
+          <h2>Struz Smash</h2>
+		  		  <hr />
+          <h1>Move Viewer</h1>
         </div>
-        <div className="Links">
-          <div className="Link">
-            <ReactGA.OutboundLink eventLabel="Twitter" to="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">
-              <img src={twitter_logo} className="Twitter-logo" alt="twitter-logo" />
-              <span className="Link-text">@StruzSmash</span>
-            </ReactGA.OutboundLink>
-          </div>
-        </div>
+        {/*<div className="Link">
+          <ReactGA.OutboundLink eventLabel="Twitter" to="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">
+            <span className="Link-text">@StruzSmash</span>
+          </ReactGA.OutboundLink>
+        </div>*/}
       </div>
     );
   }

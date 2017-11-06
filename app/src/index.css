@@ -1,5 +1,5 @@
 /*
-  Site-wide styles that are overridden in more specific components
+  Site-wide styles that are overridden in more specific components (not anymore lol new colour scheme incoming beep beep)
 
   Color scheme:
   #035073
@@ -8,13 +8,98 @@
   #23d7c8
   #f2f4f7
 */
+
+@font-face {
+	font-family: 'bwmodelica-regular';
+	src: url('font/bwmodelica-regular/bwmodelica-regular-webfont.eot');
+	src: url('font/bwmodelica-regular/bwmodelica-regular-webfont.eot?#iehack') format('eot'), 
+		url('font/bwmodelica-regular/bwmodelica-regular-webfont.woff') format('woff'), 
+		url('font/bwmodelica-regular/bwmodelica-regular-webfont.ttf')  format('truetype'),
+		url('font/bwmodelica-regular/bwmodelica-regular-webfont.svg#svgbwmodelica-regular') format('svg');
+	}
+
+@font-face {
+	font-family: 'bwmodelica-bold';
+	src: url('font/bwmodelica-bold/bwmodelica-bold-webfont.eot');
+	src: url('font/bwmodelica-bold/bwmodelica-bold-webfont.eot?#iehack') format('eot'), 
+		url('font/bwmodelica-bold/bwmodelica-bold-webfont.woff') format('woff'), 
+		url('font/bwmodelica-bold/bwmodelica-bold-webfont.ttf')  format('truetype'),
+		url('font/bwmodelica-bold/bwmodelica-bold-webfont.svg#svgbwmodelica-bold') format('svg');
+	}
+
+@font-face {
+	font-family: 'Town31Dim-BlackL';
+	src: url('font/Town31Dim-BlackL/Town31Dim-BlackL.eot');
+	src: url('font/Town31Dim-BlackL/Town31Dim-BlackL.eot?#iehack') format('eot'), 
+		url('font/Town31Dim-BlackL/Town31Dim-BlackL.woff') format('woff'), 
+		url('font/Town31Dim-BlackL/Town31Dim-BlackL.ttf')  format('truetype'),
+		url('font/Town31Dim-BlackL/Town31Dim-BlackL.svg#svgTown31Dim-BlackL') format('svg');
+	}
+
+@font-face {
+	font-family: 'Town31Dim-RegularL';
+	src: url('font/Town31Dim-RegularL/Town31Dim-RegularL.eot');
+	src: url('font/Town31Dim-RegularL/Town31Dim-RegularL.eot?#iehack') format('eot'), 
+		url('font/Town31Dim-RegularL/Town31Dim-RegularL.woff') format('woff'), 
+		url('font/Town31Dim-RegularL/Town31Dim-RegularL.ttf')  format('truetype'),
+		url('font/Town31Dim-RegularL/Town31Dim-RegularL.svg#svgTown31Dim-RegularL') format('svg');
+	}
+
 body {
-  font-family: "Verdana", "Arial", sans-serif;
-  color: #0197a6;
+  font-family: "bwmodelica-regular", sans-serif;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   text-align: center;
+  background-image:url("img/background.gif");
+  background-position:center center;
+  background-repeat:repeat;
+  color: #00123e;
+}
+
+p {
+	line-height: 15px;
+}
+
+div.prose {
+	text-align: left;
+	line-height: 22px;
+    width: 90%;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (min-width: 768px) {
+  div.prose{
+    width: 40%;
+  }
+}
+
+hr { 
+  margin-top: 7px;
+  margin-bottom: 7px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-width: 1px;
+  border-color: #878b98;
+  border-style: solid hidden hidden hidden;
+  overflow: auto;
+}
+
+/*update these later*/
+a.menu:link{
+  color: #8b9fa1;
+  font-family: "bwmodelica-bold", serif;
+  text-decoration: underline;
+}
+
+a.menu:visited {
+  color: #8b9fa1;
+}
+
+a.menu:hover {
+  color: #00123e;
 }
 
 #container {

@@ -1,10 +1,13 @@
+  /* the whole move viewer pretty much */
 .Move {
-  padding: 10px 10px 10px 10px;
-  margin-top: 5px;
-  border-radius: 10px;
-  border: 2px solid #035073;
+  padding: 20px 20px 20px 20px;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: #a6a8ac;
   display: inline-block;
   text-align: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 
   /* just to make sure 100% internal divs work properly */
   width: 90%;
@@ -26,34 +29,36 @@
   width: 3em;
 }
 
+  /* all dropdowns including play speed */
 .Dropdown {
-  border-radius: 7px;
-  color: #0197a6;
-  font-family: "Verdana", "Arial", sans-serif;
-  font-weight: bold;
-  font-size: 15px;
+  color: #00123e;
+  font-family: "bwmodelica-bold", sans-serif;
+  font-size: 16px;
   display: inline-block;
-  border: 1px solid #035073;
+  border: 1px solid #878b98;
 }
 
+  /* just the top two dropdowns */
 .Main-dropdown {
   padding: 5px 3px 5px 3px;
+  margin: 0px 2px 0px 3px;
+  font-family: "bwmodelica-regular", sans-serif;
   margin-bottom: 5px;
   width: 300px;
+  background: #fbfbf1;
 }
 
 .Text-input {
-  border-radius: 7px;
-  color: #0197a6;
-  font-family: "Verdana", "Arial", sans-serif;
-  font-weight: bold;
-  font-size: 15px;
+  /* fields eg. where frame number is entered */
+  color: #00123e;
+  font-family: "bwmodelica-bold", sans-serif;
+  font-size: 16px;
   display: inline-block;
-  border: 1px solid #035073;
+  border: 1px solid #878b98;
 }
 
 .Dropdown:disabled {
-  background: #999999;
+  background: #c6c5c6;
 }
 
 .View-picker {
