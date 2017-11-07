@@ -215,15 +215,9 @@ class MoveInfo extends Component {
 
     return(
       <div className="Move-info">
-<<<<<<< HEAD
-        <p><span data-tip={TOOLTIPS['faf']}>First Actionable Frame:</span> <span className='Bold-label'>{this.state.moveData.faf === 0 ? 'N/A' : this.state.moveData.faf}</span></p>
-        <p><span data-tip={TOOLTIPS['intFrames']}>Intangible frames:</span> <span className='Bold-label'>{intangibilityRange}</span></p>
-        <p><span data-tip={TOOLTIPS['hitActive']}>Hitbox active:</span> <span className='Bold-label'>{hitboxRanges}</span></p>
-=======
         <p><span className='Bold-label' data-tip={TOOLTIPS['faf']}>First Actionable Frame:</span> {this.state.moveData.faf === 0 ? 'N/A' : this.state.moveData.faf}</p>
         <p><span className='Bold-label' data-tip={TOOLTIPS['intFrames']}>Intangible frames:</span> {intangibilityRange}</p>
         <p><span className='Bold-label' data-tip={TOOLTIPS['hitActive']}>Hitbox active:</span> {hitboxRanges}</p>
->>>>>>> 086f996f9d2cbc7a6bd525d349e040ed839f6ef4
         {hitboxTable}
         <ReactTooltip multiline={true} delayShow={160} effect={'solid'} place={'right'} />
       </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 
-import twitter_logo from './img/twitter.svg';
+//import twitter_logo from './img/twitter.svg';
 import './Header.css';
 
 
