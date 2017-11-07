@@ -49,3 +49,11 @@
 .Angle-td {
   width: 100%;
 }
+
+/*
+ Hack to get left aligned tooltips. multi-line is the class name used internally
+ by the react component
+*/
+.multi-line {
+  text-align: left !important;
+}
