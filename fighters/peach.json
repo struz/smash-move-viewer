@@ -381,6 +381,11 @@
       "category": "no_hitbox"
     },
     {
+      "rawName": "Fuwafuwa",
+      "prettyName": "Float",
+      "category": "no_hitbox"
+    },
+    {
       "rawName": "JumpAerialB",
       "prettyName": "Double Jump Backward",
       "category": "no_hitbox"
