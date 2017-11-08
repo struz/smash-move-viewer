@@ -64,3 +64,10 @@
     border: 1px solid #878b98;
   }
 }
+
+/* For landscape screens shrink the video */
+@media only screen and (max-height: 500px) {
+  .Move-video {
+    max-height: 80vh;
+  }
+}
