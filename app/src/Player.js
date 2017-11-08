@@ -134,9 +134,14 @@ class Player extends Component {
 
     const displayFrame = this.state.frameIndex + 1;
 
+    // 792px is the average width of a video so we use that as a default to make
+    // the layout change less jarring to the user when they load their first move
+    const videoWidth = vidLoaded ? null : 792;
+
     return (
-      <div className="Move-gif" style={{display: 'inline-block'}}>
+      <div className="Move-gif">
         <video className="Move-video" id={uuid} ref="moveVideo"
+         width={videoWidth}
          onEnded={this.videoEventHandler}
          onPause={this.videoEventHandler}
          onPlay={this.videoEventHandler}
@@ -320,7 +325,7 @@ class Player extends Component {
     });
 
     if (this.isValidFrameIndex(frameIndex)) {
-      this.moveFrameAbsolute(this.getUsableFrameIndex(frameIndex), this.state.video, true);
+      this.moveFrameAbsolute(frameIndex - 1, this.state.video, true);
     } else {
       // Store the invalid frame index but don't move the frame
       this.setState(function(prevState, props) {

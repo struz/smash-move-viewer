@@ -10,9 +10,6 @@ import MoveInfo from './MoveInfo.js';
 
 import './Move.css';
 
-// General icons
-//import cross from './img/icons/272-cross.svg';
-
 const gifStore = "https://s3-us-west-1.amazonaws.com/smash-move-viewer/fighters/";
 
 
@@ -167,10 +164,6 @@ class Move extends Component {
     var [view, fighter, move, speed, frame, frameEnd] = Common.parsePath(
       this.props.location.pathname, this.props.location.search
     );
-    // TODO: hookup speed onwards -->
-    // TODO: make all the select boxes auto populated, even if the move list json hasn't been loaded yet
-    // TODO: make the move info appear when parsing from a URL
-    // TODO: make the URL update as you move through the site, or alternatively have a box that provides the copy/paste URL
     // TODO: add frame box for specifying loop frame ranges
 
     this.state = {

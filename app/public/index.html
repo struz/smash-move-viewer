@@ -36,15 +36,22 @@
     <meta name="description" content="View Smash4 move animations and frame data.">
     <meta name="keywords" content="super, smash, bros, brothers, move, attack, viewer, hitbox, hurtbox, animation, frame, data">
     <meta name="author" content="Struz">
-    
+
     <title>Smash Move Viewer</title>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    <div id="header"></div>
     <div id="container"></div>
+    <div id="footer"></div>
+
+    <!--
+      The spacer exists to stop the view popping around as the MoveInfo comes
+      in and out of view at varying heights and information densities.
+   -->
+    <div id="vertical-spacer"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

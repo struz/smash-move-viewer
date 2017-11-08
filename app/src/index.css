@@ -1,19 +1,12 @@
 /*
-  Site-wide styles that are overridden in more specific components (not anymore lol new colour scheme incoming beep beep)
-
-  Color scheme:
-  #035073
-  #00738d
-  #0197a6
-  #23d7c8
-  #f2f4f7
+  Site-wide styles chyea boi
 */
 
 @font-face {
 	font-family: 'bwmodelica-regular';
 	src: url('font/bwmodelica-regular/bwmodelica-regular-webfont.eot');
-	src: url('font/bwmodelica-regular/bwmodelica-regular-webfont.eot?#iehack') format('eot'), 
-		url('font/bwmodelica-regular/bwmodelica-regular-webfont.woff') format('woff'), 
+	src: url('font/bwmodelica-regular/bwmodelica-regular-webfont.eot?#iehack') format('eot'),
+		url('font/bwmodelica-regular/bwmodelica-regular-webfont.woff') format('woff'),
 		url('font/bwmodelica-regular/bwmodelica-regular-webfont.ttf')  format('truetype'),
 		url('font/bwmodelica-regular/bwmodelica-regular-webfont.svg#svgbwmodelica-regular') format('svg');
 	}
@@ -21,8 +14,8 @@
 @font-face {
 	font-family: 'bwmodelica-bold';
 	src: url('font/bwmodelica-bold/bwmodelica-bold-webfont.eot');
-	src: url('font/bwmodelica-bold/bwmodelica-bold-webfont.eot?#iehack') format('eot'), 
-		url('font/bwmodelica-bold/bwmodelica-bold-webfont.woff') format('woff'), 
+	src: url('font/bwmodelica-bold/bwmodelica-bold-webfont.eot?#iehack') format('eot'),
+		url('font/bwmodelica-bold/bwmodelica-bold-webfont.woff') format('woff'),
 		url('font/bwmodelica-bold/bwmodelica-bold-webfont.ttf')  format('truetype'),
 		url('font/bwmodelica-bold/bwmodelica-bold-webfont.svg#svgbwmodelica-bold') format('svg');
 	}
@@ -30,8 +23,8 @@
 @font-face {
 	font-family: 'Town31Dim-BlackL';
 	src: url('font/Town31Dim-BlackL/Town31Dim-BlackL.eot');
-	src: url('font/Town31Dim-BlackL/Town31Dim-BlackL.eot?#iehack') format('eot'), 
-		url('font/Town31Dim-BlackL/Town31Dim-BlackL.woff') format('woff'), 
+	src: url('font/Town31Dim-BlackL/Town31Dim-BlackL.eot?#iehack') format('eot'),
+		url('font/Town31Dim-BlackL/Town31Dim-BlackL.woff') format('woff'),
 		url('font/Town31Dim-BlackL/Town31Dim-BlackL.ttf')  format('truetype'),
 		url('font/Town31Dim-BlackL/Town31Dim-BlackL.svg#svgTown31Dim-BlackL') format('svg');
 	}
@@ -39,8 +32,8 @@
 @font-face {
 	font-family: 'Town31Dim-RegularL';
 	src: url('font/Town31Dim-RegularL/Town31Dim-RegularL.eot');
-	src: url('font/Town31Dim-RegularL/Town31Dim-RegularL.eot?#iehack') format('eot'), 
-		url('font/Town31Dim-RegularL/Town31Dim-RegularL.woff') format('woff'), 
+	src: url('font/Town31Dim-RegularL/Town31Dim-RegularL.eot?#iehack') format('eot'),
+		url('font/Town31Dim-RegularL/Town31Dim-RegularL.woff') format('woff'),
 		url('font/Town31Dim-RegularL/Town31Dim-RegularL.ttf')  format('truetype'),
 		url('font/Town31Dim-RegularL/Town31Dim-RegularL.svg#svgTown31Dim-RegularL') format('svg');
 	}
@@ -75,7 +68,7 @@ div.prose {
   }
 }
 
-hr { 
+hr {
   margin-top: 7px;
   margin-bottom: 7px;
   width: 100%;
@@ -102,7 +95,56 @@ a.menu:hover {
   color: #00123e;
 }
 
+.menu-container {
+	margin-top: 8px;
+}
+
+.menu-spacer {
+	margin-left: 7px;
+	margin-right: 7px;
+}
+
 #container {
-  height: 150vh;
   overflow-y: scroll;
+}
+
+#vertical-spacer {
+  height: 80vh;
+}
+
+/* fix this later */
+h1 {
+    color: #00123e;
+    font-family: "Town31Dim-BlackL", serif;
+    font-size: 55px;
+    visibility: visible;
+	font-weight: normal;
+	font-style: normal;
+	letter-spacing: 2px;
+	line-height: 15px;
+}
+
+/*adjust line height if you need to*/
+@media only screen and (min-width: 768px) {
+  h1{
+    font-size: 55px;
+  }
+}
+
+/* also fix this later */
+h2 {
+    color: #00123e;
+    font-family: "Town31Dim-RegularL", serif;
+    font-size: 40px;
+    visibility: visible;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 15px;
+	letter-spacing: 3px;
+}
+
+@media only screen and (min-width: 768px) {
+  h2 {
+    font-size: 40px;
+  }
 }

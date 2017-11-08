@@ -1,6 +1,8 @@
 .Move-gif {
-  margin: 14px 0px 0px 0px;
+  margin-top: 6px;
   max-width: 100%;
+  /*width set to the "standard" width of a move video as per recipe.yaml*/
+  display: block;
 }
 
 /* this includes the nav buttons and the play speed and frame menus. At 100%, it's the width of the video window */
@@ -57,6 +59,6 @@
 }
 
 .Move-video {
-  max-width: 100%;
+  max-width: 792px;
   border: 1px solid #878b98;
 }

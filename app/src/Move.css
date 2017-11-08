@@ -43,7 +43,6 @@
   padding: 5px 3px 5px 3px;
   margin: 0px 2px 0px 3px;
   font-family: "bwmodelica-regular", sans-serif;
-  margin-bottom: 5px;
   width: 300px;
   background: #fbfbf1;
 }
@@ -61,7 +60,7 @@
   background: #c6c5c6;
 }
 
-.View-picker {
+.View-picker, .Move-picker, .Fighter-picker {
   display: inline-block;
 }
 .GifSizeCheckbox {
