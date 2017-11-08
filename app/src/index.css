@@ -114,10 +114,10 @@ a.menu:hover {
 
 /* fix this later */
 h1 {
-    color: #00123e;
-    font-family: "Town31Dim-BlackL", serif;
-    font-size: 55px;
-    visibility: visible;
+  color: #00123e;
+  font-family: "Town31Dim-BlackL", serif;
+  font-size: 55px;
+  visibility: visible;
 	font-weight: normal;
 	font-style: normal;
 	letter-spacing: 2px;
@@ -126,17 +126,23 @@ h1 {
 
 /*adjust line height if you need to*/
 @media only screen and (min-width: 768px) {
-  h1{
+  h1 {
     font-size: 55px;
+  }
+}
+/* scale font-size for smaller devices */
+@media only screen and (max-width: 767px) {
+  h1 {
+    font-size: calc(30px + 4vw);
   }
 }
 
 /* also fix this later */
 h2 {
-    color: #00123e;
-    font-family: "Town31Dim-RegularL", serif;
-    font-size: 40px;
-    visibility: visible;
+  color: #00123e;
+  font-family: "Town31Dim-RegularL", serif;
+  font-size: 40px;
+  visibility: visible;
 	font-weight: normal;
 	font-style: normal;
 	line-height: 15px;
@@ -146,5 +152,11 @@ h2 {
 @media only screen and (min-width: 768px) {
   h2 {
     font-size: 40px;
+  }
+}
+/* scale font-size for smaller devices */
+@media only screen and (max-width: 767px) {
+  h2 {
+    font-size: calc(20px + 4vw);
   }
 }
