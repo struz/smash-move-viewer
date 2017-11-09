@@ -9,8 +9,16 @@
       "key": "diddy"
     },
     {
+      "name": "Fox",
+      "key": "fox"
+    },
+    {
       "name": "Ike",
       "key": "ike"
+    },
+    {
+      "name": "Mario",
+      "key": "mario"
     },
     {
       "name": "Peach",
