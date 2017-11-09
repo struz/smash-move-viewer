@@ -135,8 +135,13 @@ class Player extends Component {
     const playIcon = this.state.paused ? iconPlay : iconPause;
     const displayFrame = this.state.frameIndex + 1;
 
-    return (
-      <div className="Move-gif">
+    // The video is initially hidden just to keep the ref around
+    // to avoid bugs and crashes.
+    var videoElement = (
+      <video className="Hidden" id={uuid} ref="moveVideo"></video>
+    );
+    if (vidLoaded) {
+      videoElement = (
         <video className="Move-video" id={uuid} ref="moveVideo"
          width={videoWidth}
          onEnded={this.videoEventHandler}
@@ -145,6 +150,24 @@ class Player extends Component {
          //onTimeUpdate={this.videoEventHandler}
          src={videoSrc}>
         </video>
+      );
+    }
+    var vidPlaceholder = null;
+    if (!vidLoaded) {
+      // We have to use inline style here unfortunately because divs don't have
+      // a "width" property
+      vidPlaceholder = (
+        <div className="Move-video-placeholder"
+         style={{width: videoWidth}}>
+          <br /><span>Select a character and a move to get started.</span>
+        </div>
+      );
+    }
+
+    return (
+      <div className="Move-gif">
+        {videoElement}
+        {vidPlaceholder}
         <div className="Move-controls" style={!vidLoaded ? {display: 'none'} : {}}>
           <div className="Player-controls">
             <img src={iconFirst} alt="first" onClick={this.firstFrameHandler} className="Player-control"/>
@@ -263,13 +286,6 @@ class Player extends Component {
     } else if (num < 0) {
       num = 0;
     }
-
-    // weird edge case hack - library doesn't like going to frame 0
-    // if (num === 0) {
-    //   video.seekTo({frame: 1});
-    //   this.moveFrameRelative(-1, video, updateUrl);
-    //   return;
-    // }
 
     video.seekTo({frame: num});
     this.setState(function(prevState, props) {

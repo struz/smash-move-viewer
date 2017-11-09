@@ -18,7 +18,7 @@
 /* #### Desktops #### */
 @media screen and (min-width: 1024px){
   .Move {
-    /* just to make sure 100% internal divs work properly */
+    /* just to make sure % based internal divs work properly */
     width: 1024px;
     margin-right: auto;
     margin-left: auto;

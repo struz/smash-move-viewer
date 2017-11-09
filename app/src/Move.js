@@ -59,7 +59,7 @@ class FighterPicker extends Component {
     return(
       <div className="Form-element Fighter-picker">
         <select onChange={this.handleChange} value={currentFighter} className="Dropdown Main-dropdown">
-          <option value="">Character</option>
+          <option value="">Select a Character</option>
           {this.state.options}
         </select>
       </div>
@@ -100,7 +100,7 @@ class MovePicker extends Component {
     return(
       <div className="Form-element Move-picker">
         <select onChange={this.handleChange} value={currentMove} className="Dropdown Main-dropdown" disabled={disabled}>
-          <option value="" disabled={defaultOptionDisabled}>Move</option>
+          <option value="" disabled={defaultOptionDisabled}>Select a Move</option>
           {options}
         </select>
       </div>

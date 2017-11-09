@@ -51,6 +51,10 @@
   width: 100%;
 }
 
+.Colored-table-row {
+  background: #d3d4ce;
+}
+
 /*
  Hack to get left aligned tooltips. multi-line is the class name used internally
  by the react component

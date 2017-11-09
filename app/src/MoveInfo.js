@@ -87,7 +87,7 @@ const TOOLTIPS = {
   hitActive: 'Hitbox active frames<br />The range(s) of frames in this move which have an active hitbox',
 
   // Table stuff
-  props: 'Properties<br />B: Hitbox is ~not~ blockable<br />Rf: Hitbox is reflectable<br />A: Hitbox is absorbable<br />C: Hitbox ~does not~ clang<br/>Rb: Hitbox ~does not~ rebound<br />F: Hitbox is flinchless<br />H: Hitbox has hitlag disabled',
+  props: 'Properties<br />U: Hitbox is unblockable<br />R: Hitbox is reflectable<br />A: Hitbox is absorbable<br />C: Hitbox does not clang<br/>B: Hitbox does not rebound. Also known as "trample".<br />F: Hitbox is flinchless<br />H: Hitbox has hitlag disabled',
   groundAir: 'Ground/Air<br />Which types of opponent this hitbox can hit',
   direct: 'Direct<br />If "Yes" then the hitbox will put the attacker in hitlag.<br />If "No" then the hitbox will usually not put the attacker in hitlag',
   direction: 'Facing direction<br />Determines which way the hitbox will send the victim.<br />Directions are reversed if the victim\'s TransN bone has passed the attacker\'s TransN bone when the hit registers.<br />Mouse over the individual value for more info',
@@ -100,7 +100,7 @@ const TOOLTIPS = {
   wbkb: 'Weight based knockback<br />If the value is >0 then this hitbox has set knockback based on the weight of the victim',
   bkb: 'Base knockback<br />The base knockback of the hitbox.<br />This is multiplied with other factors like damage, kbg, rage, and victim % to produce the in-game knockback received by the victim',
   kbg: 'Knockback growth<br />The knockback growth of the hitbox.<br />The higher this value is the more the victim\'s % will affect the in-game knockback received by the victim',
-  angle: 'Angle<br />The angle at which the opponent will be knocked away by the hitbox.<br />See "Hit direction" column for other factors that affect this',
+  angle: 'Angle<br />The angle at which the opponent will be knocked away by the hitbox.<br />See "Dir." column for other factors that affect this',
   damage: 'Damage<br />The amount of % that will be added to the victim\'s total %.<br />In general, higher damage hitboxes will produce more in-game knockback to the victim.<br />Any number shown in brackets is the amount of damage done when the move hits a shield instead of a hurtbox.',
   type: 'Hitbox type<br />The type of hitbox. One of: Hitbox, Grabbox, Windbox, Searchbox.<br />Mouse over the individual type for more info',
   id: 'Hitbox ID<br />The ID of the hitbox. Hitboxes with lower IDs take precedence when calculating which hitbox has hit.<br />Usually only one hitbox from a move can hit the victim in a single frame',
@@ -121,6 +121,12 @@ class MoveInfo extends Component {
     if (this.props.moveData !== nextProps.moveData) {
       this.setState({moveData: nextProps.moveData});
     }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // Because otherwise when we change frames and the table already exists the
+    // tooltips don't get rebound
+    ReactTooltip.rebuild();
   }
 
   getIntangibilityRange() {
@@ -176,13 +182,15 @@ class MoveInfo extends Component {
     const intangibilityRange = this.getIntangibilityRange();
     const hitboxRanges = this.getHitboxRanges();
 
-    var hitboxTable = null;
+    var hitboxTable = (
+      <span>Pause while hitboxes are visible to see more specific information</span>
+    );
     if (hitboxes.length > 0) {
       hitboxTable = (
         <div className='Hitbox-table-container'>
           <table className='Hitbox-info-table'>
             <thead>
-              <tr>
+              <tr className="Colored-table-row">
                 <th data-tip={TOOLTIPS['color']}>Color</th>
                 <th data-tip={TOOLTIPS['id']}>ID</th>
                 <th data-tip={TOOLTIPS['type']}>Type</th>
@@ -203,13 +211,15 @@ class MoveInfo extends Component {
               </tr>
             </thead>
             <tbody>
-              {hitboxes.map(function(hitbox) {
+              {hitboxes.map(function(hitbox, index) {
                 // TODO: ideally this should be a hash function so we don't re-render unless something has changed
-                return <HitboxInfo key={frame + "-" + hitbox.id} hitboxData={hitbox}/>;
+                return (
+                  <HitboxInfo key={frame + "-" + hitbox.id} hitboxData={hitbox}
+                   className={index % 2 ? "Colored-table-row" : null}/>
+               );
               })}
             </tbody>
           </table>
-          <ReactTooltip multiline={true} delayShow={160} effect={'solid'} place={'right'} />
         </div>);
     }
 
@@ -305,7 +315,7 @@ class HitboxInfo extends Component {
     const propsString = this.makePropsString(hitboxData);
 
     return(
-      <tr id={"hitbox-" + hitboxData.id}>
+      <tr id={"hitbox-" + hitboxData.id} className={this.props.className}>
         <td style={{'textAlign': 'center'}}>
           <div className="Hitbox-color" style={{'background': hitboxIdColors[hitboxData.id]}}></div>
         </td>
@@ -331,14 +341,12 @@ class HitboxInfo extends Component {
 
   makePropsString(hitboxData) {
     var statusString = '';
-    // TODO: re enable these after rebuilding json files with special=true/false
-    // since they default to 1 with special=false
     if (hitboxData.special) {
       if (!hitboxData.blockability) {
-        statusString += 'B ';
+        statusString += 'U ';
       }
       if (hitboxData.reflectable) {
-        statusString += 'Rf ';
+        statusString += 'R ';
       }
       if (hitboxData.absorbable) {
         statusString += 'A ';
@@ -348,7 +356,7 @@ class HitboxInfo extends Component {
       statusString += 'C ';
     }
     if (!hitboxData.rebound) {
-      statusString += 'Rb ';
+      statusString += 'B ';
     }
     if (hitboxData.flinchless) {
       statusString += 'F ';

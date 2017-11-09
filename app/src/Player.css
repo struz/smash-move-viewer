@@ -46,6 +46,18 @@
   display: block;
 }
 
+.Hidden {
+  display: none;
+}
+
+.Move-video-placeholder {
+  display: inline-block;
+}
+
+.Move-video-placeholder-text {
+  margin-top: 50px;
+}
+
 /*
  For screens smaller than the default video size of 792px just use whatever
  space they have.
@@ -53,6 +65,12 @@
 @media only screen and (max-width: 792px) {
   .Move-video {
     max-width: 100%;
+    border: 1px solid black;
+  }
+  .Move-video-placeholder {
+    display: inline-block;
+    max-width: 100%;
+    height: 35vh;
     border: 1px solid black;
   }
 }
@@ -63,11 +81,20 @@
     max-width: 792px;
     border: 1px solid #878b98;
   }
+  .Move-video-placeholder {
+    display: inline-block;
+    max-width: 792px;
+    height: 502px;
+    border: 1px solid black;
+  }
 }
 
 /* For landscape screens shrink the video */
 @media only screen and (max-height: 500px) {
   .Move-video {
     max-height: 80vh;
+  }
+  .Move-video-placeholder {
+    height: 80vh;
   }
 }
