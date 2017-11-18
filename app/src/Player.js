@@ -46,6 +46,7 @@ class Player extends Component {
     this.speedChanged = this.speedChanged.bind(this);
 
     this.videoEventHandler = this.videoEventHandler.bind(this);
+    this.keyDownHandler = this.keyDownHandler.bind(this);
   }
 
   loadVideo(url, defaultFrame) {
@@ -111,6 +112,9 @@ class Player extends Component {
 
   componentDidMount() {
     this.loadVideo(this.props.url, this.props.frameIndex);
+
+    // Bind the arrow keys to frame-by-frame controls
+    document.body.addEventListener('keydown', this.keyDownHandler);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -127,6 +131,8 @@ class Player extends Component {
   }
 
   componentWillUnmount() {
+    // Unbind the arrow keys from frame-by-frame controls
+    document.body.removeEventListener('keydown', this.keyDownHandler);
   }
 
   render() {
@@ -183,8 +189,8 @@ class Player extends Component {
             <img src={iconLast} alt="last" onClick={this.lastFrameHandler} className="Player-control"/>
           </div>
           <div>
-		    <hr />
-		  </div>
+  		      <hr />
+          </div>
           <div className="Frame-controls">
             <label>Play speed:</label>
             <select onChange={this.speedChanged} value={this.state.playbackSpeed} className="Dropdown">
@@ -200,12 +206,19 @@ class Player extends Component {
              value={displayFrame}
              className="Move-frame Text-input"/>
           </div>
-		  <div>
-		    <hr />
-		  </div>
+    		  <div>
+    		    <hr />
+    		  </div>
         </div>
       </div>
     );
+  }
+
+  keyDownHandler(e) {
+    if (e.keyCode === 37)  // Left
+      this.moveFrameRelative(-1, this.state.video, true);
+    else if (e.keyCode === 39) // right
+      this.moveFrameRelative(1, this.state.video, true);
   }
 
   // Get the move frame for the video, bounded to be inside the range of frames
