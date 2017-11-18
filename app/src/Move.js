@@ -206,6 +206,8 @@ class Move extends Component {
       });
       return prevState;
     });
+    // If there was a move selected already, load the move data too
+    this.fetchMoveData(fighter, this.state.move);
   }
   moveSelected(move) {
     ReactGA.event({

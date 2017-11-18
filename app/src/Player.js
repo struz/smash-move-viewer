@@ -78,6 +78,7 @@ class Player extends Component {
         prevState.videoData = blob;
         prevState.video = null;  // to force refresh in next render
         prevState.frameIndex = defaultFrame;
+        prevState.paused = true;
         return prevState;
       });
       sendVideoLoadAnalytics();
@@ -87,6 +88,8 @@ class Player extends Component {
     });
   }
 
+  // Sets up the video element to match the currently selected settings
+  // and gets it ready for frame-by-frame skips
   processVideo() {
     var video = new VideoFrame.VideoFrame({
       id : this.state.uuid,
@@ -133,25 +136,28 @@ class Player extends Component {
     const videoWidth = vidLoaded ? null : "100%";
 
     const playIcon = this.state.paused ? iconPlay : iconPause;
-    const displayFrame = this.state.frameIndex + 1;
+    // Logic around being able to delete the entire contents of the frame box
+    // Also has the added bonus of stopping text being entered
+    var displayFrame = parseInt(this.state.frameIndex, 10);
+    if (isNaN(displayFrame)) {
+      displayFrame = this.state.frameIndex;
+    } else {
+      displayFrame = displayFrame + 1;
+    }
 
     // The video is initially hidden just to keep the ref around
     // to avoid bugs and crashes.
     var videoElement = (
-      <video className="Hidden" id={uuid} ref="moveVideo"></video>
+      <video className="Move-video" id={uuid} ref="moveVideo"
+       width={videoWidth}
+       onEnded={this.videoEventHandler}
+       onPause={this.videoEventHandler}
+       onPlay={this.videoEventHandler}
+       //onTimeUpdate={this.videoEventHandler}
+       src={videoSrc}
+       style={(!vidLoaded) ? {'display': 'none'} : {}}>
+      </video>
     );
-    if (vidLoaded) {
-      videoElement = (
-        <video className="Move-video" id={uuid} ref="moveVideo"
-         width={videoWidth}
-         onEnded={this.videoEventHandler}
-         onPause={this.videoEventHandler}
-         onPlay={this.videoEventHandler}
-         //onTimeUpdate={this.videoEventHandler}
-         src={videoSrc}>
-        </video>
-      );
-    }
     var vidPlaceholder = null;
     if (!vidLoaded) {
       // We have to use inline style here unfortunately because divs don't have

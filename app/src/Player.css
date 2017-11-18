@@ -33,6 +33,7 @@
 .Frame-controls select,input {
   margin-left: 4px;
   margin-right: 16px;
+  background: #fbfbf1;
 }
 
 .Frame-controls input {
