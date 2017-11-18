@@ -1,13 +1,9 @@
   /* the whole move viewer pretty much */
 .Move {
   padding: 20px 20px 20px 20px;
-  border-width: 1px;
-  border-style: dashed;
-  border-color: #a6a8ac;
+  border: none;
   display: inline-block;
   text-align: center;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
 
   /* just to make sure 100% internal divs work properly */
   width: 90%;
@@ -19,9 +15,14 @@
 @media screen and (min-width: 1024px){
   .Move {
     /* just to make sure % based internal divs work properly */
-    width: 1024px;
-    margin-right: auto;
-    margin-left: auto;
+  width: 1024px;
+  margin-right: auto;
+  margin-left: auto;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: #a6a8ac;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   }
 }
 
@@ -41,7 +42,7 @@
   /* just the top two dropdowns */
 .Main-dropdown {
   padding: 5px 3px 5px 3px;
-  margin: 0px 2px 0px 3px;
+  margin: 5px 2px 0px 3px;
   font-family: "bwmodelica-regular", sans-serif;
   width: 300px;
   background: #fbfbf1;
