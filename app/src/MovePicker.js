@@ -107,7 +107,10 @@ class MovePicker extends Component {
       // To give them all unique keys
       var headerKeyIndex = 0;
       headerKeyIndex = processHeaderRegexes(RELEVANT_MOVE_REGEXES, headerKeyIndex, options, json.moves);
-      processHeaderRegexes(OTHER_MOVE_REGEXES, headerKeyIndex, options, json.moves);
+
+      if (showAllMoves) {
+        processHeaderRegexes(OTHER_MOVE_REGEXES, headerKeyIndex, options, json.moves);
+      }
 
       _this.setState({options: options});
     });
