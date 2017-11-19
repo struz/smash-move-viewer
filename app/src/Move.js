@@ -7,6 +7,7 @@ import * as Common from './Common';
 import * as Env from './Env';
 import Player from './Player.js';
 import MoveInfo from './MoveInfo.js';
+import MovePicker from './MovePicker.js';
 
 import './Move.css';
 
@@ -79,73 +80,29 @@ class FighterPicker extends Component {
   }
 }
 
-class MovePicker extends Component {
+class MoveOptions extends Component {
   constructor(props) {
     super(props);
-    this.state = {options: []};
+    this.state = {};
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
-    this.props.onMoveChange(e.target.value);
+    this.props.onShowAllChange(!e.target.checked);
   }
 
   render() {
-    const options = this.state.options;
-    const disabled = !this.props.url;
-    const defaultOptionDisabled = this.state.options.length > 0;
-    const currentMove = this.props.move;
+    const showAllMoves = this.props.showAllMoves;
 
     return(
-      <div className="Form-element Move-picker">
-        <select onChange={this.handleChange} value={currentMove} className="Dropdown Main-dropdown" disabled={disabled}>
-          <option value="" disabled={defaultOptionDisabled}>Select a Move</option>
-          {options}
-        </select>
+      // ShowUseful true means ShowAll is false
+      <div className="Form-element">
+        <input type="checkbox" id="chkShowUseful" onChange={this.handleChange}
+         checked={!showAllMoves} />
+        <label htmlFor="chkShowUseful">Relevant moves only</label>
       </div>
     );
-  }
-
-  componentDidMount() {
-    this.updateOptions(this.props.url);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // Reload the json only if they selected a new option and not the same one again
-    if (this.props.url !== nextProps.url) {
-      this.updateOptions(nextProps.url);
-    }
-  }
-
-  updateOptions(url) {
-    if (!url) {
-      return;
-    }
-
-    var _this = this;
-    axios.get(url).then(function(response) {
-      var json = response.data;  // JSON is auto parsed by axios
-      var options = [];
-      // Put moves with hitboxes first
-      options.push(<option key="header1_1" value='' disabled>-----------------------</option>);
-      options.push(<option key="header1_2" value='' disabled>Moves with hitboxes</option>);
-      options.push(<option key="header1_3" value='' disabled>-----------------------</option>);
-      json.moves.filter((move) => {return move.category === 'has_hitbox';})
-        .forEach(function(move) {
-          options.push(<option key={move.rawName} value={move.rawName}>{move.prettyName}</option>);
-        });
-      // Now moves without hitboxes
-      options.push(<option key="header2_1" value='' disabled>-----------------------</option>);
-      options.push(<option key="header2_2" value='' disabled>No hitboxes below</option>);
-      options.push(<option key="header2_3"  value='' disabled>-----------------------</option>);
-      json.moves.filter((move) => {return move.category === 'no_hitbox';})
-        .forEach(function(move) {
-          options.push(<option key={move.rawName} value={move.rawName}>{move.prettyName}</option>);
-        });
-
-      _this.setState({options: options});
-    });
   }
 }
 
@@ -161,7 +118,7 @@ class Move extends Component {
   constructor(props) {
     super(props);
 
-    var [view, fighter, move, speed, frame, frameEnd] = Common.parsePath(
+    var [view, fighter, move, speed, frame, frameEnd, showAllMoves] = Common.parsePath(
       this.props.location.pathname, this.props.location.search
     );
     // TODO: add frame box for specifying loop frame ranges
@@ -173,7 +130,8 @@ class Move extends Component {
       speed: speed,
       frameIndex: frame,
       frameEnd: frameEnd,
-      moveData: null
+      moveData: null,
+      showAllMoves: showAllMoves
     };
 
     this.fighterSelected = this.fighterSelected.bind(this);
@@ -181,6 +139,7 @@ class Move extends Component {
     this.viewSelected = this.viewSelected.bind(this);
     this.frameChanged = this.frameChanged.bind(this);
     this.speedChanged = this.speedChanged.bind(this);
+    this.showAllChanged = this.showAllChanged.bind(this);
   }
 
   /* Callback handlers */
@@ -291,6 +250,23 @@ class Move extends Component {
       return prevState;
     });
   }
+  showAllChanged(showAllMoves) {
+    this.setState(function(prevState, props) {
+      prevState.showAllMoves = showAllMoves;
+
+      var [location, search] = Common.generateAppUrl({
+        path: this.props.location.pathname,
+        search: this.props.location.search,
+        showAllMoves: showAllMoves
+      });
+      this.props.history.push({
+        pathname: location,
+        search: search
+      });
+
+      return prevState;
+    });
+  }
   /* End callback handlers */
 
   /* Data management */
@@ -358,6 +334,7 @@ class Move extends Component {
     const move = this.state.move;
     const speed = this.state.speed;
     const frameIndex = this.state.frameIndex;
+    const showAllMoves = this.state.showAllMoves;
 
     // TODO: this should be usable to make ranges of frames to play through, eventually
     //const frameEnd = this.state.frameEnd;
@@ -371,8 +348,10 @@ class Move extends Component {
     return(
       <div className="Move" style={{display: 'inline-block'}}>
         {/*<ViewPicker view={view} onViewChange={this.viewSelected}/>*/}
+        <MoveOptions onShowAllChange={this.showAllChanged} showAllMoves={showAllMoves} />
         <FighterPicker fighter={fighter} url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
-        <MovePicker move={move} url={moveIndexUrl} onMoveChange={this.moveSelected}/>
+        <MovePicker move={move} url={moveIndexUrl} onMoveChange={this.moveSelected}
+         showAllMoves={showAllMoves}/>
         <Player url={gifUrl}
                 playbackSpeed={speed}
                 frameIndex={frameIndex - 1}

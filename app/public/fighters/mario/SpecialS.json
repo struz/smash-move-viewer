@@ -6,6 +6,7 @@
   "frames": [
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -13,6 +14,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -20,6 +22,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -27,6 +30,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -34,6 +38,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -41,6 +46,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -48,122 +54,102 @@
     },
     {
       "hitboxes": [],
-      "intangibleBones": [],
-      "invincibleBones": [],
-      "bodyIntangible": false,
-      "bodyInvincible": false
-    },
-    {
-      "hitboxes": [],
-      "intangibleBones": [],
-      "invincibleBones": [],
-      "bodyIntangible": false,
-      "bodyInvincible": false
-    },
-    {
-      "hitboxes": [],
-      "intangibleBones": [],
-      "invincibleBones": [],
-      "bodyIntangible": false,
-      "bodyInvincible": false
-    },
-    {
-      "hitboxes": [],
-      "intangibleBones": [],
-      "invincibleBones": [],
-      "bodyIntangible": false,
-      "bodyInvincible": false
-    },
-    {
-      "hitboxes": [],
-      "intangibleBones": [],
-      "invincibleBones": [],
-      "bodyIntangible": false,
-      "bodyInvincible": false
-    },
-    {
-      "hitboxes": [
+      "specialBubbles": [
         {
           "id": 0,
-          "damage": 7.0,
-          "angle": 110.0,
-          "knockbackGrowth": 0.0,
-          "knockbackBase": 0.0,
-          "weightBasedKnockback": 0.0,
-          "type": 0,
-          "extended": false,
-          "ignoreThrow": false,
-          "part": 0,
           "bone": 0,
-          "size": 7.5,
+          "size": 9.0,
           "x": 0.0,
-          "y": 6.7,
-          "z": 9.7,
+          "y": 6.0,
+          "z": 2.0,
           "x2": 0.0,
           "y2": 0.0,
           "z2": 0.0,
-          "effect": 7,
-          "trip": 0.3,
-          "hitlag": 1.0,
-          "sdi": 1.0,
-          "clang": 0,
-          "rebound": 0,
-          "shieldDamage": 4,
-          "groundAir": 3,
-          "directIndirect": 1,
-          "gameType": 9,
-          "special": false,
-          "action": 0,
-          "blockability": 0,
-          "reflectable": 0,
-          "absorbable": 0,
-          "rehit": 0,
-          "ignoreInvuln": 0,
-          "facingRestrict": 0,
-          "teamDamage": 0,
-          "disableHitlag": 0,
-          "flinchless": 0
-        },
+          "type": 1
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [
         {
-          "id": 1,
-          "damage": 7.0,
-          "angle": 110.0,
-          "knockbackGrowth": 0.0,
-          "knockbackBase": 0.0,
-          "weightBasedKnockback": 0.0,
-          "type": 0,
-          "extended": false,
-          "ignoreThrow": false,
-          "part": 0,
+          "id": 0,
           "bone": 0,
-          "size": 5.0,
+          "size": 9.0,
           "x": 0.0,
-          "y": 6.7,
-          "z": 5.0,
+          "y": 6.0,
+          "z": 2.0,
           "x2": 0.0,
           "y2": 0.0,
           "z2": 0.0,
-          "effect": 7,
-          "trip": 0.3,
-          "hitlag": 1.0,
-          "sdi": 1.0,
-          "clang": 0,
-          "rebound": 0,
-          "shieldDamage": 4,
-          "groundAir": 3,
-          "directIndirect": 1,
-          "gameType": 9,
-          "special": false,
-          "action": 0,
-          "blockability": 0,
-          "reflectable": 0,
-          "absorbable": 0,
-          "rehit": 0,
-          "ignoreInvuln": 0,
-          "facingRestrict": 0,
-          "teamDamage": 0,
-          "disableHitlag": 0,
-          "flinchless": 0
+          "type": 1
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
         }
       ],
       "intangibleBones": [],
@@ -256,6 +242,20 @@
           "flinchless": 0
         }
       ],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -346,6 +346,124 @@
           "flinchless": 0
         }
       ],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
+    },
+    {
+      "hitboxes": [
+        {
+          "id": 0,
+          "damage": 7.0,
+          "angle": 110.0,
+          "knockbackGrowth": 0.0,
+          "knockbackBase": 0.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 7.5,
+          "x": 0.0,
+          "y": 6.7,
+          "z": 9.7,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "effect": 7,
+          "trip": 0.3,
+          "hitlag": 1.0,
+          "sdi": 1.0,
+          "clang": 0,
+          "rebound": 0,
+          "shieldDamage": 4,
+          "groundAir": 3,
+          "directIndirect": 1,
+          "gameType": 9,
+          "special": false,
+          "action": 0,
+          "blockability": 0,
+          "reflectable": 0,
+          "absorbable": 0,
+          "rehit": 0,
+          "ignoreInvuln": 0,
+          "facingRestrict": 0,
+          "teamDamage": 0,
+          "disableHitlag": 0,
+          "flinchless": 0
+        },
+        {
+          "id": 1,
+          "damage": 7.0,
+          "angle": 110.0,
+          "knockbackGrowth": 0.0,
+          "knockbackBase": 0.0,
+          "weightBasedKnockback": 0.0,
+          "type": 0,
+          "extended": false,
+          "ignoreThrow": false,
+          "part": 0,
+          "bone": 0,
+          "size": 5.0,
+          "x": 0.0,
+          "y": 6.7,
+          "z": 5.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "effect": 7,
+          "trip": 0.3,
+          "hitlag": 1.0,
+          "sdi": 1.0,
+          "clang": 0,
+          "rebound": 0,
+          "shieldDamage": 4,
+          "groundAir": 3,
+          "directIndirect": 1,
+          "gameType": 9,
+          "special": false,
+          "action": 0,
+          "blockability": 0,
+          "reflectable": 0,
+          "absorbable": 0,
+          "rehit": 0,
+          "ignoreInvuln": 0,
+          "facingRestrict": 0,
+          "teamDamage": 0,
+          "disableHitlag": 0,
+          "flinchless": 0
+        }
+      ],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -353,6 +471,20 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -360,6 +492,20 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -367,6 +513,20 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -374,6 +534,20 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -381,6 +555,20 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -388,6 +576,20 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -395,6 +597,20 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [
+        {
+          "id": 0,
+          "bone": 0,
+          "size": 9.0,
+          "x": 0.0,
+          "y": 6.0,
+          "z": 2.0,
+          "x2": 0.0,
+          "y2": 0.0,
+          "z2": 0.0,
+          "type": 1
+        }
+      ],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -402,6 +618,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -409,6 +626,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -416,6 +634,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -423,6 +642,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -430,6 +650,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -437,6 +658,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -444,6 +666,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -451,6 +674,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -458,6 +682,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -465,6 +690,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -472,6 +698,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -479,6 +706,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -486,6 +714,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -493,6 +722,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -500,6 +730,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -507,6 +738,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -514,6 +746,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -521,6 +754,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -528,6 +762,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -535,6 +770,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -542,6 +778,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,

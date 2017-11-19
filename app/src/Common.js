@@ -26,6 +26,7 @@ export function parsePath(path, search) {
   var speed = 1;
   var frame = 1;
   var frameEnd = -1;
+  var showAllMoves = false;
 
   if (allVars.length >= 3)
     fighter = allVars[2];
@@ -46,8 +47,10 @@ export function parsePath(path, search) {
   }
   if ('view' in parsedQueryString)
     view = parsedQueryString['view'];
+  if ('showAllMoves' in parsedQueryString)
+    showAllMoves = JSON.parse(parsedQueryString['showAllMoves']);
 
-  var returnVars = [view, fighter, move, speed, frame, frameEnd];
+  var returnVars = [view, fighter, move, speed, frame, frameEnd, showAllMoves];
   return returnVars;
 }
 
@@ -60,7 +63,8 @@ export function generateAppUrl({
   move = null,
   speed = null,
   frame = null,
-  frameEnd = null
+  frameEnd = null,
+  showAllMoves = null
 }) {
   var splitCurrentPath = path.split('/');
   var numParams = splitCurrentPath.length - 2;  // '/' and 'vX'
@@ -96,6 +100,8 @@ export function generateAppUrl({
     parsedQueryString['speed'] = speed;
   if (view)
     parsedQueryString['view'] = view;
+  if (showAllMoves !== null)
+    parsedQueryString['showAllMoves'] = showAllMoves;
 
   // Returns [location, search_query]
   return [splitCurrentPath.join('/'), '?' + QueryString.stringify(parsedQueryString)];

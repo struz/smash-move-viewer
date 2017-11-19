@@ -1,11 +1,12 @@
 {
-  "moveName": "Neutral Special (Start, Air)",
+  "moveName": "Neutral Special - Air, Start",
   "faf": 0,
   "intangibilityStart": 0,
   "intangibilityEnd": 0,
   "frames": [
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -13,6 +14,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -20,6 +22,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -27,6 +30,7 @@
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,

@@ -22,7 +22,21 @@ const HITBOX_TYPE = {
   0: {name: 'Hitbox', tooltip: 'Damage hitbox<br />When this collides with a hurtbox a special effect may happen based on the "effect" type of the hitbox.<br />The victim will have their % increased by it\'s "damage"'},
   1: {name: 'Grabbox', tooltip: 'Grab hitbox<br />When this collides with a hurtbox the victim will be grabbed, allowing them to be thrown soon afterwards'},
   2: {name: 'Windbox', tooltip: 'Wind hitbox<br />When this collides with a hurtbox the victim will be pushed away based on the "angle" and other knockback properties of the hitbox'},
-  3: {name: 'Searchbox', tooltip: 'Searchbox<br />Depending on the character scripts this can do many different things.<br />Generally it will search for hitboxes or hurtboxes and perform an action if any are found'}
+  3: {name: 'Searchbox', tooltip: 'Searchbox<br />Depending on the character scripts this can do many different things.<br />Generally it will search for hitboxes or hurtboxes and perform an action if any are found'},
+  4: {name: 'Special', tooltip: 'Special Bubble<br />Mouse over the "effect" for more info'}
+}
+
+const specialBubbleColors = [
+  '#000000',
+  '#FFFFFF'  // Type 3 (REFLECT) only
+]
+
+const SPECIAL_BUBBLE_EFFECT = {
+  0: {name: 'Counter', tooltip: 'Counter<br />When a non-grab hitbox enters this zone it triggers a counter attack'},
+  1: {name: 'Reflect', tooltip: 'Reflect<br />Triggers when a hitbox enters this zone and the hitbox is "reflectable".<br />The owner of the hitbox (usually a projectile) will have it\'s momentum reversed and will now be able to hit it\'s original owner'},
+  2: {name: 'Absorb', tooltip: 'Absorb<br />Triggers when a hitbox enters this zone and the hitbox is "absorbable".<br />The owner of the hitbox (usually a projectile) will disappear. A character specfic effect will usually trigger too'},
+  3: {name: 'Shield', tooltip: 'Shield<br />Blocks all damage from attacks. Pushes opponents away if they are near'},
+  4: {name: 'Witch Time', tooltip: 'Witchtime Slowdown<br />When the Witch Time trigger bubble triggers, if the owner of the triggering hitbox has any hurtbox inside this bubble they will be afflicted with witch time'}
 }
 
 // Effect types, see https://docs.google.com/spreadsheets/d/1FgOsGYfTD4nQo4jFGJ22nz5baU1xihT5lreNinY5nNQ
@@ -178,6 +192,9 @@ class MoveInfo extends Component {
 
     const frame = this.props.frameIndex;
     const hitboxes = this.state.moveData.frames[frame].hitboxes;
+    var specialBubbles = [];
+    if ('specialBubbles' in this.state.moveData.frames[frame])
+      specialBubbles = this.state.moveData.frames[frame].specialBubbles;
 
     const intangibilityRange = this.getIntangibilityRange();
     const hitboxRanges = this.getHitboxRanges();
@@ -185,7 +202,7 @@ class MoveInfo extends Component {
     var hitboxTable = (
       <span>Pause while hitboxes are visible to see more specific information</span>
     );
-    if (hitboxes.length > 0) {
+    if (hitboxes.length > 0 || specialBubbles.length > 0) {
       hitboxTable = (
         <div className='Hitbox-table-container'>
           <table className='Hitbox-info-table'>
@@ -215,6 +232,13 @@ class MoveInfo extends Component {
                 // TODO: ideally this should be a hash function so we don't re-render unless something has changed
                 return (
                   <HitboxInfo key={frame + "-" + hitbox.id} hitboxData={hitbox}
+                   className={index % 2 ? "Colored-table-row" : null}/>
+               );
+              })}
+              {specialBubbles.map(function(specialBubble, index) {
+                // TODO: ideally this should be a hash function so we don't re-render unless something has changed
+                return (
+                  <SpecialBubbleInfo key={frame + "-" + specialBubble.id} specialBubbleData={specialBubble}
                    className={index % 2 ? "Colored-table-row" : null}/>
                );
               })}
@@ -437,6 +461,43 @@ class HitboxAngle extends Component {
         {angleCanvas}
         <span className="Angle-text">  {angle}&deg;</span>
       </div>
+    );
+  }
+}
+
+
+class SpecialBubbleInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {specialBubbleData: props.specialBubbleData};
+  }
+
+  render() {
+    const specialBubbleData = this.state.specialBubbleData;
+    const bubbleColor = specialBubbleData.type === 3 ? specialBubbleColors[1] : specialBubbleColors[0];
+
+    return(
+      <tr id={"specialBubble-" + specialBubbleData.id} className={this.props.className}>
+        <td style={{'textAlign': 'center'}}>
+          <div className="Hitbox-color" style={{'background': bubbleColor}}></div>
+        </td>
+        <td>{specialBubbleData.id}</td>
+        <td data-tip={HITBOX_TYPE[4].tooltip}>{HITBOX_TYPE[4].name}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td data-tip={SPECIAL_BUBBLE_EFFECT[specialBubbleData.type].tooltip}>{SPECIAL_BUBBLE_EFFECT[specialBubbleData.type].name}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
     );
   }
 }

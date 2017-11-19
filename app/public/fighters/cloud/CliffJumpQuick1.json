@@ -1,73 +1,112 @@
 {
-  "moveName": "Ledge Jump (Start)",
+  "moveName": "Ledge Jump - Start",
   "faf": 0,
   "intangibilityStart": 1,
   "intangibilityEnd": 13,
   "frames": [
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     },
     {
       "hitboxes": [],
+      "specialBubbles": [],
       "intangibleBones": [],
-      "invincibleBones": []
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false
     }
   ],
   "camera": {

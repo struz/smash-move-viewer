@@ -30,7 +30,7 @@
   display: inline-block;
 }
 
-.Frame-controls select,input {
+.Frame-controls select, .Frame-controls input {
   margin-left: 4px;
   margin-right: 16px;
   background: #fbfbf1;

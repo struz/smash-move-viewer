@@ -61,7 +61,7 @@
   background: #c6c5c6;
 }
 
-.View-picker, .Move-picker, .Fighter-picker {
+.View-picker, .Move-picker, .Fighter-picker, .Move-options {
   display: inline-block;
 }
 .GifSizeCheckbox {
