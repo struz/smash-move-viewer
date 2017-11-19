@@ -65,12 +65,12 @@
 */
 @media only screen and (max-width: 792px) {
   .Move-video {
-    max-width: 100%;
+    max-width: 99%;
     border: 1px solid black;
   }
   .Move-video-placeholder {
     display: inline-block;
-    max-width: 100%;
+    max-width: 99%;
     height: 35vh;
     border: 1px solid black;
   }
