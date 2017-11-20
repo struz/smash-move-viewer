@@ -5,45 +5,128 @@ import axios from 'axios';
 // Order of regexes in this list is the order that moves will be placed
 // into the move move picker
 const RELEVANT_MOVE_REGEXES = {
-  'Ground Attacks': [/^Attack(?!Air).*$/],
+  'Ground Attacks': [
+    /^Attack(?!Air)1.*$/,             // Jabs
+    // Tilts
+    /^Attack(?!Air)S3.*$/,            // Side
+    /^Attack(?!Air)Hi3.*$/,           // Up
+    /^Attack(?!Air)Lw3.*$/,           // Down
+    // Smashes
+    /^Attack(?!Air)S4(?!Charge).*$/,  // Side
+    /^Attack(?!Air)S4.*$/,            // Side charge / misc
+    /^Attack(?!Air)Hi4(?!Charge).*$/, // Up
+    /^Attack(?!Air)Hi4.*$/,           // Up charge / misc
+    /^Attack(?!Air)Lw4(?!Charge).*$/, // Down
+    /^Attack(?!Air)Lw4.*$/,           // Down charge / misc
+    // Misc
+    /^Attack(?!Air).*$/,             // Misc
+  ],
   'Aerial Attacks': [
-    /^AttackAir.*$/,
-    /^LandingAttackAir.*$/
+    /^(Landing|Attack)AirN.*$/,
+    /^(Landing|Attack)AirF.*$/,
+    /^(Landing|Attack)AirB.*$/,
+    /^(Landing|Attack)AirHi.*$/,
+    /^(Landing|Attack)AirLw.*$/,
   ],
-  'Specials': [/^Special.*$/],
+  'Specials': [
+    // Neutral special
+    /^SpecialN.*$/,
+    /^SpecialAirN.*$/,
+    // Side special
+    /^SpecialS.*$/,
+    /^SpecialAirS.*$/,
+    // Up special
+    /^SpecialHi.*$/,
+    /^SpecialAirHi.*$/,
+    // Down special
+    /^SpecialLw.*$/,
+    /^SpecialAirLw.*$/,
+    // Misc / uncaught
+    /^Special.*$/,
+  ],
   'Grabs and Throws': [
-    /^Catch.*$/,
-    /^Throw.*$/
+    /^Catch(|Dash|Turn)$/,  // Grabs
+    /^CatchAttack$/,        // Pummel
+    // Throws
+    /^ThrowF$/,
+    /^ThrowB$/,
+    /^ThrowHi$/,
+    /^ThrowLw$/,
+    /^Throw.*$/,            // Other stuff like DK cargo throw
+    /^CatchCut$/,           // Grab release
   ],
-  'Dodging': [/^Escape.*$/],
-  'Tech Options': [/^Passive.*$/],
-  'Ledge Options': [/^Cliff.*$/]
+  'Dodging': [
+    /^EscapeN$/,
+    /^EscapeF$/,
+    /^EscapeB$/,
+    /^EscapeAir$/,
+    /^Escape.*$/,
+  ],
+  'Tech Options': [
+    /^Passive$/,
+    /^PassiveStandB$/,
+    /^PassiveStandF$/,
+    /^PassiveWall.*$/,
+    /^PassiveCeil$/,
+    /^Passive.*$/,
+  ],
+  'Ledge Options': [
+    /^CliffCatch$/,
+    /^CliffWait$/,
+    /^CliffClimb.*$/,
+    /^CliffAttack.*$/,
+    /^CliffEscape.*$/,
+    /^CliffJump.*$/,
+    /^Cliff.*$/,
+  ]
 }
 
 const OTHER_MOVE_REGEXES = {
   'Crouching': [/^Squat.*$/],
   'Standing and Walking': [
+    /^Turn$/,
     /^Wait.*$/,
-    /^Walk.*$/
+    /^Walk(?!Fall).*$/,
+    /^Walk.*$/,
   ],
   'Dashing and Running': [
     /^Dash.*$/,
+    /^Run(?!Fall).*$/,
+    /^Turn.*$/,
     /^Run.*$/,
-    /^Turn.*$/
   ],
-  'Jumping': [/^Jump.*$/],
-  'Footstools': [/^Step.*$/],
+  'Jumping': [
+    /^JumpSquat$/,
+    /^Jump(F|B)$/,
+    /^Jump.*$/,
+  ],
+  'Footstools': [
+    /^StepJump$/,
+    /^StepAirPose$/,
+    /^StepFall$/,
+    /^StepPose$/,
+    /^StepBack$/,
+  ],
   'Falling': [/^(Damage)?Fall.*$/],
   'Landing': [
     /^Landing.*$/,  // Won't get landing aerials because we match them earlier
     /^DownBound.*$/
   ],
   'Missed Tech Options': [
-    /^Down(?!Damage|Spot).*$/
+    /^DownStand.*$/,             // Neutral getup
+    /^Down(?!Damage|Spot).*$/,
   ],
-  'Floor Damage Received': [/^DownDamage.*$/],
+  'Floor Damage Received': [
+    /^DownDamage(D|U)$/,  // Light
+    /^DownDamage(D|U)3$/,  // Heavy
+  ],
   'Slipping': [/^Slip.*$/],
-  'Grabbed': [/^Capture.*$/],
+  'Grabbed': [
+    /^CapturePulled.*$/,
+    /^CaptureWait.*$/,
+    /^CaptureDamage.*$/,
+    /^Capture.*$/,
+  ],
   'Misc Grounded Animations': [/^.*$/]
 }
 
@@ -143,7 +226,7 @@ function extractMoves(optionsList, moveList, regex) {
   // FIXME: This is obscenely ugly
   var moveListLength = moveList.length;
   var i = 0;
-  while (i < moveList.length) {
+  while (i < moveListLength) {
     if (moveList[i].rawName.search(regex) > -1) {
       optionsList.push(moveToOption(moveList[i]));
       moveList.splice(i, 1);
