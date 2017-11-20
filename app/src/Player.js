@@ -186,24 +186,36 @@ class Player extends Component {
       );
     }
 
+    var showControls = (vidLoaded || isLoading);
     return (
       <div className="Move-gif">
         {videoElement}
         {vidPlaceholder}
-        <div className="Move-controls" style={!vidLoaded ? {display: 'none'} : {}}>
+        <div className="Move-controls" style={(!showControls) ? {display: 'none'} : {}}>
           <div className="Player-controls">
-            <img src={iconFirst} alt="first" onClick={this.firstFrameHandler} className="Player-control"/>
-            <img src={iconPrevious} alt="previous" onClick={this.prevFrameHandler} className="Player-control"/>
-            <img src={playIcon} alt="play/pause" onClick={this.playPauseHandler} className="Player-control" />
-            <img src={iconNext} alt="next" onClick={this.nextFrameHandler} className="Player-control"/>
-            <img src={iconLast} alt="last" onClick={this.lastFrameHandler} className="Player-control"/>
+            <img src={iconFirst} alt="first"
+             onClick={isLoading ? null : this.firstFrameHandler}
+             className="Player-control"/>
+            <img src={iconPrevious} alt="previous"
+             onClick={isLoading ? null : this.prevFrameHandler}
+             className="Player-control"/>
+            <img src={playIcon} alt="play/pause"
+             onClick={isLoading ? null : this.playPauseHandler}
+             className="Player-control" />
+            <img src={iconNext} alt="next"
+             onClick={isLoading ? null : this.nextFrameHandler}
+             className="Player-control"/>
+            <img src={iconLast} alt="last"
+             onClick={isLoading ? null : this.lastFrameHandler}
+             className="Player-control"/>
           </div>
           <div>
-  		      <hr />
+            <hr />
           </div>
           <div className="Frame-controls">
             <label>Play speed:</label>
-            <select onChange={this.speedChanged} value={this.state.playbackSpeed} className="Dropdown">
+            <select onChange={this.speedChanged} value={this.state.playbackSpeed}
+             className="Dropdown" disabled={isLoading}>
               <option value="2">2x</option>
               <option value="1">1x</option>
               <option value="0.5">0.5x</option>
@@ -214,10 +226,11 @@ class Player extends Component {
             <input ref="frameNum" type="number"
              onChange={this.frameTextChanged}
              value={displayFrame}
-             className="Move-frame Text-input"/>
+             className="Move-frame Text-input"
+             disabled={isLoading}/>
           </div>
     		  <div>
-    		    <hr />
+            <hr />
     		  </div>
         </div>
       </div>
