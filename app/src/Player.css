@@ -51,12 +51,23 @@
   display: none;
 }
 
+.Move-video-instruction {
+  margin-top: 25px;
+}
+
+.Move-video-loading {
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .Move-video-placeholder {
   display: inline-block;
 }
 
-.Move-video-placeholder-text {
-  margin-top: 50px;
+.Move-video-placeholder-inner {
+  width: 100%;
+  height: 100%;
+  display: table;
 }
 
 /*

@@ -5,6 +5,9 @@ import axios from 'axios';
 
 //import logo from './img/SmashBall.svg';
 
+// loading GIF
+import loadingGif from './img/BowserSpin2.gif';
+
 // Gif control icons
 import iconPlay from './img/icons/play.png';
 import iconPause from './img/icons/pause.png'; //YEET
@@ -30,9 +33,10 @@ class Player extends Component {
       frameIndex: props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
       playbackSpeed: props.playbackSpeed,  // same as frameIndex
       uuid: uuidv4(),
-      videoData: null,
+      videoBlobUrl: null,
       video: null,
-      paused: true
+      paused: true,
+      loading: false
     };
 
     // Bindings
@@ -54,6 +58,11 @@ class Player extends Component {
       return;
     var _this = this;
     var beginLoadTime = new Date().getTime();
+    _this.setState(function(prevState, props) {
+      prevState.loading = true;
+      prevState.video = null;
+      return prevState;
+    });
 
     var sendVideoLoadAnalytics = function() {
       var endLoadTime = new Date().getTime();
@@ -70,44 +79,40 @@ class Player extends Component {
       'responseType': 'blob'
     }).then(function(response) {
       var blob = URL.createObjectURL(response.data);
+
+      // We have to set the src before we process the video with VideoFrame
+      _this.refs.moveVideo.src = blob;
+      // Now we initialize our frame-by-frame processing object
+      var video = new VideoFrame.VideoFrame({
+        id: _this.refs.moveVideo.id,
+        frameRate: VideoFrame.FrameRates.high,
+        callback : function(response) {
+          console.log('callback response: ' + response);
+        }
+      });
+
       _this.setState(function(prevState, props) {
-        if (prevState.videoData) {
+        if (prevState.videoBlobUrl) {
           // Clean up after ourselves
-          URL.revokeObjectURL(prevState.videoData);
+          URL.revokeObjectURL(prevState.videoBlobUrl);
         }
 
-        prevState.videoData = blob;
-        prevState.video = null;  // to force refresh in next render
+        prevState.videoBlobUrl = blob;
+        prevState.video = video;
+        prevState.loading = false;
         prevState.frameIndex = defaultFrame;
         prevState.paused = true;
         return prevState;
       });
+
+      // Set up some defaults with the video
+      _this.moveFrameAbsolute(defaultFrame, video);
+      _this.refs.moveVideo.playbackRate = _this.state.playbackSpeed;
       sendVideoLoadAnalytics();
 
     }).catch(function (error) {
       console.error('Error downloading move video: ' + error);
     });
-  }
-
-  // Sets up the video element to match the currently selected settings
-  // and gets it ready for frame-by-frame skips
-  processVideo() {
-    var video = new VideoFrame.VideoFrame({
-      id : this.state.uuid,
-      frameRate: VideoFrame.FrameRates.high,
-      callback : function(response) {
-        console.log('callback response: ' + response);
-      }
-    });
-
-    this.setState(function(prevState, props) {
-      prevState.video = video;
-      return prevState;
-    });
-
-    // Set up some defaults with the video
-    this.moveFrameAbsolute(this.state.frameIndex, video);
-    this.refs.moveVideo.playbackRate = this.state.playbackSpeed;
   }
 
   componentDidMount() {
@@ -123,13 +128,6 @@ class Player extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.videoData && !this.state.video) {
-      // Make sure we have an up to date video object after each render
-      this.processVideo();
-    }
-  }
-
   componentWillUnmount() {
     // Unbind the arrow keys from frame-by-frame controls
     document.body.removeEventListener('keydown', this.keyDownHandler);
@@ -137,8 +135,9 @@ class Player extends Component {
 
   render() {
     const uuid = this.state.uuid;
-    const videoSrc = this.state.videoData ? this.state.videoData : '';
+    const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';
     const vidLoaded = this.state.video !== null;
+    const isLoading = this.state.loading;
     const videoWidth = vidLoaded ? null : "100%";
 
     const playIcon = this.state.paused ? iconPlay : iconPause;
@@ -171,7 +170,18 @@ class Player extends Component {
       vidPlaceholder = (
         <div className="Move-video-placeholder"
          style={{width: videoWidth}}>
-          <br /><span>Select a character and a move to get started.</span>
+         <div className="Move-video-placeholder-inner">
+            {!isLoading &&
+              <div className="Move-video-instruction">
+                Select a character and a move to get started.
+              </div>
+            }
+            {isLoading &&
+              <div className="Move-video-loading">
+                <img src={loadingGif} alt="loading" />
+              </div>
+            }
+          </div>
         </div>
       );
     }
