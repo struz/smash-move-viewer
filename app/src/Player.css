@@ -47,6 +47,15 @@
   display: block;
 }
 
+.Frame-controls input[type=checkbox] {
+  margin-right: 3px;
+  width: auto;
+}
+
+#Frame-loop {
+  display: inline;
+}
+
 .Hidden {
   display: none;
 }
@@ -76,14 +85,18 @@
 */
 @media only screen and (max-width: 792px) {
   .Move-video {
-    max-width: 99%;
+    max-width: 98%;
     border: 1px solid black;
   }
   .Move-video-placeholder {
     display: inline-block;
-    max-width: 99%;
+    max-width: 98%;
     height: 35vh;
     border: 1px solid black;
+  }
+  #Frame-loop {
+    display: block;
+    margin-top: 3px;
   }
 }
 

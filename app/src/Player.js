@@ -36,7 +36,8 @@ class Player extends Component {
       videoBlobUrl: null,
       video: null,
       paused: true,
-      loading: false
+      loading: false,
+      loop: props.loop  // same as frameIndex
     };
 
     // Bindings
@@ -51,6 +52,7 @@ class Player extends Component {
 
     this.videoEventHandler = this.videoEventHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
+    this.loopHandler = this.loopHandler.bind(this);
   }
 
   loadVideo(url, defaultFrame) {
@@ -108,6 +110,7 @@ class Player extends Component {
       // Set up some defaults with the video
       _this.moveFrameAbsolute(defaultFrame, video);
       _this.refs.moveVideo.playbackRate = _this.state.playbackSpeed;
+      this.refs.moveVideo.loop = this.state.loop;
       sendVideoLoadAnalytics();
 
     }).catch(function (error) {
@@ -126,6 +129,13 @@ class Player extends Component {
     if (this.props.url !== nextProps.url) {
       this.loadVideo(nextProps.url, nextProps.frameIndex);
     }
+    if (this.props.loop !== nextProps.loop) {
+      this.refs.moveVideo.loop = nextProps.loop;
+      this.setState(function(prevState, props) {
+        prevState.loop = nextProps.loop;
+        return prevState;
+      })
+    }
   }
 
   componentWillUnmount() {
@@ -139,6 +149,7 @@ class Player extends Component {
     const vidLoaded = this.state.video !== null;
     const isLoading = this.state.loading;
     const videoWidth = vidLoaded ? null : "100%";
+    const loop = this.state.loop;
 
     const playIcon = this.state.paused ? iconPlay : iconPause;
     // Logic around being able to delete the entire contents of the frame box
@@ -228,6 +239,11 @@ class Player extends Component {
              value={displayFrame}
              className="Move-frame Text-input"
              disabled={isLoading}/>
+            <div id="Frame-loop">
+              <input type="checkbox" id="chkLoop" onChange={this.loopHandler}
+               checked={loop} />
+              <label htmlFor="chkLoop">Loop</label>
+            </div>
           </div>
     		  <div>
             <hr />
@@ -242,6 +258,10 @@ class Player extends Component {
       this.moveFrameRelative(-1, this.state.video, true);
     else if (e.keyCode === 39) // right
       this.moveFrameRelative(1, this.state.video, true);
+  }
+
+  loopHandler(e) {
+    this.props.onLoopChange(e.target.checked);
   }
 
   // Get the move frame for the video, bounded to be inside the range of frames

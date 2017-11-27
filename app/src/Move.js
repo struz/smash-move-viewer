@@ -131,7 +131,8 @@ class Move extends Component {
       frameIndex: frame,
       frameEnd: frameEnd,
       moveData: null,
-      showAllMoves: showAllMoves
+      showAllMoves: showAllMoves,
+      loop: false
     };
 
     this.fighterSelected = this.fighterSelected.bind(this);
@@ -140,6 +141,7 @@ class Move extends Component {
     this.frameChanged = this.frameChanged.bind(this);
     this.speedChanged = this.speedChanged.bind(this);
     this.showAllChanged = this.showAllChanged.bind(this);
+    this.loopChanged = this.loopChanged.bind(this);
   }
 
   /* Callback handlers */
@@ -267,6 +269,12 @@ class Move extends Component {
       return prevState;
     });
   }
+  loopChanged(loop) {
+    this.setState(function(prevState, props) {
+      prevState.loop = loop;
+      return prevState;
+    });
+  }
   /* End callback handlers */
 
   /* Data management */
@@ -333,6 +341,7 @@ class Move extends Component {
     const fighter = this.state.fighter;
     const move = this.state.move;
     const speed = this.state.speed;
+    const loop = this.state.loop;
     const frameIndex = this.state.frameIndex;
     const showAllMoves = this.state.showAllMoves;
 
@@ -356,8 +365,10 @@ class Move extends Component {
                 playbackSpeed={speed}
                 frameIndex={frameIndex - 1}
                 numFrames={numFrames}
+                loop={loop}
                 onFrameChange={this.frameChanged}
-                onSpeedChange={this.speedChanged}/>
+                onSpeedChange={this.speedChanged}
+                onLoopChange={this.loopChanged}/>
         <MoveInfo frameIndex={frameIndex - 1} moveData={moveData}/>
       </div>
     );
