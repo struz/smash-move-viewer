@@ -1,12 +1,24 @@
 {
   "fighters": [
     {
+      "name": "Captain Falcon",
+      "key": "captain"
+    },
+    {
       "name": "Cloud",
       "key": "cloud"
     },
     {
       "name": "Diddy Kong",
       "key": "diddy"
+    },
+    {
+      "name": "Dr. Mario",
+      "key": "mariod"
+    },
+    {
+      "name": "Falco",
+      "key": "falco"
     },
     {
       "name": "Fox",
