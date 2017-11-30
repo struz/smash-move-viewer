@@ -6,7 +6,11 @@ import axios from 'axios';
 // into the move move picker
 const RELEVANT_MOVE_REGEXES = {
   'Ground Attacks': [
-    /^Attack(?!Air)1.*$/,             // Jabs
+    // Jabs
+    /^Attack(?!Air)1[1-9].*$/,        // Jabs
+    /^Attack(?!Air)100Start.*$/,      // Multi-jab start
+    /^Attack(?!Air)100.*$/,           // Multi-jab
+    /^Attack(?!Air)End.*$/,        // Multi-jab end
     // Tilts
     /^Attack(?!Air)S3.*$/,            // Side
     /^Attack(?!Air)Hi3.*$/,           // Up
