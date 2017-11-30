@@ -1,6 +1,10 @@
 {
   "fighters": [
     {
+      "name": "Captain Falcon",
+      "key": "captain"
+    },
+    {
       "name": "Cloud",
       "key": "cloud"
     },
