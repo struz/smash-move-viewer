@@ -25,12 +25,24 @@
       "key": "fox"
     },
     {
+      "name": "Ganondorf",
+      "key": "ganon"
+    },
+    {
       "name": "Ike",
       "key": "ike"
     },
     {
+      "name": "Lucina",
+      "key": "lucina"
+    },
+    {
       "name": "Mario",
       "key": "mario"
+    },
+    {
+      "name": "Marth",
+      "key": "marth"
     },
     {
       "name": "Peach",
