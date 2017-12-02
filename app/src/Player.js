@@ -110,7 +110,7 @@ class Player extends Component {
       // Set up some defaults with the video
       _this.moveFrameAbsolute(defaultFrame, video);
       _this.refs.moveVideo.playbackRate = _this.state.playbackSpeed;
-      this.refs.moveVideo.loop = this.state.loop;
+      _this.refs.moveVideo.loop = _this.state.loop;
       sendVideoLoadAnalytics();
 
     }).catch(function (error) {

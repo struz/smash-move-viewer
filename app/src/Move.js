@@ -154,12 +154,14 @@ class Move extends Component {
 
     this.setState(function(prevState, props) {
       prevState.fighter = fighter;
+      prevState.move = '';
       prevState.frameIndex = 1;
 
       var [location, search] = Common.generateAppUrl({
         path: this.props.location.pathname,
         search: this.props.location.search,
-        fighter: fighter
+        fighter: fighter,
+        move: false  // special value, see function for details
       });
       this.props.history.push({
         pathname: location,
@@ -167,8 +169,11 @@ class Move extends Component {
       });
       return prevState;
     });
+    // FIXME: we don't do this anymore to solve the "loading" bug more easily
+    // where if you switch between characters from one that has an animation
+    // to one who does not, it "loads" indefinitely.
     // If there was a move selected already, load the move data too
-    this.fetchMoveData(fighter, this.state.move);
+    //this.fetchMoveData(fighter, this.state.move);
   }
   moveSelected(move) {
     ReactGA.event({

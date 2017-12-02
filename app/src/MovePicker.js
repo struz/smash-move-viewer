@@ -171,14 +171,11 @@ class MovePicker extends Component {
 
   componentWillReceiveProps(nextProps) {
     // Reload the json only if they selected a new option and not the same one again
+    // Or they ticked / unticked the "showAllMoves" checkbox
     if (this.props.url !== nextProps.url ||
        this.props.showAllMoves !== nextProps.showAllMoves) {
       this.updateOptions(nextProps.url, nextProps.showAllMoves);
     }
-    // this.setState(function(prevState, props) {
-    //   prevState.showAllMoves = nextProps.showAllMoves;
-    //   return prevState;
-    // });
   }
 
   updateOptions(url, showAllMoves) {

@@ -60,7 +60,7 @@ export function generateAppUrl({
   search,  // Usually will be the current router 'search'
   view = null,
   fighter = null,
-  move = null,
+  move = null,  // If this is the special value False, ignore all URL bits past "Move"
   speed = null,
   frame = null,
   frameEnd = null,
@@ -81,17 +81,21 @@ export function generateAppUrl({
     else
       splitCurrentPath[3] = move;
   }
-  if (numParams >= 2 && frame) {
-    if (numParams === 2)
-      splitCurrentPath.push(frame);
-    else
-      splitCurrentPath[4] = frame;
-  }
-  if (numParams >= 3 && frameEnd) {
-    if (numParams === 3)
-      splitCurrentPath.push(frameEnd);
-    else
-      splitCurrentPath[5] = frameEnd;
+  if (move !== false) {
+    if (numParams >= 2 && frame) {
+      if (numParams === 2)
+        splitCurrentPath.push(frame);
+      else
+        splitCurrentPath[4] = frame;
+    }
+    if (numParams >= 3 && frameEnd) {
+      if (numParams === 3)
+        splitCurrentPath.push(frameEnd);
+      else
+        splitCurrentPath[5] = frameEnd;
+    }
+  } else {
+    splitCurrentPath.splice(3, splitCurrentPath.length);
   }
 
   // Search query parsing
