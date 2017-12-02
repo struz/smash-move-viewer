@@ -1,6 +1,14 @@
 {
   "fighters": [
     {
+      "name": "Bayonetta",
+      "key": "bayonetta"
+    },
+    {
+      "name": "Bowser",
+      "key": "koopa"
+    },
+    {
       "name": "Captain Falcon",
       "key": "captain"
     },
