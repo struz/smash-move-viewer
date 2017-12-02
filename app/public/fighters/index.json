@@ -1,6 +1,10 @@
 {
   "fighters": [
     {
+      "name": "Bayonetta",
+      "key": "bayonetta"
+    },
+    {
       "name": "Captain Falcon",
       "key": "captain"
     },
