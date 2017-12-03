@@ -13,6 +13,10 @@
       "key": "captain"
     },
     {
+      "name": "Charizard",
+      "key": "lizardon"
+    },
+    {
       "name": "Cloud",
       "key": "cloud"
     },
@@ -39,6 +43,10 @@
     {
       "name": "Ike",
       "key": "ike"
+    },
+    {
+      "name": "Little Mac",
+      "key": "littlemac"
     },
     {
       "name": "Lucina",
