@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import Move from './Move';
+import Help from './Help';
 import About from './About';
 import * as Env from './Env';
 
@@ -22,6 +23,7 @@ const AppRedirect = <Redirect to={Env.CURRENT_VERSION}/>;
 const App = () => (
   <Router>
     <div>
+      <Route path="/help" component={Help}/>
       <Route path="/about" component={About}/>
       <Route exact path="/" render={() => (
         AppRedirect

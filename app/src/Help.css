@@ -1,0 +1,45 @@
+.Ryu-example {
+  width: 40%;
+  border: 2px solid black;
+}
+
+.Move-viewer-example {
+  width: 80%;
+  margin: auto;
+  display: block;
+}
+
+/* Desktop++ */
+@media only screen and (min-width: 768px) {
+  .Ryu-example {
+    width: 300px;
+  }
+
+  .Move-viewer-example {
+    width: 600px;
+  }
+}
+
+.Section-1 {
+  color: #218c00;
+}
+
+.Section-2 {
+  color: #ba00b3;
+}
+
+.Section-3 {
+  color: #00dae8;
+}
+
+.Section-4 {
+  color: #e50000;
+}
+
+.Text-aligned-div {
+  vertical-align: text-bottom;
+}
+
+.Spaced-box {
+  margin-right: 5px;
+}

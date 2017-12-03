@@ -56,15 +56,24 @@ p {
 div.prose {
 	text-align: left;
 	line-height: 22px;
-    width: 90%;
-    padding: 0px;
-    margin-left: auto;
-    margin-right: auto;
+  width: 90vw;
+  padding: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.prose h2 {
+	line-height: 55px
+}
+
+.Inline-center-div {
+	display: inline-block;
+	text-align: center;
 }
 
 @media only screen and (min-width: 768px) {
-  div.prose{
-    width: 40%;
+  div.prose {
+    width: 700px;
   }
 }
 
@@ -102,6 +111,14 @@ a.menu:hover {
 .menu-spacer {
 	margin-left: 7px;
 	margin-right: 7px;
+}
+
+.Left-align {
+	text-align: left;
+}
+
+.Bold-label {
+  font-family: "bwmodelica-bold", sans-serif;
 }
 
 #container {

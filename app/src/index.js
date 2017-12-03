@@ -15,5 +15,5 @@ ReactGA.pageview('/');
 
 ReactDOM.render(<Header />, document.getElementById('header'));
 ReactDOM.render(<App />, document.getElementById('container'));
-//ReactDOM.render(<Footer />, document.getElementById('footer'));
+ReactDOM.render(<Footer />, document.getElementById('footer'));
 //registerServiceWorker();

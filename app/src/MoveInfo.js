@@ -4,7 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import './Move.css';
 import './MoveInfo.css';
 
-const hitboxIdColors = [
+export const hitboxIdColors = [
   '#E6194B',
   '#3CB44B',
   '#000080',
@@ -26,7 +26,7 @@ const HITBOX_TYPE = {
   4: {name: 'Special', tooltip: 'Special Bubble<br />Mouse over the "effect" for more info'}
 }
 
-const specialBubbleColors = [
+export const specialBubbleColors = [
   '#000000',
   '#FFFFFF'  // Type 3 (REFLECT) only
 ]

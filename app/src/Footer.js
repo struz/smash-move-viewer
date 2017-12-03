@@ -11,7 +11,7 @@ class Footer extends Component {
       <div className="menu-container">
     		<a className="menu" href="#/">Move Viewer</a>
     		<span className="menu-spacer">&#124;</span>
-    		<a className="menu" href="https://en.wikipedia.org/wiki/Turtles_all_the_way_down">Resources</a>
+    		<a className="menu" href="#/help">Help</a>
     		<span className="menu-spacer">&#124;</span>
     		<a className="menu" href="#/about">About</a>
     		<span className="menu-spacer">&#124;</span>
