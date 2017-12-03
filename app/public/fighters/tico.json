@@ -1,6 +1,36 @@
 {
   "moves": [
     {
+      "rawName": "AppealHiL",
+      "prettyName": "Up Taunt - Left",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "AppealHiR",
+      "prettyName": "Up Taunt - Right",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "AppealLwL",
+      "prettyName": "Down Taunt - Left",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "AppealLwR",
+      "prettyName": "Down Taunt - Right",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "AppealSL",
+      "prettyName": "Side Taunt Left",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "AppealSR",
+      "prettyName": "Side Taunt Right",
+      "category": "no_hitbox"
+    },
+    {
       "rawName": "Attack100",
       "prettyName": "Multi-jab - Continuous",
       "category": "has_hitbox"
@@ -109,6 +139,121 @@
       "rawName": "AttackS4S",
       "prettyName": "Forward Smash",
       "category": "has_hitbox"
+    },
+    {
+      "rawName": "Catch",
+      "prettyName": "Grab",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "Dash",
+      "prettyName": "Dash",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "Fall",
+      "prettyName": "Fall - Regular",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "FallSpecial",
+      "prettyName": "Fall - Helpless",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "Jump",
+      "prettyName": "Jump",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "JumpSquat",
+      "prettyName": "Jumpsquat",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "LandingFallSpecial",
+      "prettyName": "Landing - Helpless",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "LandingHeavy",
+      "prettyName": "Heavy Landing",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "LandingLight",
+      "prettyName": "Light Landing",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "Run",
+      "prettyName": "Run",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "RunBrake",
+      "prettyName": "RunBrake",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "SpecialHi",
+      "prettyName": "Up Special",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "SpecialHiEnd",
+      "prettyName": "Up Special - End",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "SpecialHiStart",
+      "prettyName": "Up Special - Start",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "SpecialLw",
+      "prettyName": "Down Special",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "SpecialNCharge",
+      "prettyName": "Neutral Special - Charge",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "SpecialNEnd",
+      "prettyName": "Neutral Special - End",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "SpecialNFly",
+      "prettyName": "Neutral Special - Fly",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "SpecialNStart",
+      "prettyName": "Neutral Special - Start",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "SpecialS",
+      "prettyName": "Side Special",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "Turn",
+      "prettyName": "Turn",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "TurnRun",
+      "prettyName": "Turn - during Run",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "Wait1",
+      "prettyName": "Idle 1",
+      "category": "no_hitbox"
     }
   ]
 }
