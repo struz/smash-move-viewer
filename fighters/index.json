@@ -45,6 +45,10 @@
       "key": "lucina"
     },
     {
+      "name": "Luigi",
+      "key": "luigi"
+    },
+    {
       "name": "Mario",
       "key": "mario"
     },
@@ -55,6 +59,10 @@
     {
       "name": "Peach",
       "key": "peach"
+    },
+    {
+      "name": "Shulk",
+      "key": "shulk"
     },
     {
       "name": "Sonic",
