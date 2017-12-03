@@ -1,0 +1,114 @@
+{
+  "moves": [
+    {
+      "rawName": "Attack100",
+      "prettyName": "Multi-jab - Continuous",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "Attack11",
+      "prettyName": "Jab 1",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "Attack12",
+      "prettyName": "Jab 2",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "Attack13",
+      "prettyName": "Jab 3",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackAirB",
+      "prettyName": "Back Air",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackAirF",
+      "prettyName": "Forward Air",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackAirHi",
+      "prettyName": "Up Air",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackAirLw",
+      "prettyName": "Down Air",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackAirN",
+      "prettyName": "Neutral Air",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackDash",
+      "prettyName": "Dash Attack",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackEnd",
+      "prettyName": "Multi-jab - Last Hit",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackHi3",
+      "prettyName": "Up Tilt",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackHi4",
+      "prettyName": "Up Smash",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackHi4Charge",
+      "prettyName": "Up Smash - Charge",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "AttackLw3",
+      "prettyName": "Down Tilt",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackLw4",
+      "prettyName": "Down Smash",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackLw4Charge",
+      "prettyName": "Down Smash - Charge",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "AttackS3S",
+      "prettyName": "Forward Tilt",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackS4Charge",
+      "prettyName": "Forward Smash - Charge",
+      "category": "no_hitbox"
+    },
+    {
+      "rawName": "AttackS4Hi",
+      "prettyName": "Forward Smash - Angled Up",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackS4Lw",
+      "prettyName": "Forward Smash - Angled Down",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackS4S",
+      "prettyName": "Forward Smash",
+      "category": "has_hitbox"
+    }
+  ]
+}
