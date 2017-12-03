@@ -1,9 +1,10 @@
 {
-  "main.css": "static/css/main.cddb3a1c.css",
-  "main.css.map": "static/css/main.cddb3a1c.css.map",
-  "main.js": "static/js/main.957a4408.js",
-  "main.js.map": "static/js/main.957a4408.js.map",
+  "main.css": "static/css/main.f4b2c0af.css",
+  "main.css.map": "static/css/main.f4b2c0af.css.map",
+  "main.js": "static/js/main.1d78aeab.js",
+  "main.js.map": "static/js/main.1d78aeab.js.map",
   "static\\media\\BowserSpin2.gif": "static/media/BowserSpin2.cabb1715.gif",
+  "static\\media\\MoveViewerInstructional.png": "static/media/MoveViewerInstructional.55f65c46.png",
   "static\\media\\Town31Dim-BlackL.eot": "static/media/Town31Dim-BlackL.e65c9bbf.eot",
   "static\\media\\Town31Dim-BlackL.svg": "static/media/Town31Dim-BlackL.16ca80b5.svg",
   "static\\media\\Town31Dim-BlackL.ttf": "static/media/Town31Dim-BlackL.3b17e268.ttf",
@@ -20,5 +21,6 @@
   "static\\media\\bwmodelica-regular-webfont.eot": "static/media/bwmodelica-regular-webfont.562bcd72.eot",
   "static\\media\\bwmodelica-regular-webfont.svg": "static/media/bwmodelica-regular-webfont.4a140be3.svg",
   "static\\media\\bwmodelica-regular-webfont.ttf": "static/media/bwmodelica-regular-webfont.deceeea8.ttf",
-  "static\\media\\bwmodelica-regular-webfont.woff": "static/media/bwmodelica-regular-webfont.c18b37ab.woff"
+  "static\\media\\bwmodelica-regular-webfont.woff": "static/media/bwmodelica-regular-webfont.c18b37ab.woff",
+  "static\\media\\ryu_example.png": "static/media/ryu_example.b9816e23.png"
 }

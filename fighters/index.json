@@ -13,6 +13,10 @@
       "key": "captain"
     },
     {
+      "name": "Charizard",
+      "key": "lizardon"
+    },
+    {
       "name": "Cloud",
       "key": "cloud"
     },
@@ -41,6 +45,10 @@
       "key": "ike"
     },
     {
+      "name": "Little Mac",
+      "key": "littlemac"
+    },
+    {
       "name": "Lucina",
       "key": "lucina"
     },
@@ -67,6 +75,10 @@
     {
       "name": "Rosalina - Luma",
       "key": "tico"
+    },
+    {
+      "name": "Roy",
+      "key": "roy"
     },
     {
       "name": "Shulk",
