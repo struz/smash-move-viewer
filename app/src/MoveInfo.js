@@ -121,7 +121,11 @@ const TOOLTIPS = {
   damage: 'Damage<br />The amount of % that will be added to the victim\'s total %.<br />In general, higher damage hitboxes will produce more in-game knockback to the victim.<br />Any number shown in brackets is the amount of damage done when the move hits a shield instead of a hurtbox.',
   type: 'Hitbox type<br />The type of hitbox. One of: Hitbox, Grabbox, Windbox, Searchbox.<br />Mouse over the individual type for more info',
   id: 'Hitbox ID<br />The ID of the hitbox. Hitboxes with lower IDs take precedence when calculating which hitbox has hit.<br />Usually only one hitbox from a move can hit the victim in a single frame',
-  color: 'Hitbox color<br />The color of the hitbox in the visualization.<br />If you cannot see this colour it is likely hidden behind another hitbox with a lower ID number'
+  color: 'Hitbox color<br />The color of the hitbox in the visualization.<br />If you cannot see this colour it is likely hidden behind another hitbox with a lower ID number',
+
+  // Angle stuff
+  sakuraiAngle: 'The "Sakurai angle"<br />The actual angle is dependent on whether opponent is grounded or aerial. Angle scales with knockback',
+  autolinkAngle: 'Autolink angle<br />The actual angle is determined by many factors with the goal of moving the opponent to stay inside the current move\'s continuing hitboxes'
 }
 
 // TODO: make a concrete class to use, that parses the JSON rather than just
@@ -525,6 +529,15 @@ class HitboxAngle extends Component {
     return (angleDegrees >= 0 && angleDegrees < 360);
   }
 
+  static isSakuraiAngle(angleDegrees) {
+    return angleDegrees === 361;
+  }
+
+  static isAutolinkAngle(angleDegrees) {
+    return (angleDegrees === 362 || angleDegrees === 365 ||
+      angleDegrees === 366 || angleDegrees === 367);
+  }
+
   renderCircleIndicator(ctx, angleDegrees) {
     var angleRadians = -(Math.PI / 180) * angleDegrees;
 
@@ -553,12 +566,21 @@ class HitboxAngle extends Component {
       angleCanvas = <canvas ref="canvas" className="Angle-canvas" width={this.props.size} height={this.props.size}/>;
     }
 
+    let angleText = null;
+    if (HitboxAngle.isSakuraiAngle(angle)) {
+      angleText = <span className="Angle-text" data-tip={TOOLTIPS['sakuraiAngle']}>  {angle}&deg;</span>;
+    } else if (HitboxAngle.isAutolinkAngle(angle)) {
+      angleText = <span className="Angle-text" data-tip={TOOLTIPS['autolinkAngle']}>  {angle}&deg;</span>;
+    } else {
+      angleText = <span className="Angle-text">  {angle}&deg;</span>;
+    }
+
     return(
       // height and lineHeight required together with vertical-align to make
       // things sit in the middle of the cell vertically
       <div className="Angle-container" style={{'height': this.props.size, 'lineHeight': this.props.size + 'px'}}>
         {angleCanvas}
-        <span className="Angle-text">  {angle}&deg;</span>
+        {angleText}
       </div>
     );
   }
