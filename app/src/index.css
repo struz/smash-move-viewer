@@ -63,7 +63,7 @@ div.prose {
 }
 
 div.prose h2 {
-	line-height: 55px
+	line-height: 45px
 }
 
 .Inline-center-div {
@@ -105,7 +105,7 @@ a.menu:hover {
 }
 
 .menu-container {
-	margin-top: 8px;
+	margin-bottom: 8px;
 }
 
 .menu-spacer {

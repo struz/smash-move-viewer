@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 
 import './Help.css';
 import './MoveInfo.css';
@@ -11,10 +12,17 @@ const hurtboxColor = '#FFE119';
 const superArmorColor = '#730A43';
 const invincibleColor = '#FFFFFF';
 
+
+ReactGA.initialize('UA-107697636-1');
+
 class Help extends Component {
   render() {
+    // TODO: fixme, dodgy analytics. Should fire on router events instead of render
+    ReactGA.pageview('/help');
+
     return (
       <div className="prose">
+        <hr />
         <h2>How to use this site</h2>
         This page will explain everything you need to know to start using Smash
         Move Viewer. The aim of this site is to create an interactive animation

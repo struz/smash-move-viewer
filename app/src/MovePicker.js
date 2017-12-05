@@ -157,7 +157,9 @@ class MovePicker extends Component {
 
     return(
       <div className="Form-element Move-picker">
-        <select onChange={this.handleChange} value={currentMove} className="Dropdown Main-dropdown" disabled={disabled}>
+        <select onChange={this.handleChange} value={currentMove}
+         className="Dropdown Main-dropdown" disabled={disabled}
+         title="Pick the move you want to view">
           <option value="" disabled={defaultOptionDisabled}>Select a Move</option>
           {options}
         </select>

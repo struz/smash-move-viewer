@@ -59,7 +59,9 @@ class FighterPicker extends Component {
 
     return(
       <div className="Form-element Fighter-picker">
-        <select onChange={this.handleChange} value={currentFighter} className="Dropdown Main-dropdown">
+        <select onChange={this.handleChange} value={currentFighter}
+         className="Dropdown Main-dropdown"
+         title="Pick the character you want to view">
           <option value="">Select a Character</option>
           {this.state.options}
         </select>
@@ -94,13 +96,15 @@ class MoveOptions extends Component {
 
   render() {
     const showAllMoves = this.props.showAllMoves;
+    const checkboxTooltip = "Tick to view most common moves for a character. Untick to every move for a character";
 
     return(
       // ShowUseful true means ShowAll is false
       <div className="Form-element">
         <input type="checkbox" id="chkShowUseful" onChange={this.handleChange}
-         checked={!showAllMoves} />
-        <label htmlFor="chkShowUseful">Relevant moves only</label>
+         checked={!showAllMoves}
+         title={checkboxTooltip} />
+        <label htmlFor="chkShowUseful" title={checkboxTooltip}>Relevant moves only</label>
       </div>
     );
   }
@@ -132,7 +136,7 @@ class Move extends Component {
       frameEnd: frameEnd,
       moveData: null,
       showAllMoves: showAllMoves,
-      loop: false
+      loop: true
     };
 
     this.fighterSelected = this.fighterSelected.bind(this);
@@ -374,7 +378,7 @@ class Move extends Component {
                 onFrameChange={this.frameChanged}
                 onSpeedChange={this.speedChanged}
                 onLoopChange={this.loopChanged}/>
-        <MoveInfo frameIndex={frameIndex - 1} moveData={moveData}/>
+        <MoveInfo frameIndex={frameIndex - 1} moveData={moveData} />
       </div>
     );
   }

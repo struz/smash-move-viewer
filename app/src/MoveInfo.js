@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
+import copy from 'copy-to-clipboard';
 
 import './Move.css';
 import './MoveInfo.css';
@@ -98,6 +99,8 @@ const FACING_RESTRICTION = {
 const TOOLTIPS = {
   faf: 'First Actionable Frame<br />The first frame on which this animation can be interrupted by another action or input',
   intFrames: 'Intangible frames<br />The range(s) of frames in this move in which all character hurtboxes are disabled',
+  saFrames: 'Super armor frames<br />The range(s) of frames in this move in which the character is resistant or impervious to knockback',
+  invFrames: 'Invincible frames<br />The range(s) of frames in this move in which the character takes no damage or knockback from being hit.<br />The attacker is still placed into hitlag but the defender is not',
   hitActive: 'Hitbox active frames<br />The range(s) of frames in this move which have an active hitbox',
 
   // Table stuff
@@ -127,13 +130,18 @@ const TOOLTIPS = {
 class MoveInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = {moveData: this.props.moveData};
+    this.state = {
+      moveData: this.props.moveData
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     // Reload the json only if the url has changed
     if (this.props.moveData !== nextProps.moveData) {
-      this.setState({moveData: nextProps.moveData});
+      this.setState(function(prevState, props) {
+        prevState.moveData = nextProps.moveData;
+        return prevState;
+      });
     }
   }
 
@@ -143,13 +151,93 @@ class MoveInfo extends Component {
     ReactTooltip.rebuild();
   }
 
-  getIntangibilityRange() {
+  getGlobalIntangibilityRange() {
     if (this.state.moveData.intangibilityEnd <= this.state.moveData.intangibilityStart) {
-      return 'N/A'
+      return '';
     }
     // Intangibility end is the *frame on which* the intangibility ends i.e. the frame
     // that you are once again vulnerable so we subtract one to make more sense
     return '' + this.state.moveData.intangibilityStart + '-' + (this.state.moveData.intangibilityEnd - 1);
+  }
+
+  getIntangibilityRange() {
+    var globalIntangibilityRange = this.getGlobalIntangibilityRange();
+    var localIntangibilityRange = this.getRangesFromFrames('bodyIntangible');
+
+    if (!globalIntangibilityRange && !localIntangibilityRange) {
+      return null;
+    }
+    // Intangibility end is the *frame on which* the intangibility ends i.e. the frame
+    // that you are once again vulnerable so we subtract one to make more sense
+    var intangibilityRange = null;
+    if (globalIntangibilityRange && localIntangibilityRange)
+      intangibilityRange = globalIntangibilityRange + ' ' + localIntangibilityRange;
+    else if (globalIntangibilityRange)
+      intangibilityRange = globalIntangibilityRange
+    else
+      intangibilityRange = localIntangibilityRange;
+
+    return (
+      <p>
+        <span className='Bold-label' data-tip={TOOLTIPS['intFrames']}>
+          Intangible frames:
+        </span> {intangibilityRange}
+      </p>
+    );
+  }
+
+  getSuperArmorRange() {
+    var superArmorRange = this.getRangesFromFrames('bodySuperArmor');
+    if (!superArmorRange)
+      return null;
+    return (
+      <p>
+        <span className='Bold-label' data-tip={TOOLTIPS['armorFrames']}>
+          Super armor frames:
+        </span> {superArmorRange}
+      </p>);
+  }
+
+  getInvincibleRange() {
+    var invincibleRange = this.getRangesFromFrames('bodyInvincible');
+    if (!invincibleRange)
+      return null;
+    return (
+      <p>
+        <span className='Bold-label' data-tip={TOOLTIPS['invincibleFrames']}>
+          Invincible frames:
+        </span> {invincibleRange}
+      </p>);
+  }
+
+  getRangesFromFrames(frameVarName) {
+    var rangeString = [];
+
+    var currentFrameStart = -1;
+    for (var i = 0; i < this.state.moveData.frames.length; i++) {
+      if (this.state.moveData.frames[i][frameVarName]) {
+        if (currentFrameStart < 0) {
+          currentFrameStart = i;
+        }
+      } else if (currentFrameStart >= 0) {
+        // If we have a range in flight, this is the end of it
+        if (i - currentFrameStart < 2) {
+          // 1 frame range
+          rangeString.push('' + (currentFrameStart + 1));
+        } else {
+          // 2+ frame range
+          rangeString.push('' + (currentFrameStart + 1) + '-' + i);
+        }
+        currentFrameStart = -1;
+      }
+    }
+
+    if (!rangeString.length) {
+      return '';
+    }
+    return rangeString.reduce(function(pre, next) {
+      return pre + ', ' + next;
+    });
   }
 
   getHitboxRanges() {
@@ -182,6 +270,10 @@ class MoveInfo extends Component {
     });
   }
 
+  copyLink(e) {
+    copy(window.location.href, {message: 'Press #{key} to copy'});
+  }
+
   render() {
     if (!this.state.moveData) {
       return(
@@ -198,6 +290,8 @@ class MoveInfo extends Component {
 
     const intangibilityRange = this.getIntangibilityRange();
     const hitboxRanges = this.getHitboxRanges();
+    const superArmorRange = this.getSuperArmorRange();
+    const invincibleRange = this.getInvincibleRange();
 
     var hitboxTable = (
       <span>Pause while hitboxes are visible to see more specific information</span>
@@ -249,9 +343,14 @@ class MoveInfo extends Component {
 
     return(
       <div className="Move-info">
-        <p><span className='Bold-label' data-tip={TOOLTIPS['faf']}>First Actionable Frame:</span> {this.state.moveData.faf === 0 ? 'N/A' : this.state.moveData.faf}</p>
-        <p><span className='Bold-label' data-tip={TOOLTIPS['intFrames']}>Intangible frames:</span> {intangibilityRange}</p>
+        <div className="Link-current-frame-container">
+          <button onClick={this.copyLink} className='Link-current-frame'>Copy link to current move/frame</button>
+        </div>
+        <p><span className='Bold-label' data-tip={TOOLTIPS['faf']}>First Actionable Frame:</span> {this.state.moveData.faf === 0 ? 'Not specified' : this.state.moveData.faf}</p>
         <p><span className='Bold-label' data-tip={TOOLTIPS['hitActive']}>Hitbox active:</span> {hitboxRanges}</p>
+        {superArmorRange}
+        {intangibilityRange}
+        {invincibleRange}
         {hitboxTable}
         <ReactTooltip multiline={true} delayShow={160} effect={'solid'} place={'right'} />
       </div>

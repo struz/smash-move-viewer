@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 import ReactGA from 'react-ga';
 import axios from 'axios';
 
@@ -144,6 +144,16 @@ class Player extends Component {
   }
 
   render() {
+    const frameTooltip = "The current frame of the move being shown"
+    const playSpeedTooltip = "How fast to play the move. 1x is in-game speed (60fps)"
+    const loopTooltip = "Tick to make the move repeat playing until you pause"
+    const frameFirstTooltip = "Skip to the first frame of the move"
+    const framePrevTooltip = "Show the previous frame of the move"
+    const playTooltip = "Play the move"
+    const pauseTooltip = "Pause the move to view hitbox information"
+    const frameNextTooltip = "Show the next frame of the move"
+    const frameLastTooltip = "Skip to the last frame of the move"
+
     const uuid = this.state.uuid;
     const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';
     const vidLoaded = this.state.video !== null;
@@ -152,6 +162,7 @@ class Player extends Component {
     const loop = this.state.loop;
 
     const playIcon = this.state.paused ? iconPlay : iconPause;
+    const playPauseTooltip = this.state.paused ? playTooltip : pauseTooltip;
     // Logic around being able to delete the entire contents of the frame box
     // Also has the added bonus of stopping text being entered
     var displayFrame = parseInt(this.state.frameIndex, 10);
@@ -204,19 +215,19 @@ class Player extends Component {
         {vidPlaceholder}
         <div className="Move-controls" style={(!showControls) ? {display: 'none'} : {}}>
           <div className="Player-controls">
-            <img src={iconFirst} alt="first"
+            <img src={iconFirst} alt="first" title={frameFirstTooltip}
              onClick={isLoading ? null : this.firstFrameHandler}
              className="Player-control"/>
-            <img src={iconPrevious} alt="previous"
+            <img src={iconPrevious} alt="previous" title={framePrevTooltip}
              onClick={isLoading ? null : this.prevFrameHandler}
              className="Player-control"/>
-            <img src={playIcon} alt="play/pause"
+            <img src={playIcon} alt="play/pause" title={playPauseTooltip}
              onClick={isLoading ? null : this.playPauseHandler}
              className="Player-control" />
-            <img src={iconNext} alt="next"
+            <img src={iconNext} alt="next" title={frameNextTooltip}
              onClick={isLoading ? null : this.nextFrameHandler}
              className="Player-control"/>
-            <img src={iconLast} alt="last"
+            <img src={iconLast} alt="last" title={frameLastTooltip}
              onClick={isLoading ? null : this.lastFrameHandler}
              className="Player-control"/>
           </div>
@@ -224,25 +235,26 @@ class Player extends Component {
             <hr />
           </div>
           <div className="Frame-controls">
-            <label>Play speed:</label>
+            <label title={playSpeedTooltip}>Play speed:</label>
             <select onChange={this.speedChanged} value={this.state.playbackSpeed}
-             className="Dropdown" disabled={isLoading}>
+             className="Dropdown" title={playSpeedTooltip} disabled={isLoading}>
               <option value="2">2x</option>
               <option value="1">1x</option>
               <option value="0.5">0.5x</option>
               <option value="0.25">0.25x</option>
               <option value="0.1">0.1x</option>
             </select>
-            <label>Frame:</label>
+            <label title={frameTooltip}>Frame:</label>
             <input ref="frameNum" type="number"
              onChange={this.frameTextChanged}
              value={displayFrame}
+             title={frameTooltip}
              className="Move-frame Text-input"
              disabled={isLoading}/>
             <div id="Frame-loop">
               <input type="checkbox" id="chkLoop" onChange={this.loopHandler}
-               checked={loop} />
-              <label htmlFor="chkLoop">Loop</label>
+               checked={loop} title={loopTooltip} />
+              <label title={loopTooltip} htmlFor="chkLoop">Loop</label>
             </div>
           </div>
     		  <div>

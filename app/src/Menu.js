@@ -4,12 +4,12 @@ import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-107697636-1');
 
-class Footer extends Component {
+class Menu extends Component {
   render() {
     // TODO: make sure analytics are collected around these page views
     return (
       <div className="menu-container">
-    		<a className="menu" href="#/">Move Viewer</a>
+    		<a className="menu" href="#/">Move&nbsp;Viewer</a>
     		<span className="menu-spacer">&#124;</span>
     		<a className="menu" href="#/help">Help</a>
     		<span className="menu-spacer">&#124;</span>
@@ -23,4 +23,4 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+export default Menu;
