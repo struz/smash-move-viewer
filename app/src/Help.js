@@ -72,7 +72,11 @@ class Help extends Component {
         <h3 className="Section-4">4. Hitbox information</h3>
         Always present when there is a hitbox or other special bubble in the
         viewport, this section describes what each bubble represents. It will
-        only appear when the move is paused.
+        only appear when the move is paused. Match the colour in the table row with
+        the colour of a bubble in the viewport to find out which hitbox has
+        which properties. If the colour is not present it is likely hidden
+        behind an adjacent table row's bubble completely, so assume that they
+        are the same size.
         <br /><br />
         <span className="Bold-label">This table contains a lot of information
         </span>. To help you make the most of it, every column header can
@@ -88,9 +92,7 @@ class Help extends Component {
         <br /><br />
         The information with this table will change depending on which frame of
         the move you are viewing. It will always have up-to-date information on
-        the current frame of the move. Match the colour in the table row with
-        the colour of a bubble in the viewport to find out which hitbox has
-        which properties.
+        the current frame of the move.
         <br /><br />
         <h2>The viewport</h2>
         The most important part of the entire site, the viewport allows
