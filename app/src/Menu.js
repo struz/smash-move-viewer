@@ -11,9 +11,9 @@ class Menu extends Component {
       <div className="menu-container">
     		<a className="menu" href="#/">Move&nbsp;Viewer</a>
     		<span className="menu-spacer">&#124;</span>
-    		<a className="menu" href="#/help">Help</a>
+    		<a className="menu" href="#/help" target="_blank" rel="noopener noreferer">Help</a>
     		<span className="menu-spacer">&#124;</span>
-    		<a className="menu" href="#/about">About</a>
+    		<a className="menu" href="#/about" target="_blank" rel="noopener noreferer">About</a>
     		<span className="menu-spacer">&#124;</span>
         <ReactGA.OutboundLink className="menu" eventLabel="Twitter" to="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">
           &#64;StruzSmash

@@ -25,3 +25,5 @@ ScanMountGoat - tireless work furthering rendering in Smash Forge.
 [@KuroganeHammer](https://twitter.com/KuroganeHammer) - super helpful frame data man of legend. Owner/creator of frame data website [kuroganehammer.com](http://kuroganehammer.com/Smash4). He and his discord members have been very helpful along the way.
 
 [@Meshima_](https://twitter.com/Meshima_) - smash scientist from Japan. Maintains the [very comprehensive spreadsheet for Smash4 params](https://docs.google.com/spreadsheets/d/1FgOsGYfTD4nQo4jFGJ22nz5baU1xihT5lreNinY5nNQ). I have used some of the descriptions from this spreadsheet as tooltips to make reading the hitbox data easier.
+
+[@SuperSharkRocky](https://twitter.com/SuperSharkRocky) - amazing artist/game designer who designed the theme for the site. Helped me with site usability and layout. Provided a lot of valuable feedback and ideas along the way. [Go check out her amazing artwork!](http://supershark.studio/)

@@ -270,6 +270,9 @@ class Player extends Component {
       this.moveFrameRelative(-1, this.state.video, true);
     else if (e.keyCode === 39) // right
       this.moveFrameRelative(1, this.state.video, true);
+    else if (e.keyCode === 32) // return / enter
+      this.playPauseHandler();
+    e.preventDefault();
   }
 
   loopHandler(e) {

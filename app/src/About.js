@@ -21,7 +21,8 @@ class Help extends Component {
         move visualization by becoming one of the devs on a program
         called <a href="https://github.com/jam1garner/Smash-Forge">Smash Forge</a>.
         Unfortunately because the program requires you to have a copy of the game
-        files for Smash 4 not many people started using it. This is a shame as I
+        files for Smash 4 and a rather powerful GPU, not many people outside of
+        modders started using it. This was a shame to me as I
         believe that interactive hitbox viewing could really help people
         understand and theorycraft the game better. To get around this problem
         I decided to make a web interface for viewing Smash 4 hitboxes. After a
@@ -32,13 +33,14 @@ class Help extends Component {
         If you have any suggestions or feedback please don't hesitate to let
         me know.
         <ul>
-          <li>Twitter: <ReactGA.OutboundLink eventLabel="Twitter" to="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">&#64;StruzSmash</ReactGA.OutboundLink></li>
-          <li>Email: <a href="mailto:smashmoveviewer@gmail.com">smashmoveviewer@gmail.com</a></li>
-          <li>Discord: Struz#7839</li>
+          <li><span className="Bold-label">Twitter:</span> <ReactGA.OutboundLink eventLabel="Twitter" to="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">&#64;StruzSmash</ReactGA.OutboundLink></li>
+          <li><span className="Bold-label">Email:</span> <a href="mailto:smashmoveviewer@gmail.com">smashmoveviewer@gmail.com</a></li>
+          <li><span className="Bold-label">Discord:</span> Struz#7839</li>
         </ul>
-        Some example of things I would love to know about:
+        Some examples of feedback I would love to hear:
         <ul>
           <li>Move naming suggestions</li>
+          <li>General site usability suggestions</li>
           <li>If a move has provably wrong frame data</li>
           <li>If a feature is broken or not working on your device</li>
           <li>Feature suggestions</li>
@@ -54,7 +56,8 @@ class Help extends Component {
             </span> I have done my best to ensure that most moves are correct,
             and spent a lot of time verifying this with existing frame databases.
             However, all of the moves shown here were generated using reverse
-            engineered data, and as such could be slightly different from in-game.
+            engineered data, and as such could be rendered slightly different
+            from in-game.
           </li>
           <li>
             <span className="Bold-label">No tether grabs.</span> This also extends
@@ -83,19 +86,18 @@ class Help extends Component {
             the rest of the characters do not work well with them.
           </li>
         </ul>
-        <br /><br />
-        <h3>Credits / Thanks</h3>
-        <ul>
+        <h3>Credits &amp; Thanks</h3>
+        <ul className="Spaced-list">
           <li>
             <span className="Bold-label">Struz
-              (<a href="https://twitter.com/StruzSmash">@StruzSmash</a>):
+              (<a href="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">@StruzSmash</a>):
             </span> main developer of Smash Move Viewer. Smash4 reverse engineering
             and Smash Forge contributions relating to animations, hitboxes, and
             ACMD scripts. Author of this About page.
           </li>
           <li>
             <span className="Bold-label">jam1garner
-              (<a href="https://twitter.com/jam1garner">@jam1garner</a>):
+              (<a href="https://twitter.com/jam1garner" target="_blank" rel="noopener noreferrer">@jam1garner</a>):
             </span> creator of <a href="https://github.com/jam1garner/Smash-Forge">Smash Forge</a>,
             the program which inspired this site. This program was integral in producing
             hitbox visualizations. Jam also got me started on reverse engineering on the WiiU.
@@ -110,24 +112,36 @@ class Help extends Component {
           </li>
           <li>
             <span className="Bold-label">Ruben
-              (<a href="https://twitter.com/ruben_dal">@Ruben_dal</a>):
+              (<a href="https://twitter.com/ruben_dal" target="_blank" rel="noopener noreferrer">@Ruben_dal</a>):
             </span> one of the best Smash scientists around. Added many helpful
             visualizations to Smash Forge, has researched and explained many
-            game mechanics in detail, owner and creator of
-            <a href="http://rubendal.github.io/Sm4sh-Calculator/">
+            game mechanics in detail, owner and creator
+            of <a href="http://rubendal.github.io/Sm4sh-Calculator/">
               the Sm4sh Calculator
-            </a> and assorted tools. His script viewer and searcher have been
-            invaluable for helping me make this site.
+            </a> and assorted tools.
+            His <a href="http://rubendal.github.io/Sm4sh-Calculator/scripts.html">script viewer and searcher</a> have
+            been invaluable for helping me make this site.
           </li>
           <li>
             <span className="Bold-label">Kurogane Hammer
-              (<a href="https://twitter.com/KuroganeHammer">@KuroganeHammer</a>):
+              (<a href="https://twitter.com/KuroganeHammer" target="_blank" rel="noopener noreferrer">@KuroganeHammer</a>):
             </span> super helpful frame data man. This site was somewhat
             inspired by <a href="http://kuroganehammer.com/Smash4">his website</a>,
             as I always wished that alongside the numbers there was a visual of
             how the hitboxes actually looked. He helped me test a bunch of bugs
             with smash forge animation viewing, and he and his discord kept
             finding bugs with various moves (which I would then fix).
+          </li>
+          <li>
+            <span className="Bold-label">Rose
+              (<a href="https://twitter.com/SuperSharkRocky" target="_blank" rel="noopener noreferrer">@SuperSharkRocky</a>):
+            </span> awesome artist and game designer. Huge thanks for creating a theme
+            for Smash Move Viewer, helping me with site usability &amp; graphics,
+            and for being a generally great person to bounce ideas off. You made
+            the final stretch of finishing this project off much more bearable, and
+            I can't thank you enough.
+            <br />
+            <a href="http://supershark.studio/">Go check out all of her amazing art!</a>
           </li>
         </ul>
     		<hr />

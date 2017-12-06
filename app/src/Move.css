@@ -61,6 +61,14 @@
   background: #c6c5c6;
 }
 
+.Radio-buttons {
+  display: inline-block;
+}
+
+.Radio-buttons label {
+  padding-right: 15px;
+}
+
 .View-picker, .Move-picker, .Fighter-picker, .Move-options {
   display: inline-block;
 }

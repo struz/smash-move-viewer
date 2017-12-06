@@ -91,20 +91,33 @@ class MoveOptions extends Component {
   }
 
   handleChange(e) {
-    this.props.onShowAllChange(!e.target.checked);
+    this.props.onShowAllChange(e.target.value === "allmoves");
   }
 
   render() {
     const showAllMoves = this.props.showAllMoves;
-    const checkboxTooltip = "Tick to view most common moves for a character. Untick to every move for a character";
+    const commonlyViewedTooltip = "Select to limit move selector to the most commonly viewed moves for a character";
+    const allTooltip = "Select to view every move for a character";
 
     return(
       // ShowUseful true means ShowAll is false
       <div className="Form-element">
-        <input type="checkbox" id="chkShowUseful" onChange={this.handleChange}
-         checked={!showAllMoves}
-         title={checkboxTooltip} />
-        <label htmlFor="chkShowUseful" title={checkboxTooltip}>Relevant moves only</label>
+        <div className="Radio-buttons">
+          <label htmlFor="radioShowUseful2" title={allTooltip}>
+            <input type="radio" name="radioShowUseful" id="radioShowUseful2"
+             value="allmoves" checked={showAllMoves} title={allTooltip}
+             onChange={this.handleChange}/>
+            All moves
+          </label>
+        </div>
+        <div className="Radio-buttons">
+          <label htmlFor="radioShowUseful1" title={commonlyViewedTooltip}>
+            <input type="radio" name="radioShowUseful" id="radioShowUseful1"
+             value="commonmoves" checked={!showAllMoves} title={commonlyViewedTooltip}
+             onChange={this.handleChange}/>
+            Commonly viewed moves
+          </label>
+        </div>
       </div>
     );
   }

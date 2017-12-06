@@ -24,11 +24,7 @@ class Help extends Component {
       <div className="prose">
         <hr />
         <h2>How to use this site</h2>
-        This page will explain everything you need to know to start using Smash
-        Move Viewer. The aim of this site is to create an interactive animation
-        viewer that is easy to use so Smash 4 players can investigate every
-        aspect of their character.
-        <br /><br />Here is an example screen from the app. Each part of the
+        Here is an example screen from the app. Each part of the
         user interface is highlighted with an explanation on what it does below.
         <br /><br />
         <a href={moveViewerExample}><img src={moveViewerExample} className="Move-viewer-example" alt="move viewer layout example" /></a>
@@ -47,7 +43,10 @@ class Help extends Component {
         <br /><br />
         <h3 className="Section-2">2. Playing the move</h3>
         Use the controls just under the viewport to interact with the move.
-        The play button will play the move at the selected speed. The buttons
+        The play button will play the move at the selected speed.
+        1x play speed is equal to in-game speed, or 60 frames per second.
+        <br /><br />
+        The buttons
         immediately to the left and right of play will skip one frame backward
         or forward in the move. The buttons on the ends skip straight to the
         start and end of the move respectively.
@@ -56,6 +55,13 @@ class Help extends Component {
         playing. You can also directly enter a frame into the frame box to skip
         to it.
         <br /><br />
+        There are hotkeys to make interacting with the movie easier:
+        <ul>
+          <li>Spacebar: Play/Pause</li>
+          <li>Right arrow: Next frame</li>
+          <li>Left arrow: Previous frame</li>
+        </ul>
+        <br />
         <h3 className="Section-3">3. General move information</h3>
         This section contains information about the move in general. Everything
         here is a summary of the entire move. Things that might be here include
@@ -87,7 +93,7 @@ class Help extends Component {
         which properties.
         <br /><br />
         <h2>The viewport</h2>
-        Arguably the most important part of the entire site the viewport allows
+        The most important part of the entire site, the viewport allows
         you to view every frame of animation just as it would appear in-game.
         It also has various useful data overlaid on the animation; mainly
         hitboxes and hurtboxes.
