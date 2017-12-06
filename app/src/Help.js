@@ -116,10 +116,7 @@ class Help extends Component {
         hitboxes are always round. Extended hitboxes make a cylinder between two
         points. The most important distinction between the two is that regular
         hitboxes "interpolate" their position between frames, while extended ones
-        do not. This is drawn in the viewport as a very faint red background
-        behind hitboxes. This means that if a hitbox moves very far between two
-        frames, it will also hit the area in between where it moved. A notable
-        example of this is the first few active frames of Cloud's Up Air.
+        do not.
         <br /><br />
         Hitboxes come in different colours depending on the ID number of the
         hitbox. These ID numbers are taken from the game's files, and a hitbox
@@ -152,8 +149,8 @@ class Help extends Component {
         knockback according to the parameters of the intersecting hitbox.
         <br /><br />
         Super armored hurtboxes are coloured <div className="Hitbox-color Text-aligned-div" style={{'background': superArmorColor}}></div>.
-        They can take increased damage from hitboxes before interrupting or
-        knocking back the hurtbox owner.
+        They can take increased damage from hitboxes before the hurtbox owner is
+        interrupted or knocked back.
         <a href="https://www.ssbwiki.com/Armor#In_Super_Smash_Bros._4">See the ssbwiki for more info.</a>
         <br /><br />
         Invincible hurtboxes are coloured <div className="Hitbox-color Text-aligned-div" style={{'background': invincibleColor}}></div>.
@@ -170,6 +167,18 @@ class Help extends Component {
         hitbox around part of his leg. This is the area that is actively able
         to hurt opponents on this frame.
         <br /><br />
+        <h2>Advanced concepts</h2>
+        <h3>Hitbox interpolation</h3>
+        Earlier it was mentioned that regular (round) hitboxes can "interpolate".
+        What is interpolation? In a fast paced game like Smash Bros., it is
+        necessary to make sure that some moves do not have blind spots in their
+        hitboxes. Interpolation is one solution to this for moves in which the
+        hitboxes move a large distance between frames. In this case, the game
+        draws a line between the hitbox in the previous frame and the hitbox
+        in the current frame. This entire area counts as being hit by the
+        hitbox with the properties in the <span className="Bold-label">current frame</span>.
+        This is drawn in the viewport as a very faint red background
+        behind hitboxes. A notable example of this is the first few active frames of Cloud's Up Air.
     		<hr />
     	</div>
     );
