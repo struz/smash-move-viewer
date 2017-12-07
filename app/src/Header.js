@@ -9,8 +9,9 @@ class App extends Component {
       <div className="App-header">
         <div className="App-intro">
           <h2>Struz Smash</h2>
-		  		  <hr />
-          <h1>Move Viewer</h1>
+		  	<hr />
+			<h1>Move Viewer</h1>
+		  	<hr />
         </div>
       </div>
     );

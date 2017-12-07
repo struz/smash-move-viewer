@@ -22,14 +22,13 @@ class Help extends Component {
 
     return (
       <div className="prose">
-        <hr />
-        <h2>How to use this site</h2>
+        <h3>How to use this site</h3>
         Here is an example screen from the app. Each part of the
         user interface is highlighted with an explanation on what it does below.
         <br /><br />
         <a href={moveViewerExample}><img src={moveViewerExample} className="Move-viewer-example" alt="move viewer layout example" /></a>
         <br /><br />
-        <h3 className="Section-1">1. Selecting a move</h3>
+        <h4 className="Section-1">1. Selecting a move</h4>
         Use the controls at the top of the page to select a character and a move
         to view. If you uncheck the "Relevant moves only" box then you will be
         able to see every animation the character has, rather than just the most
@@ -41,7 +40,7 @@ class Help extends Component {
         to link all the animations together so you have to view them in
         individual parts.
         <br /><br />
-        <h3 className="Section-2">2. Playing the move</h3>
+        <h4 className="Section-2">2. Playing the move</h4>
         Use the controls just under the viewport to interact with the move.
         The play button will play the move at the selected speed.
         1x play speed is equal to in-game speed, or 60 frames per second.
@@ -62,14 +61,14 @@ class Help extends Component {
           <li>Left arrow: Previous frame</li>
         </ul>
         <br />
-        <h3 className="Section-3">3. General move information</h3>
+        <h4 className="Section-3">3. General move information</h4>
         This section contains information about the move in general. Everything
         here is a summary of the entire move. Things that might be here include
         notes about the move, it's First Actionable Frame, and summaries of when
         hurtboxes and hitboxes are present. Mouse over any of the fields to get
         a detailed description about what they mean.
         <br /><br />
-        <h3 className="Section-4">4. Hitbox information</h3>
+        <h4 className="Section-4">4. Hitbox information</h4>
         Always present when there is a hitbox or other special bubble in the
         viewport, this section describes what each bubble represents. It will
         only appear when the move is paused. Match the colour in the table row with
@@ -94,13 +93,13 @@ class Help extends Component {
         the move you are viewing. It will always have up-to-date information on
         the current frame of the move.
         <br /><br />
-        <h2>The viewport</h2>
+        <h3>The viewport</h3>
         The most important part of the entire site, the viewport allows
         you to view every frame of animation just as it would appear in-game.
         It also has various useful data overlaid on the animation; mainly
         hitboxes and hurtboxes.
         <br /><br />
-        <h3>Frames</h3>
+        <h4>Frames</h4>
         Smash 4 runs at 60 Frames Per Second (FPS). That means that the smallest
         unit of time according to in-game processing is 1/60th of a second. This
         is known as a "frame". Everything in this app revolves around frames.
@@ -109,7 +108,7 @@ class Help extends Component {
         parts of the viewport change depending on the current frame of the move
         being displayed.
         <br /><br />
-        <h3>Hitboxes</h3>
+        <h4>Hitboxes</h4>
         If a hitbox bubble intersects with a hurtbox bubble on the same in-game
         frame, then the character who owns the hurtbox will take damage and
         knockback according to the parameters of the intersecting hitbox.
@@ -136,7 +135,7 @@ class Help extends Component {
         what each hitbox does. Mouse over any of the column headers for an
         explanation of what they mean.
         <br /><br />
-        <h3>Special bubbles</h3>
+        <h4>Special bubbles</h4>
         Special bubbles are all coloured <div className="Hitbox-color Text-aligned-div" style={{'background': MoveInfo.specialBubbleColors[0]}}></div> except
         for the REFLECT type which is coloured <div className="Hitbox-color Text-aligned-div" style={{'background': MoveInfo.specialBubbleColors[1]}}></div>.
         Mouse over the relevant column in the Hitbox Information table for more
@@ -144,7 +143,7 @@ class Help extends Component {
         They are generally reserved for special reflect or armor moves like
         Mario's Cape or Pit's Guardian Orbitars.
         <br /><br />
-        <h3>Hurtboxes</h3>
+        <h4>Hurtboxes</h4>
         Regular hurtboxes are coloured <div className="Hitbox-color Text-aligned-div" style={{'background': hurtboxColor}}></div>.
         If a hitbox bubble intersects with a hurtbox bubble on the same in-game
         frame, then the character who owns the hurtbox will take damage and
@@ -160,7 +159,7 @@ class Help extends Component {
         put into hitlag for attacking. This is the same state as characters who
         have just come down from the respawn platform.
         <br /><br />
-        <h3>An example</h3>
+        <h4>An example</h4>
         <img src={ryuExample} className="Ryu-example" alt="move viewer layout example" />
         <br />
         Here we see a frame from Ryu's strong jab. On this frame we can see his
@@ -170,7 +169,7 @@ class Help extends Component {
         to hurt opponents on this frame.
         <br /><br />
         <h2>Advanced concepts</h2>
-        <h3>Hitbox interpolation</h3>
+        <h4>Hitbox interpolation</h4>
         Earlier it was mentioned that regular (round) hitboxes can "interpolate".
         What is interpolation? In a fast paced game like Smash Bros., it is
         necessary to make sure that some moves do not have blind spots in their

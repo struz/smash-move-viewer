@@ -15,8 +15,7 @@ class Help extends Component {
 
     return (
       <div className="prose">
-        <hr />
-        <h2>About</h2>
+        <h3>About</h3>
         Hey, I'm Struz and welcome to Smash Move Viewer. I started my journey in
         move visualization by becoming one of the devs on a program
         called <a href="https://github.com/jam1garner/Smash-Forge">Smash Forge</a>.

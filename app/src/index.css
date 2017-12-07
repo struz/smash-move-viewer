@@ -21,6 +21,15 @@
 	}
 
 @font-face {
+	font-family: 'bwmodelica-medium';
+	src: url('font/bwmodelica-medium/bwmodelica-medium-webfont.eot');
+	src: url('font/bwmodelica-medium/bwmodelica-medium-webfont.eot?#iehack') format('eot'),
+		url('font/bwmodelica-medium/bwmodelica-medium-webfont.woff') format('woff'),
+		url('font/bwmodelica-medium/bwmodelica-medium-webfont.ttf')  format('truetype'),
+		url('font/bwmodelica-medium/bwmodelica-medium-webfont.svg#svgbwmodelica-medium-webfont') format('svg');
+	}
+
+@font-face {
 	font-family: 'Town31Dim-BlackL';
 	src: url('font/Town31Dim-BlackL/Town31Dim-BlackL.eot');
 	src: url('font/Town31Dim-BlackL/Town31Dim-BlackL.eot?#iehack') format('eot'),
@@ -36,6 +45,15 @@
 		url('font/Town31Dim-RegularL/Town31Dim-RegularL.woff') format('woff'),
 		url('font/Town31Dim-RegularL/Town31Dim-RegularL.ttf')  format('truetype'),
 		url('font/Town31Dim-RegularL/Town31Dim-RegularL.svg#svgTown31Dim-RegularL') format('svg');
+	}
+	
+@font-face {
+	font-family: 'Town10Display-Regular';
+	src: url('font/Town10Display-Regular/Town10Display-Regular.eot');
+	src: url('font/Town10Display-Regular/Town10Display-Regular.eot?#iehack') format('eot'),
+		url('font/Town10Display-Regular/Town10Display-Regular.woff') format('woff'),
+		url('font/Town10Display-Regular/Town10Display-Regular.ttf')  format('truetype'),
+		url('font/Town10Display-Regular/Town10Display-Regular.svg#svgTown10Display-Regular') format('svg');
 	}
 
 body {
@@ -97,19 +115,25 @@ hr {
   overflow: auto;
 }
 
-/*update these later*/
-a.menu:link{
-  color: #8b9fa1;
-  font-family: "bwmodelica-bold", serif;
+/*standard links */
+a:link{
+  color: #60999f;
+  font-family: "bwmodelica-regular", serif;
   text-decoration: underline;
 }
 
-a.menu:visited {
-  color: #8b9fa1;
+a:visited {
+  color: #60999f;
 }
 
-a.menu:hover {
+a:hover {
   color: #00123e;
+}
+
+/*menu links, maybe update these later*/
+a.menu:link{
+  font-family: "bwmodelica-bold", serif;
+  text-decoration: underline;
 }
 
 .menu-container {
@@ -184,4 +208,23 @@ h2 {
   h2 {
     font-size: calc(20px + 4vw);
   }
+}
+
+/*for page subheadings */
+h3 {
+  color: #00123e;
+  font-family: "Town10Display-Regular", serif;
+  font-size: 30px;
+  visibility: visible;
+  font-weight: normal;
+  font-style: normal;
+}
+
+h4 {
+  color: #00123e;
+  font-family: "bwmodelica-medium", serif;
+  font-size: 18px;
+  visibility: visible;
+  font-weight: normal;
+  font-style: normal;
 }
