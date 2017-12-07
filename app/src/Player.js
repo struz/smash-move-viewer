@@ -266,13 +266,16 @@ class Player extends Component {
   }
 
   keyDownHandler(e) {
-    if (e.keyCode === 37)  // Left
+    if (e.keyCode === 37) {  // Left
       this.moveFrameRelative(-1, this.state.video, true);
-    else if (e.keyCode === 39) // right
+      e.preventDefault();
+    } else if (e.keyCode === 39) { // right
       this.moveFrameRelative(1, this.state.video, true);
-    else if (e.keyCode === 32) // return / enter
+      e.preventDefault();
+    } else if (e.keyCode === 32) { // return / enter
       this.playPauseHandler();
-    e.preventDefault();
+      e.preventDefault();
+    }
   }
 
   loopHandler(e) {
