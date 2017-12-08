@@ -571,12 +571,12 @@
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Down Special - Air, End",
+      "prettyName": "Down Special - Air, End on ground",
       "rawName": "SpecialAirLwEnd",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "SpecialAirLwEndAir",
+      "prettyName": "Down Special - Air, End in air",
       "rawName": "SpecialAirLwEndAir",
       "category": "no_hitbox"
     },
@@ -606,27 +606,12 @@
       "category": "has_hitbox"
     },
     {
-      "prettyName": "SpecialHiCapture",
-      "rawName": "SpecialHiCapture",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "SpecialHiCatch",
+      "prettyName": "Up Special - Grab",
       "rawName": "SpecialHiCatch",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "SpecialHiDxCapture",
-      "rawName": "SpecialHiDxCapture",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "SpecialHiGirlCapture",
-      "rawName": "SpecialHiGirlCapture",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "SpecialHiThrow",
+      "prettyName": "Up Special - Throw",
       "rawName": "SpecialHiThrow",
       "category": "no_hitbox"
     },
@@ -641,12 +626,12 @@
       "category": "no_hitbox"
     },
     {
-      "prettyName": "SpecialLwEndAir",
+      "prettyName": "Down Special - End in air",
       "rawName": "SpecialLwEndAir",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "SpecialLwWallHit",
+      "prettyName": "Down Special - Hit wall",
       "rawName": "SpecialLwWallHit",
       "category": "no_hitbox"
     },

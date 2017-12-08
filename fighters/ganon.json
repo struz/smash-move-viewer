@@ -526,12 +526,12 @@
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Down Special - Air, End",
+      "prettyName": "Down Special - Air, End on ground",
       "rawName": "SpecialAirLwEnd",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "SpecialAirLwEndAir",
+      "prettyName": "Down Special - Air, End in air",
       "rawName": "SpecialAirLwEndAir",
       "category": "no_hitbox"
     },
@@ -539,16 +539,6 @@
       "prettyName": "Neutral Special - Air",
       "rawName": "SpecialAirN",
       "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Neutral Special Part 2 - Air",
-      "rawName": "SpecialAirN2",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "SpecialAirN2Turn",
-      "rawName": "SpecialAirN2Turn",
-      "category": "no_hitbox"
     },
     {
       "prettyName": "Neutral Special - Air, Turn",
@@ -561,17 +551,12 @@
       "category": "no_hitbox"
     },
     {
-      "prettyName": "SpecialAirSCapture",
-      "rawName": "SpecialAirSCapture",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "SpecialAirSCatch",
+      "prettyName": "Side Special - Air, Grab",
       "rawName": "SpecialAirSCatch",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "SpecialAirSFall",
+      "prettyName": "Side Special - Fall",
       "rawName": "SpecialAirSFall",
       "category": "no_hitbox"
     },
@@ -586,12 +571,12 @@
       "category": "has_hitbox"
     },
     {
-      "prettyName": "SpecialHiCatch",
+      "prettyName": "Up Special - Grab",
       "rawName": "SpecialHiCatch",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "SpecialHiThrow",
+      "prettyName": "Up Special - Throw",
       "rawName": "SpecialHiThrow",
       "category": "no_hitbox"
     },
@@ -606,7 +591,7 @@
       "category": "no_hitbox"
     },
     {
-      "prettyName": "SpecialLwEndAir",
+      "prettyName": "Down Special - End in air",
       "rawName": "SpecialLwEndAir",
       "category": "no_hitbox"
     },
@@ -614,16 +599,6 @@
       "prettyName": "Neutral Special",
       "rawName": "SpecialN",
       "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Neutral Special Part 2",
-      "rawName": "SpecialN2",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "SpecialN2Turn",
-      "rawName": "SpecialN2Turn",
-      "category": "no_hitbox"
     },
     {
       "prettyName": "Neutral Special - Turn",
