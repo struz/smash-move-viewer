@@ -59,6 +59,8 @@ class Help extends Component {
           <li>Spacebar: Play/Pause</li>
           <li>Right arrow: Next frame</li>
           <li>Left arrow: Previous frame</li>
+          <li>Holding shift: arrow keys skip 10 frames in direction</li>
+          <li>Holding ctrl: arrow keys skip to first or last frame</li>
         </ul>
         <br />
         <h4 className="Section-3">3. General move information</h4>

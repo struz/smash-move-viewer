@@ -268,13 +268,34 @@ class Player extends Component {
   }
 
   keyDownHandler(e) {
-    if (e.keyCode === 37) {  // Left
-      this.moveFrameRelative(-1, this.state.video, true);
-      e.preventDefault();
-    } else if (e.keyCode === 39) { // right
-      this.moveFrameRelative(1, this.state.video, true);
-      e.preventDefault();
-    } else if (e.keyCode === 32) { // return / enter
+    // Player hotkeys
+    if (e.shiftKey) {
+      if (e.keyCode === 37) {  // Left
+        this.moveFrameRelative(-10, this.state.video, true);
+        e.preventDefault();
+      } else if (e.keyCode === 39) { // right
+        this.moveFrameRelative(10, this.state.video, true);
+        e.preventDefault();
+      }
+    } else if (e.ctrlKey) {
+      if (e.keyCode === 37) {  // Left
+        this.moveFrameAbsolute(0, this.state.video, true);
+        e.preventDefault();
+      } else if (e.keyCode === 39) { // right
+        this.moveFrameAbsolute(this.props.numFrames - 1, this.state.video, true);
+        e.preventDefault();
+      }
+    } else {
+      if (e.keyCode === 37) {  // Left
+        this.moveFrameRelative(-1, this.state.video, true);
+        e.preventDefault();
+      } else if (e.keyCode === 39) { // right
+        this.moveFrameRelative(1, this.state.video, true);
+        e.preventDefault();
+      }
+    }
+
+    if (e.keyCode === 32) { // return / enter
       this.playPauseHandler();
       e.preventDefault();
     }

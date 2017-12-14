@@ -556,11 +556,6 @@
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Down Special - Air",
-      "rawName": "SpecialAirLw",
-      "category": "has_hitbox"
-    },
-    {
       "prettyName": "Down Special Low Charge - Air",
       "rawName": "SpecialAirLw1",
       "category": "has_hitbox"
@@ -649,11 +644,6 @@
       "prettyName": "Up Special - Landing",
       "rawName": "SpecialHiLanding",
       "category": "no_hitbox"
-    },
-    {
-      "prettyName": "Down Special",
-      "rawName": "SpecialLw",
-      "category": "has_hitbox"
     },
     {
       "prettyName": "Down Special Low Charge",
