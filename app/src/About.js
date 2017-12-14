@@ -134,7 +134,7 @@ class Help extends Component {
           <li>
             <span className="Bold-label">Rose
               (<a href="https://twitter.com/SuperSharkRocky" target="_blank" rel="noopener noreferrer">@SuperSharkRocky</a>):
-            </span> awesome artist and game designer. Huge thanks for creating a theme
+            </span> awesome artist and game designer. Huge thanks for creating a theme and logo
             for Smash Move Viewer, helping me with site usability &amp; graphics,
             and for being a generally great person to bounce ideas off. You made
             the final stretch of finishing this project off much more bearable, and
