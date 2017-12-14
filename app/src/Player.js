@@ -3,8 +3,6 @@ import { withRouter } from 'react-router';
 import ReactGA from 'react-ga';
 import axios from 'axios';
 
-//import logo from './img/SmashBall.svg';
-
 // loading GIF
 import loadingGif from './img/BowserSpin2.gif';
 
@@ -189,9 +187,13 @@ class Player extends Component {
     if (!vidLoaded) {
       // We have to use inline style here unfortunately because divs don't have
       // a "width" property
+      var placeholderInlineStyles = {width: videoWidth}
+      if (!isLoading) {
+        placeholderInlineStyles['backgroundImage'] = `url(${process.env.PUBLIC_URL + '/logo.jpg'})`;
+      }
       vidPlaceholder = (
         <div className="Move-video-placeholder"
-         style={{width: videoWidth}}>
+         style={placeholderInlineStyles}>
          <div className="Move-video-placeholder-inner">
             {!isLoading &&
               <div className="Move-video-instruction">
