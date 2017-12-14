@@ -161,7 +161,7 @@ class MoveInfo extends Component {
     }
     // Intangibility end is the *frame on which* the intangibility ends i.e. the frame
     // that you are once again vulnerable so we subtract one to make more sense
-    return '' + this.state.moveData.intangibilityStart + '-' + (this.state.moveData.intangibilityEnd - 1);
+    return '' + (this.state.moveData.intangibilityStart > 0 ? this.state.moveData.intangibilityStart : 1) + '-' + (this.state.moveData.intangibilityEnd - 1);
   }
 
   getIntangibilityRange() {

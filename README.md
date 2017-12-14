@@ -26,4 +26,4 @@ ScanMountGoat - tireless work furthering rendering in Smash Forge.
 
 [@Meshima_](https://twitter.com/Meshima_) - smash scientist from Japan. Maintains the [very comprehensive spreadsheet for Smash4 params](https://docs.google.com/spreadsheets/d/1FgOsGYfTD4nQo4jFGJ22nz5baU1xihT5lreNinY5nNQ). I have used some of the descriptions from this spreadsheet as tooltips to make reading the hitbox data easier.
 
-[@SuperSharkRocky](https://twitter.com/SuperSharkRocky) - amazing artist/game designer who designed the theme for the site. Helped me with site usability and layout. Provided a lot of valuable feedback and ideas along the way. [Go check out her amazing artwork!](http://supershark.studio/)
+[@SuperSharkRocky](https://twitter.com/SuperSharkRocky) - amazing artist/game designer who designed the theme and logo for the site. Helped me a lot with site usability and layout. Provided tons of valuable feedback and ideas along the way. [Go check out her amazing artwork!](http://supershark.studio/)
