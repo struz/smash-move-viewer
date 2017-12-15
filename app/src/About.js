@@ -41,6 +41,9 @@ class Help extends Component {
           <li>Move naming suggestions</li>
           <li>General site usability suggestions</li>
           <li>If a move has provably wrong frame data</li>
+          <ul>
+            <li>This means that you have done or can point to research that demonstrably shows the move hitting on a different frame in-game, or having different hitbox parameters to the ones listed</li>
+          </ul>
           <li>If a feature is broken or not working on your device</li>
           <li>Feature suggestions</li>
         </ul>

@@ -358,6 +358,8 @@ class Player extends Component {
         prevState.paused = true;
         return prevState;
       });
+      // Hacky fix for desynced video & frame display on-pause
+      this.moveFrameRelative(1, this.state.video, true);
     }
   }
 

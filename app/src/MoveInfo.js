@@ -267,7 +267,7 @@ class MoveInfo extends Component {
     }
 
     if (!rangeString.length) {
-      return '';
+      return 'N/A';
     }
     return rangeString.reduce(function(pre, next) {
       return pre + ', ' + next;
