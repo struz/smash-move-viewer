@@ -601,6 +601,11 @@
       "category": "has_hitbox"
     },
     {
+      "prettyName": "Neutral Special [Full Charge] - End",
+      "rawName": "SpecialNEndCharged",
+      "category": "has_hitbox"
+    },
+    {
       "prettyName": "Neutral Special - Loop",
       "rawName": "SpecialNLoop",
       "category": "no_hitbox"
