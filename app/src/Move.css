@@ -31,24 +31,6 @@
   width: 3em;
 }
 
-  /* all dropdowns including play speed */
-.Dropdown {
-  color: #00123e;
-  font-family: "bwmodelica-bold", sans-serif;
-  font-size: 16px;
-  display: inline-block;
-  border: 1px solid #878b98;
-}
-
-  /* just the top two dropdowns */
-.Main-dropdown {
-  padding: 5px 3px 5px 3px;
-  margin: 5px 2px 0px 3px;
-  font-family: "bwmodelica-regular", sans-serif;
-  width: 300px;
-  background: #fbfbf1;
-}
-
 .Text-input {
   /* fields eg. where frame number is entered */
   color: #00123e;

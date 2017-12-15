@@ -46,7 +46,7 @@
 		url('font/Town31Dim-RegularL/Town31Dim-RegularL.ttf')  format('truetype'),
 		url('font/Town31Dim-RegularL/Town31Dim-RegularL.svg#svgTown31Dim-RegularL') format('svg');
 	}
-	
+
 @font-face {
 	font-family: 'Town10Display-Regular';
 	src: url('font/Town10Display-Regular/Town10Display-Regular.eot');
@@ -136,7 +136,11 @@ a.menu:link{
   text-decoration: underline;
 }
 
-.menu-container {
+.large-menu-container {
+	margin-bottom: 8px;
+}
+
+.small-menu-container {
 	margin-bottom: 8px;
 }
 
@@ -151,10 +155,6 @@ a.menu:link{
 
 .Bold-label {
   font-family: "bwmodelica-bold", sans-serif;
-}
-
-#container {
-  overflow-y: scroll;
 }
 
 #vertical-spacer {
@@ -182,7 +182,7 @@ h1 {
 /* scale font-size for smaller devices */
 @media only screen and (max-width: 767px) {
   h1 {
-    font-size: calc(30px + 4vw);
+    font-size: calc(22px + 4vw);
   }
 }
 
@@ -202,12 +202,24 @@ h2 {
   h2 {
     font-size: 40px;
   }
+	.large-menu-container {
+		display: block;
+	}
+	.small-menu-container {
+		display: none;
+	}
 }
 /* scale font-size for smaller devices */
 @media only screen and (max-width: 767px) {
   h2 {
     font-size: calc(20px + 4vw);
   }
+	.large-menu-container {
+		display: none;
+	}
+	.small-menu-container {
+		display: block;
+	}
 }
 
 /*for page subheadings */
@@ -227,4 +239,30 @@ h4 {
   visibility: visible;
   font-weight: normal;
   font-style: normal;
+}
+
+/* all dropdowns including play speed */
+.Dropdown {
+	color: #00123e;
+	font-family: "bwmodelica-bold", sans-serif;
+	font-size: 16px;
+	display: inline-block;
+	border: 1px solid #878b98;
+}
+
+.Menus-container {
+	display: inline-block;
+}
+
+/* extras for the top two dropdowns */
+.Main-dropdown {
+	margin: 5px 2px 0px 3px;
+}
+
+/* just the top two dropdowns + menu dropdown */
+.Main-dropdown, .Menu-dropdown {
+	padding: 5px 3px 5px 3px;
+	font-family: "bwmodelica-regular", sans-serif;
+	width: 300px;
+	background: #fbfbf1;
 }

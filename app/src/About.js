@@ -74,6 +74,13 @@ class Help extends Component {
             projectiles that are possible to visualize at some point.
           </li>
           <li>
+            <span className="Bold-label">Some sleeves or clothing are wrong.</span> Note that
+            this is purely cosmetic, and the hitboxes and hurtboxes shown are
+            accurate as seen in-game. The reason these do not work is because
+            nobody has yet researched how "helper bones" interact with regular
+            bones in Smash4 models. For a good example, see Falco.
+          </li>
+          <li>
             <span className="Bold-label">
               Some characters are missing.
             </span> I am slowly rolling out new characters until every character
