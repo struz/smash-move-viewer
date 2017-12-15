@@ -196,7 +196,7 @@ class MoveInfo extends Component {
       return null;
     return (
       <p>
-        <span className='Bold-label' data-tip={TOOLTIPS['armorFrames']}>
+        <span className='Bold-label' data-tip={TOOLTIPS['saFrames']}>
           Super armor frames:
         </span> {superArmorRange}
       </p>);
@@ -208,7 +208,7 @@ class MoveInfo extends Component {
       return null;
     return (
       <p>
-        <span className='Bold-label' data-tip={TOOLTIPS['invincibleFrames']}>
+        <span className='Bold-label' data-tip={TOOLTIPS['invFrames']}>
           Invincible frames:
         </span> {invincibleRange}
       </p>);
