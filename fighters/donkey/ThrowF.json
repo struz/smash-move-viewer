@@ -1,0 +1,200 @@
+{
+  "moveName": "Forward Throw",
+  "faf": 0,
+  "intangibilityStart": 0,
+  "intangibilityEnd": 0,
+  "frames": [
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    }
+  ],
+  "camera": {
+    "game_view": {
+      "zoom": -70.0,
+      "horizontalRotation": 1.57079,
+      "verticalRotation": 0.0,
+      "x": 0.0,
+      "y": 5.0,
+      "modelPosX": 0.0,
+      "modelPosY": 0.0,
+      "modelPosZ": 0.0
+    }
+  }
+}
