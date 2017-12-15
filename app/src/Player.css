@@ -72,7 +72,7 @@
 .Move-video-placeholder {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: auto 70%;
 }
 
 .Move-video-placeholder-inner {

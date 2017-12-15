@@ -3,6 +3,8 @@ import { withRouter } from 'react-router';
 import ReactGA from 'react-ga';
 import axios from 'axios';
 
+import logo from './img/logo_transparent.png';
+
 // loading GIF
 import loadingGif from './img/BowserSpin2.gif';
 
@@ -189,7 +191,7 @@ class Player extends Component {
       // a "width" property
       var placeholderInlineStyles = {width: videoWidth}
       if (!isLoading) {
-        placeholderInlineStyles['backgroundImage'] = `url(${process.env.PUBLIC_URL + '/logo.jpg'})`;
+        placeholderInlineStyles['backgroundImage'] = `url(${logo})`;
       }
       vidPlaceholder = (
         <div className="Move-video-placeholder"
