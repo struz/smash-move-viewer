@@ -1,6 +1,5 @@
 /* this is the header at the top of the app; padding is whitespace at the top and height determines the height of the header below it */
 .App-header {
-  height: 170px;
   padding: 20px;
   white-space: nowrap;
 }
