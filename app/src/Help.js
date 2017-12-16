@@ -3,6 +3,7 @@ import ReactGA from 'react-ga';
 
 import './Help.css';
 import './MoveInfo.css';
+import {HOTKEY_HELP} from './Common.js';
 
 import ryuExample from './img/ryu_example.png';
 import moveViewerExample from './img/MoveViewerInstructional.png';
@@ -29,8 +30,8 @@ class Help extends Component {
         <a href={moveViewerExample}><img src={moveViewerExample} className="Move-viewer-example" alt="move viewer layout example" /></a>
         <br /><br />
         <h4 className="Section-1">1. Selecting a move</h4>
-        Use the controls at the top of the page to select a character and a move
-        to view. If you uncheck the "Relevant moves only" box then you will be
+        <span className="Bold-label">Use the controls at the top of the page to select a character and a move
+        to view.</span> If you uncheck the "Relevant moves only" box then you will be
         able to see every animation the character has, rather than just the most
         viewed ones.
         <br /><br />
@@ -41,7 +42,7 @@ class Help extends Component {
         individual parts.
         <br /><br />
         <h4 className="Section-2">2. Playing the move</h4>
-        Use the controls just under the viewport to interact with the move.
+        <span className="Bold-label">Use the controls just under the viewport to interact with the move.</span>
         The play button will play the move at the selected speed.
         1x play speed is equal to in-game speed, or 60 frames per second.
         <br /><br />
@@ -54,24 +55,19 @@ class Help extends Component {
         playing. You can also directly enter a frame into the frame box to skip
         to it.
         <br /><br />
-        There are hotkeys to make interacting with the movie easier:
-        <ul>
-          <li>Spacebar: Play/Pause</li>
-          <li>Right arrow: Next frame</li>
-          <li>Left arrow: Previous frame</li>
-          <li>Holding shift: arrow keys skip 10 frames in direction</li>
-          <li>Holding ctrl: arrow keys skip to first or last frame</li>
-        </ul>
+        {<div dangerouslySetInnerHTML={{__html: HOTKEY_HELP}}></div>}
         <br />
         <h4 className="Section-3">3. General move information</h4>
-        This section contains information about the move in general. Everything
+        <span className="Bold-label">Find information about the move.</span> This
+        section contains information about the move in general. Everything
         here is a summary of the entire move. Things that might be here include
         notes about the move, it's First Actionable Frame, and summaries of when
         hurtboxes and hitboxes are present. Mouse over any of the fields to get
         a detailed description about what they mean.
         <br /><br />
         <h4 className="Section-4">4. Hitbox information</h4>
-        Always present when there is a hitbox or other special bubble in the
+        <span className="Bold-label">Find information about specific hitboxes.</span> Always
+        present when there is a hitbox or other special bubble in the
         viewport, this section describes what each bubble represents. It will
         only appear when the move is paused. Match the colour in the table row with
         the colour of a bubble in the viewport to find out which hitbox has

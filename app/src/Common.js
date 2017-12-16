@@ -3,6 +3,19 @@
 //import * as Env from './Env';
 import QueryString from 'query-string';
 
+
+// Hotkey help, which is shown in two places in the app
+export const HOTKEY_HELP = `
+There are hotkeys to make interacting with the move easier:
+<ul>
+  <li><span class="Bold-label">Spacebar:</span> Play/Pause</li>
+  <li><span class="Bold-label">Right arrow:</span> Next frame</li>
+  <li><span class="Bold-label">Left arrow:</span> Previous frame</li>
+  <li><span class="Bold-label">Holding shift:</span> arrow keys skip 10 frames in direction</li>
+  <li><span class="Bold-label">Holding ctrl:</span> arrow keys skip to first or last frame</li>
+</ul>
+`;
+
 // Make sure these match values in Player.js "speed" dropdown
 const VALID_SPEEDS = [2, 1, 0.5, 0.25, 0.1];
 

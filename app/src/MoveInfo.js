@@ -20,11 +20,11 @@ export const hitboxIdColors = [
 
 // Hitbox types, matches Smash-Forge types
 const HITBOX_TYPE = {
-  0: {name: 'Hitbox', tooltip: 'Damage hitbox<br />When this collides with a hurtbox a special effect may happen based on the "effect" type of the hitbox.<br />The victim will have their % increased by it\'s "damage"'},
-  1: {name: 'Grabbox', tooltip: 'Grab hitbox<br />When this collides with a hurtbox the victim will be grabbed, allowing them to be thrown soon afterwards'},
-  2: {name: 'Windbox', tooltip: 'Wind hitbox<br />When this collides with a hurtbox the victim will be pushed away based on the "angle" and other knockback properties of the hitbox'},
-  3: {name: 'Searchbox', tooltip: 'Searchbox<br />Depending on the character scripts this can do many different things.<br />Generally it will search for hitboxes or hurtboxes and perform an action if any are found'},
-  4: {name: 'Special', tooltip: 'Special Bubble<br />Mouse over the "effect" for more info'}
+  0: {name: 'Hitbox', tooltip: '<span class="Bold-label">Damage hitbox</span><p>When this collides with a hurtbox a special effect may happen based on the "effect" type of the hitbox.</p><p>The victim will have their % increased by it\'s "damage"</p>'},
+  1: {name: 'Grabbox', tooltip: '<span class="Bold-label">Grab hitbox</span><p>When this collides with a hurtbox the victim will be grabbed, allowing them to be thrown soon afterwards</p>'},
+  2: {name: 'Windbox', tooltip: '<span class="Bold-label">Wind hitbox</span><p>When this collides with a hurtbox the victim will be pushed away based on the "angle" and other knockback properties of the hitbox</p>'},
+  3: {name: 'Searchbox', tooltip: '<span class="Bold-label">Searchbox</span><p>Depending on the character scripts this can do many different things.</p><p>Generally it will search for hitboxes or hurtboxes and perform an action if any are found</p>'},
+  4: {name: 'Special', tooltip: '<span class="Bold-label">Special Bubble</span><p>Mouse over the "effect" for more info</p>'}
 }
 
 export const specialBubbleColors = [
@@ -33,99 +33,197 @@ export const specialBubbleColors = [
 ]
 
 const SPECIAL_BUBBLE_EFFECT = {
-  0: {name: 'Counter', tooltip: 'Counter<br />When a non-grab hitbox enters this zone it triggers a counter attack'},
-  1: {name: 'Reflect', tooltip: 'Reflect<br />Triggers when a hitbox enters this zone and the hitbox is "reflectable".<br />The owner of the hitbox (usually a projectile) will have it\'s momentum reversed and will now be able to hit it\'s original owner'},
-  2: {name: 'Absorb', tooltip: 'Absorb<br />Triggers when a hitbox enters this zone and the hitbox is "absorbable".<br />The owner of the hitbox (usually a projectile) will disappear. A character specfic effect will usually trigger too'},
-  3: {name: 'Shield', tooltip: 'Shield<br />Blocks all damage from attacks. Pushes opponents away if they are near'},
-  4: {name: 'Witch Time', tooltip: 'Witchtime Slowdown<br />When the Witch Time trigger bubble triggers, if the owner of the triggering hitbox has any hurtbox inside this bubble they will be afflicted with witch time'}
+  0: {name: 'Counter', tooltip: '<span class="Bold-label">Counter</span><p>When a non-grab hitbox enters this zone it triggers a counter attack</p>'},
+  1: {name: 'Reflect', tooltip: '<span class="Bold-label">Reflect</span><p>Triggers when a hitbox enters this zone and the hitbox is "reflectable".</p><p>The owner of the hitbox (usually a projectile) will have it\'s momentum reversed and will now be able to hit it\'s original owner</p>'},
+  2: {name: 'Absorb', tooltip: '<span class="Bold-label">Absorb</span><p>Triggers when a hitbox enters this zone and the hitbox is "absorbable".</p><p>The owner of the hitbox (usually a projectile) will disappear. A character specfic effect will usually trigger too</p>'},
+  3: {name: 'Shield', tooltip: '<span class="Bold-label">Shield</span><p>Blocks all damage from attacks. Pushes opponents away if they are near</p>'},
+  4: {name: 'Witch Time', tooltip: '<span class="Bold-label">Witchtime Slowdown</span><p>When the Witch Time trigger bubble triggers, if the owner of the triggering hitbox has any hurtbox inside this bubble they will be afflicted with witch time</p>'}
 }
 
 // Effect types, see https://docs.google.com/spreadsheets/d/1FgOsGYfTD4nQo4jFGJ22nz5baU1xihT5lreNinY5nNQ
 const EFFECT_TYPE = {
-  0: {name: 'Normal', tooltip: 'Regular move, no known gameplay effect'},
-  1: {name: 'Detect', tooltip: 'Detects hurtbox and transits to the next action'},
-  2: {name: 'Slash', tooltip: 'Cosmetic "slash" effect, no known gameplay effect'},
-  3: {name: 'Electric', tooltip: 'Cosmetic "electric" effect<br />Causes 1.5x hitlag<br />Gives 1 extra frame of hitstun<br />Untechable with grounded meteor due to hitlag multiplier<br />Deals no damage to yellow pikmin'},
-  4: {name: 'Freezing', tooltip: 'Cosmetic "freezing" effect<br />Puts opponents into "freezing" state when it deals more than 52.5 knockback<br />Freeze time = (12 * damage)'},
-  5: {name: 'Flame', tooltip: 'Cosmetic "flame" effect<br />Thaws out frozen characters<br />Deals no damage to red pikmin'},
-  6: {name: 'Coin', tooltip: 'Cosmetic "coin" effect, no known gameplay effect'},
-  7: {name: 'Reverse', tooltip: 'Puts opponent into reversed state for 25 frames<br />Opponent gets super armor for 8 frames<br />Boosts momentum to airborne opponents'},
-  8: {name: 'Slip', tooltip: 'Puts grounded opponent into "tripping" state<br />Moves that deal 0 damage cause soft trip<br />Can\'t suffer another trip for 60 frames after tripping'},
-  9: {name: 'Sleep', tooltip: 'Puts opponents into "sleep" state<br />Sleep time = (10 + (10 * 6) + (25 * KB) + (1 * Opponent\'s % after hit))'},
-  10: {name: 'Unused', tooltip: 'Unused'},
-  11: {name: 'Bury', tooltip: 'Puts grounded opponents into "buried" state<br />Bury time = (10 + (15 * 3) + (1.5 * KB) + (0.5 * Opponent\'s % after hit))'},
-  12: {name: 'Stun', tooltip: 'Puts opponents into "stun" state<br />Does no KB/hitlag for certain frames after "stun" and "disable" state<br />Stun time = (76 + (15 * 3) + (1 * KB))'},
-  13: {name: 'Unused', tooltip: 'Unused'},
-  14: {name: 'Flower', tooltip: 'Puts opponents into "flower" state'},
-  15: {name: 'Unused', tooltip: 'Unused'},
-  16: {name: 'Death', tooltip: 'Puts opponents into KO\'d state'},
-  17: {name: 'Unused', tooltip: 'Unused'},
-  18: {name: 'Water', tooltip: 'Deals no damage to blue Pikmin'},
-  19: {name: 'Darkness', tooltip: 'Cosmetic "darkness" effect, no known gameplay effect'},
-  20: {name: 'Paralyze', tooltip: 'Puts opponents into "paralyzing" state<br />No hitlag<br />Ignores opponent\'s weight, and sets it to 100 instead<br />Paralyze time = ((((Damage * 0.3846154 + 14) * HitlagMult.) * CrouchingMult. * 0.025) * KB)'},
-  21: {name: 'Aura', tooltip: 'Cosmetic "aura" effect, no known gameplay effect'},
-  22: {name: 'Plunge', tooltip: 'Always puts opponent into "burying" state'},
-  23: {name: 'Down', tooltip: 'Puts opponent into the state where they lie on their back'},
-  24: {name: 'Adhesion', tooltip: 'Sticks an item onto the opponent'},
-  25: {name: 'Stab', tooltip: 'Cosmetic "slash" effect, no known gameplay effect'},
-  26: {name: 'Magic', tooltip: 'Cosmetic "magic" effect, no known gameplay effect'},
-  27: {name: 'Flinchless1', tooltip: 'No hitlag, no knockback'},
-  28: {name: 'Flinchless2', tooltip: 'No hitlag, no knockback'},
-  29: {name: 'Solar', tooltip: 'No known gameplay effect'},
-  30: {name: 'Crumple', tooltip: 'Puts opponents into the state where they lie on their front<br />Doesn\'t occur on uncharged Focus Attack despite element being present on the hitbox'},
-  31: {name: 'Disable', tooltip: 'Puts opponents into "disable" state<br />Does no KB/hitlag for certain frames after "stun" and "disable" state<br />Disable time = ((1 * KB) + (1.1 * Opponent\'s % after hit))'},
-  32: {name: 'Pin', tooltip: 'Puts opponents into "pinned" state'},
-  33: {name: 'Unused', tooltip: 'Unused'},
-  34: {name: 'Unused', tooltip: 'Unused'},
-  35: {name: 'Unused', tooltip: 'Unused'},
-  36: {name: 'Bullet Arts', tooltip: 'No known gameplay effect'},
-  37: {name: 'Unused', tooltip: 'Unused'},
+  0: {name: 'Normal', tooltip: '<p>Regular move, no known gameplay effect</p>'},
+  1: {name: 'Detect', tooltip: '<p>Detects hurtbox and transits to the next action</p>'},
+  2: {name: 'Slash', tooltip: '<p>Cosmetic "slash" effect, no known gameplay effect</p>'},
+  3: {name: 'Electric', tooltip: '<p>Cosmetic "electric" effect</p><p>Causes 1.5x hitlag</p><p>Gives 1 extra frame of hitstun</p><p>Untechable with grounded meteor due to hitlag multiplier</p><p>Deals no damage to yellow pikmin</p>'},
+  4: {name: 'Freezing', tooltip: '<p>Cosmetic "freezing" effect</p><p>Puts opponents into "freezing" state when it deals more than 52.5 knockback</p><p>Freeze time = (12 * damage)</p>'},
+  5: {name: 'Flame', tooltip: '<p>Cosmetic "flame" effect</p><p>Thaws out frozen characters</p><p>Deals no damage to red pikmin</p>'},
+  6: {name: 'Coin', tooltip: '<p>Cosmetic "coin" effect, no known gameplay effect</p>'},
+  7: {name: 'Reverse', tooltip: '<p>Puts opponent into reversed state for 25 frames</p><p>Opponent gets super armor for 8 frames</p><p>Boosts momentum to airborne opponents</p>'},
+  8: {name: 'Slip', tooltip: '<p>Puts grounded opponent into "tripping" state</p><p>Moves that deal 0 damage cause soft trip</p><p>Can\'t suffer another trip for 60 frames after tripping</p>'},
+  9: {name: 'Sleep', tooltip: '<p>Puts opponents into "sleep" state</p><p>Sleep time = (10 + (10 * 6) + (25 * KB) + (1 * Opponent\'s % after hit))</p>'},
+  10: {name: 'Unused', tooltip: '<p>Unused</p>'},
+  11: {name: 'Bury', tooltip: '<p>Puts grounded opponents into "buried" state</p><p>Bury time = (10 + (15 * 3) + (1.5 * KB) + (0.5 * Opponent\'s % after hit))</p>'},
+  12: {name: 'Stun', tooltip: '<p>Puts opponents into "stun" state</p><p>Does no KB/hitlag for certain frames after "stun" and "disable" state</p><p>Stun time = (76 + (15 * 3) + (1 * KB))</p>'},
+  13: {name: 'Unused', tooltip: '<p>Unused</p>'},
+  14: {name: 'Flower', tooltip: '<p>Puts opponents into "flower" state</p>'},
+  15: {name: 'Unused', tooltip: '<p>Unused</p>'},
+  16: {name: 'Death', tooltip: '<p>Puts opponents into KO\'d state</p>'},
+  17: {name: 'Unused', tooltip: '<p>Unused</p>'},
+  18: {name: 'Water', tooltip: '<p>Deals no damage to blue Pikmin</p>'},
+  19: {name: 'Darkness', tooltip: '<p>Cosmetic "darkness" effect, no known gameplay effect</p>'},
+  20: {name: 'Paralyze', tooltip: '<p>Puts opponents into "paralyzing" state</p><p>No hitlag</p><p>Ignores opponent\'s weight, and sets it to 100 instead</p><p>Paralyze time = ((((Damage * 0.3846154 + 14) * HitlagMult.) * CrouchingMult. * 0.025) * KB)</p>'},
+  21: {name: 'Aura', tooltip: '<p>Cosmetic "aura" effect, no known gameplay effect</p>'},
+  22: {name: 'Plunge', tooltip: '<p>Always puts opponent into "burying" state</p>'},
+  23: {name: 'Down', tooltip: '<p>Puts opponent into the state where they lie on their back</p>'},
+  24: {name: 'Adhesion', tooltip: '<p>Sticks an item onto the opponent</p>'},
+  25: {name: 'Stab', tooltip: '<p>Cosmetic "slash" effect, no known gameplay effect</p>'},
+  26: {name: 'Magic', tooltip: '<p>Cosmetic "magic" effect, no known gameplay effect</p>'},
+  27: {name: 'Flinchless1', tooltip: '<p>No hitlag, no knockback</p>'},
+  28: {name: 'Flinchless2', tooltip: '<p>No hitlag, no knockback</p>'},
+  29: {name: 'Solar', tooltip: '<p>No known gameplay effect</p>'},
+  30: {name: 'Crumple', tooltip: '<p>Puts opponents into the state where they lie on their front</p><p>Doesn\'t occur on uncharged Focus Attack despite element being present on the hitbox</p>'},
+  31: {name: 'Disable', tooltip: '<p>Puts opponents into "disable" state</p><p>Does no KB/hitlag for certain frames after "stun" and "disable" state</p><p>Disable time = ((1 * KB) + (1.1 * Opponent\'s % after hit))</p>'},
+  32: {name: 'Pin', tooltip: '<p>Puts opponents into "pinned" state</p>'},
+  33: {name: 'Unused', tooltip: '<p>Unused</p>'},
+  34: {name: 'Unused', tooltip: '<p>Unused</p>'},
+  35: {name: 'Unused', tooltip: '<p>Unused</p>'},
+  36: {name: 'Bullet Arts', tooltip: '<p>No known gameplay effect</p>'},
+  37: {name: 'Unused', tooltip: '<p>Unused</p>'},
 }
 
 // See: https://docs.google.com/spreadsheets/d/1FgOsGYfTD4nQo4jFGJ22nz5baU1xihT5lreNinY5nNQ
 const FACING_RESTRICTION = {
-  0: {name: 'Same direction attacker is facing', tooltip: 'Same direction attacker is facing'},
-  1: {name: 'Opposite direction attacker is facing', tooltip: 'Opposite direction attacker is facing'},
-  2: {name: 'Same direction opponent is facing', tooltip: 'Same direction victim is facing'},
-  3: {name: 'Opposite direction attacker is facing', tooltip: 'Opposite direction attacker is facing'},
-  4: {name: 'Same direction attacker is facing', tooltip: 'Same direction attacker is facing'},
-  5: {name: 'Centre of hitbox', tooltip: 'Centre of hitbox'},
-  6: {name: 'Same direction attacker is facing', tooltip: 'Same direction attacker is facing, but shield pushback is opposite direction to usual'},
-  7: {name: 'Left', tooltip: 'Unused'},
-  8: {name: 'Right', tooltip: 'Unused'},
-  9: {name: 'Front', tooltip: 'Unused'},
+  0: {name: 'Same direction attacker is facing', tooltip: '<p>Same direction attacker is facing</p>'},
+  1: {name: 'Opposite direction attacker is facing', tooltip: '<p>Opposite direction attacker is facing</p>'},
+  2: {name: 'Same direction opponent is facing', tooltip: '<p>Same direction victim is facing</p>'},
+  3: {name: 'Opposite direction attacker is facing', tooltip: '<p>Opposite direction attacker is facing</p>'},
+  4: {name: 'Same direction attacker is facing', tooltip: '<p>Same direction attacker is facing</p>'},
+  5: {name: 'Centre of hitbox', tooltip: '<p>Centre of hitbox</p>'},
+  6: {name: 'Same direction attacker is facing', tooltip: '<p>Same direction attacker is facing, but shield pushback is opposite direction to usual</p>'},
+  7: {name: 'Left', tooltip: '<p>Unused</p>'},
+  8: {name: 'Right', tooltip: '<p>Unused</p>'},
+  9: {name: 'Front', tooltip: '<p>Unused</p>'},
 }
 
 const TOOLTIPS = {
-  faf: 'First Actionable Frame<br />The first frame on which this animation can be interrupted by another action or input',
-  intFrames: 'Intangible frames<br />The range(s) of frames in this move in which all character hurtboxes are disabled',
-  saFrames: 'Super armor frames<br />The range(s) of frames in this move in which the character is resistant or impervious to knockback',
-  invFrames: 'Invincible frames<br />The range(s) of frames in this move in which the character takes no damage or knockback from being hit.<br />The attacker is still placed into hitlag but the defender is not',
-  hitActive: 'Hitbox active frames<br />The range(s) of frames in this move which have an active hitbox',
+  // Generic move info stuff
+  faf: `
+    <span class="Bold-label">First Actionable Frame</span>
+    <p>The first frame on which this animation can be interrupted by another action or input</p>`,
+
+  intFrames: `
+    <span class="Bold-label">Intangible frames</span>
+    <p>The range(s) of frames in this move in which all character hurtboxes are disabled</p>`,
+
+  saFrames: `
+    <span class="Bold-label">Super armor frames</span>
+    <p>The range(s) of frames in this move in which the character is resistant or impervious to knockback</p>`,
+
+  invFrames: `
+    <span class="Bold-label">Invincible frames</span>
+    <p>The range(s) of frames in this move in which the character takes no damage or knockback from being hit.</p>
+    <p>The attacker is still placed into hitlag but the defender is not</p>`,
+
+  hitActive: `
+    <span class="Bold-label">Hitbox active frames</span>
+    <p>The range(s) of frames in this move which have an active hitbox</p>`,
+
 
   // Table stuff
-  props: 'Properties<br />U: Hitbox is unblockable<br />R: Hitbox is reflectable<br />A: Hitbox is absorbable<br />C: Hitbox does not clang<br/>B: Hitbox does not rebound. Also known as "trample".<br />F: Hitbox is flinchless<br />H: Hitbox has hitlag disabled',
-  groundAir: 'Ground/Air<br />Which types of opponent this hitbox can hit',
-  direct: 'Direct<br />If "Yes" then the hitbox will put the attacker in hitlag.<br />If "No" then the hitbox will usually not put the attacker in hitlag',
-  direction: 'Facing direction<br />Determines which way the hitbox will send the victim.<br />Directions are reversed if the victim\'s TransN bone has passed the attacker\'s TransN bone when the hit registers.<br />Mouse over the individual value for more info',
-  hitlag: 'Hitlag modifier<br />Multiplier on how many frames your character will freeze after connecting with this hitbox.<br />>1 means more than usual, <1 means less than usual',
-  sdi: 'SDI modifier<br />Multiplier on how far each SDI input will move the victim.<br />>1 means more distance than usual, <1 means less distance than usual',
-  trip: 'Tripping chance<br />Percentage chance the hitbox will trip an opponent.<br />Can be negative for some unknown reason',
-  rehit: 'Rehit rate<br />If 0 the hitbox does not rehit. If >0 then the hitbox can hit an opponent again after the specified number of frames',
-  collateral: 'Throw collateral<br />If "yes" then the hitbox cannot hit the currently grabbed opponent',
-  effect: 'Hitbox effect<br />Different effects make hitboxes act differently.<br />Mouse over the effect names to find out more about the specific effect',
-  wbkb: 'Weight based knockback<br />If the value is >0 then this hitbox has set knockback based on the weight of the victim',
-  bkb: 'Base knockback<br />The base knockback of the hitbox.<br />This is multiplied with other factors like damage, kbg, rage, and victim % to produce the in-game knockback received by the victim',
-  kbg: 'Knockback growth<br />The knockback growth of the hitbox.<br />The higher this value is the more the victim\'s % will affect the in-game knockback received by the victim',
-  angle: 'Angle<br />The angle at which the opponent will be knocked away by the hitbox.<br />See "Dir." column for other factors that affect this',
-  damage: 'Damage<br />The amount of % that will be added to the victim\'s total %.<br />In general, higher damage hitboxes will produce more in-game knockback to the victim.<br />Any number shown in brackets is the amount of damage done when the move hits a shield instead of a hurtbox.',
-  type: 'Hitbox type<br />The type of hitbox. One of: Hitbox, Grabbox, Windbox, Searchbox.<br />Mouse over the individual type for more info',
-  id: 'Hitbox ID<br />The ID of the hitbox. Hitboxes with lower IDs take precedence when calculating which hitbox has hit.<br />Usually only one hitbox from a move can hit the victim in a single frame',
-  color: 'Hitbox color<br />The color of the hitbox in the visualization.<br />If you cannot see this colour it is likely hidden behind another hitbox with a lower ID number',
+  props: `
+    <span class="Bold-label">Properties</span>
+    <ul>
+      <li>U: Hitbox is unblockable</li>
+      <li>R: Hitbox is reflectable</li>
+      <li>A: Hitbox is absorbable</li>
+      <li>C: Hitbox does not clang</li>
+      <li>B: Hitbox does not rebound. Also known as "trample".</li>
+      <li>F: Hitbox is flinchless</li>
+      <li>H: Hitbox has hitlag disabled</li>
+    </ul>`,
+
+  groundAir: `
+    <span class="Bold-label">Ground/Air</span>
+    <p>Which types of opponent this hitbox can hit</p>`,
+
+  direct: `
+    <span class="Bold-label">Direct</span>
+    <p>If "Yes" then the hitbox will put the attacker in hitlag.</p><p>If "No" then the hitbox will usually not put the attacker in hitlag</p>`,
+
+  direction: `
+    <span class="Bold-label">Facing direction</span>
+    <p>Determines which way the hitbox will send the victim.</p>
+    <p>Directions are reversed if the victim\'s TransN bone has passed the attacker\'s TransN bone when the hit registers.</p>
+    <p>Mouse over the individual value for more info</p>`,
+
+  hitlag: `
+    <span class="Bold-label">Hitlag modifier</span>
+    <p>Multiplier on how many frames your character will freeze after connecting with this hitbox.</p>
+    <p>&gt;1 means more than usual, &lt;1 means less than usual</p>`,
+
+  sdi: `
+    <span class="Bold-label">SDI modifier</span>
+    <p>Multiplier on how far each SDI input will move the victim.</p>
+    <p>&gt;1 means more distance than usual, &lt;1 means less distance than usual</p>`,
+
+  trip: `
+    <span class="Bold-label">Tripping chance</span>
+    <p>Percentage chance the hitbox will trip an opponent.</p>
+    <p>Can be negative for some unknown reason</p>`,
+
+  rehit: `
+    <span class="Bold-label">Rehit rate</span>
+    <p>If 0 the hitbox does not rehit. If &gt;0 then the hitbox can hit an opponent again after the specified number of frames</p>`,
+
+  collateral: `
+    <span class="Bold-label">Throw collateral</span>
+    <p>If "yes" then the hitbox cannot hit the currently grabbed opponent</p>`,
+
+  effect: `
+    <span class="Bold-label">Hitbox effect</span>
+    <p>Different effects make hitboxes act differently.</p>
+    <p>Mouse over the effect names to find out more about the specific effect</p>`,
+
+  wbkb: `
+    <span class="Bold-label">Weight based knockback</span>
+    <p>If the value is &gt;0 then this hitbox has set knockback based on the weight of the victim</p>`,
+
+  bkb: `
+    <span class="Bold-label">Base knockback</span>
+    <p>The base knockback of the hitbox.</p>
+    <p>This is multiplied with other factors like damage, kbg, rage, and victim % to produce the in-game knockback received by the victim</p>`,
+
+  kbg: `
+    <span class="Bold-label">Knockback growth</span>
+    <p>The knockback growth of the hitbox.</p>
+    <p>The higher this value is the more the victim\'s % will affect the in-game knockback received by the victim</p>`,
+
+  angle: `
+    <span class="Bold-label">Angle</span>
+    <p>The angle at which the opponent will be knocked away by the hitbox.</p>
+    <p>See "Dir." column for other factors that affect this</p>`,
+
+  damage: `
+    <span class="Bold-label">Damage</span>
+    <p>The amount of % that will be added to the victim\'s total %.</p>
+    <p>In general, higher damage hitboxes will produce more in-game knockback to the victim.</p>
+    <p>Any number shown in brackets is the amount of damage done when the move hits a shield instead of a hurtbox.</p>`,
+
+  type: `
+    <span class="Bold-label">Hitbox type</span>
+    <p>The type of hitbox. One of: Hitbox, Grabbox, Windbox, Searchbox.</p>
+    <p>Mouse over the individual type for more info</p>`,
+
+  id: `
+    <span class="Bold-label">Hitbox ID</span>
+    <p>The ID of the hitbox. Hitboxes with lower IDs take precedence when calculating which hitbox has hit.</p>
+    <p>Usually only one hitbox from a move can hit the victim in a single frame</p>`,
+
+  color: `
+    <span class="Bold-label">Hitbox color</span>
+    <p>The color of the hitbox in the visualization.</p>
+    <p>If you cannot see this colour it is likely hidden behind another hitbox with a lower ID number</p>`,
+
 
   // Angle stuff
-  sakuraiAngle: 'The "Sakurai angle"<br />The actual angle is dependent on whether opponent is grounded or aerial. Angle scales with knockback',
-  autolinkAngle: 'Autolink angle<br />The actual angle is determined by many factors with the goal of moving the opponent to stay inside the current move\'s continuing hitboxes'
+  sakuraiAngle: `
+    <span class="Bold-label">The "Sakurai angle"</span>
+    <p>The actual angle is dependent on whether opponent is grounded or aerial. Angle scales with knockback</p>`,
+
+  autolinkAngle: `
+    <span class="Bold-label">Autolink angle</span>
+    <p>The actual angle is determined by many factors with the goal of moving the opponent to stay inside the current move\'s continuing hitboxes</p>`
 }
 
 // TODO: make a concrete class to use, that parses the JSON rather than just
@@ -356,7 +454,8 @@ class MoveInfo extends Component {
         {intangibilityRange}
         {invincibleRange}
         {hitboxTable}
-        <ReactTooltip multiline={true} delayShow={160} effect={'solid'} place={'right'} />
+        {/* NOTE: this tooltip also serves Player.js. We should decouple them */}
+        <ReactTooltip multiline={true} delayShow={160} html={true} effect={'solid'} place={'right'} />
       </div>
     );
     // TODO: camera details displayed nicely, in a hideable box

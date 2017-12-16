@@ -20,7 +20,7 @@ class Help extends Component {
         move visualization by becoming one of the devs on a program
         called <a href="https://github.com/jam1garner/Smash-Forge">Smash Forge</a>.
         Unfortunately because the program requires you to have a copy of the game
-        files for Smash 4 and a rather powerful GPU, not many people outside of
+        files for Smash 4 as well as a rather powerful GPU, not many people outside of
         modders started using it. This was a shame to me as I
         believe that interactive hitbox viewing could really help people
         understand and theorycraft the game better. To get around this problem

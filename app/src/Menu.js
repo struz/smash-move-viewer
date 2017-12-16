@@ -35,6 +35,16 @@ class Menu extends Component {
   }
 
   render() {
+    var moveViewerSelected = false;
+    var helpSelected = false;
+    var aboutSelected = false;
+    if (window.location.hash.startsWith('#/help'))
+      helpSelected = true;
+    else if (window.location.hash.startsWith('#/about'))
+      aboutSelected = true;
+    else
+      moveViewerSelected = true;
+
     // TODO: make sure analytics are collected around these page views
     return (
       <div className="menus-container">
@@ -42,10 +52,9 @@ class Menu extends Component {
           <select onChange={this.handleChange}
            className="Dropdown Main-dropdown"
            title="Navigate between pages">
-            <option value="">Navigation</option>
-            <option value="#/">Move&nbsp;Viewer</option>
-            <option value="#/help">Help</option>
-            <option value="#/about">About</option>
+            <option value="#/" selected={moveViewerSelected}>Move&nbsp;Viewer</option>
+            <option value="#/help" selected={helpSelected}>Help</option>
+            <option value="#/about" selected={aboutSelected}>About</option>
             <option value="https://twitter.com/StruzSmash">&#64;StruzSmash</option>
           </select>
         </div>

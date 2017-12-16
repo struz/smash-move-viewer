@@ -17,6 +17,7 @@ import iconPrevious from './img/icons/previous.png';
 import iconNext from './img/icons/next.png';
 //import iconLoop from './img/icons/302-loop.svg';
 
+import {HOTKEY_HELP} from './Common.js';
 import './Player.css';
 
 
@@ -234,6 +235,7 @@ class Player extends Component {
             <img src={iconLast} alt="last" title={frameLastTooltip}
              onClick={isLoading ? null : this.lastFrameHandler}
              className="Player-control"/>
+            <div className="Help-icon Bold-label" data-tip={HOTKEY_HELP}>?</div>
           </div>
           <div>
             <hr />

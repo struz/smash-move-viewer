@@ -52,6 +52,23 @@
   width: auto;
 }
 
+.Help-icon {
+  color: #00123e;
+  border-bottom: 1px #00123e dotted;
+  cursor:  help;
+  vertical-align: top;
+}
+/*
+ For screens smaller than the default video size of 792px just use whatever
+ space they have.
+*/
+@media only screen and (max-width: 767px) {
+  .Help-icon {
+    display: none;
+  }
+}
+
+
 #Frame-loop {
   display: inline;
 }
