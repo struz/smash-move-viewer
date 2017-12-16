@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.94fa1ae7.css",
-  "main.css.map": "static/css/main.94fa1ae7.css.map",
-  "main.js": "static/js/main.63bae8a4.js",
-  "main.js.map": "static/js/main.63bae8a4.js.map",
+  "main.css": "static/css/main.4b446db7.css",
+  "main.css.map": "static/css/main.4b446db7.css.map",
+  "main.js": "static/js/main.0d79ab05.js",
+  "main.js.map": "static/js/main.0d79ab05.js.map",
   "static\\media\\BowserSpin2.gif": "static/media/BowserSpin2.cabb1715.gif",
   "static\\media\\MoveViewerInstructional.png": "static/media/MoveViewerInstructional.55f65c46.png",
   "static\\media\\Town10Display-Regular.eot": "static/media/Town10Display-Regular.2b6fb14d.eot",
@@ -31,5 +31,6 @@
   "static\\media\\bwmodelica-regular-webfont.ttf": "static/media/bwmodelica-regular-webfont.deceeea8.ttf",
   "static\\media\\bwmodelica-regular-webfont.woff": "static/media/bwmodelica-regular-webfont.c18b37ab.woff",
   "static\\media\\logo_transparent.png": "static/media/logo_transparent.772716d2.png",
-  "static\\media\\ryu_example.png": "static/media/ryu_example.b9816e23.png"
+  "static\\media\\ryu_example.png": "static/media/ryu_example.b9816e23.png",
+  "static\\media\\share.svg": "static/media/share.da32ba67.svg"
 }
