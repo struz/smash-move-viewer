@@ -62,6 +62,11 @@ class Player extends Component {
   }
 
   toggleShareModal(e) {
+    ReactGA.event({
+      category: 'Share',
+      action: 'Share toggled',
+      label: this.props.fighter + '_' + this.props.move
+    });
     this.setState(function(prevState, props) {
       prevState.showShare = !prevState.showShare;
     });
@@ -72,6 +77,12 @@ class Player extends Component {
     // function will handle the close event for us
     if (e.target.className.includes('Share-image'))
       return;
+
+    ReactGA.event({
+      category: 'Share',
+      action: 'Share closed',
+      label: this.props.fighter + '_' + this.props.move
+    });
     this.setState(function(prevState, props) {
       prevState.showShare = false;
     });
@@ -293,8 +304,12 @@ class Player extends Component {
             <hr />
     		  </div>
         </div>
-        {this.state.showShare && <ShareModal anchor={this.refs.shareImage}
-         closeHandler={this.closeShareModal}/>}
+        {
+          this.state.showShare &&
+          <ShareModal anchor={this.refs.shareImage}
+           closeHandler={this.closeShareModal} fighter={this.props.fighter}
+           move={this.props.move}/>
+        }
       </div>
     );
   }

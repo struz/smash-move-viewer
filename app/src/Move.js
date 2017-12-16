@@ -390,7 +390,9 @@ class Move extends Component {
                 loop={loop}
                 onFrameChange={this.frameChanged}
                 onSpeedChange={this.speedChanged}
-                onLoopChange={this.loopChanged}/>
+                onLoopChange={this.loopChanged}
+                // Below is just for analytics
+                fighter={fighter} move={move}/>
         <MoveInfo frameIndex={frameIndex - 1} moveData={moveData} />
       </div>
     );

@@ -5,7 +5,7 @@ import copy from 'copy-to-clipboard';
 
 import './ShareModal.css';
 
-class ShareModal extends React.Component {
+class ShareModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,16 +20,26 @@ class ShareModal extends React.Component {
 
   onFocusShareLink(e) {
     e.target.select();
+    ReactGA.event({
+      category: 'Share',
+      action: 'Link text focused',
+      label: this.props.fighter + '_' + this.props.move
+    });
   }
 
   copyLink(e) {
     this.refs.shareLink.select();
-    if (copy(this.refs.shareLink.value, {message: 'Press #{key} to copy'}))
+    if (copy(this.refs.shareLink.value, {message: 'Press #{key} to copy'})) {
       this.setState(function(prevState, props) {
         prevState.copyStatus = 'Copied to clipboard';
         return prevState;
       });
-    // copy(window.location.href, {message: 'Press #{key} to copy'});
+      ReactGA.event({
+        category: 'Share',
+        action: 'Copy button pressed',
+        label: this.props.fighter + '_' + this.props.move
+      });
+    }
   }
 
   render() {
