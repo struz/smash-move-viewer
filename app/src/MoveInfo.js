@@ -144,7 +144,7 @@ const TOOLTIPS = {
   direction: `
     <span class="Bold-label">Facing direction</span>
     <p>Determines which way the hitbox will send the victim.</p>
-    <p>Directions are reversed if the victim\'s TransN bone has passed the attacker\'s TransN bone when the hit registers.</p>
+    <p>Directions are reversed if the victim's TransN bone has passed the attacker's TransN bone when the hit registers.</p>
     <p>Mouse over the individual value for more info</p>`,
 
   hitlag: `
@@ -187,7 +187,7 @@ const TOOLTIPS = {
   kbg: `
     <span class="Bold-label">Knockback growth</span>
     <p>The knockback growth of the hitbox.</p>
-    <p>The higher this value is the more the victim\'s % will affect the in-game knockback received by the victim</p>`,
+    <p>The higher this value is the more the victim's % will affect the in-game knockback received by the victim</p>`,
 
   angle: `
     <span class="Bold-label">Angle</span>
@@ -196,7 +196,7 @@ const TOOLTIPS = {
 
   damage: `
     <span class="Bold-label">Damage</span>
-    <p>The amount of % that will be added to the victim\'s total %.</p>
+    <p>The amount of % that will be added to the victim's total %.</p>
     <p>In general, higher damage hitboxes will produce more in-game knockback to the victim.</p>
     <p>Any number shown in brackets is the amount of damage done when the move hits a shield instead of a hurtbox.</p>`,
 
@@ -223,7 +223,7 @@ const TOOLTIPS = {
 
   autolinkAngle: `
     <span class="Bold-label">Autolink angle</span>
-    <p>The actual angle is determined by many factors with the goal of moving the opponent to stay inside the current move\'s continuing hitboxes</p>`
+    <p>The actual angle is determined by many factors with the goal of moving the opponent to stay inside the current move's continuing hitboxes</p>`
 }
 
 // TODO: make a concrete class to use, that parses the JSON rather than just
