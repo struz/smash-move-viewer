@@ -3,10 +3,11 @@ import { withRouter } from 'react-router';
 import ReactGA from 'react-ga';
 import axios from 'axios';
 
-import logo from './img/logo_transparent.png';
+import ShareModal from './ShareModal.js';
 
-// loading GIF
+import logo from './img/logo_transparent.png';
 import loadingGif from './img/BowserSpin2.gif';
+import iconShare from './img/share.svg';
 
 // Gif control icons
 import iconPlay from './img/icons/play.png';
@@ -38,7 +39,8 @@ class Player extends Component {
       video: null,
       paused: true,
       loading: false,
-      loop: props.loop  // same as frameIndex
+      loop: props.loop,  // same as frameIndex
+      showShare: false
     };
 
     // Bindings
@@ -54,6 +56,25 @@ class Player extends Component {
     this.videoEventHandler = this.videoEventHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.loopHandler = this.loopHandler.bind(this);
+
+    this.toggleShareModal = this.toggleShareModal.bind(this);
+    this.closeShareModal = this.closeShareModal.bind(this);
+  }
+
+  toggleShareModal(e) {
+    this.setState(function(prevState, props) {
+      prevState.showShare = !prevState.showShare;
+    });
+  }
+
+  closeShareModal(e) {
+    // If we are targeting the share button, do nothing because then the toggle
+    // function will handle the close event for us
+    if (e.target.className.includes('Share-image'))
+      return;
+    this.setState(function(prevState, props) {
+      prevState.showShare = false;
+    });
   }
 
   loadVideo(url, defaultFrame) {
@@ -261,12 +282,19 @@ class Player extends Component {
               <input type="checkbox" id="chkLoop" onChange={this.loopHandler}
                checked={loop} title={loopTooltip} />
               <label title={loopTooltip} htmlFor="chkLoop">Loop</label>
+              <span onClick={this.toggleShareModal}>
+                <img src={iconShare} alt="share" className="Share-image"
+                 title="Share this move with others"
+                 ref="shareImage"/>
+              </span>
             </div>
           </div>
     		  <div>
             <hr />
     		  </div>
         </div>
+        {this.state.showShare && <ShareModal anchor={this.refs.shareImage}
+         closeHandler={this.closeShareModal}/>}
       </div>
     );
   }

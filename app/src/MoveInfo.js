@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
-import copy from 'copy-to-clipboard';
 
 import './Move.css';
 import './MoveInfo.css';
@@ -372,10 +371,6 @@ class MoveInfo extends Component {
     });
   }
 
-  copyLink(e) {
-    copy(window.location.href, {message: 'Press #{key} to copy'});
-  }
-
   render() {
     if (!this.state.moveData) {
       return(
@@ -445,9 +440,6 @@ class MoveInfo extends Component {
 
     return(
       <div className="Move-info">
-        <div className="Link-current-frame-container">
-          <button onClick={this.copyLink} className='Link-current-frame'>Copy link to current move/frame</button>
-        </div>
         <p><span className='Bold-label' data-tip={TOOLTIPS['faf']}>First Actionable Frame:</span> {this.state.moveData.faf === 0 ? 'Not specified' : this.state.moveData.faf}</p>
         <p><span className='Bold-label' data-tip={TOOLTIPS['hitActive']}>Hitbox active:</span> {hitboxRanges}</p>
         {superArmorRange}

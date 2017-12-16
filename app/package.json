@@ -40,6 +40,7 @@
     "react-dev-utils": "^4.0.1",
     "react-dom": "^15.6.1",
     "react-ga": "^2.3.5",
+    "react-onclickoutside": "^6.7.0",
     "react-router-dom": "^4.2.2",
     "react-tooltip": "^3.4.0",
     "style-loader": "0.18.2",

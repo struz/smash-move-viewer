@@ -51,18 +51,6 @@
   background: #e0e1dc;
 }
 
-.Link-current-frame {
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  display: inline-block;
-}
-
-.Link-current-frame-container {
-  text-align: center;
-}
-
 /*
  Hack to get left aligned tooltips. multi-line is the class name used internally
  by the react component

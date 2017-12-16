@@ -1,0 +1,38 @@
+.Share-modal {
+  background-color: #f7eedd;
+  padding: 10px 15px 10px 15px;
+  box-shadow: 4px 6px 16px 2px #888888, -6px -2px 16px 2px #888888;
+  z-index: 50;
+
+  text-align: left;
+}
+
+.Share-link {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 3px 5px 3px 5px;
+  background: #fbfbf1;
+  font-family: "bwmodelica-regular", sans-serif !important;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.Share-copy-status {
+  display: inline-block;
+  text-align: left;
+  width: 70%;
+  box-sizing: border-box;
+}
+
+.Share-action-buttons {
+  display: inline-block;
+  margin-top: 20px;
+  text-align: right;
+  width: 29%;
+  box-sizing: border-box;
+}
+
+.Share-copy-button {
+  cursor: pointer;
+  text-decoration: underline;
+}

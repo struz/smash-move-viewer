@@ -26,6 +26,14 @@
   vertical-align: bottom;
 }
 
+.Share-image {
+  padding-top: 5px;
+  padding-left: 15px;
+  vertical-align: bottom;
+  height: 30px;
+  cursor: pointer;
+}
+
 .Frame-controls * {
   display: inline-block;
 }
