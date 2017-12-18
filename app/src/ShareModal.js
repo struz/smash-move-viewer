@@ -42,22 +42,43 @@ class ShareModal extends Component {
     }
   }
 
+  componentDidMount() {
+    // We have to do height stuff in here because the height is computed
+    // Because we use box-sizing we have to do this maths
+    var styles = window.getComputedStyle(this.refs.modalDiv);
+    var padding = parseFloat(styles.paddingTop) +
+                  parseFloat(styles.paddingBottom);
+    var modalHeight = this.refs.modalDiv.clientHeight - padding;
+
+    console.log(modalHeight);
+    console.log(parseFloat(styles.top) + modalHeight);
+    console.log(window.scrollY + window.innerHeight);
+
+    // if top + height is off the viewport, move it up to above the button
+    if ((parseFloat(styles.top) + modalHeight) > (window.scrollY + window.innerHeight)) {
+      console.log('moveme');
+      this.refs.modalDiv.style.top = (this.props.anchor.offsetTop - this.props.anchor.offsetHeight - modalHeight) + 'px';
+    }
+  }
+
   render() {
     const anchor = this.props.anchor;
+    const MODAL_WIDTH_DESKTOP = 400;
+    const MODAL_WIDTH_MOBILE = 300;
 
     var divStyles = {
       top: anchor.offsetTop + anchor.offsetHeight,
-      left: anchor.offsetLeft + anchor.offsetWidth - 400,
+      left: anchor.offsetLeft + anchor.offsetWidth - MODAL_WIDTH_DESKTOP,
       position: 'absolute'
     };
 
     // Assumption: if left goes negative then we're on a small mobile device
     divStyles.left = (divStyles.left < 0) ? 0 : divStyles.left;
     divStyles.marginLeft = (divStyles.left === 0) ? 30 : 0;
-    divStyles.width = (divStyles.left === 0) ? 300 : 400;
+    divStyles.width = (divStyles.left === 0) ? MODAL_WIDTH_MOBILE : MODAL_WIDTH_DESKTOP;
 
     return (
-      <div className="Share-modal" style={divStyles}>
+      <div className="Share-modal" style={divStyles} ref="modalDiv">
         <span className="Bold-label">Share</span>
         <div>
           <input type="text" ref="shareLink" className="Text-input Share-link"
