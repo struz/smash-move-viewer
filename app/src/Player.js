@@ -40,7 +40,8 @@ class Player extends Component {
       paused: true,
       loading: false,
       loop: props.loop,  // same as frameIndex
-      showShare: false
+      showShare: false,
+      initDone: false
     };
 
     // Bindings
@@ -59,6 +60,7 @@ class Player extends Component {
 
     this.toggleShareModal = this.toggleShareModal.bind(this);
     this.closeShareModal = this.closeShareModal.bind(this);
+    this.videoInit = this.videoInit.bind(this);
   }
 
   toggleShareModal(e) {
@@ -137,11 +139,11 @@ class Player extends Component {
         prevState.loading = false;
         prevState.frameIndex = defaultFrame;
         prevState.paused = true;
+        prevState.initDone = false;
         return prevState;
       });
 
       // Set up some defaults with the video
-      _this.moveFrameAbsolute(defaultFrame, video);
       _this.refs.moveVideo.playbackRate = _this.state.playbackSpeed;
       _this.refs.moveVideo.loop = _this.state.loop;
       sendVideoLoadAnalytics();
@@ -174,6 +176,17 @@ class Player extends Component {
   componentWillUnmount() {
     // Unbind the arrow keys from frame-by-frame controls
     document.body.removeEventListener('keydown', this.keyDownHandler);
+  }
+
+  videoInit() {
+    // Do initialization seeking to the video
+    if (!this.state.initDone) {
+      this.moveFrameAbsolute(this.state.frameIndex, this.state.video);
+      this.setState(function(prevState, props) {
+        prevState.initDone = true;
+        return prevState;
+      });
+    }
   }
 
   render() {
@@ -213,6 +226,7 @@ class Player extends Component {
        onEnded={this.videoEventHandler}
        onPause={this.videoEventHandler}
        onPlay={this.videoEventHandler}
+       onCanPlayThrough={this.videoInit}
        //onTimeUpdate={this.videoEventHandler}
        src={videoSrc}
        style={(!vidLoaded) ? {'display': 'none'} : {}} playsInline muted>
