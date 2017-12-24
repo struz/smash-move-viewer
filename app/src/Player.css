@@ -30,6 +30,10 @@
   vertical-align: bottom;
 }
 
+.Move-frame:disabled {
+  background: #c6c5c6;
+}
+
 .Player-slider {
   text-align: center;
 }

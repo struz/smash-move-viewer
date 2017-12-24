@@ -61,6 +61,7 @@ class Player extends Component {
     this.speedChanged = this.speedChanged.bind(this);
 
     this.videoEventHandler = this.videoEventHandler.bind(this);
+    this.timeEventHandler = this.timeEventHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.loopHandler = this.loopHandler.bind(this);
 
@@ -233,7 +234,7 @@ class Player extends Component {
        onPause={this.videoEventHandler}
        onPlay={this.videoEventHandler}
        onCanPlayThrough={this.videoInit}
-       //onTimeUpdate={this.videoEventHandler}
+       onTimeUpdate={this.timeEventHandler}
        src={videoSrc}
        style={(!vidLoaded) ? {'display': 'none'} : {}} playsInline muted>
       </video>
@@ -431,6 +432,20 @@ class Player extends Component {
       prevState.frameIndex = moveFrame;
       return prevState;
     });
+  }
+  // More specific handler for timing updates
+  timeEventHandler() {
+    var moveFrame = this.getMoveFrame(this.state.video);
+
+    if (moveFrame !== this.state.frameIndex) {
+      // Notify parent of changes
+      this.props.onFrameChange(moveFrame, true);
+
+      this.setState(function(prevState, props) {
+        prevState.frameIndex = moveFrame;
+        return prevState;
+      });
+    }
   }
 
   // Play / pause
