@@ -215,7 +215,7 @@ class Player extends Component {
        onPlay={this.videoEventHandler}
        //onTimeUpdate={this.videoEventHandler}
        src={videoSrc}
-       style={(!vidLoaded) ? {'display': 'none'} : {}}>
+       style={(!vidLoaded) ? {'display': 'none'} : {}} playsInline muted>
       </video>
     );
     var vidPlaceholder = null;
