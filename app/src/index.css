@@ -71,6 +71,11 @@ p {
 	line-height: 15px;
 }
 
+.Image-button {
+  background: transparent;
+  border: 0;
+}
+
 div.prose {
 	text-align: left;
 	line-height: 22px;

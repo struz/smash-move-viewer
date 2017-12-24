@@ -5,6 +5,10 @@
   display: block;
 }
 
+.Loading-gif {
+  max-width: 30%;
+}
+
 /* this includes the nav buttons and the play speed and frame menus. At 100%, it's the width of the video window */
 .Move-controls {
   margin: auto;

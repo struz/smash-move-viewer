@@ -149,12 +149,12 @@ const TOOLTIPS = {
   hitlag: `
     <span class="Bold-label">Hitlag modifier</span>
     <p>Multiplier on how many frames your character will freeze after connecting with this hitbox.</p>
-    <p>&gt;1 means more than usual, &lt;1 means less than usual</p>`,
+    <p>Greater than 1 means more than usual, less than 1 means less than usual</p>`,
 
   sdi: `
     <span class="Bold-label">SDI modifier</span>
     <p>Multiplier on how far each SDI input will move the victim.</p>
-    <p>&gt;1 means more distance than usual, &lt;1 means less distance than usual</p>`,
+    <p>Greater than 1 means more distance than usual, less than 1 means less distance than usual</p>`,
 
   trip: `
     <span class="Bold-label">Tripping chance</span>
@@ -163,7 +163,7 @@ const TOOLTIPS = {
 
   rehit: `
     <span class="Bold-label">Rehit rate</span>
-    <p>If 0 the hitbox does not rehit. If &gt;0 then the hitbox can hit an opponent again after the specified number of frames</p>`,
+    <p>If 0 the hitbox does not rehit. If greater than 0 then the hitbox can hit an opponent again after the specified number of frames</p>`,
 
   collateral: `
     <span class="Bold-label">Throw collateral</span>
@@ -176,7 +176,7 @@ const TOOLTIPS = {
 
   wbkb: `
     <span class="Bold-label">Weight based knockback</span>
-    <p>If the value is &gt;0 then this hitbox has set knockback based on the weight of the victim</p>`,
+    <p>If the value is greater than 0 then this hitbox has set knockback based on the weight of the victim</p>`,
 
   bkb: `
     <span class="Bold-label">Base knockback</span>

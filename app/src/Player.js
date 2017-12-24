@@ -251,7 +251,8 @@ class Player extends Component {
             }
             {isLoading &&
               <div className="Move-video-loading">
-                <img src={loadingGif} alt="loading" />
+                <img src={loadingGif} alt="loading" className="Loading-gif" />
+                <p>Loading...</p>
               </div>
             }
           </div>
@@ -266,21 +267,21 @@ class Player extends Component {
         {vidPlaceholder}
         <div className="Move-controls" style={(!showControls) ? {display: 'none'} : {}}>
           <div className="Player-controls">
-            <img src={iconFirst} alt="first" title={frameFirstTooltip}
-             onClick={isLoading ? null : this.firstFrameHandler}
-             className="Player-control"/>
-            <img src={iconPrevious} alt="previous" title={framePrevTooltip}
-             onClick={isLoading ? null : this.prevFrameHandler}
-             className="Player-control"/>
-            <img src={playIcon} alt="play/pause" title={playPauseTooltip}
-             onClick={isLoading ? null : this.playPauseHandler}
-             className="Player-control" />
-            <img src={iconNext} alt="next" title={frameNextTooltip}
-             onClick={isLoading ? null : this.nextFrameHandler}
-             className="Player-control"/>
-            <img src={iconLast} alt="last" title={frameLastTooltip}
-             onClick={isLoading ? null : this.lastFrameHandler}
-             className="Player-control"/>
+            <button onClick={isLoading ? null : this.firstFrameHandler} className="Image-button">
+              <img src={iconFirst} alt="first" title={frameFirstTooltip}/>
+            </button>
+            <button onClick={isLoading ? null : this.prevFrameHandler} className="Image-button">
+              <img src={iconPrevious} alt="prev" title={framePrevTooltip}/>
+            </button>
+            <button onClick={isLoading ? null : this.playPauseHandler} className="Image-button">
+              <img src={playIcon} alt="play/pause" title={playPauseTooltip}/>
+            </button>
+            <button onClick={isLoading ? null : this.nextFrameHandler} className="Image-button">
+              <img src={iconNext} alt="next" title={frameNextTooltip}/>
+            </button>
+            <button onClick={isLoading ? null : this.lastFrameHandler} className="Image-button">
+              <img src={iconLast} alt="last" title={frameLastTooltip}/>
+            </button>
             <div className="Help-icon Bold-label" data-tip={HOTKEY_HELP}>?</div>
           </div>
           <div>
