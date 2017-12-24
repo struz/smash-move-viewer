@@ -272,47 +272,56 @@ class Player extends Component {
         {videoElement}
         {vidPlaceholder}
         <div className="Move-controls" style={(!showControls) ? {display: 'none'} : {}}>
+
           <div className="Player-slider">
             <Slider className="Player-slider-control" value={this.state.frameIndex}
-              max={this.props.numFrames} onChange={this.frameChanged}
+              max={this.props.numFrames - 1} onChange={this.frameChanged}
               handleStyle={{
-                height: 20,
-                width: 20,
-                marginLeft: -10,
-                marginTop: -8,
+                height: 16,
+                width: 16,
+                marginLeft: -6,
+                marginTop: -6,
                 backgroundColor: '#6a6a79',
                 borderRadius: '100%',
-                'border': '1px solid black'
+                'border': '0'
               }}
               trackStyle={{
                 backgroundColor: '#6a6a79'
               }}
               railStyle={{
-                backgroundColor: '#C6C6C6'
+                backgroundColor: '#c6c6c6'
               }}/>
           </div>
           <div className="Player-controls">
+
             <button onClick={isLoading ? null : this.firstFrameHandler} className="Image-button">
               <img src={iconFirst} alt="first" title={frameFirstTooltip}/>
             </button>
+
             <button onClick={isLoading ? null : this.prevFrameHandler} className="Image-button">
               <img src={iconPrevious} alt="prev" title={framePrevTooltip}/>
             </button>
+
             <button onClick={isLoading ? null : this.playPauseHandler} className="Image-button">
               <img src={playIcon} alt="play/pause" title={playPauseTooltip}/>
             </button>
+
             <button onClick={isLoading ? null : this.nextFrameHandler} className="Image-button">
               <img src={iconNext} alt="next" title={frameNextTooltip}/>
             </button>
+
             <button onClick={isLoading ? null : this.lastFrameHandler} className="Image-button">
               <img src={iconLast} alt="last" title={frameLastTooltip}/>
             </button>
+
             <div className="Help-icon Bold-label" data-tip={HOTKEY_HELP}>?</div>
+
           </div>
           <div>
             <hr />
           </div>
           <div className="Frame-controls">
+
             <label title={playSpeedTooltip}>Play speed:</label>
             <select onChange={this.speedChanged} value={this.state.playbackSpeed}
              className="Dropdown" title={playSpeedTooltip} disabled={isLoading}>
@@ -322,6 +331,7 @@ class Player extends Component {
               <option value="0.25">0.25x</option>
               <option value="0.1">0.1x</option>
             </select>
+
             <label title={frameTooltip}>Frame:</label>
             <input readOnly ref="frameNum" type="number"
              onChange={this.frameTextChanged}
@@ -329,6 +339,7 @@ class Player extends Component {
              title={frameTooltip}
              className="Move-frame Text-input"
              disabled={isLoading}/>
+
             <div id="Frame-loop">
               <input type="checkbox" id="chkLoop" onChange={this.loopHandler}
                checked={loop} title={loopTooltip} />
@@ -339,6 +350,7 @@ class Player extends Component {
                  ref="shareImage"/>
               </span>
             </div>
+
           </div>
     		  <div>
             <hr />
