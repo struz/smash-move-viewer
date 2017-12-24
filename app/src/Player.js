@@ -241,6 +241,7 @@ class Player extends Component {
         </video>
         <Slider className="Player-slider-control" value={this.state.frameIndex}
           max={this.props.numFrames - 1} onChange={this.frameChanged}
+          style={(!vidLoaded) ? {'display': 'none'} : {}}
           handleStyle={{
             height: 16,
             width: 16,
