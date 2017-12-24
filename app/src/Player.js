@@ -228,16 +228,35 @@ class Player extends Component {
     // The video is initially hidden just to keep the ref around
     // to avoid bugs and crashes.
     var videoElement = (
-      <video className="Move-video" id={uuid} ref="moveVideo"
-       width={videoWidth}
-       onEnded={this.videoEventHandler}
-       onPause={this.videoEventHandler}
-       onPlay={this.videoEventHandler}
-       onCanPlayThrough={this.videoInit}
-       onTimeUpdate={this.timeEventHandler}
-       src={videoSrc}
-       style={(!vidLoaded) ? {'display': 'none'} : {}} playsInline muted>
-      </video>
+      <div className="Move-video-container">
+        <video className="Move-video" id={uuid} ref="moveVideo"
+         width={videoWidth}
+         onEnded={this.videoEventHandler}
+         onPause={this.videoEventHandler}
+         onPlay={this.videoEventHandler}
+         onCanPlayThrough={this.videoInit}
+         onTimeUpdate={this.timeEventHandler}
+         src={videoSrc}
+         style={(!vidLoaded) ? {'display': 'none'} : {}} playsInline muted>
+        </video>
+        <Slider className="Player-slider-control" value={this.state.frameIndex}
+          max={this.props.numFrames - 1} onChange={this.frameChanged}
+          handleStyle={{
+            height: 16,
+            width: 16,
+            marginLeft: -6,
+            marginTop: -6,
+            backgroundColor: '#6a6a79',
+            borderRadius: '100%',
+            'border': '0'
+          }}
+          trackStyle={{
+            backgroundColor: '#6a6a79'
+          }}
+          railStyle={{
+            backgroundColor: '#c6c6c6'
+          }}/>
+      </div>
     );
     var vidPlaceholder = null;
     if (!vidLoaded) {
@@ -274,25 +293,6 @@ class Player extends Component {
         {vidPlaceholder}
         <div className="Move-controls" style={(!showControls) ? {display: 'none'} : {}}>
 
-          <div className="Player-slider">
-            <Slider className="Player-slider-control" value={this.state.frameIndex}
-              max={this.props.numFrames - 1} onChange={this.frameChanged}
-              handleStyle={{
-                height: 16,
-                width: 16,
-                marginLeft: -6,
-                marginTop: -6,
-                backgroundColor: '#6a6a79',
-                borderRadius: '100%',
-                'border': '0'
-              }}
-              trackStyle={{
-                backgroundColor: '#6a6a79'
-              }}
-              railStyle={{
-                backgroundColor: '#c6c6c6'
-              }}/>
-          </div>
           <div className="Player-controls">
 
             <button onClick={isLoading ? null : this.firstFrameHandler} className="Image-button">

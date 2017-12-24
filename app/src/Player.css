@@ -9,6 +9,10 @@
   max-width: 30%;
 }
 
+.Move-video-container {
+  display: inline-block;
+}
+
 /* this includes the nav buttons and the play speed and frame menus. At 100%, it's the width of the video window */
 .Move-controls {
   margin: auto;
@@ -39,7 +43,6 @@
 }
 
 .Player-slider-control {
-  width: 95%;
   display: inline-block;
 }
 
