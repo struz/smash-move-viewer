@@ -3,6 +3,10 @@ import { withRouter } from 'react-router';
 import ReactGA from 'react-ga';
 import axios from 'axios';
 
+import Slider from 'rc-slider/lib/Slider';
+import 'rc-slider/assets/index.css';
+
+
 import ShareModal from './ShareModal.js';
 
 import logo from './img/logo_transparent.png';
@@ -46,6 +50,8 @@ class Player extends Component {
 
     // Bindings
     this.frameTextChanged = this.frameTextChanged.bind(this);
+    this.frameChanged = this.frameChanged.bind(this);
+
     this.playPauseHandler = this.playPauseHandler.bind(this);
     this.nextFrameHandler = this.nextFrameHandler.bind(this);
     this.prevFrameHandler = this.prevFrameHandler.bind(this);
@@ -266,6 +272,25 @@ class Player extends Component {
         {videoElement}
         {vidPlaceholder}
         <div className="Move-controls" style={(!showControls) ? {display: 'none'} : {}}>
+          <div className="Player-slider">
+            <Slider className="Player-slider-control" value={this.state.frameIndex}
+              max={this.props.numFrames} onChange={this.frameChanged}
+              handleStyle={{
+                height: 20,
+                width: 20,
+                marginLeft: -10,
+                marginTop: -8,
+                backgroundColor: '#6a6a79',
+                borderRadius: '100%',
+                'border': '1px solid black'
+              }}
+              trackStyle={{
+                backgroundColor: '#6a6a79'
+              }}
+              railStyle={{
+                backgroundColor: '#C6C6C6'
+              }}/>
+          </div>
           <div className="Player-controls">
             <button onClick={isLoading ? null : this.firstFrameHandler} className="Image-button">
               <img src={iconFirst} alt="first" title={frameFirstTooltip}/>
@@ -298,7 +323,7 @@ class Player extends Component {
               <option value="0.1">0.1x</option>
             </select>
             <label title={frameTooltip}>Frame:</label>
-            <input ref="frameNum" type="number"
+            <input readOnly ref="frameNum" type="number"
              onChange={this.frameTextChanged}
              value={displayFrame}
              title={frameTooltip}
@@ -426,6 +451,9 @@ class Player extends Component {
   }
 
   moveFrameRelative(num, video, updateUrl = false) {
+    if (!video)  // No crashing if this is called at weird times
+      return;
+
     if (num > 0) {
       if (this.state.frameIndex + num >= this.props.numFrames)
         return;
@@ -447,6 +475,9 @@ class Player extends Component {
   }
 
   moveFrameAbsolute(num, video, updateUrl = false) {
+    if (!video)  // No crashing if this is called at weird times
+      return;
+
     // Num here is the 0-indexed frame number
     if (num >= this.props.numFrames) {
       num = this.props.numFrames - 1;
@@ -493,6 +524,19 @@ class Player extends Component {
     this.moveFrameAbsolute(0, this.state.video, true);
   }
 
+  frameChanged(frameIndex) {
+    // Don't spam events
+    if (frameIndex !== this.state.frameIndex) {
+      ReactGA.event({
+        category: 'Player',
+        action: 'Frame Number Changed',
+        label: 'Slider'
+      });
+      /* TODO: FIXME I DON'T WORK I SKIP TWO FRAMES BACKWARDS */
+      this.moveFrameAbsolute(frameIndex, this.state.video, true);
+    }
+  }
+
   frameTextChanged(e) {
     // We store the raw frame index in state so that the control can be updated
     // freely, and we perform validation on the input before we use it.
@@ -501,7 +545,8 @@ class Player extends Component {
 
     ReactGA.event({
       category: 'Player',
-      action: 'Frame Number Changed'
+      action: 'Frame Number Changed',
+      label: 'Textbox'
     });
 
     if (this.isValidFrameIndex(frameIndex)) {

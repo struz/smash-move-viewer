@@ -30,6 +30,15 @@
   vertical-align: bottom;
 }
 
+.Player-slider {
+  text-align: center;
+}
+
+.Player-slider-control {
+  width: 95%;
+  display: inline-block;
+}
+
 .Share-image {
   padding-top: 5px;
   padding-left: 15px;

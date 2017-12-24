@@ -50,10 +50,6 @@ class ShareModal extends Component {
                   parseFloat(styles.paddingBottom);
     var modalHeight = this.refs.modalDiv.clientHeight - padding;
 
-    console.log(modalHeight);
-    console.log(parseFloat(styles.top) + modalHeight);
-    console.log(window.scrollY + window.innerHeight);
-
     // if top + height is off the viewport, move it up to above the button
     if ((parseFloat(styles.top) + modalHeight) > (window.scrollY + window.innerHeight)) {
       console.log('moveme');
