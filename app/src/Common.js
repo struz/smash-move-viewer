@@ -19,6 +19,18 @@ There are hotkeys to make interacting with the move easier:
 // Make sure these match values in Player.js "speed" dropdown
 const VALID_SPEEDS = [2, 1, 0.5, 0.25, 0.1];
 
+/* Work out if the user is probably on an iPhone or not. User agent sniffing
+   sucks. See https://stackoverflow.com/questions/3827466/detect-iphone-browser */
+export function isIphoneUserAgent() {
+  var is_ipad = navigator.userAgent.match(/iPad/i) != null;
+  var is_iphone = (navigator.userAgent.match(/iPhone/i) != null) || (navigator.userAgent.match(/iPod/i) != null);
+  if (is_ipad) {
+    is_iphone = false;
+  }
+
+  return is_iphone;
+}
+
 /* Parse the app URL and retrieve information about requested state from it */
 export function parsePath(path, search) {
   // Canonical URL style: #/v1/<fighter>/<move>/<frame>/<optional frameRangeEnd>

@@ -22,7 +22,7 @@ import iconPrevious from './img/icons/previous.png';
 import iconNext from './img/icons/next.png';
 //import iconLoop from './img/icons/302-loop.svg';
 
-import {HOTKEY_HELP} from './Common.js';
+import {HOTKEY_HELP, isIphoneUserAgent} from './Common.js';
 import './Player.css';
 
 
@@ -61,6 +61,7 @@ class Player extends Component {
     this.speedChanged = this.speedChanged.bind(this);
 
     this.videoEventHandler = this.videoEventHandler.bind(this);
+    this.pauseEventHandler = this.pauseEventHandler.bind(this);
     this.timeEventHandler = this.timeEventHandler.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
     this.loopHandler = this.loopHandler.bind(this);
@@ -188,12 +189,23 @@ class Player extends Component {
   videoInit() {
     // Do initialization seeking to the video
     if (!this.state.initDone) {
-      this.moveFrameAbsolute(this.state.frameIndex, this.state.video);
-      this.setState(function(prevState, props) {
-        prevState.initDone = true;
-        return prevState;
-      });
+      if (isIphoneUserAgent()) {
+        // We set autoplay to show the first frame, so we stop it here
+        this.refs.moveVideo.pause();
+        // We do the below bit in the
+      } else {
+        this.videoInitSeek();
+      }
     }
+  }
+
+  // Seek to the currently desired frame and then log that init was performed
+  videoInitSeek() {
+    this.moveFrameAbsolute(this.state.frameIndex, this.state.video);
+    this.setState(function(prevState, props) {
+      prevState.initDone = true;
+      return prevState;
+    });
   }
 
   render() {
@@ -230,15 +242,21 @@ class Player extends Component {
     var videoElement = (
       <div className="Move-video-container">
         <video className="Move-video" id={uuid} ref="moveVideo"
+
+         preload={isIphoneUserAgent() ? "metadata" : "auto"}
+         autoPlay={isIphoneUserAgent() ? true : false}
+
          width={videoWidth}
          onEnded={this.videoEventHandler}
-         onPause={this.videoEventHandler}
+         onPause={this.pauseEventHandler}
          onPlay={this.videoEventHandler}
          onCanPlayThrough={this.videoInit}
          onTimeUpdate={this.timeEventHandler}
+
          src={videoSrc}
          style={(!vidLoaded) ? {'display': 'none'} : {}} playsInline muted>
         </video>
+
         <Slider className="Player-slider-control" value={this.state.frameIndex}
           max={this.props.numFrames - 1} onChange={this.frameChanged}
           style={(!vidLoaded) ? {'display': 'none'} : {}}
@@ -259,6 +277,7 @@ class Player extends Component {
           }}/>
       </div>
     );
+
     var vidPlaceholder = null;
     if (!vidLoaded) {
       // We have to use inline style here unfortunately because divs don't have
@@ -421,6 +440,11 @@ class Player extends Component {
 
   // Generic handler for all video events
   videoEventHandler() {
+    // without this check this callback messes with the initial frame seeking
+    // on iOS for some reason
+    if (!this.state.initDone)
+      return;
+
     var moveFrame = this.getMoveFrame(this.state.video);
 
     if (moveFrame !== this.state.frameIndex) {
@@ -434,6 +458,17 @@ class Player extends Component {
       return prevState;
     });
   }
+
+  // More specific handler for pause so we can do iOS browsers properly
+  pauseEventHandler() {
+    // FIXME: this kinda works but we still warp back to the start of the video
+    if (!this.state.initDone) {
+      this.videoInitSeek();
+    } else {
+      this.videoEventHandler();
+    }
+  }
+
   // More specific handler for timing updates
   timeEventHandler() {
     var moveFrame = this.getMoveFrame(this.state.video);
