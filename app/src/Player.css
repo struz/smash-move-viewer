@@ -5,10 +5,6 @@
   display: block;
 }
 
-.Loading-gif {
-  max-width: 30%;
-}
-
 /* this includes the nav buttons and the play speed and frame menus. At 100%, it's the width of the video window */
 .Move-controls {
   margin: auto;
@@ -102,7 +98,16 @@
 }
 
 .Move-video-instruction {
-  margin-top: 15px;
+  margin: 15px 5px 0 5px;
+  background: #f7eeddcc;
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+}
+
+.Move-video-outer-container {
+  position: relative;
+  display: inline-block;
 }
 
 .Move-video-loading {
@@ -111,13 +116,28 @@
 }
 
 .Move-video-container {
-  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+
+.Move-video-background {
+  z-index: 998;
+  background-color: #000000aa;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
 }
 
 .Move-video-placeholder {
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto 70%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  margin: 0 auto;
 }
 
 .Move-video-placeholder-inner {
@@ -126,47 +146,20 @@
   display: table;
 }
 
+.Move-video {
+  border: 1px solid #878b98;
+}
+
 /*
  For screens smaller than the default video size of 792px just use whatever
  space they have.
 */
 @media only screen and (max-width: 792px) {
-  .Move-video {
-    max-width: 98%;
-    border: 1px solid black;
-  }
-  .Move-video-placeholder {
-    display: inline-block;
-    max-width: 98%;
-    height: 35vh;
-    border: 1px solid black;
-  }
   #Frame-loop {
     display: block;
     margin-top: 3px;
   }
-}
-
-/* For larger screens, keep it locked to 792px */
-@media only screen and (min-width: 769px) {
-  .Move-video {
-    max-width: 792px;
-    border: 1px solid #878b98;
-  }
-  .Move-video-placeholder {
-    display: inline-block;
-    max-width: 792px;
-    height: 502px;
-    border: 1px solid black;
-  }
-}
-
-/* For landscape screens shrink the video */
-@media only screen and (max-height: 500px) {
-  .Move-video {
-    max-height: 80vh;
-  }
-  .Move-video-placeholder {
-    height: 80vh;
+  .Loading-gif {
+    max-width: 70%;
   }
 }

@@ -10,7 +10,7 @@ import 'rc-slider/assets/index.css';
 import ShareModal from './ShareModal.js';
 
 import logo from './img/logo_transparent_lowfi.png';
-import loadingGif from './img/BowserSpin2.gif';
+import loadingGif from './img/BowserSpin3.gif';
 import iconShare from './img/share.svg';
 
 // Gif control icons
@@ -208,6 +208,107 @@ class Player extends Component {
     });
   }
 
+  resizeVideoControlToFitVideo() {
+    /*
+     Rules of engagement:
+     1) Video does not go width > 790px on desktop
+     2) Height doesn't matter compared to width as it won't fuck the whole layout
+     3) We switch to % based width as the screen shrinks
+     4) We will always set the max-size first, then set the size based on the
+        video size, so that the video size is always bounded by the max size.
+     5) We will always set a min-width and min-height in case the video is not
+        loaded, but these will be discarded once the video is loaded.
+    */
+
+    // Basic video aspect ratio is 1.58, or 79/50
+    const DEFAULT_VIDEO_DIMENSIONS = {
+      'desktop': {
+        'maxWidth': '790px',
+        'maxHeight': null,
+        'minWidth': '790px',
+        'minHeight': '500px',
+        'width': '100%',
+        'height': '100%'
+      },
+      /* For portrait we define things in terms of width, out most limiting factor */
+      'mobile-portrait': {
+        'maxWidth': '98%',
+        'maxHeight': null,
+        'minWidth': '85vw',
+        'minHeight': '54vw',
+        'width': '100%',
+        'height': '100%'
+      },
+      /* For landscape we define things in terms of height, our most limiting factor */
+      'mobile-landscape': {
+        'maxWidth': null,
+        'maxHeight': '75vh',
+        'minWidth': '95vh',
+        'minHeight': '70vh',
+        'width': '100%',
+        'height': '100%'
+      }
+    };
+    const VIEW_TYPES = {
+      INVALID: -1,
+      DESKTOP: 0,
+      PORTRAIT: 1,
+      LANDSCAPE: 2
+    };
+
+    // The styles have to be applied to the video itself,
+    // and the min-styles have to be applied to the Move-video-outer-container as well
+
+    var videoDimensions = null;
+    var viewType = -1;
+    if (window.innerWidth > 792) {
+      videoDimensions = DEFAULT_VIDEO_DIMENSIONS['desktop'];
+      viewType = VIEW_TYPES.DESKTOP;
+    } else if (window.innerHeight < 500) {
+      videoDimensions = DEFAULT_VIDEO_DIMENSIONS['mobile-landscape'];
+      viewType = VIEW_TYPES.LANDSCAPE;
+    } else {
+      videoDimensions = DEFAULT_VIDEO_DIMENSIONS['mobile-portrait'];
+      viewType = VIEW_TYPES.PORTRAIT;
+    }
+
+    var containerDimensions = {
+      'minWidth': videoDimensions['minWidth'],
+      'minHeight': videoDimensions['minHeight']
+    };
+    if (!this.refs.moveVideo) {
+      return [videoDimensions, containerDimensions];
+    }
+
+    /* The dimensions of the video content data itself. We want to use these
+       dimensions natively if we can and it makes sense. */
+    var moveVideoWidth = this.refs.moveVideo.videoWidth;
+    var moveVideoHeight = this.refs.moveVideo.videoHeight;
+
+    var finalDimensionsVideo = videoDimensions;
+    finalDimensionsVideo['width'] = moveVideoWidth ? moveVideoWidth : videoDimensions['width'];
+    finalDimensionsVideo['height'] = moveVideoHeight ? moveVideoHeight : videoDimensions['height'];
+
+    if (viewType === VIEW_TYPES.LANDSCAPE) {
+      // Don't set the video width in landscape mode because we're constrained
+      // by height so we let the video set its own aspect ratio
+      delete finalDimensionsVideo.width;
+    } else if (viewType === VIEW_TYPES.PORTRAIT) {
+      // Likewise for height in portrait mode
+      delete finalDimensionsVideo.height;
+    }
+    // On desktop we just assume the screen is large and in charge
+
+    // We don't apply min widths when the video has a width to avoid it stretching
+    if (moveVideoWidth && moveVideoHeight) {
+      containerDimensions = {};
+      //delete finalDimensionsVideo.minWidth;
+      //delete finalDimensionsVideo.minHeight;
+    }
+
+    return [finalDimensionsVideo, containerDimensions];
+  }
+
   render() {
     /* Tooltips for frame controls */
     const frameTooltip = "The current frame of the move being shown"
@@ -224,7 +325,6 @@ class Player extends Component {
     const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';
     const vidLoaded = this.state.video !== null;
     const isLoading = this.state.loading;
-    const videoWidth = vidLoaded ? null : "100%";
     const loop = this.state.loop;
 
     const playIcon = this.state.paused ? iconPlay : iconPause;
@@ -238,24 +338,28 @@ class Player extends Component {
       displayFrame = displayFrame + 1;
     }
 
+
+    var tmp = this.resizeVideoControlToFitVideo();
+    var videoStyles = tmp[0];
+    var videoContainerStyles = tmp[1];
+
     // The video is initially hidden just to keep the ref around
     // to avoid bugs and crashes.
     var videoElement = (
       <div className="Move-video-container">
         <video className="Move-video" id={uuid} ref="moveVideo"
+          style={videoStyles}
 
          preload={isIphoneUserAgent() ? "metadata" : "auto"}
          autoPlay={isIphoneUserAgent() ? true : false}
 
-         width={videoWidth}
          onEnded={this.videoEventHandler}
          onPause={this.pauseEventHandler}
          onPlay={this.videoEventHandler}
          onCanPlayThrough={this.videoInit}
          onTimeUpdate={this.timeEventHandler}
 
-         src={videoSrc}
-         style={(!vidLoaded) ? {'display': 'none'} : {}} playsInline muted>
+         src={videoSrc} playsInline muted>
         </video>
 
         <Slider className="Player-slider-control" value={this.state.frameIndex}
@@ -280,10 +384,10 @@ class Player extends Component {
     );
 
     var vidPlaceholder = null;
-    if (!vidLoaded) {
+   if (!vidLoaded) {
       // We have to use inline style here unfortunately because divs don't have
       // a "width" property
-      var placeholderInlineStyles = {width: videoWidth}
+      var placeholderInlineStyles = {};
       if (!isLoading) {
         placeholderInlineStyles['backgroundImage'] = `url(${logo})`;
       }
@@ -298,20 +402,26 @@ class Player extends Component {
             }
             {isLoading &&
               <div className="Move-video-loading">
-                <img src={loadingGif} alt="loading" className="Loading-gif" />
-                <p>Loading...</p>
+                <div>
+                  <img src={loadingGif} alt="loading" className="Loading-gif" />
+                </div>
+                <div className="Move-video-instruction">Loading...</div>
               </div>
             }
           </div>
         </div>
       );
-    }
+   }
 
     var showControls = (vidLoaded || isLoading);
     return (
       <div className="Move-gif">
-        {videoElement}
-        {vidPlaceholder}
+        <div className="Move-video-outer-container" style={videoContainerStyles}>
+          {vidPlaceholder}
+          {isLoading && <div className="Move-video-background"></div>}
+          {videoElement}
+        </div>
+
         <div className="Move-controls" style={(!showControls) ? {display: 'none'} : {}}>
 
           <div className="Player-controls">
