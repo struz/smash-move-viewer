@@ -438,7 +438,9 @@ class Player extends Component {
   timeEventHandler() {
     var moveFrame = this.getMoveFrame(this.state.video);
 
-    if (moveFrame !== this.state.frameIndex) {
+    // We need to only do this after init is done, else the first seek will be
+    // intercepted by this event handler and fail to move us to the requested frame
+    if (this.state.initDone && moveFrame !== this.state.frameIndex) {
       // Notify parent of changes
       this.props.onFrameChange(moveFrame, true);
 
