@@ -9,7 +9,7 @@ import 'rc-slider/assets/index.css';
 
 import ShareModal from './ShareModal.js';
 
-import logo from './img/logo_transparent.png';
+import logo from './img/logo_transparent_lowfi.png';
 import loadingGif from './img/BowserSpin2.gif';
 import iconShare from './img/share.svg';
 
@@ -209,15 +209,16 @@ class Player extends Component {
   }
 
   render() {
+    /* Tooltips for frame controls */
     const frameTooltip = "The current frame of the move being shown"
     const playSpeedTooltip = "How fast to play the move. 1x is in-game speed (60fps)"
     const loopTooltip = "Tick to make the move repeat playing until you pause"
-    const frameFirstTooltip = "Skip to the first frame of the move"
-    const framePrevTooltip = "Show the previous frame of the move"
-    const playTooltip = "Play the move"
-    const pauseTooltip = "Pause the move to view hitbox information"
-    const frameNextTooltip = "Show the next frame of the move"
-    const frameLastTooltip = "Skip to the last frame of the move"
+    const frameFirstTooltip = "Skip to the first frame of the move (CTRL + Left arrow)"
+    const framePrevTooltip = "Show the previous frame of the move (Left arrow)"
+    const playTooltip = "Play the move (Spacebar)"
+    const pauseTooltip = "Pause the move to view hitbox information (Spacebar)"
+    const frameNextTooltip = "Show the next frame of the move (Right arrow)"
+    const frameLastTooltip = "Skip to the last frame of the move (CTRL + Right arrow)"
 
     const uuid = this.state.uuid;
     const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';

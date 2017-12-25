@@ -94,6 +94,13 @@ class Help extends Component {
             govern the rest of the characters. This means the tools used to make
             the rest of the characters do not work well with them.
           </li>
+          <li>
+            <span className="Bold-label">
+              Bone-specific intangibility/super armor/invincibility are not yet displayed.
+            </span> This will be eventually displayed once I can work out a nice
+            way to display the data. Until then, be on the lookout for hurtboxes
+            disappearing or changing colour on some parts of the body.
+          </li>
         </ul>
         <h3>Credits &amp; Thanks</h3>
         <ul className="Spaced-list">

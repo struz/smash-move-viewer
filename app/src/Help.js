@@ -6,7 +6,7 @@ import './MoveInfo.css';
 import {HOTKEY_HELP} from './Common.js';
 
 import ryuExample from './img/ryu_example.png';
-import moveViewerExample from './img/MoveViewerInstructional.png';
+import moveViewerExample from './img/MoveViewerInstructional.jpg';
 
 import * as MoveInfo from './MoveInfo.js';
 const hurtboxColor = '#FFE119';

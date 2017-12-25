@@ -9,10 +9,6 @@
   max-width: 30%;
 }
 
-.Move-video-container {
-  display: inline-block;
-}
-
 /* this includes the nav buttons and the play speed and frame menus. At 100%, it's the width of the video window */
 .Move-controls {
   margin: auto;
@@ -112,6 +108,10 @@
 .Move-video-loading {
   display: table-cell;
   vertical-align: middle;
+}
+
+.Move-video-container {
+  display: inline-block;
 }
 
 .Move-video-placeholder {
