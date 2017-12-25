@@ -52,7 +52,6 @@ class ShareModal extends Component {
 
     // if top + height is off the viewport, move it up to above the button
     if ((parseFloat(styles.top) + modalHeight) > (window.scrollY + window.innerHeight)) {
-      console.log('moveme');
       this.refs.modalDiv.style.top = (this.props.anchor.offsetTop - this.props.anchor.offsetHeight - modalHeight) + 'px';
     }
   }

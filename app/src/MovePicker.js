@@ -225,6 +225,8 @@ function moveToOption(move) {
   return <option key={move.rawName} value={move.rawName}>{move.prettyName}</option>;
 }
 
+// Get the moves in the provided _moveList_ that match the given _regex_
+// and add them as <option> tags to to _optionList_, a list of JSX options
 function extractMoves(optionsList, moveList, regex) {
   // FIXME: This is obscenely ugly
   var moveListLength = moveList.length;

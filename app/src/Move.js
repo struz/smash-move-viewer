@@ -200,7 +200,7 @@ class Move extends Component {
     });
     this.setState(function(prevState, props) {
       prevState.move = move;
-      prevState.moveData = null;
+      // We don't set move data to null so that we don't un-render the move data pane
       prevState.frameIndex = 1;
 
       var [location, search] = Common.generateAppUrl({

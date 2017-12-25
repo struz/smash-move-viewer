@@ -560,7 +560,6 @@ class Player extends Component {
         action: 'Frame Number Changed',
         label: 'Slider'
       });
-      /* TODO: FIXME I DON'T WORK I SKIP TWO FRAMES BACKWARDS */
       this.moveFrameAbsolute(frameIndex, this.state.video, true);
     }
   }
