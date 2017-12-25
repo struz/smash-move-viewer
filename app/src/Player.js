@@ -31,6 +31,62 @@ const uuidv4 = require('uuid/v4');
 
 ReactGA.initialize('UA-107697636-1');
 
+// Placeholder / loading splash to use when a video is being updated or loaded
+class VideoPlaceholder extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: props.isLoading,
+      vidLoaded: props.vidLoaded
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isLoading !== this.state.isLoading) {
+      this.setState(function(prevState, props) {
+        prevState.isLoading = nextProps.isLoading;
+        return prevState;
+      });
+    }
+    if (nextProps.vidLoaded !== this.state.vidLoaded) {
+      this.setState(function(prevState, props) {
+        prevState.vidLoaded = nextProps.vidLoaded;
+        return prevState;
+      });
+    }
+  }
+
+  render() {
+    const isLoading = this.state.isLoading;
+    const vidLoaded = this.state.vidLoaded;
+
+    var placeholderInlineStyles = {};
+    if (!isLoading) {  // Splash screen only when no videos have been loaded in a session
+      placeholderInlineStyles['backgroundImage'] = `url(${logo})`;
+    }
+    if (vidLoaded) {
+      placeholderInlineStyles['display'] = 'none';
+    }
+
+    return (
+      <div className="Move-video-placeholder"
+       style={placeholderInlineStyles}>
+       <div className="Move-video-placeholder-inner">
+          <div className="Move-video-instruction" style={isLoading ? {display: 'none'} : {}}>
+            Select a character and a move to get started.
+          </div>
+          <div className="Move-video-loading" style={isLoading ? {} : {display: 'none'}}>
+            <div>
+              <img src={loadingGif} alt="loading" className="Loading-gif" />
+            </div>
+            <div className="Move-video-instruction">Loading...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
 class Player extends Component {
   constructor(props) {
     super(props);
@@ -177,7 +233,7 @@ class Player extends Component {
       this.setState(function(prevState, props) {
         prevState.loop = nextProps.loop;
         return prevState;
-      })
+      });
     }
   }
 
@@ -210,6 +266,7 @@ class Player extends Component {
 
   resizeVideoControlToFitVideo() {
     /*
+    FIXME: this might be possible with pure CSS
      Rules of engagement:
      1) Video does not go width > 790px on desktop
      2) Height doesn't matter compared to width as it won't fuck the whole layout
@@ -289,21 +346,24 @@ class Player extends Component {
     finalDimensionsVideo['width'] = moveVideoWidth ? moveVideoWidth : videoDimensions['width'];
     finalDimensionsVideo['height'] = moveVideoHeight ? moveVideoHeight : videoDimensions['height'];
 
-    if (viewType === VIEW_TYPES.LANDSCAPE) {
-      // Don't set the video width in landscape mode because we're constrained
-      // by height so we let the video set its own aspect ratio
-      delete finalDimensionsVideo.width;
-    } else if (viewType === VIEW_TYPES.PORTRAIT) {
-      // Likewise for height in portrait mode
-      delete finalDimensionsVideo.height;
-    }
-    // On desktop we just assume the screen is large and in charge
-
-    // We don't apply min widths when the video has a width to avoid it stretching
+    // Act differently if there's no video. When there's no video we use the
+    // width and height to make sure the splash screen looks nice
     if (moveVideoWidth && moveVideoHeight) {
+      // When we have a move loaded though, the move defines everything and we
+      // have no need for these parameters
+      if (viewType === VIEW_TYPES.LANDSCAPE) {
+        // Don't set the *video* width in landscape mode because we're constrained
+        // by height so we let the video set its own aspect ratio
+        delete finalDimensionsVideo.width;
+        delete finalDimensionsVideo.minWidth;
+      } else if (viewType === VIEW_TYPES.PORTRAIT || viewType === VIEW_TYPES.DESKTOP) {
+        // Likewise for height in portrait mode / desktop mode
+        delete finalDimensionsVideo.height;
+        delete finalDimensionsVideo.minHeight;
+      }
+
+      // We don't apply min widths when the video has a width to avoid it stretching
       containerDimensions = {};
-      //delete finalDimensionsVideo.minWidth;
-      //delete finalDimensionsVideo.minHeight;
     }
 
     return [finalDimensionsVideo, containerDimensions];
@@ -383,42 +443,12 @@ class Player extends Component {
       </div>
     );
 
-    var vidPlaceholder = null;
-   if (!vidLoaded) {
-      // We have to use inline style here unfortunately because divs don't have
-      // a "width" property
-      var placeholderInlineStyles = {};
-      if (!isLoading) {
-        placeholderInlineStyles['backgroundImage'] = `url(${logo})`;
-      }
-      vidPlaceholder = (
-        <div className="Move-video-placeholder"
-         style={placeholderInlineStyles}>
-         <div className="Move-video-placeholder-inner">
-            {!isLoading &&
-              <div className="Move-video-instruction">
-                Select a character and a move to get started.
-              </div>
-            }
-            {isLoading &&
-              <div className="Move-video-loading">
-                <div>
-                  <img src={loadingGif} alt="loading" className="Loading-gif" />
-                </div>
-                <div className="Move-video-instruction">Loading...</div>
-              </div>
-            }
-          </div>
-        </div>
-      );
-   }
-
     var showControls = (vidLoaded || isLoading);
     return (
       <div className="Move-gif">
         <div className="Move-video-outer-container" style={videoContainerStyles}>
-          {vidPlaceholder}
-          {isLoading && <div className="Move-video-background"></div>}
+          <VideoPlaceholder isLoading={isLoading} vidLoaded={vidLoaded}/>
+          {<div className="Move-video-background" style={isLoading ? {} : {display: 'none'} }></div>}
           {videoElement}
         </div>
 
@@ -488,12 +518,10 @@ class Player extends Component {
             <hr />
     		  </div>
         </div>
-        {
-          this.state.showShare &&
+        {this.state.showShare &&
           <ShareModal anchor={this.refs.shareImage}
            closeHandler={this.closeShareModal} fighter={this.props.fighter}
-           move={this.props.move}/>
-        }
+           move={this.props.move}/>}
       </div>
     );
   }
