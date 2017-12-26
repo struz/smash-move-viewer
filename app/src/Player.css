@@ -150,6 +150,22 @@
   border: 1px solid #878b98;
 }
 
+/* For desktop screens */
+@media only screen and (min-width: 792px) {
+  .Video-not-loaded {
+    max-width: 90vw;
+    min-width: 0;
+    min-height: 500px;
+    max-height: none;
+    height: 100%;
+  }
+  /* Same as above except without height & min-height */
+  .Video-loaded {
+    max-width: 90vw;
+    max-height: none;
+  }
+}
+
 /*
  For screens smaller than the default video size of 792px just use whatever
  space they have.
@@ -160,6 +176,38 @@
     margin-top: 3px;
   }
   .Loading-gif {
-    max-width: 70%;
+    max-width: 25vw;
+  }
+  .Video-not-loaded {
+    max-width: 98%;
+    min-width: 85vw;
+    min-height: 54vw;
+    max-height: 85vh;
+    width: 100%;
+    height: auto;
+  }
+  /* Same as above except without height & min-height */
+  .Video-loaded {
+    max-width: 98%;
+    max-height: 85vh;
+  }
+}
+
+/* For landscape screens we are constrained by height rather than width */
+@media only screen and (max-height: 500px) {
+  .Video-not-loaded {
+    max-width: 95vw;
+    min-width: 150vh;
+    min-height: 70vh;
+    max-height: 75vh;
+    width: auto;
+    height: 100%;
+  }
+  /* Same as above except without width & min-width */
+  .Video-loaded {
+    max-width: 95vw;
+    min-height: 70vh;
+    max-height: 75vh;
+    width: auto;
   }
 }
