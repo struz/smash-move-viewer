@@ -159,6 +159,8 @@ class Move extends Component {
     this.speedChanged = this.speedChanged.bind(this);
     this.showAllChanged = this.showAllChanged.bind(this);
     this.loopChanged = this.loopChanged.bind(this);
+
+    this.props.onMoveUpdated(this.props.location.pathname, this.props.location.search);
   }
 
   /* Callback handlers */
@@ -184,6 +186,7 @@ class Move extends Component {
         pathname: location,
         search: search
       });
+      this.props.onMoveUpdated(location, search);
       return prevState;
     });
     // FIXME: we don't do this anymore to solve the "loading" bug more easily
@@ -213,6 +216,7 @@ class Move extends Component {
         pathname: location,
         search: search
       });
+      this.props.onMoveUpdated(location, search);
       return prevState;
     });
     this.fetchMoveData(this.state.fighter, move);
@@ -236,6 +240,7 @@ class Move extends Component {
         pathname: location,
         search: search
       });
+      this.props.onMoveUpdated(location, search);
       return prevState;
     });
   }
@@ -251,6 +256,7 @@ class Move extends Component {
         pathname: location,
         search: search
       });
+      this.props.onMoveUpdated(location, search);
     }
 
     this.setState(function(prevState, props) {
@@ -269,6 +275,7 @@ class Move extends Component {
       pathname: location,
       search: search
     });
+    this.props.onMoveUpdated(location, search);
     this.setState(function(prevState, props) {
       prevState.speed = speed;
       return prevState;
@@ -287,6 +294,7 @@ class Move extends Component {
         pathname: location,
         search: search
       });
+      this.props.onMoveUpdated(location, search);
 
       return prevState;
     });

@@ -279,7 +279,7 @@ class Player extends Component {
     const uuid = this.state.uuid;
     const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';
     const vidLoaded = this.state.video !== null;
-    const isLoading = this.state.loading || !this.state.initDone;
+    const isLoading = this.state.loading;
     const loop = this.state.loop;
 
     const playIcon = this.state.paused ? iconPlay : iconPause;
@@ -495,7 +495,6 @@ class Player extends Component {
 
   // More specific handler for pause so we can do iOS browsers properly
   pauseEventHandler() {
-    // FIXME: this kinda works but we still warp back to the start of the video
     if (!this.state.initDone) {
       this.videoInitSeek();
     } else {

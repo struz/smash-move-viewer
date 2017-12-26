@@ -7,8 +7,19 @@ ReactGA.initialize('UA-107697636-1');
 class Menu extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      moveViewerLink: this.props.moveViewerLink
+    };
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.moveViewerLink !== this.state.moveViewerLink) {
+      this.setState(function(prevState, props) {
+        prevState.moveViewerLink = nextProps.moveViewerLink;
+        return prevState;
+      });
+    }
   }
 
   handleChange(e) {
@@ -35,13 +46,17 @@ class Menu extends Component {
   }
 
   render() {
+    const moveViewerLink = this.state.moveViewerLink;
+
+    // Dropdown menu (for mobile) default highlighted option
     var optionValue = '';
     if (window.location.hash.startsWith('#/help'))
       optionValue = '#/help';
     else if (window.location.hash.startsWith('#/about'))
       optionValue = '#/about';
     else
-      optionValue = '#/';
+      optionValue = moveViewerLink;
+
 
     // TODO: make sure analytics are collected around these page views
     return (
@@ -51,18 +66,18 @@ class Menu extends Component {
            className="Dropdown Main-dropdown"
            title="Navigate between pages"
            defaultValue={optionValue}>
-            <option value="#/">Move&nbsp;Viewer</option>
+            <option value={moveViewerLink}>Move&nbsp;Viewer</option>
             <option value="#/help">Help</option>
             <option value="#/about">About</option>
             <option value="https://twitter.com/StruzSmash">&#64;StruzSmash</option>
           </select>
         </div>
         <div className="large-menu-container">
-          <a className="menu" href="#/">Move&nbsp;Viewer</a>
+          <a className="menu" href={moveViewerLink}>Move&nbsp;Viewer</a>
           <span className="menu-spacer">&#124;</span>
-          <a className="menu" href="#/help" target="_blank" rel="noopener noreferer">Help</a>
+          <a className="menu" href="#/help">Help</a>
           <span className="menu-spacer">&#124;</span>
-          <a className="menu" href="#/about" target="_blank" rel="noopener noreferer">About</a>
+          <a className="menu" href="#/about">About</a>
           <span className="menu-spacer">&#124;</span>
           <ReactGA.OutboundLink className="menu" eventLabel="Twitter" to="https://twitter.com/StruzSmash" target="_blank" rel="noopener noreferrer">
             &#64;StruzSmash
