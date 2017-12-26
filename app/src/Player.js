@@ -279,7 +279,7 @@ class Player extends Component {
     const uuid = this.state.uuid;
     const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';
     const vidLoaded = this.state.video !== null;
-    const isLoading = this.state.loading;
+    const isLoading = this.state.loading || !this.state.initDone;
     const loop = this.state.loop;
 
     const playIcon = this.state.paused ? iconPlay : iconPause;
