@@ -445,6 +445,8 @@ class MoveInfo extends Component {
       );
     }
 
+    const faf = this.state.moveData.faf === 0 ? -1 : this.state.moveData.faf;
+
     const frame = this.props.frameIndex;
     const hitboxes = this.state.moveData.frames[frame].hitboxes;
     var specialBubbles = [];
@@ -501,13 +503,21 @@ class MoveInfo extends Component {
 
     return(
       <div className="Move-info">
-        <p><span className='Bold-label' data-tip={TOOLTIPS['faf']}>First Actionable Frame:</span> {this.state.moveData.faf === 0 ? 'Not specified' : this.state.moveData.faf}</p>
+        <p>
+          <span className='Bold-label' data-tip={TOOLTIPS['faf']}>
+            First Actionable Frame:
+          </span>
+          <div className="Frame-range-spacer">
+            <CallbackLink text={faf === -1 ? 'Not specified' : faf}
+              frameNum={parseInt(faf, 10)} clickHandler={this.frameClicked}/>
+          </div>
+        </p>
         {this.state.hitboxRanges}
         {this.state.superArmorRange}
         {this.state.intangibilityRange}
         {this.state.invincibleRange}
         {hitboxTable}
-        {/* NOTE: this tooltip also serves Player.js. We should decouple them */}
+        {/* FIXME: this tooltip also serves Player.js. We should decouple them */}
         <ReactTooltip multiline={true} delayShow={160} html={true} effect={'solid'} place={'right'} />
       </div>
     );
