@@ -165,6 +165,7 @@
   .Video-loaded {
     max-width: 100%;
     max-height: none;
+    min-height: 200px;
   }
 }
 
@@ -192,6 +193,7 @@
   .Video-loaded {
     max-width: 100%;
     max-height: 85vh;
+    min-height: 200px;
   }
 }
 

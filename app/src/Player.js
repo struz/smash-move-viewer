@@ -718,7 +718,6 @@ class Player extends Component {
       videoClass = "Video-not-loaded";
     }
 
-
     // We never remove any of the components of this render so that the layout
     // doesn't jump around. Instead, we just display: none it. This has the added
     // bonus of keeping refs around and avoiding null references.
