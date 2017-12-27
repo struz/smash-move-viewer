@@ -170,19 +170,19 @@ class PlayerControls extends Component {
     return (
       <div className="Move-controls" style={hidden ? {display: 'none'} : {}}>
         <div className="Player-controls">
-          <button onClick={disabled ? null : this.props.firstFrameHandler} className="Image-button">
+          <button type="button" onClick={disabled ? null : this.props.firstFrameHandler} className="Image-button">
             <img src={iconFirst} alt="first" title={frameFirstTooltip}/>
           </button>
-          <button onClick={disabled ? null : this.props.prevFrameHandler} className="Image-button">
+          <button type="button" onClick={disabled ? null : this.props.prevFrameHandler} className="Image-button">
             <img src={iconPrevious} alt="prev" title={framePrevTooltip}/>
           </button>
-          <button onClick={disabled ? null : this.props.playPauseHandler} className="Image-button">
+          <button type="button" onClick={disabled ? null : this.props.playPauseHandler} className="Image-button">
             <img src={playIcon} alt="play/pause" title={playPauseTooltip}/>
           </button>
-          <button onClick={disabled ? null : this.props.nextFrameHandler} className="Image-button">
+          <button type="button" onClick={disabled ? null : this.props.nextFrameHandler} className="Image-button">
             <img src={iconNext} alt="next" title={frameNextTooltip}/>
           </button>
-          <button onClick={disabled ? null : this.props.lastFrameHandler} className="Image-button">
+          <button type="button" onClick={disabled ? null : this.props.lastFrameHandler} className="Image-button">
             <img src={iconLast} alt="last" title={frameLastTooltip}/>
           </button>
           <div className="Help-icon Bold-label" data-tip={HOTKEY_HELP}>?</div>
@@ -298,6 +298,15 @@ class Player extends Component {
         prevState.loop = nextProps.loop;
         return prevState;
       });
+    }
+
+    // If we check this while playing we get an event storm that ruins playback speed
+    if (this.state.paused) {
+      if (this.props.frameIndex !== nextProps.frameIndex) {
+        // We say "false" to updating the URL because if we are being passed in
+        // a new frame, our parent should have already updated the URL.
+        this.moveFrameAbsolute(nextProps.frameIndex, this.state.video, false);
+      }
     }
   }
 
@@ -685,14 +694,22 @@ class Player extends Component {
     var videoStyles = {};
     // If not yet done initializing, use the height and width of the old video
     // as a guide to make sure the layout doesn't jerk around
-    if (!this.state.initDone && (this.state.videoHeight && this.state.videoWidth)) {
+    if (showSplash) {
+      // If there was no previous video and the init is not done yet then use
+      // a style that makes a placeholder splash screen
+      videoClass = "Video-not-loaded";
+    } else if (!this.state.initDone && (this.state.videoHeight && this.state.videoWidth)) {
       // FIXME: this is a very ugly hack, I wonder if there's a better way
       // FIXME: also this is imperfect and doesn't exactly preserve the video aspect ratio on mobile devices
       if (window.innerHeight < 500) {
         // Landscape, only set height so width matches aspect ratio
         videoStyles.height = this.state.videoHeight;
+      } else if (window.innerWidth < 1024) {
+        // The opposite for portrait
+        videoStyles.width = this.state.videoWidth;
       } else {
-        // The opposite for portrait / desktop views
+        // Desktop is large and in charge so who cares
+        videoStyles.height = this.state.videoHeight;
         videoStyles.width = this.state.videoWidth;
       }
     } else if (showSplash) {

@@ -59,3 +59,9 @@
 .multi-line {
   text-align: left !important;
 }
+
+.Frame-range-spacer {
+  display: inline-block;
+  padding-left: 6px;
+  padding-right: 6px;
+}

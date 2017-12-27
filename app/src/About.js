@@ -155,9 +155,7 @@ class Help extends Component {
             for Smash Move Viewer, helping me with site usability &amp; graphics,
             and for being a generally great person to bounce ideas off. You made
             the final stretch of finishing this project off much more bearable, and
-            I can't thank you enough.
-            <br />
-            <a href="http://supershark.studio/">Go check out all of her amazing art!</a>
+            I can't thank you enough. <a href="http://supershark.studio/">Go check out all of her amazing art!</a>
           </li>
         </ul>
     		<hr />

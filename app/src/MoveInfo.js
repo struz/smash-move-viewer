@@ -225,15 +225,56 @@ const TOOLTIPS = {
     <p>The actual angle is determined by many factors with the goal of moving the opponent to stay inside the current move's continuing hitboxes</p>`
 }
 
+
+class CallbackLink extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      frameNum: this.props.frameNum,
+      text: this.props.text
+    };
+
+    this.clickHandler = this.clickHandler.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(function(prevState, props) {
+      prevState.frameNum = nextProps.frameNum;
+      prevState.text = nextProps.text;
+    });
+  }
+
+  clickHandler(e) {
+    this.props.clickHandler(this.state.frameNum);
+  }
+
+  render() {
+    return (
+      <button type="button" className="Link-button"
+        onClick={this.clickHandler}>{this.props.text}</button>
+    );
+  }
+}
+
+
 // TODO: make a concrete class to use, that parses the JSON rather than just
 // assuming the files are in the right format.
-
 class MoveInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      moveData: this.props.moveData
+      moveData: this.props.moveData,
+      intangibilityRange: null,
+      hitboxRanges: null,
+      superArmorRange: null,
+      invincibleRange: null
     };
+
+    this.frameClicked = this.frameClicked.bind(this);
+  }
+
+  componentDidMount() {
+    this.initData(this.state.moveData);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -243,6 +284,7 @@ class MoveInfo extends Component {
         prevState.moveData = nextProps.moveData;
         return prevState;
       });
+      this.initData(nextProps.moveData);
     }
   }
 
@@ -252,29 +294,59 @@ class MoveInfo extends Component {
     ReactTooltip.rebuild();
   }
 
-  getGlobalIntangibilityRange() {
-    if (this.state.moveData.intangibilityEnd <= this.state.moveData.intangibilityStart) {
+  initData(moveData) {
+    // Does one-time initialization of the move data
+    if (moveData) {
+      this.setState(function(prevState, props) {
+        prevState.intangibilityRange = this.getIntangibilityRange(moveData);
+        prevState.hitboxRanges = this.getHitboxRange(moveData);
+        prevState.superArmorRange = this.getSuperArmorRange(moveData);
+        prevState.invincibleRange = this.getInvincibleRange(moveData);
+        return prevState;
+      });
+    }
+  }
+
+  frameClicked(frameNum) {
+    // More frame thunking, why didn't I just use 0 index everywhere....
+    this.props.onFrameChange(frameNum - 1, true);
+  }
+
+  getGlobalIntangibilityRange(moveData) {
+    if (moveData.intangibilityEnd <= moveData.intangibilityStart) {
       return '';
     }
     // Intangibility end is the *frame on which* the intangibility ends i.e. the frame
     // that you are once again vulnerable so we subtract one to make more sense
-    return '' + (this.state.moveData.intangibilityStart > 0 ? this.state.moveData.intangibilityStart : 1) + '-' + (this.state.moveData.intangibilityEnd - 1);
+    var realStart = moveData.intangibilityStart > 0 ? moveData.intangibilityStart : 1;
+    return (
+      <div className="Frame-range-spacer">
+        <CallbackLink text={'' + realStart + '-' + (moveData.intangibilityEnd - 1)}
+          frameNum={parseInt(realStart, 10)} clickHandler={this.frameClicked}/>
+      </div>
+    );
   }
 
-  getIntangibilityRange() {
-    var globalIntangibilityRange = this.getGlobalIntangibilityRange();
-    var localIntangibilityRange = this.getRangesFromFrames('bodyIntangible');
+  getIntangibilityRange(moveData) {
+    // Global range can only be one block (it's from params)
+    var globalIntangibilityRange = this.getGlobalIntangibilityRange(moveData);
+    var localIntangibilityRange = this.getRangesFromFrames(moveData, 'bodyIntangible');
 
     if (!globalIntangibilityRange && !localIntangibilityRange) {
       return null;
     }
     // Intangibility end is the *frame on which* the intangibility ends i.e. the frame
-    // that you are once again vulnerable so we subtract one to make more sense
+    // that you are once again vulnerable so we subtract one for it to make more sense
     var intangibilityRange = null;
     if (globalIntangibilityRange && localIntangibilityRange)
-      intangibilityRange = globalIntangibilityRange + ' ' + localIntangibilityRange;
+      intangibilityRange = (
+        <div style={{display: 'inline-block'}}>
+            {globalIntangibilityRange}
+            {localIntangibilityRange}
+        </div>
+      );
     else if (globalIntangibilityRange)
-      intangibilityRange = globalIntangibilityRange
+      intangibilityRange = globalIntangibilityRange;
     else
       intangibilityRange = localIntangibilityRange;
 
@@ -283,12 +355,11 @@ class MoveInfo extends Component {
         <span className='Bold-label' data-tip={TOOLTIPS['intFrames']}>
           Intangible frames:
         </span> {intangibilityRange}
-      </p>
-    );
+      </p>);
   }
 
-  getSuperArmorRange() {
-    var superArmorRange = this.getRangesFromFrames('bodySuperArmor');
+  getSuperArmorRange(moveData) {
+    var superArmorRange = this.getRangesFromFrames(moveData, 'bodySuperArmor');
     if (!superArmorRange)
       return null;
     return (
@@ -299,8 +370,8 @@ class MoveInfo extends Component {
       </p>);
   }
 
-  getInvincibleRange() {
-    var invincibleRange = this.getRangesFromFrames('bodyInvincible');
+  getInvincibleRange(moveData) {
+    var invincibleRange = this.getRangesFromFrames(moveData, 'bodyInvincible');
     if (!invincibleRange)
       return null;
     return (
@@ -311,12 +382,26 @@ class MoveInfo extends Component {
       </p>);
   }
 
-  getRangesFromFrames(frameVarName) {
+  getHitboxRange(moveData) {
+    var hitboxRange = this.getRangesFromFrames(moveData, 'hitboxes');
+    if (!hitboxRange)
+      return null;
+    return (
+      <p>
+        <span className='Bold-label' data-tip={TOOLTIPS['hitActive']}>
+          Hitbox active:
+        </span> {hitboxRange}
+      </p>);
+  }
+
+  getRangesFromFrames(moveData, frameVarName) {
     var rangeString = [];
 
     var currentFrameStart = -1;
-    for (var i = 0; i < this.state.moveData.frames.length; i++) {
-      if (this.state.moveData.frames[i][frameVarName]) {
+    for (var i = 0; i < moveData.frames.length; i++) {
+      let type = typeof(moveData.frames[i][frameVarName]);
+      if ((type === "boolean" && moveData.frames[i][frameVarName]) ||
+          (type === "object" && moveData.frames[i][frameVarName].length)) {
         if (currentFrameStart < 0) {
           currentFrameStart = i;
         }
@@ -324,10 +409,16 @@ class MoveInfo extends Component {
         // If we have a range in flight, this is the end of it
         if (i - currentFrameStart < 2) {
           // 1 frame range
-          rangeString.push('' + (currentFrameStart + 1));
+          rangeString.push(
+            <CallbackLink text={'' + (currentFrameStart + 1)}
+              frameNum={parseInt(currentFrameStart + 1, 10)} clickHandler={this.frameClicked}/>
+          );
         } else {
           // 2+ frame range
-          rangeString.push('' + (currentFrameStart + 1) + '-' + i);
+          rangeString.push(
+            <CallbackLink text={'' + (currentFrameStart + 1) + '-' + i}
+              frameNum={parseInt(currentFrameStart + 1, 10)} clickHandler={this.frameClicked}/>
+          );
         }
         currentFrameStart = -1;
       }
@@ -336,39 +427,14 @@ class MoveInfo extends Component {
     if (!rangeString.length) {
       return '';
     }
-    return rangeString.reduce(function(pre, next) {
-      return pre + ', ' + next;
-    });
-  }
 
-  getHitboxRanges() {
-    var rangeString = [];
-
-    var currentFrameStart = -1;
-    for (var i = 0; i < this.state.moveData.frames.length; i++) {
-      if (this.state.moveData.frames[i].hitboxes.length) {
-        if (currentFrameStart < 0) {
-          currentFrameStart = i;
-        }
-      } else if (currentFrameStart >= 0) {
-        // If we have a range in flight, this is the end of it
-        if (i - currentFrameStart < 2) {
-          // 1 frame range
-          rangeString.push('' + (currentFrameStart + 1));
-        } else {
-          // 2+ frame range
-          rangeString.push('' + (currentFrameStart + 1) + '-' + i);
-        }
-        currentFrameStart = -1;
-      }
-    }
-
-    if (!rangeString.length) {
-      return 'N/A';
-    }
-    return rangeString.reduce(function(pre, next) {
-      return pre + ', ' + next;
-    });
+    return (
+      <span>
+        {rangeString.map(function(tag) {
+          return <div className="Frame-range-spacer">{tag}</div>;
+        })}
+      </span>
+    );
   }
 
   render() {
@@ -384,11 +450,6 @@ class MoveInfo extends Component {
     var specialBubbles = [];
     if ('specialBubbles' in this.state.moveData.frames[frame])
       specialBubbles = this.state.moveData.frames[frame].specialBubbles;
-
-    const intangibilityRange = this.getIntangibilityRange();
-    const hitboxRanges = this.getHitboxRanges();
-    const superArmorRange = this.getSuperArmorRange();
-    const invincibleRange = this.getInvincibleRange();
 
     var hitboxTable = (
       <span>Pause while hitboxes are visible to see more specific information</span>
@@ -441,10 +502,10 @@ class MoveInfo extends Component {
     return(
       <div className="Move-info">
         <p><span className='Bold-label' data-tip={TOOLTIPS['faf']}>First Actionable Frame:</span> {this.state.moveData.faf === 0 ? 'Not specified' : this.state.moveData.faf}</p>
-        <p><span className='Bold-label' data-tip={TOOLTIPS['hitActive']}>Hitbox active:</span> {hitboxRanges}</p>
-        {superArmorRange}
-        {intangibilityRange}
-        {invincibleRange}
+        {this.state.hitboxRanges}
+        {this.state.superArmorRange}
+        {this.state.intangibilityRange}
+        {this.state.invincibleRange}
         {hitboxTable}
         {/* NOTE: this tooltip also serves Player.js. We should decouple them */}
         <ReactTooltip multiline={true} delayShow={160} html={true} effect={'solid'} place={'right'} />
