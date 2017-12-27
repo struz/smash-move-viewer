@@ -7,13 +7,22 @@ import QueryString from 'query-string';
 // Hotkey help, which is shown in two places in the app
 export const HOTKEY_HELP = `
 There are hotkeys to make interacting with the move easier:
-<ul>
-  <li><span class="Bold-label">Spacebar:</span> Play/Pause</li>
-  <li><span class="Bold-label">Right arrow:</span> Next frame</li>
-  <li><span class="Bold-label">Left arrow:</span> Previous frame</li>
-  <li><span class="Bold-label">Holding shift:</span> arrow keys skip 10 frames in direction</li>
-  <li><span class="Bold-label">Holding ctrl:</span> arrow keys skip to first or last frame</li>
-</ul>
+<div class="flex-container">
+  <div class="flex-left">
+    <div class="flex-row"><kbd>Space</kbd></div>
+    <div class="flex-row"><kbd>Left</kbd></div>
+    <div class="flex-row"><kbd>Right</kbd></div>
+    <div class="flex-row"><kbd>Shift</kbd>+<kbd>Left/Right</kbd></div>
+    <div class="flex-row"><kbd>Ctrl</kbd>+<kbd>Left/Right</kbd></div>
+  </div>
+  <div class="flex-right">
+    <div class="flex-row"><div class="kbd-simulator">Play/Pause</div></div>
+    <div class="flex-row"><div class="kbd-simulator">Previous frame</div></div>
+    <div class="flex-row"><div class="kbd-simulator">Next frame</div></div>
+    <div class="flex-row"><div class="kbd-simulator">Skip 10 frames in direction</div></div>
+    <div class="flex-row"><div class="kbd-simulator">Skip to first or last frame</div></div>
+  </div>
+</div>
 `;
 
 // Make sure these match values in Player.js "speed" dropdown

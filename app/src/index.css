@@ -271,3 +271,49 @@ h4 {
 	width: 300px;
 	background: #fbfbf1;
 }
+
+/* keyboard shortcut niceities */
+
+element.style {
+}
+
+/* originally for nicely formatting key combos */
+.flex-container {
+	display: flex;
+	align-items: center;
+	margin-top: 5px;
+}
+.flex-left {
+	text-align: left;
+	border-right: 1px solid #878b98;
+}
+.flex-right {
+	text-align: left;
+}
+.flex-row {
+	margin-bottom: 5px;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #878b98;
+}
+/* for vertical positioning */
+.kbd-simulator {
+	display: inline-block;
+  border: 1px solid transparent;  /* this is the most important one to getting line height right */
+	/* these are also important */
+	margin: 0 .1em;
+  padding: .1em .6em;
+}
+
+kbd {
+  display: inline-block;
+  margin: 0 .1em;
+  padding: .1em .6em;
+  font-family: "bwmodelica-regular", sans-serif;
+  color: #242729;
+  text-shadow: 0 1px 0 #FFF;
+  background-color: #e1e3e5;
+  border: 1px solid #adb3b9;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(12,13,14,0.2), 0 0 0 2px #FFF inset;
+  white-space: nowrap;
+}

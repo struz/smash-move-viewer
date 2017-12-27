@@ -148,12 +148,14 @@
 
 .Move-video {
   border: 1px solid #878b98;
+  box-sizing: border-box;
+  vertical-align: bottom;
 }
 
 /* For desktop screens */
 @media only screen and (min-width: 792px) {
   .Video-not-loaded {
-    max-width: 90vw;
+    max-width: 100%;
     min-width: 0;
     min-height: 500px;
     max-height: none;
@@ -161,7 +163,7 @@
   }
   /* Same as above except without height & min-height */
   .Video-loaded {
-    max-width: 90vw;
+    max-width: 100%;
     max-height: none;
   }
 }
@@ -179,7 +181,7 @@
     max-width: 25vw;
   }
   .Video-not-loaded {
-    max-width: 98%;
+    max-width: 100%;
     min-width: 85vw;
     min-height: 54vw;
     max-height: 85vh;
@@ -188,7 +190,7 @@
   }
   /* Same as above except without height & min-height */
   .Video-loaded {
-    max-width: 98%;
+    max-width: 100%;
     max-height: 85vh;
   }
 }

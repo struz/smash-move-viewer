@@ -36,35 +36,35 @@ class VideoPlaceholder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: props.isLoading,
-      vidLoaded: props.vidLoaded
+      showLoading: props.showLoading,
+      showSplash: props.showSplash
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isLoading !== this.state.isLoading) {
+    if (nextProps.showLoading !== this.state.showLoading) {
       this.setState(function(prevState, props) {
-        prevState.isLoading = nextProps.isLoading;
+        prevState.showLoading = nextProps.showLoading;
         return prevState;
       });
     }
-    if (nextProps.vidLoaded !== this.state.vidLoaded) {
+    if (nextProps.showSplash !== this.state.showSplash) {
       this.setState(function(prevState, props) {
-        prevState.vidLoaded = nextProps.vidLoaded;
+        prevState.showSplash = nextProps.showSplash;
         return prevState;
       });
     }
   }
 
   render() {
-    const isLoading = this.state.isLoading;
-    const vidLoaded = this.state.vidLoaded;
+    const showLoading = this.state.showLoading;
+    const showSplash = this.state.showSplash;
 
     var placeholderInlineStyles = {};
-    if (!isLoading) {  // Splash screen only when no videos have been loaded in a session
+    if (showSplash) {  // Splash screen only when no videos have been loaded in a session
       placeholderInlineStyles['backgroundImage'] = `url(${logo})`;
     }
-    if (vidLoaded) {
+    if (!showSplash && !showLoading) {
       placeholderInlineStyles['display'] = 'none';
     }
 
@@ -72,10 +72,10 @@ class VideoPlaceholder extends Component {
       <div className="Move-video-placeholder"
        style={placeholderInlineStyles}>
        <div className="Move-video-placeholder-inner">
-          <div className="Move-video-instruction" style={isLoading ? {display: 'none'} : {}}>
+          <div className="Move-video-instruction" style={showLoading ? {display: 'none'} : {}}>
             Select a character and a move to get started.
           </div>
-          <div className="Move-video-loading" style={isLoading ? {} : {display: 'none'}}>
+          <div className="Move-video-loading" style={showLoading ? {} : {display: 'none'}}>
             <div>
               <img src={loadingGif} alt="loading" className="Loading-gif" />
             </div>
@@ -98,11 +98,15 @@ class Player extends Component {
       videoBlobUrl: null,
       video: null,
       paused: true,
-      loading: false,
       loop: props.loop,  // same as frameIndex
       showShare: false,
       initDone: false
     };
+    // Outside of state because we don't want to trigger renders on it, but
+    // we do want the values accessible during a render.
+    this.videoHeight = 0;
+    this.videoWidth = 0;
+    this.loading = false;
 
     // Bindings
     this.frameTextChanged = this.frameTextChanged.bind(this);
@@ -124,7 +128,10 @@ class Player extends Component {
 
     this.toggleShareModal = this.toggleShareModal.bind(this);
     this.closeShareModal = this.closeShareModal.bind(this);
-    this.videoInit = this.videoInit.bind(this);
+    this.videoViewInit = this.videoViewInit.bind(this);
+    this.videoFrameInit = this.videoFrameInit.bind(this);
+
+    this.seekInitHandler = this.seekInitHandler.bind(this);
   }
 
   toggleShareModal(e) {
@@ -159,9 +166,10 @@ class Player extends Component {
       return;
     var _this = this;
     var beginLoadTime = new Date().getTime();
+    _this.loading = true;
     _this.setState(function(prevState, props) {
-      prevState.loading = true;
       prevState.video = null;
+      prevState.initDone = false;
       return prevState;
     });
 
@@ -192,6 +200,7 @@ class Player extends Component {
         }
       });
 
+      _this.loading = false;
       _this.setState(function(prevState, props) {
         if (prevState.videoBlobUrl) {
           // Clean up after ourselves
@@ -200,10 +209,8 @@ class Player extends Component {
 
         prevState.videoBlobUrl = blob;
         prevState.video = video;
-        prevState.loading = false;
         prevState.frameIndex = defaultFrame;
         prevState.paused = true;
-        prevState.initDone = false;
         return prevState;
       });
 
@@ -242,8 +249,19 @@ class Player extends Component {
     document.body.removeEventListener('keydown', this.keyDownHandler);
   }
 
-  videoInit() {
+  videoViewInit() {
+    // Do viewport initialization for the video
+    // Make sure we never touch these values except on this callback otherwise
+    // we will waste renders
+    this.setState(function(prevState, props) {
+      prevState.videoHeight = this.refs.moveVideo.videoHeight;
+      prevState.videoWidth = this.refs.moveVideo.videoWidth;
+    });
+  }
+
+  videoFrameInit(target) {
     // Do initialization seeking to the video
+    debugger;
     if (!this.state.initDone) {
       if (isIphoneUserAgent()) {
         // We set autoplay to show the first frame, so we stop it here
@@ -255,13 +273,10 @@ class Player extends Component {
     }
   }
 
-  // Seek to the currently desired frame and then log that init was performed
+  // Seek to the currently desired frame. The initDone flag will be set by
+  // an onSeeked callback in the video
   videoInitSeek() {
     this.moveFrameAbsolute(this.state.frameIndex, this.state.video);
-    this.setState(function(prevState, props) {
-      prevState.initDone = true;
-      return prevState;
-    });
   }
 
   render() {
@@ -278,9 +293,10 @@ class Player extends Component {
 
     const uuid = this.state.uuid;
     const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';
-    const vidLoaded = this.state.video !== null;
-    const isLoading = this.state.loading;
+    const isLoading = this.loading;
+    const initDone = this.state.initDone;
     const loop = this.state.loop;
+    const showSplash = !this.props.url;  // If no URL it means we're on the title screen
 
     const playIcon = this.state.paused ? iconPlay : iconPause;
     const playPauseTooltip = this.state.paused ? playTooltip : pauseTooltip;
@@ -294,9 +310,17 @@ class Player extends Component {
     }
 
 
-    var videoClass = "Video-not-loaded";
-    if (this.refs.moveVideo && this.refs.moveVideo.videoHeight) {
-      videoClass = "Video-loaded";
+    var videoClass = "Video-loaded";
+    var videoStyles = {};
+    // If not yet done initializing, use the height and width of the old video
+    // as a guide to make sure the layout doesn't jerk around
+    if (!this.state.initDone && (this.videoHeight && this.videoWidth)) {
+      videoStyles.height = this.videoHeight;
+      videoStyles.width = this.videoWidth;
+    } else if (isLoading || !this.vidLoaded) {
+      // If there was no previous video and the init is not done yet then use
+      // a style that makes a placeholder splash screen
+      videoClass = "Video-not-loaded";
     }
 
     // The video is initially hidden just to keep the ref around
@@ -304,6 +328,7 @@ class Player extends Component {
     var videoElement = (
       <div className="Move-video-container">
         <video className={"Move-video " + videoClass} id={uuid} ref="moveVideo"
+         style={videoStyles}
 
          preload={isIphoneUserAgent() ? "metadata" : "auto"}
          autoPlay={isIphoneUserAgent() ? true : false}
@@ -311,15 +336,19 @@ class Player extends Component {
          onEnded={this.videoEventHandler}
          onPause={this.pauseEventHandler}
          onPlay={this.videoEventHandler}
-         onCanPlayThrough={this.videoInit}
          onTimeUpdate={this.timeEventHandler}
+         onSeeked={this.seekInitHandler}
+
+         /* Init related callbacks */
+         onCanPlayThrough={this.videoFrameInit}
+         onLoadedMetadata={this.videoViewInit}
 
          src={videoSrc} playsInline muted>
         </video>
 
         <Slider className="Player-slider-control" value={this.state.frameIndex}
           max={this.props.numFrames - 1} onChange={this.frameChanged}
-          style={(!vidLoaded) ? {'display': 'none'} : {}}
+          style={videoClass === "Video-not-loaded" ? {'display': 'none'} : {}}
           handleStyle={{
             height: 16,
             width: 16,
@@ -338,36 +367,35 @@ class Player extends Component {
       </div>
     );
 
-    var showControls = (vidLoaded || isLoading);
     return (
       <div className="Move-gif">
         <div className={"Move-video-outer-container " + videoClass}>
-          <VideoPlaceholder isLoading={isLoading} vidLoaded={vidLoaded}/>
-          {<div className="Move-video-background" style={isLoading ? {} : {display: 'none'} }></div>}
+          <VideoPlaceholder showLoading={!initDone && !showSplash} showSplash={showSplash} />
+          {<div className="Move-video-background" style={!initDone ? {} : {display: 'none'} }></div>}
           {videoElement}
         </div>
 
-        <div className="Move-controls" style={(!showControls) ? {display: 'none'} : {}}>
+        <div className="Move-controls" style={showSplash ? {display: 'none'} : {}}>
 
           <div className="Player-controls">
 
-            <button onClick={isLoading ? null : this.firstFrameHandler} className="Image-button">
+            <button onClick={!initDone ? null : this.firstFrameHandler} className="Image-button">
               <img src={iconFirst} alt="first" title={frameFirstTooltip}/>
             </button>
 
-            <button onClick={isLoading ? null : this.prevFrameHandler} className="Image-button">
+            <button onClick={!initDone ? null : this.prevFrameHandler} className="Image-button">
               <img src={iconPrevious} alt="prev" title={framePrevTooltip}/>
             </button>
 
-            <button onClick={isLoading ? null : this.playPauseHandler} className="Image-button">
+            <button onClick={!initDone ? null : this.playPauseHandler} className="Image-button">
               <img src={playIcon} alt="play/pause" title={playPauseTooltip}/>
             </button>
 
-            <button onClick={isLoading ? null : this.nextFrameHandler} className="Image-button">
+            <button onClick={!initDone ? null : this.nextFrameHandler} className="Image-button">
               <img src={iconNext} alt="next" title={frameNextTooltip}/>
             </button>
 
-            <button onClick={isLoading ? null : this.lastFrameHandler} className="Image-button">
+            <button onClick={!initDone ? null : this.lastFrameHandler} className="Image-button">
               <img src={iconLast} alt="last" title={frameLastTooltip}/>
             </button>
 
@@ -381,7 +409,7 @@ class Player extends Component {
 
             <label title={playSpeedTooltip}>Play speed:</label>
             <select onChange={this.speedChanged} value={this.state.playbackSpeed}
-             className="Dropdown" title={playSpeedTooltip} disabled={isLoading}>
+             className="Dropdown" title={playSpeedTooltip} disabled={!initDone}>
               <option value="2">2x</option>
               <option value="1">1x</option>
               <option value="0.5">0.5x</option>
@@ -395,7 +423,7 @@ class Player extends Component {
              value={displayFrame}
              title={frameTooltip}
              className="Move-frame Text-input"
-             disabled={isLoading}/>
+             disabled={!initDone}/>
 
             <div id="Frame-loop">
               <input type="checkbox" id="chkLoop" onChange={this.loopHandler}
@@ -431,7 +459,7 @@ class Player extends Component {
         this.moveFrameRelative(10, this.state.video, true);
         e.preventDefault();
       }
-    } else if (e.ctrlKey) {
+    } else if (e.ctrlKey || e.metaKey) {
       if (e.keyCode === 37) {  // Left
         this.moveFrameAbsolute(0, this.state.video, true);
         e.preventDefault();
@@ -462,6 +490,9 @@ class Player extends Component {
   // Get the move frame for the video, bounded to be inside the range of frames
   // that actually define the move
   getMoveFrame(video) {
+    if (!video)  // No crashing at dumb times
+      return;
+
     var realFrame = video.get();
 
     if (realFrame >= this.props.numFrames) {
@@ -499,6 +530,21 @@ class Player extends Component {
       this.videoInitSeek();
     } else {
       this.videoEventHandler();
+    }
+  }
+
+  // The reason we use an on-seek for the init and nowhere else is because we
+  // want this to fire only after we explicitly *seek* to the first frame we
+  // care about. Time updates capture a lot more noise.
+  seekInitHandler() {
+    if (!this.state.initDone && this.state.video && this.state.frameIndex === this.getMoveFrame(this.state.video)) {
+      this.videoHeight = this.refs.moveVideo.videoHeight;
+      this.videoWidth = this.refs.moveVideo.videoWidth;
+      this.setState(function(prevState, props) {
+        prevState.initDone = true;
+        return prevState;
+      });
+      return;
     }
   }
 
