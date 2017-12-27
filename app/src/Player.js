@@ -278,6 +278,269 @@ class Player extends Component {
     this.seekInitHandler = this.seekInitHandler.bind(this);
   }
 
+  /* === React lifecycle handlers === */
+
+  componentDidMount() {
+    this.loadVideo(this.props.url, this.props.frameIndex);
+
+    // Bind the arrow keys to frame-by-frame controls
+    document.body.addEventListener('keydown', this.keyDownHandler);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.url !== nextProps.url) {
+      this.loadVideo(nextProps.url, nextProps.frameIndex);
+    }
+    if (this.props.loop !== nextProps.loop) {
+      this.refs.moveVideo.loop = nextProps.loop;
+      this.setState(function(prevState, props) {
+        prevState.loop = nextProps.loop;
+        return prevState;
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    // Unbind the arrow keys from frame-by-frame controls
+    document.body.removeEventListener('keydown', this.keyDownHandler);
+  }
+
+  /* === End react lifecycle handlers === */
+
+
+  /* === Video event handlers === */
+
+  // Generic handler for most video events
+  videoEventHandler() {
+    // without this check this callback messes with the initial frame seeking
+    // on iOS for some reason
+    if (!this.state.initDone)
+      return;
+
+    var moveFrame = this.getMoveFrame(this.state.video);
+
+    if (moveFrame !== this.state.frameIndex) {
+      // Notify parent of changes
+      this.props.onFrameChange(moveFrame, true);
+    }
+
+    this.setState(function(prevState, props) {
+      prevState.paused = this.refs.moveVideo.paused;
+      prevState.frameIndex = moveFrame;
+      return prevState;
+    });
+  }
+
+  // More specific handler for pause so we can do iOS browsers properly
+  pauseEventHandler() {
+    if (!this.state.initDone) {
+      this.videoInitSeek();
+    } else {
+      this.videoEventHandler();
+    }
+  }
+
+  // Handler for any time the video currentTime attribute changes
+  timeEventHandler() {
+    var moveFrame = this.getMoveFrame(this.state.video);
+
+    // We only want do this after init is done, else the first seek will be
+    // intercepted by this event handler and fail to move us to the requested frame
+    if (this.state.initDone && moveFrame !== this.state.frameIndex) {
+      // Notify parent of changes
+      this.props.onFrameChange(moveFrame, true);
+
+      this.setState(function(prevState, props) {
+        prevState.frameIndex = moveFrame;
+        return prevState;
+      });
+    }
+  }
+
+  // The reason we use an on-seek for the init and nowhere else is because we
+  // want this to fire only after we explicitly *seek* to the first frame we
+  // care about. Time updates capture a lot more noise.
+  seekInitHandler() {
+    if (!this.state.initDone && this.state.video && this.state.frameIndex === this.getMoveFrame(this.state.video)) {
+      this.videoHeight = this.refs.moveVideo.videoHeight;
+      this.videoWidth = this.refs.moveVideo.videoWidth;
+      this.setState(function(prevState, props) {
+        prevState.initDone = true;
+        return prevState;
+      });
+      return;
+    }
+  }
+
+  /* === End video event handlers === */
+
+
+  /* === Player control handlers === */
+
+  playPauseHandler() {
+    ReactGA.event({
+      category: 'Player',
+      action: 'Play/Pause'
+    });
+    var video = this.refs.moveVideo;
+    if (video.paused) {
+      // Handle case where we pressed play on the final frame of the video
+      // and we want to make sure it starts at the beginning
+      if (this.state.frameIndex >= this.props.numFrames - 1) {
+        video.currentTime = 0;
+      }
+      video.play();
+      this.setState(function(prevState, props) {
+        prevState.paused = false;
+        return prevState;
+      });
+    } else {
+      video.pause();
+      this.setState(function(prevState, props) {
+        prevState.paused = true;
+        return prevState;
+      });
+      // Hacky fix for desynced video & frame display on-pause
+      this.moveFrameRelative(1, this.state.video, true);
+    }
+  }
+
+  nextFrameHandler(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'Next Frame'
+    });
+    this.moveFrameRelative(1, this.state.video, true);
+  }
+
+  prevFrameHandler(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'Prev Frame'
+    });
+    this.moveFrameRelative(-1, this.state.video, true);
+  }
+
+  lastFrameHandler(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'Last Frame'
+    });
+    this.moveFrameAbsolute(this.props.numFrames - 1, this.state.video, true);
+  }
+
+  firstFrameHandler(e) {
+    ReactGA.event({
+      category: 'Player',
+      action: 'First Frame'
+    });
+    this.moveFrameAbsolute(0, this.state.video, true);
+  }
+
+  frameChanged(frameIndex) {
+    // Don't spam events
+    if (frameIndex !== this.state.frameIndex) {
+      ReactGA.event({
+        category: 'Player',
+        action: 'Frame Number Changed',
+        label: 'Slider'
+      });
+      this.moveFrameAbsolute(frameIndex, this.state.video, true);
+    }
+  }
+
+  speedChanged(e) {
+    var playbackSpeed = e.target.value;
+
+    ReactGA.event({
+      category: 'Player',
+      action: 'Playback Speed Changed'
+    });
+
+    this.refs.moveVideo.playbackRate = playbackSpeed;
+    this.setState(function(prevState, props) {
+      prevState.playbackSpeed = playbackSpeed;
+      return prevState;
+    });
+
+    // Notify parent of change
+    this.props.onSpeedChange(playbackSpeed);
+  }
+
+  loopHandler(e) {
+    this.props.onLoopChange(e.target.checked);
+  }
+
+  /* === End player control handlers === */
+
+
+  /* === Frame seeking functions === */
+
+  // Get the move frame for the video, bounded to be inside the range of frames
+  // that actually define the move
+  getMoveFrame(video) {
+    if (!video)  // No crashing at dumb times
+      return;
+
+    var realFrame = video.get();
+
+    if (realFrame >= this.props.numFrames) {
+      realFrame = this.props.numFrames - 1;
+    } else if (realFrame < 0) {
+      realFrame = 0;
+    }
+    return realFrame;
+  }
+
+  moveFrameRelative(num, video, updateUrl = false) {
+    if (!video)  // No crashing if this is called at weird times
+      return;
+
+    if (num > 0) {
+      if (this.state.frameIndex + num >= this.props.numFrames)
+        return;
+      video.seekForward(num);
+    } else {
+      if (this.state.frameIndex + num < 0)
+        return;
+      video.seekBackward(-num);
+    }
+
+    var frameIndex = this.getMoveFrame(video);
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = frameIndex;
+      return prevState;
+    });
+
+    // Notify parent of changes
+    this.props.onFrameChange(frameIndex, updateUrl);
+  }
+
+  moveFrameAbsolute(num, video, updateUrl = false) {
+    if (!video)  // No crashing if this is called at weird times
+      return;
+
+    // Num here is the 0-indexed frame number
+    if (num >= this.props.numFrames) {
+      num = this.props.numFrames - 1;
+    } else if (num < 0) {
+      num = 0;
+    }
+
+    video.seekTo({frame: num});
+    this.setState(function(prevState, props) {
+      prevState.frameIndex = num;
+      return prevState;
+    });
+
+    // Notify parent of changes
+    this.props.onFrameChange(num, updateUrl);
+  }
+
+  /* === End frame seeking functions === */
+
+
+  /* === Video object handling functions === */
   loadVideo(url, defaultFrame) {
     if (!url)
       return;
@@ -341,31 +604,6 @@ class Player extends Component {
     });
   }
 
-  componentDidMount() {
-    this.loadVideo(this.props.url, this.props.frameIndex);
-
-    // Bind the arrow keys to frame-by-frame controls
-    document.body.addEventListener('keydown', this.keyDownHandler);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.url !== nextProps.url) {
-      this.loadVideo(nextProps.url, nextProps.frameIndex);
-    }
-    if (this.props.loop !== nextProps.loop) {
-      this.refs.moveVideo.loop = nextProps.loop;
-      this.setState(function(prevState, props) {
-        prevState.loop = nextProps.loop;
-        return prevState;
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    // Unbind the arrow keys from frame-by-frame controls
-    document.body.removeEventListener('keydown', this.keyDownHandler);
-  }
-
   videoViewInit() {
     // Do viewport initialization for the video
     // Make sure we never touch these values except on this callback otherwise
@@ -394,6 +632,44 @@ class Player extends Component {
   videoInitSeek() {
     this.moveFrameAbsolute(this.state.frameIndex, this.state.video);
   }
+
+  /* === End video object handling functions === */
+
+
+  keyDownHandler(e) {
+    // Player hotkeys
+    if (e.shiftKey) {
+      if (e.keyCode === 37) {  // Left
+        this.moveFrameRelative(-10, this.state.video, true);
+        e.preventDefault();
+      } else if (e.keyCode === 39) { // right
+        this.moveFrameRelative(10, this.state.video, true);
+        e.preventDefault();
+      }
+    } else if (e.ctrlKey || e.metaKey) {
+      if (e.keyCode === 37) {  // Left
+        this.moveFrameAbsolute(0, this.state.video, true);
+        e.preventDefault();
+      } else if (e.keyCode === 39) { // right
+        this.moveFrameAbsolute(this.props.numFrames - 1, this.state.video, true);
+        e.preventDefault();
+      }
+    } else {
+      if (e.keyCode === 37) {  // Left
+        this.moveFrameRelative(-1, this.state.video, true);
+        e.preventDefault();
+      } else if (e.keyCode === 39) { // right
+        this.moveFrameRelative(1, this.state.video, true);
+        e.preventDefault();
+      }
+    }
+
+    if (e.keyCode === 32) { // return / enter
+      this.playPauseHandler();
+      e.preventDefault();
+    }
+  }
+
 
   render() {
     const uuid = this.state.uuid;
@@ -486,274 +762,8 @@ class Player extends Component {
           loopHandler={this.loopHandler}
           loop={this.state.loop}
           />
-
-        {/* FIXME: need to anchor to child somehow */}
       </div>
     );
-  }
-
-  keyDownHandler(e) {
-    // Player hotkeys
-    if (e.shiftKey) {
-      if (e.keyCode === 37) {  // Left
-        this.moveFrameRelative(-10, this.state.video, true);
-        e.preventDefault();
-      } else if (e.keyCode === 39) { // right
-        this.moveFrameRelative(10, this.state.video, true);
-        e.preventDefault();
-      }
-    } else if (e.ctrlKey || e.metaKey) {
-      if (e.keyCode === 37) {  // Left
-        this.moveFrameAbsolute(0, this.state.video, true);
-        e.preventDefault();
-      } else if (e.keyCode === 39) { // right
-        this.moveFrameAbsolute(this.props.numFrames - 1, this.state.video, true);
-        e.preventDefault();
-      }
-    } else {
-      if (e.keyCode === 37) {  // Left
-        this.moveFrameRelative(-1, this.state.video, true);
-        e.preventDefault();
-      } else if (e.keyCode === 39) { // right
-        this.moveFrameRelative(1, this.state.video, true);
-        e.preventDefault();
-      }
-    }
-
-    if (e.keyCode === 32) { // return / enter
-      this.playPauseHandler();
-      e.preventDefault();
-    }
-  }
-
-  loopHandler(e) {
-    this.props.onLoopChange(e.target.checked);
-  }
-
-  // Get the move frame for the video, bounded to be inside the range of frames
-  // that actually define the move
-  getMoveFrame(video) {
-    if (!video)  // No crashing at dumb times
-      return;
-
-    var realFrame = video.get();
-
-    if (realFrame >= this.props.numFrames) {
-      realFrame = this.props.numFrames - 1;
-    } else if (realFrame < 0) {
-      realFrame = 0;
-    }
-    return realFrame;
-  }
-
-  // Generic handler for all video events
-  videoEventHandler() {
-    // without this check this callback messes with the initial frame seeking
-    // on iOS for some reason
-    if (!this.state.initDone)
-      return;
-
-    var moveFrame = this.getMoveFrame(this.state.video);
-
-    if (moveFrame !== this.state.frameIndex) {
-      // Notify parent of changes
-      this.props.onFrameChange(moveFrame, true);
-    }
-
-    this.setState(function(prevState, props) {
-      prevState.paused = this.refs.moveVideo.paused;
-      prevState.frameIndex = moveFrame;
-      return prevState;
-    });
-  }
-
-  // More specific handler for pause so we can do iOS browsers properly
-  pauseEventHandler() {
-    if (!this.state.initDone) {
-      this.videoInitSeek();
-    } else {
-      this.videoEventHandler();
-    }
-  }
-
-  // The reason we use an on-seek for the init and nowhere else is because we
-  // want this to fire only after we explicitly *seek* to the first frame we
-  // care about. Time updates capture a lot more noise.
-  seekInitHandler() {
-    if (!this.state.initDone && this.state.video && this.state.frameIndex === this.getMoveFrame(this.state.video)) {
-      this.videoHeight = this.refs.moveVideo.videoHeight;
-      this.videoWidth = this.refs.moveVideo.videoWidth;
-      this.setState(function(prevState, props) {
-        prevState.initDone = true;
-        return prevState;
-      });
-      return;
-    }
-  }
-
-  // More specific handler for timing updates
-  timeEventHandler() {
-    var moveFrame = this.getMoveFrame(this.state.video);
-
-    // We need to only do this after init is done, else the first seek will be
-    // intercepted by this event handler and fail to move us to the requested frame
-    if (this.state.initDone && moveFrame !== this.state.frameIndex) {
-      // Notify parent of changes
-      this.props.onFrameChange(moveFrame, true);
-
-      this.setState(function(prevState, props) {
-        prevState.frameIndex = moveFrame;
-        return prevState;
-      });
-    }
-  }
-
-  // Play / pause
-  playPauseHandler() {
-    ReactGA.event({
-      category: 'Player',
-      action: 'Play/Pause'
-    });
-    var video = this.refs.moveVideo;
-    if (video.paused) {
-      // Handle case where we pressed play on the final frame of the video
-      // and we want to make sure it starts at the beginning
-      if (this.state.frameIndex >= this.props.numFrames - 1) {
-        video.currentTime = 0;
-      }
-      video.play();
-      this.setState(function(prevState, props) {
-        prevState.paused = false;
-        return prevState;
-      });
-    } else {
-      video.pause();
-      this.setState(function(prevState, props) {
-        prevState.paused = true;
-        return prevState;
-      });
-      // Hacky fix for desynced video & frame display on-pause
-      this.moveFrameRelative(1, this.state.video, true);
-    }
-  }
-
-  moveFrameRelative(num, video, updateUrl = false) {
-    if (!video)  // No crashing if this is called at weird times
-      return;
-
-    if (num > 0) {
-      if (this.state.frameIndex + num >= this.props.numFrames)
-        return;
-      video.seekForward(num);
-    } else {
-      if (this.state.frameIndex + num < 0)
-        return;
-      video.seekBackward(-num);
-    }
-
-    var frameIndex = this.getMoveFrame(video);
-    this.setState(function(prevState, props) {
-      prevState.frameIndex = frameIndex;
-      return prevState;
-    });
-
-    // Notify parent of changes
-    this.props.onFrameChange(frameIndex, updateUrl);
-  }
-
-  moveFrameAbsolute(num, video, updateUrl = false) {
-    if (!video)  // No crashing if this is called at weird times
-      return;
-
-    // Num here is the 0-indexed frame number
-    if (num >= this.props.numFrames) {
-      num = this.props.numFrames - 1;
-    } else if (num < 0) {
-      num = 0;
-    }
-
-    video.seekTo({frame: num});
-    this.setState(function(prevState, props) {
-      prevState.frameIndex = num;
-      return prevState;
-    });
-
-    // Notify parent of changes
-    this.props.onFrameChange(num, updateUrl);
-  }
-
-  nextFrameHandler(e) {
-    ReactGA.event({
-      category: 'Player',
-      action: 'Next Frame'
-    });
-    this.moveFrameRelative(1, this.state.video, true);
-  }
-  prevFrameHandler(e) {
-    ReactGA.event({
-      category: 'Player',
-      action: 'Prev Frame'
-    });
-    this.moveFrameRelative(-1, this.state.video, true);
-  }
-  lastFrameHandler(e) {
-    ReactGA.event({
-      category: 'Player',
-      action: 'Last Frame'
-    });
-    this.moveFrameAbsolute(this.props.numFrames - 1, this.state.video, true);
-  }
-  firstFrameHandler(e) {
-    ReactGA.event({
-      category: 'Player',
-      action: 'First Frame'
-    });
-    this.moveFrameAbsolute(0, this.state.video, true);
-  }
-
-  frameChanged(frameIndex) {
-    // Don't spam events
-    if (frameIndex !== this.state.frameIndex) {
-      ReactGA.event({
-        category: 'Player',
-        action: 'Frame Number Changed',
-        label: 'Slider'
-      });
-      this.moveFrameAbsolute(frameIndex, this.state.video, true);
-    }
-  }
-
-  speedChanged(e) {
-    var playbackSpeed = e.target.value;
-
-    ReactGA.event({
-      category: 'Player',
-      action: 'Playback Speed Changed'
-    });
-
-    this.refs.moveVideo.playbackRate = playbackSpeed;
-    this.setState(function(prevState, props) {
-      prevState.playbackSpeed = playbackSpeed;
-      return prevState;
-    });
-
-    // Notify parent of change
-    this.props.onSpeedChange(playbackSpeed);
-  }
-
-  // Validation functions since we are potentially storing unusable values in the state
-  isValidFrameIndex(frameIndex) {
-    if (isNaN(frameIndex) || frameIndex < 0 ||
-        frameIndex >= this.props.numFrames) {
-      return false;
-    }
-    return true;
-  }
-  getUsableFrameIndex(frameIndex) {
-    if (!this.isValidFrameIndex(frameIndex)) {
-      return 0;
-    }
-    return frameIndex;
   }
 }
 
