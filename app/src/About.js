@@ -119,8 +119,8 @@ class Help extends Component {
             hitbox visualizations. Jam also got me started on reverse engineering on the WiiU.
           </li>
           <li>
-            <span className="Bold-label">Ploaj/Furil:</span>
-            an amazing contributor in the Smash4 modding and reverse engineering scene.
+            <span className="Bold-label">Ploaj/Furil:</span> an
+            amazing contributor in the Smash4 modding and reverse engineering scene.
             His posts of hitbox visualizations on Smashboards were what first
             inspired me to check out Smash Forge. He's done a lot of hard work
             on Smash Forge and is solely responsible for a large portion of the
