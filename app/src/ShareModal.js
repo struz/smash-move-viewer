@@ -12,6 +12,7 @@ class ShareModal extends Component {
       copyStatus: ''
     };
     this.copyLink = this.copyLink.bind(this);
+    this.onFocusShareLink = this.onFocusShareLink.bind(this);
   }
 
   handleClickOutside = evt => {

@@ -31,6 +31,7 @@ const uuidv4 = require('uuid/v4');
 
 ReactGA.initialize('UA-107697636-1');
 
+
 // Placeholder / loading splash to use when a video is being updated or loaded
 class VideoPlaceholder extends Component {
   constructor(props) {
@@ -87,51 +88,36 @@ class VideoPlaceholder extends Component {
   }
 }
 
-class Player extends Component {
+
+// Placeholder / loading splash to use when a video is being updated or loaded
+class PlayerControls extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // frameIndex is 0-indexed in this store
-      frameIndex: props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
-      playbackSpeed: props.playbackSpeed,  // same as frameIndex
-      uuid: uuidv4(),
-      videoBlobUrl: null,
-      video: null,
-      paused: true,
-      loop: props.loop,  // same as frameIndex
-      showShare: false,
-      initDone: false
-    };
-    // Outside of state because we don't want to trigger renders on it, but
-    // we do want the values accessible during a render.
-    this.videoHeight = 0;
-    this.videoWidth = 0;
-    this.loading = false;
+      hidden: this.props.hidden,
+      disabled: this.props.disabled,
+      playbackSpeed: this.props.playbackSpeed,
+      loop: this.props.loop,
+      displayFrame: this.props.displayFrame,
+      paused: this.props.paused,
 
-    // Bindings
-    this.frameTextChanged = this.frameTextChanged.bind(this);
-    this.frameChanged = this.frameChanged.bind(this);
-
-    this.playPauseHandler = this.playPauseHandler.bind(this);
-    this.nextFrameHandler = this.nextFrameHandler.bind(this);
-    this.prevFrameHandler = this.prevFrameHandler.bind(this);
-    this.lastFrameHandler = this.lastFrameHandler.bind(this);
-    this.firstFrameHandler = this.firstFrameHandler.bind(this);
-
-    this.speedChanged = this.speedChanged.bind(this);
-
-    this.videoEventHandler = this.videoEventHandler.bind(this);
-    this.pauseEventHandler = this.pauseEventHandler.bind(this);
-    this.timeEventHandler = this.timeEventHandler.bind(this);
-    this.keyDownHandler = this.keyDownHandler.bind(this);
-    this.loopHandler = this.loopHandler.bind(this);
+      showShare: false
+    }
 
     this.toggleShareModal = this.toggleShareModal.bind(this);
     this.closeShareModal = this.closeShareModal.bind(this);
-    this.videoViewInit = this.videoViewInit.bind(this);
-    this.videoFrameInit = this.videoFrameInit.bind(this);
+  }
 
-    this.seekInitHandler = this.seekInitHandler.bind(this);
+  componentWillReceiveProps(nextProps) {
+    this.setState(function(prevState, props) {
+      prevState.hidden = nextProps.hidden;
+      prevState.disabled = nextProps.disabled;
+      prevState.playbackSpeed = nextProps.playbackSpeed;
+      prevState.loop = nextProps.loop;
+      prevState.displayFrame = nextProps.displayFrame;
+      prevState.paused = nextProps.paused;
+      return prevState;
+    });
   }
 
   toggleShareModal(e) {
@@ -159,6 +145,137 @@ class Player extends Component {
     this.setState(function(prevState, props) {
       prevState.showShare = false;
     });
+  }
+
+  render() {
+    /* Tooltips for frame controls */
+    const frameTooltip = "The current frame of the move being shown"
+    const playSpeedTooltip = "How fast to play the move. 1x is in-game speed (60fps)"
+    const loopTooltip = "Tick to make the move repeat playing until you pause"
+    const frameFirstTooltip = "Skip to the first frame of the move (CTRL + Left arrow)"
+    const framePrevTooltip = "Show the previous frame of the move (Left arrow)"
+    const playTooltip = "Play the move (Spacebar)"
+    const pauseTooltip = "Pause the move to view hitbox information (Spacebar)"
+    const frameNextTooltip = "Show the next frame of the move (Right arrow)"
+    const frameLastTooltip = "Skip to the last frame of the move (CTRL + Right arrow)"
+
+    const playIcon = this.state.paused ? iconPlay : iconPause;
+    const playPauseTooltip = this.state.paused ? playTooltip : pauseTooltip;
+
+    const hidden = this.state.hidden;
+    const disabled = this.state.disabled;
+    const loop = this.state.loop;
+    const displayFrame = this.state.displayFrame;
+
+    return (
+      <div className="Move-controls" style={hidden ? {display: 'none'} : {}}>
+        <div className="Player-controls">
+          <button onClick={disabled ? null : this.props.firstFrameHandler} className="Image-button">
+            <img src={iconFirst} alt="first" title={frameFirstTooltip}/>
+          </button>
+          <button onClick={disabled ? null : this.props.prevFrameHandler} className="Image-button">
+            <img src={iconPrevious} alt="prev" title={framePrevTooltip}/>
+          </button>
+          <button onClick={disabled ? null : this.props.playPauseHandler} className="Image-button">
+            <img src={playIcon} alt="play/pause" title={playPauseTooltip}/>
+          </button>
+          <button onClick={disabled ? null : this.props.nextFrameHandler} className="Image-button">
+            <img src={iconNext} alt="next" title={frameNextTooltip}/>
+          </button>
+          <button onClick={disabled ? null : this.props.lastFrameHandler} className="Image-button">
+            <img src={iconLast} alt="last" title={frameLastTooltip}/>
+          </button>
+          <div className="Help-icon Bold-label" data-tip={HOTKEY_HELP}>?</div>
+        </div>
+
+        <div>
+          <hr />
+        </div>
+
+        <div className="Frame-controls">
+          <label title={playSpeedTooltip}>Play speed:</label>
+          <select onChange={this.props.speedChanged} value={this.state.playbackSpeed}
+           className="Dropdown" title={playSpeedTooltip} disabled={disabled}>
+            <option value="2">2x</option>
+            <option value="1">1x</option>
+            <option value="0.5">0.5x</option>
+            <option value="0.25">0.25x</option>
+            <option value="0.1">0.1x</option>
+          </select>
+
+          <label title={frameTooltip}>Frame:</label>
+          <input readOnly ref="frameNum" type="number"
+           value={displayFrame}
+           title={frameTooltip}
+           className="Move-frame Text-input"
+           disabled={disabled}/>
+
+          <div id="Frame-loop">
+            <input type="checkbox" id="chkLoop" onChange={this.props.loopHandler}
+             checked={loop} title={loopTooltip} />
+            <label title={loopTooltip} htmlFor="chkLoop">Loop</label>
+            <span onClick={this.toggleShareModal}>
+              <img src={iconShare} alt="share" className="Share-image"
+               title="Share this move with others"
+               ref="shareImage"/>
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <hr />
+        </div>
+        {this.state.showShare &&
+          <ShareModal anchor={this.refs.shareImage}
+           closeHandler={this.closeShareModal} fighter={this.props.fighter}
+           move={this.props.move}/>}
+      </div>
+    );
+  }
+}
+
+
+class Player extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // frameIndex is 0-indexed in this store
+      frameIndex: props.frameIndex,  // STATE is the canonical location for frameIndex, we just take it from props
+      playbackSpeed: props.playbackSpeed,  // same as frameIndex
+      uuid: uuidv4(),
+      videoBlobUrl: null,
+      video: null,
+      paused: true,
+      loop: props.loop,  // same as frameIndex
+      initDone: false
+    };
+    // Outside of state because we don't want to trigger renders on it, but
+    // we do want the values accessible during a render.
+    this.videoHeight = 0;
+    this.videoWidth = 0;
+    this.loading = false;
+
+    // Bindings
+    this.frameChanged = this.frameChanged.bind(this);
+
+    this.playPauseHandler = this.playPauseHandler.bind(this);
+    this.nextFrameHandler = this.nextFrameHandler.bind(this);
+    this.prevFrameHandler = this.prevFrameHandler.bind(this);
+    this.lastFrameHandler = this.lastFrameHandler.bind(this);
+    this.firstFrameHandler = this.firstFrameHandler.bind(this);
+
+    this.speedChanged = this.speedChanged.bind(this);
+
+    this.videoEventHandler = this.videoEventHandler.bind(this);
+    this.pauseEventHandler = this.pauseEventHandler.bind(this);
+    this.timeEventHandler = this.timeEventHandler.bind(this);
+    this.keyDownHandler = this.keyDownHandler.bind(this);
+    this.loopHandler = this.loopHandler.bind(this);
+
+    this.videoViewInit = this.videoViewInit.bind(this);
+    this.videoFrameInit = this.videoFrameInit.bind(this);
+
+    this.seekInitHandler = this.seekInitHandler.bind(this);
   }
 
   loadVideo(url, defaultFrame) {
@@ -261,7 +378,6 @@ class Player extends Component {
 
   videoFrameInit(target) {
     // Do initialization seeking to the video
-    debugger;
     if (!this.state.initDone) {
       if (isIphoneUserAgent()) {
         // We set autoplay to show the first frame, so we stop it here
@@ -280,34 +396,12 @@ class Player extends Component {
   }
 
   render() {
-    /* Tooltips for frame controls */
-    const frameTooltip = "The current frame of the move being shown"
-    const playSpeedTooltip = "How fast to play the move. 1x is in-game speed (60fps)"
-    const loopTooltip = "Tick to make the move repeat playing until you pause"
-    const frameFirstTooltip = "Skip to the first frame of the move (CTRL + Left arrow)"
-    const framePrevTooltip = "Show the previous frame of the move (Left arrow)"
-    const playTooltip = "Play the move (Spacebar)"
-    const pauseTooltip = "Pause the move to view hitbox information (Spacebar)"
-    const frameNextTooltip = "Show the next frame of the move (Right arrow)"
-    const frameLastTooltip = "Skip to the last frame of the move (CTRL + Right arrow)"
-
     const uuid = this.state.uuid;
     const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';
     const isLoading = this.loading;
     const initDone = this.state.initDone;
-    const loop = this.state.loop;
     const showSplash = !this.props.url;  // If no URL it means we're on the title screen
-
-    const playIcon = this.state.paused ? iconPlay : iconPause;
-    const playPauseTooltip = this.state.paused ? playTooltip : pauseTooltip;
-    // Logic around being able to delete the entire contents of the frame box
-    // Also has the added bonus of stopping text being entered
-    var displayFrame = parseInt(this.state.frameIndex, 10);
-    if (isNaN(displayFrame)) {
-      displayFrame = this.state.frameIndex;
-    } else {
-      displayFrame = displayFrame + 1;
-    }
+    const displayFrame = parseInt(this.state.frameIndex, 10) + 1;
 
 
     var videoClass = "Video-loaded";
@@ -323,128 +417,77 @@ class Player extends Component {
       videoClass = "Video-not-loaded";
     }
 
-    // The video is initially hidden just to keep the ref around
-    // to avoid bugs and crashes.
-    var videoElement = (
-      <div className="Move-video-container">
-        <video className={"Move-video " + videoClass} id={uuid} ref="moveVideo"
-         style={videoStyles}
 
-         preload={isIphoneUserAgent() ? "metadata" : "auto"}
-         autoPlay={isIphoneUserAgent() ? true : false}
-
-         onEnded={this.videoEventHandler}
-         onPause={this.pauseEventHandler}
-         onPlay={this.videoEventHandler}
-         onTimeUpdate={this.timeEventHandler}
-         onSeeked={this.seekInitHandler}
-
-         /* Init related callbacks */
-         onCanPlayThrough={this.videoFrameInit}
-         onLoadedMetadata={this.videoViewInit}
-
-         src={videoSrc} playsInline muted>
-        </video>
-
-        <Slider className="Player-slider-control" value={this.state.frameIndex}
-          max={this.props.numFrames - 1} onChange={this.frameChanged}
-          style={videoClass === "Video-not-loaded" ? {'display': 'none'} : {}}
-          handleStyle={{
-            height: 16,
-            width: 16,
-            marginLeft: -6,
-            marginTop: -6,
-            backgroundColor: '#6a6a79',
-            borderRadius: '100%',
-            'border': '0'
-          }}
-          trackStyle={{
-            backgroundColor: '#6a6a79'
-          }}
-          railStyle={{
-            backgroundColor: '#c6c6c6'
-          }}/>
-      </div>
-    );
-
+    // We never remove any of the components of this render so that the layout
+    // doesn't jump around. Instead, we just display: none it. This has the added
+    // bonus of keeping refs around and avoiding null references.
     return (
       <div className="Move-gif">
         <div className={"Move-video-outer-container " + videoClass}>
           <VideoPlaceholder showLoading={!initDone && !showSplash} showSplash={showSplash} />
-          {<div className="Move-video-background" style={!initDone ? {} : {display: 'none'} }></div>}
-          {videoElement}
+          {<div className="Move-video-background" style={!initDone && !showSplash ? {} : {display: 'none'} }></div>}
+
+          <div className="Move-video-container">
+            <video className={"Move-video " + videoClass} id={uuid} ref="moveVideo"
+             style={videoStyles}
+
+             preload={isIphoneUserAgent() ? "metadata" : "auto"}
+             autoPlay={isIphoneUserAgent() ? true : false}
+
+             onEnded={this.videoEventHandler}
+             onPause={this.pauseEventHandler}
+             onPlay={this.videoEventHandler}
+             onTimeUpdate={this.timeEventHandler}
+             onSeeked={this.seekInitHandler}
+
+             /* Init related callbacks */
+             onCanPlayThrough={this.videoFrameInit}
+             onLoadedMetadata={this.videoViewInit}
+
+             src={videoSrc} playsInline muted>
+            </video>
+
+            <Slider className="Player-slider-control" value={this.state.frameIndex}
+              max={this.props.numFrames - 1} onChange={this.frameChanged}
+              style={showSplash ? {'display': 'none'} : {}}
+              handleStyle={{
+                height: 16,
+                width: 16,
+                marginLeft: -6,
+                marginTop: -6,
+                backgroundColor: '#6a6a79',
+                borderRadius: '100%',
+                'border': '0'
+              }}
+              trackStyle={{
+                backgroundColor: '#6a6a79'
+              }}
+              railStyle={{
+                backgroundColor: '#c6c6c6'
+              }}/>
+          </div>
         </div>
 
-        <div className="Move-controls" style={showSplash ? {display: 'none'} : {}}>
+        <PlayerControls hidden={showSplash} paused={this.state.paused}
+          disabled={!initDone}
 
-          <div className="Player-controls">
+          fighter={this.props.fighter}
+          move={this.props.move}
 
-            <button onClick={!initDone ? null : this.firstFrameHandler} className="Image-button">
-              <img src={iconFirst} alt="first" title={frameFirstTooltip}/>
-            </button>
+          firstFrameHandler={this.firstFrameHandler}
+          prevFrameHandler={this.prevFrameHandler}
+          playPauseHandler={this.playPauseHandler}
+          nextFrameHandler={this.nextFrameHandler}
+          lastFrameHandler={this.lastFrameHandler}
 
-            <button onClick={!initDone ? null : this.prevFrameHandler} className="Image-button">
-              <img src={iconPrevious} alt="prev" title={framePrevTooltip}/>
-            </button>
+          speedChanged={this.speedChanged}
+          playbackSpeed={this.state.playbackSpeed}
+          displayFrame={displayFrame}
+          loopHandler={this.loopHandler}
+          loop={this.state.loop}
+          />
 
-            <button onClick={!initDone ? null : this.playPauseHandler} className="Image-button">
-              <img src={playIcon} alt="play/pause" title={playPauseTooltip}/>
-            </button>
-
-            <button onClick={!initDone ? null : this.nextFrameHandler} className="Image-button">
-              <img src={iconNext} alt="next" title={frameNextTooltip}/>
-            </button>
-
-            <button onClick={!initDone ? null : this.lastFrameHandler} className="Image-button">
-              <img src={iconLast} alt="last" title={frameLastTooltip}/>
-            </button>
-
-            <div className="Help-icon Bold-label" data-tip={HOTKEY_HELP}>?</div>
-
-          </div>
-          <div>
-            <hr />
-          </div>
-          <div className="Frame-controls">
-
-            <label title={playSpeedTooltip}>Play speed:</label>
-            <select onChange={this.speedChanged} value={this.state.playbackSpeed}
-             className="Dropdown" title={playSpeedTooltip} disabled={!initDone}>
-              <option value="2">2x</option>
-              <option value="1">1x</option>
-              <option value="0.5">0.5x</option>
-              <option value="0.25">0.25x</option>
-              <option value="0.1">0.1x</option>
-            </select>
-
-            <label title={frameTooltip}>Frame:</label>
-            <input readOnly ref="frameNum" type="number"
-             onChange={this.frameTextChanged}
-             value={displayFrame}
-             title={frameTooltip}
-             className="Move-frame Text-input"
-             disabled={!initDone}/>
-
-            <div id="Frame-loop">
-              <input type="checkbox" id="chkLoop" onChange={this.loopHandler}
-               checked={loop} title={loopTooltip} />
-              <label title={loopTooltip} htmlFor="chkLoop">Loop</label>
-              <span onClick={this.toggleShareModal}>
-                <img src={iconShare} alt="share" className="Share-image"
-                 title="Share this move with others"
-                 ref="shareImage"/>
-              </span>
-            </div>
-
-          </div>
-    		  <div>
-            <hr />
-    		  </div>
-        </div>
-        {this.state.showShare &&
-          <ShareModal anchor={this.refs.shareImage}
-           closeHandler={this.closeShareModal} fighter={this.props.fighter}
-           move={this.props.move}/>}
+        {/* FIXME: need to anchor to child somehow */}
       </div>
     );
   }
@@ -677,29 +720,6 @@ class Player extends Component {
         label: 'Slider'
       });
       this.moveFrameAbsolute(frameIndex, this.state.video, true);
-    }
-  }
-
-  frameTextChanged(e) {
-    // We store the raw frame index in state so that the control can be updated
-    // freely, and we perform validation on the input before we use it.
-    var rawFrameIndex = e.target.value;
-    var frameIndex = parseInt(rawFrameIndex, 10);
-
-    ReactGA.event({
-      category: 'Player',
-      action: 'Frame Number Changed',
-      label: 'Textbox'
-    });
-
-    if (this.isValidFrameIndex(frameIndex)) {
-      this.moveFrameAbsolute(frameIndex - 1, this.state.video, true);
-    } else {
-      // Store the invalid frame index but don't move the frame
-      this.setState(function(prevState, props) {
-        prevState.frameIndex = rawFrameIndex;
-        return prevState;
-      });
     }
   }
 
