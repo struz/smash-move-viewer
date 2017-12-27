@@ -253,7 +253,7 @@ class Player extends Component {
       videoWidth: 0
     };
     // Outside of state because we don't want to trigger renders on it, but
-    // we do want the values accessible during a render.
+    // we do potentially want the values accessible during a render.
     this.loading = false;
 
     // Bindings
@@ -675,7 +675,6 @@ class Player extends Component {
   render() {
     const uuid = this.state.uuid;
     const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';
-    const isLoading = this.loading;
     const initDone = this.state.initDone;
     const hasMoveAndFighter = this.props.fighter && this.props.move;
     const showSplash = !hasMoveAndFighter && !this.state.videoHeight;
@@ -687,9 +686,16 @@ class Player extends Component {
     // If not yet done initializing, use the height and width of the old video
     // as a guide to make sure the layout doesn't jerk around
     if (!this.state.initDone && (this.state.videoHeight && this.state.videoWidth)) {
-      videoStyles.height = this.state.videoHeight;
-      videoStyles.width = this.state.videoWidth;
-    } else if (isLoading || !this.vidLoaded) {
+      // FIXME: this is a very ugly hack, I wonder if there's a better way
+      // FIXME: also this is imperfect and doesn't exactly preserve the video aspect ratio on mobile devices
+      if (window.innerHeight < 500) {
+        // Landscape, only set height so width matches aspect ratio
+        videoStyles.height = this.state.videoHeight;
+      } else {
+        // The opposite for portrait / desktop views
+        videoStyles.width = this.state.videoWidth;
+      }
+    } else if (showSplash) {
       // If there was no previous video and the init is not done yet then use
       // a style that makes a placeholder splash screen
       videoClass = "Video-not-loaded";
