@@ -689,7 +689,6 @@ class Player extends Component {
     const showSplash = !hasMoveAndFighter && !this.state.videoHeight;
     const displayFrame = parseInt(this.state.frameIndex, 10) + 1;
 
-    debugger;
     var videoClass = "Video-loaded";
     var videoStyles = {};
     // If not yet done initializing, use the height and width of the old video
