@@ -247,12 +247,13 @@ class Player extends Component {
       video: null,
       paused: true,
       loop: props.loop,  // same as frameIndex
-      initDone: false
+      initDone: false,
+
+      videoHeight: 0,
+      videoWidth: 0
     };
     // Outside of state because we don't want to trigger renders on it, but
     // we do want the values accessible during a render.
-    this.videoHeight = 0;
-    this.videoWidth = 0;
     this.loading = false;
 
     // Bindings
@@ -362,9 +363,9 @@ class Player extends Component {
   // care about. Time updates capture a lot more noise.
   seekInitHandler() {
     if (!this.state.initDone && this.state.video && this.state.frameIndex === this.getMoveFrame(this.state.video)) {
-      this.videoHeight = this.refs.moveVideo.videoHeight;
-      this.videoWidth = this.refs.moveVideo.videoWidth;
       this.setState(function(prevState, props) {
+        prevState.videoHeight = this.refs.moveVideo.videoHeight;
+        prevState.videoWidth = this.refs.moveVideo.videoWidth;
         prevState.initDone = true;
         return prevState;
       });
@@ -676,7 +677,8 @@ class Player extends Component {
     const videoSrc = this.state.videoBlobUrl ? this.state.videoBlobUrl : '';
     const isLoading = this.loading;
     const initDone = this.state.initDone;
-    const showSplash = !this.props.url;  // If no URL it means we're on the title screen
+    const hasMoveAndFighter = this.props.fighter && this.props.move;
+    const showSplash = !hasMoveAndFighter && !this.state.videoHeight;
     const displayFrame = parseInt(this.state.frameIndex, 10) + 1;
 
 
@@ -684,9 +686,9 @@ class Player extends Component {
     var videoStyles = {};
     // If not yet done initializing, use the height and width of the old video
     // as a guide to make sure the layout doesn't jerk around
-    if (!this.state.initDone && (this.videoHeight && this.videoWidth)) {
-      videoStyles.height = this.videoHeight;
-      videoStyles.width = this.videoWidth;
+    if (!this.state.initDone && (this.state.videoHeight && this.state.videoWidth)) {
+      videoStyles.height = this.state.videoHeight;
+      videoStyles.width = this.state.videoWidth;
     } else if (isLoading || !this.vidLoaded) {
       // If there was no previous video and the init is not done yet then use
       // a style that makes a placeholder splash screen
@@ -700,8 +702,8 @@ class Player extends Component {
     return (
       <div className="Move-gif">
         <div className={"Move-video-outer-container " + videoClass}>
-          <VideoPlaceholder showLoading={!initDone && !showSplash} showSplash={showSplash} />
-          {<div className="Move-video-background" style={!initDone && !showSplash ? {} : {display: 'none'} }></div>}
+          <VideoPlaceholder showLoading={!initDone && !showSplash && hasMoveAndFighter} showSplash={showSplash} />
+          <div className="Move-video-background" style={!initDone && !showSplash ? {} : {display: 'none'} }></div>
 
           <div className="Move-video-container">
             <video className={"Move-video " + videoClass} id={uuid} ref="moveVideo"
@@ -723,24 +725,26 @@ class Player extends Component {
              src={videoSrc} playsInline muted>
             </video>
 
-            <Slider className="Player-slider-control" value={this.state.frameIndex}
-              max={this.props.numFrames - 1} onChange={this.frameChanged}
-              style={showSplash ? {'display': 'none'} : {}}
-              handleStyle={{
-                height: 16,
-                width: 16,
-                marginLeft: -6,
-                marginTop: -6,
-                backgroundColor: '#6a6a79',
-                borderRadius: '100%',
-                'border': '0'
-              }}
-              trackStyle={{
-                backgroundColor: '#6a6a79'
-              }}
-              railStyle={{
-                backgroundColor: '#c6c6c6'
-              }}/>
+            <div style={{'width': '95%', 'display': 'inline-block'}}>
+              <Slider className="Player-slider-control" value={this.state.frameIndex}
+                max={this.props.numFrames - 1} onChange={this.frameChanged}
+                style={showSplash ? {'display': 'none'} : {}}
+                handleStyle={{
+                  height: 16,
+                  width: 16,
+                  marginLeft: -6,
+                  marginTop: -6,
+                  backgroundColor: '#6a6a79',
+                  borderRadius: '100%',
+                  'border': '0'
+                }}
+                trackStyle={{
+                  backgroundColor: '#6a6a79'
+                }}
+                railStyle={{
+                  backgroundColor: '#c6c6c6'
+                }}/>
+              </div>
           </div>
         </div>
 
