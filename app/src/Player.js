@@ -689,7 +689,7 @@ class Player extends Component {
     const showSplash = !hasMoveAndFighter && !this.state.videoHeight;
     const displayFrame = parseInt(this.state.frameIndex, 10) + 1;
 
-
+    debugger;
     var videoClass = "Video-loaded";
     var videoStyles = {};
     // If not yet done initializing, use the height and width of the old video
@@ -712,7 +712,7 @@ class Player extends Component {
         videoStyles.height = this.state.videoHeight;
         videoStyles.width = this.state.videoWidth;
       }
-    } else if (showSplash) {
+    } else if (!this.state.initDone) {
       // If there was no previous video and the init is not done yet then use
       // a style that makes a placeholder splash screen
       videoClass = "Video-not-loaded";
