@@ -309,7 +309,7 @@ class MoveInfo extends Component {
 
   frameClicked(frameNum) {
     // More frame thunking, why didn't I just use 0 index everywhere....
-    this.props.onFrameChange(frameNum - 1, true);
+    this.props.onFrameChange(frameNum - 1, true, true);
   }
 
   getGlobalIntangibilityRange(moveData) {

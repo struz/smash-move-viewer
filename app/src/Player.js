@@ -308,8 +308,14 @@ class Player extends Component {
       });
     }
 
+    // Handle pausing from outside. Don't update the parent from in here or
+    // we end up in a render storm.
+    if (nextProps.sendPause && !this.state.paused) {
+      this.playPauseHandler();
+    }
+
     // If we check this while playing we get an event storm that ruins playback speed
-    if (this.state.paused) {
+    if (this.state.paused || nextProps.sendPause) {
       if (this.props.frameIndex !== nextProps.frameIndex) {
         // We say "false" to updating the URL because if we are being passed in
         // a new frame, our parent should have already updated the URL.
@@ -520,6 +526,8 @@ class Player extends Component {
   /* === Frame seeking functions === */
 
   beginFudgeSlider() {
+    // FIXME: this doubles our scripting time spent, I wonder if there's a way to make
+    // the render calls less costly
     this.setState(function(prevState, props) {
       prevState.fudgeSlider = this.state.frameIndex;
       return prevState;
@@ -552,8 +560,10 @@ class Player extends Component {
       prevState.fudgeSlider = -1;
       return prevState;
     });
-    clearInterval(this.fudgeSliderInterval);
-    this.fudgeSliderInterval = null;
+    if (this.fudgeSliderInterval) {
+      clearInterval(this.fudgeSliderInterval);
+      this.fudgeSliderInterval = null;
+    }
   }
 
   // Get the move frame for the video, bounded to be inside the range of frames

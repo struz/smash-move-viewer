@@ -149,7 +149,8 @@ class Move extends Component {
       frameEnd: frameEnd,
       moveData: null,
       showAllMoves: showAllMoves,
-      loop: true
+      loop: true,
+      sendPause: false
     };
 
     this.fighterSelected = this.fighterSelected.bind(this);
@@ -159,6 +160,7 @@ class Move extends Component {
     this.speedChanged = this.speedChanged.bind(this);
     this.showAllChanged = this.showAllChanged.bind(this);
     this.loopChanged = this.loopChanged.bind(this);
+    this.playPause = this.playPause.bind(this);
 
     this.props.onMoveUpdated(this.props.location.pathname, this.props.location.search);
   }
@@ -244,7 +246,7 @@ class Move extends Component {
       return prevState;
     });
   }
-  frameChanged(frame, updateUrl = false) {
+  frameChanged(frame, updateUrl = false, pauseVideo = false) {
     // Note that any frame coming from within will be 0-indexed
     if (updateUrl) {
       var [location, search] = Common.generateAppUrl({
@@ -261,6 +263,9 @@ class Move extends Component {
 
     this.setState(function(prevState, props) {
       prevState.frameIndex = frame + 1;
+      if (pauseVideo) {
+        prevState.sendPause = true;
+      }
       return prevState;
     });
   }
@@ -302,6 +307,12 @@ class Move extends Component {
   loopChanged(loop) {
     this.setState(function(prevState, props) {
       prevState.loop = loop;
+      return prevState;
+    });
+  }
+  playPause() {
+    this.setState(function(prevState, props) {
+      prevState.sendPause = false;
       return prevState;
     });
   }
@@ -396,6 +407,8 @@ class Move extends Component {
                 frameIndex={frameIndex - 1}
                 numFrames={numFrames}
                 loop={loop}
+                sendPause={this.state.sendPause}
+                onPlayPause={this.playPause}
                 onFrameChange={this.frameChanged}
                 onSpeedChange={this.speedChanged}
                 onLoopChange={this.loopChanged}
