@@ -250,11 +250,17 @@ class Player extends Component {
       initDone: false,
 
       videoHeight: 0,
-      videoWidth: 0
+      videoWidth: 0,
+
+      // >= 0 means we use this as the slider value instead of frame, and we
+      // don't pass it up to parents
+      fudgeSlider: -1
     };
     // Outside of state because we don't want to trigger renders on it, but
     // we do potentially want the values accessible during a render.
     this.loading = false;
+    this.fudgeSliderInterval = null;
+
 
     // Bindings
     this.frameChanged = this.frameChanged.bind(this);
@@ -335,8 +341,23 @@ class Player extends Component {
     }
 
     this.setState(function(prevState, props) {
+      let pauseStateChanged = this.refs.moveVideo.paused !== prevState.paused;
+
       prevState.paused = this.refs.moveVideo.paused;
-      prevState.frameIndex = moveFrame;
+      if (prevState.paused === false) {
+        // if video is playing, playing don't update frame so we can fudge a nice slider
+        prevState.frameIndex = moveFrame;
+      }
+
+      // This will only fire if for some reason they played the video through
+      // the browser default controls instead of ours. Here to stop idiocy
+      if (pauseStateChanged) {
+        if (this.refs.moveVideo.paused) {
+          this.endFudgeSlider();
+        } else {
+          this.beginFudgeSlider();
+        }
+      }
       return prevState;
     });
   }
@@ -362,6 +383,10 @@ class Player extends Component {
 
       this.setState(function(prevState, props) {
         prevState.frameIndex = moveFrame;
+        if (prevState.fudgeSlider > -1) {
+          // If we're fudging, sync the fudge number with the real one where possible
+          prevState.fudgeSlider = moveFrame;
+        }
         return prevState;
       });
     }
@@ -404,12 +429,14 @@ class Player extends Component {
         prevState.paused = false;
         return prevState;
       });
+      this.beginFudgeSlider();
     } else {
       video.pause();
       this.setState(function(prevState, props) {
         prevState.paused = true;
         return prevState;
       });
+      this.endFudgeSlider();
       // Hacky fix for desynced video & frame display on-pause
       this.moveFrameRelative(1, this.state.video, true);
     }
@@ -485,6 +512,37 @@ class Player extends Component {
 
 
   /* === Frame seeking functions === */
+
+  beginFudgeSlider() {
+    this.setState(function(prevState, props) {
+      prevState.fudgeSlider = this.state.frameIndex;
+      return prevState;
+    });
+
+    var _this = this;
+    this.fudgeSliderInterval = setInterval(function() {
+      _this.setState(function(prevState, props){
+        prevState.fudgeSlider = prevState.fudgeSlider + 1;
+        if (prevState.fudgeSlider >= props.numFrames) {
+          if (prevState.loop) {
+            prevState.fudgeSlider = 0;
+          } else {
+            prevState.fudgeSlider = props.numFrames - 1;
+          }
+        }
+        return prevState;
+      });
+    }, (1000 / 59) / this.state.playbackSpeed);  // 60fps (with error margin) / playback speed
+  }
+
+  endFudgeSlider() {
+    this.setState(function(prevState, props) {
+      prevState.fudgeSlider = -1;
+      return prevState;
+    });
+    clearInterval(this.fudgeSliderInterval);
+    this.fudgeSliderInterval = null;
+  }
 
   // Get the move frame for the video, bounded to be inside the range of frames
   // that actually define the move
@@ -747,8 +805,12 @@ class Player extends Component {
             </video>
 
             <div style={{'width': '95%', 'display': 'inline-block'}}>
-              <Slider className="Player-slider-control" value={this.state.frameIndex}
-                max={this.props.numFrames - 1} onChange={this.frameChanged}
+              <Slider className="Player-slider-control" max={this.props.numFrames - 1}
+                // If we are fudging we use the fudge value instead
+                value={this.state.fudgeSlider > -1 ? this.state.fudgeSlider : this.state.frameIndex}
+                // We do not want to send any updates if we are fudging
+                onChange={this.state.fudgeSlider > -1 ? null : this.frameChanged}
+
                 style={showSplash ? {'display': 'none'} : {}}
                 handleStyle={{
                   height: 16,

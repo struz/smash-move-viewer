@@ -351,11 +351,11 @@ class MoveInfo extends Component {
       intangibilityRange = localIntangibilityRange;
 
     return (
-      <p>
+      <div className="Paragraph">
         <span className='Bold-label' data-tip={TOOLTIPS['intFrames']}>
           Intangible frames:
         </span> {intangibilityRange}
-      </p>);
+      </div>);
   }
 
   getSuperArmorRange(moveData) {
@@ -363,11 +363,11 @@ class MoveInfo extends Component {
     if (!superArmorRange)
       return null;
     return (
-      <p>
+      <div className="Paragraph">
         <span className='Bold-label' data-tip={TOOLTIPS['saFrames']}>
           Super armor frames:
         </span> {superArmorRange}
-      </p>);
+      </div>);
   }
 
   getInvincibleRange(moveData) {
@@ -375,11 +375,11 @@ class MoveInfo extends Component {
     if (!invincibleRange)
       return null;
     return (
-      <p>
+      <div className="Paragraph">
         <span className='Bold-label' data-tip={TOOLTIPS['invFrames']}>
           Invincible frames:
         </span> {invincibleRange}
-      </p>);
+      </div>);
   }
 
   getHitboxRange(moveData) {
@@ -387,11 +387,11 @@ class MoveInfo extends Component {
     if (!hitboxRange)
       return null;
     return (
-      <p>
+      <div className="Paragraph">
         <span className='Bold-label' data-tip={TOOLTIPS['hitActive']}>
           Hitbox active:
         </span> {hitboxRange}
-      </p>);
+      </div>);
   }
 
   getRangesFromFrames(moveData, frameVarName) {
@@ -431,7 +431,7 @@ class MoveInfo extends Component {
     return (
       <span>
         {rangeString.map(function(tag) {
-          return <div className="Frame-range-spacer">{tag}</div>;
+          return <div className="Frame-range-spacer" key={tag}>{tag}</div>;
         })}
       </span>
     );
@@ -503,7 +503,7 @@ class MoveInfo extends Component {
 
     return(
       <div className="Move-info">
-        <p>
+        <div className="Paragraph">
           <span className='Bold-label' data-tip={TOOLTIPS['faf']}>
             First Actionable Frame:
           </span>
@@ -511,7 +511,7 @@ class MoveInfo extends Component {
             <CallbackLink text={faf === -1 ? 'Not specified' : faf}
               frameNum={parseInt(faf, 10)} clickHandler={this.frameClicked}/>
           </div>
-        </p>
+        </div>
         {this.state.hitboxRanges}
         {this.state.superArmorRange}
         {this.state.intangibilityRange}

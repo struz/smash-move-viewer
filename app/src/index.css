@@ -71,6 +71,10 @@ p {
 	line-height: 15px;
 }
 
+div.Paragraph {
+	padding-bottom: 10px;
+}
+
 .Image-button {
   background: transparent;
   border: 0;
