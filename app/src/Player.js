@@ -283,6 +283,8 @@ class Player extends Component {
     this.videoFrameInit = this.videoFrameInit.bind(this);
 
     this.seekInitHandler = this.seekInitHandler.bind(this);
+
+    this.fudgeSliderStep = this.fudgeSliderStep.bind(this);
   }
 
   /* === React lifecycle handlers === */
@@ -499,6 +501,10 @@ class Player extends Component {
       prevState.playbackSpeed = playbackSpeed;
       return prevState;
     });
+    if (this.fudgeSliderInterval) {
+      this.endFudgeSlider();
+      this.beginFudgeSlider();
+    }
 
     // Notify parent of change
     this.props.onSpeedChange(playbackSpeed);
@@ -519,9 +525,14 @@ class Player extends Component {
       return prevState;
     });
 
-    var _this = this;
-    this.fudgeSliderInterval = setInterval(function() {
-      _this.setState(function(prevState, props){
+    this.fudgeSliderInterval = setTimeout(
+      this.fudgeSliderStep,
+      (1000 / 59) / this.state.playbackSpeed);  // 60fps (with error margin) / playback speed
+  }
+
+  fudgeSliderStep() {
+    if (this.state.fudgeSlider > -1) {
+      this.setState(function(prevState, props){
         prevState.fudgeSlider = prevState.fudgeSlider + 1;
         if (prevState.fudgeSlider >= props.numFrames) {
           if (prevState.loop) {
@@ -532,7 +543,8 @@ class Player extends Component {
         }
         return prevState;
       });
-    }, (1000 / 59) / this.state.playbackSpeed);  // 60fps (with error margin) / playback speed
+      this.fudgeSliderInterval = setTimeout(this.fudgeSliderStep, (1000 / 59) / this.state.playbackSpeed);
+    }
   }
 
   endFudgeSlider() {
