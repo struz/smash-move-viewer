@@ -53,6 +53,10 @@
       "key": "ike"
     },
     {
+      "name": "Link",
+      "key": "link"
+    },
+    {
       "name": "Little Mac",
       "key": "littlemac"
     },
@@ -111,6 +115,10 @@
     {
       "name": "Sonic",
       "key": "sonic"
+    },
+    {
+      "name": "Toon Link",
+      "key": "toonlink"
     },
     {
       "name": "Yoshi",

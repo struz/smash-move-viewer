@@ -11,7 +11,8 @@ import MovePicker from './MovePicker.js';
 
 import './Move.css';
 
-const gifStore = "https://s3-us-west-1.amazonaws.com/smash-move-viewer/fighters/";
+const GIF_STORE_PREFIX = "https://s3-us-west-1.amazonaws.com/smash-move-viewer/fighters/";
+const KH_URL_PREFIX = "http://kuroganehammer.com/Smash4/"
 
 
 ReactGA.initialize('UA-107697636-1');
@@ -51,7 +52,8 @@ class FighterPicker extends Component {
   }
 
   handleChange(e) {
-    this.props.onFighterChange(e.target.value);
+    var fighterName = e.nativeEvent.target[e.target.selectedIndex].text;
+    this.props.onFighterChange(e.target.value, fighterName);
   }
 
   render() {
@@ -69,16 +71,14 @@ class FighterPicker extends Component {
     );
   }
 
-  componentDidMount() {
-    var _this = this;
-    axios.get(this.props.url).then(function(response) {
-      var json = response.data;  // JSON is auto parsed by axios
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.fighterIndexData !== this.props.fighterIndexData) {
       var options = [];
-      json.fighters.forEach(function(fighter) {
+      nextProps.fighterIndexData.fighters.forEach(function(fighter) {
         options.push(<option key={fighter.key} value={fighter.key}>{fighter.name}</option>);
       });
-      _this.setState({options: options});
-    });
+      this.setState({options: options});
+    }
   }
 }
 
@@ -166,7 +166,7 @@ class Move extends Component {
   }
 
   /* Callback handlers */
-  fighterSelected(fighter) {
+  fighterSelected(fighter, fighterName) {
     ReactGA.event({
       category: 'Move',
       action: 'Fighter selected',
@@ -177,6 +177,7 @@ class Move extends Component {
       prevState.fighter = fighter;
       prevState.move = '';
       prevState.frameIndex = 1;
+      prevState.khUrl = KH_URL_PREFIX + fighterName;
 
       var [location, search] = Common.generateAppUrl({
         path: this.props.location.pathname,
@@ -367,17 +368,31 @@ class Move extends Component {
     if (!fighter || !move) {
       return '';
     }
-    return gifStore + fighter + "/videos/" + view + "/" + move + ".mp4?" + Env.VIDEO_VERSION;
+    return GIF_STORE_PREFIX + fighter + "/videos/" + view + "/" + move + ".mp4?" + Env.VIDEO_VERSION;
   }
   /* End data management */
 
   componentWillMount() {
-    // Handle the edge case where on first-load there is a move selected
+    // One time get and store fighter index data
+    var _this = this;
+    axios.get(this.makeFighterIndexUrl()).then(function(response) {
+      var json = response.data;  // JSON is auto parsed by axios
+      _this.setState(function(prevState, props) {
+        prevState.fighterIndexData = json;
+        if (_this.state.fighter) {
+          prevState.khUrl = KH_URL_PREFIX + json.fighters.find(function(element) {
+            return element.key === _this.state.fighter;
+          }).name;
+        }
+        return prevState;
+      });
+    });
+
+    // Handle the edge case where on first-load there is a move/fighter selected
     this.fetchMoveData(this.state.fighter, this.state.move);
   }
 
   render() {
-    const fighterIndexUrl = this.makeFighterIndexUrl();
     const view = this.state.view;
     const fighter = this.state.fighter;
     const move = this.state.move;
@@ -399,9 +414,10 @@ class Move extends Component {
       <div className="Move" style={{display: 'inline-block'}}>
         {/*<ViewPicker view={view} onViewChange={this.viewSelected}/>*/}
         <MoveOptions onShowAllChange={this.showAllChanged} showAllMoves={showAllMoves} />
-        <FighterPicker fighter={fighter} url={fighterIndexUrl} onFighterChange={this.fighterSelected}/>
+        <FighterPicker fighter={fighter} fighterIndexData={this.state.fighterIndexData}
+          onFighterChange={this.fighterSelected}/>
         <MovePicker move={move} url={moveIndexUrl} onMoveChange={this.moveSelected}
-         showAllMoves={showAllMoves}/>
+          showAllMoves={showAllMoves}/>
         <Player url={gifUrl}
                 playbackSpeed={speed}
                 frameIndex={frameIndex - 1}
@@ -415,7 +431,7 @@ class Move extends Component {
                 // Below is just for analytics
                 fighter={fighter} move={move}/>
         <MoveInfo frameIndex={frameIndex - 1} moveData={moveData}
-          onFrameChange={this.frameChanged} />
+          onFrameChange={this.frameChanged} khUrl={this.state.khUrl} />
       </div>
     );
   }

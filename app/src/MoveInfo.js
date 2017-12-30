@@ -516,6 +516,9 @@ class MoveInfo extends Component {
         {this.state.superArmorRange}
         {this.state.intangibilityRange}
         {this.state.invincibleRange}
+        <div className="Paragraph">
+          <a href={this.props.khUrl}>KuroganeHammer frame data</a>
+        </div>
         {hitboxTable}
         {/* FIXME: this tooltip also serves Player.js. We should decouple them */}
         <ReactTooltip multiline={true} delayShow={160} html={true} effect={'solid'} place={'right'} />

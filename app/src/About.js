@@ -62,10 +62,11 @@ class Help extends Component {
             from in-game.
           </li>
           <li>
-            <span className="Bold-label">No tether grabs.</span> This also extends
+            <span className="Bold-label">No tether grabs (and some zairs).</span> This also extends
             to other "weapon" visualizations. Weapons have lots of unique code
             per weapon and this requires a lot of manual work to fix, but only
-            benefits a small portion of the moves in the game.
+            benefits a small portion of the moves in the game. The moves may
+            occasionally be listed, but the hitboxes are usually wrong.
           </li>
           <li>
             <span className="Bold-label">No projectiles.</span> This is mostly

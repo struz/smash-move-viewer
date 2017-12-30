@@ -1,5 +1,6 @@
 .Ryu-example {
-  width: 40%;
+  max-width: 40%;
+  margin-right: 10px;
   border: 2px solid black;
 }
 

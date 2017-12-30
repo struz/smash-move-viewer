@@ -6,6 +6,8 @@ import './MoveInfo.css';
 import {HOTKEY_HELP} from './Common.js';
 
 import ryuExample from './img/ryu_example.png';
+import cloudExample1 from './img/cloud_uair1.png';
+import cloudExample2 from './img/cloud_uair2.png';
 import moveViewerExample from './img/MoveViewerInstructional.jpg';
 
 import * as MoveInfo from './MoveInfo.js';
@@ -31,8 +33,8 @@ class Help extends Component {
         <br /><br />
         <h4 className="Section-1">1. Selecting a move</h4>
         <span className="Bold-label">Use the controls at the top of the page to select a character and a move
-        to view.</span> If you uncheck the "Relevant moves only" box then you will be
-        able to see every animation the character has, rather than just the most
+        to view.</span> If you select the "All moves" box then you will be
+        able to see every animation the character has, rather than just the commonly
         viewed ones.
         <br /><br />
         Moves are sorted by category, with attacks at the very top.
@@ -159,7 +161,7 @@ class Help extends Component {
         have just come down from the respawn platform.
         <br /><br />
         <h4>An example</h4>
-        <img src={ryuExample} className="Ryu-example" alt="move viewer layout example" />
+        <img src={ryuExample} className="Ryu-example" alt="ryu hitbox example" />
         <br />
         Here we see a frame from Ryu's strong jab. On this frame we can see his
         entire body enveloped by yellow hurtboxes. This is the area that can be
@@ -178,7 +180,17 @@ class Help extends Component {
         in the current frame. This entire area counts as being hit by the
         hitbox with the properties in the <span className="Bold-label">current frame</span>.
         This is drawn in the viewport as a very faint red background
-        behind hitboxes. A notable example of this is the first few active frames of Cloud's Up Air.
+        behind hitboxes. An extreme example of this is the first few active frames of Cloud's Up Air.
+        <br />
+        <img src={cloudExample1} className="Ryu-example" alt="interpolation example 1" />
+        <img src={cloudExample2} className="Ryu-example" alt="interpolation example 2" />
+        <br />
+        Here we see that between frames 7 and 8 of the move, Cloud raises his sword
+        a considerable distance. To avoid there being a large blind spot in the middle
+        of his body, the game treats that whole area as hitboxes for the next frame.
+        The interpolated area has the hitbox stats of the hitboxes as they are on
+        frame 8. This matters for some moves where the hitbox damage changes between
+        frames but the area that is affected by the hitbox is still interpolated.
     		<hr />
     	</div>
     );
