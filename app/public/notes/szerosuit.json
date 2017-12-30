@@ -1,0 +1,6 @@
+{
+  "moves": {
+    "^SpecialLwKickLanding$": "This animation only triggers if you land during the kick animation. After the kick animation ends it uses helpless landing with extra FAF tacked on the end."
+  },
+  "notes": {}
+}

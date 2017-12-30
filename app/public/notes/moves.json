@@ -1,0 +1,6 @@
+{
+  "moves": {
+    ".*Landing.*": "Move landing animations occur when a character hits the ground during an animation of another part of this move.",
+    ".*Jump[Ss]quat.*": "Jumpsquat animations occur directly before jumping. If a move contains a jumpsquat animation, take into account these extra frames when calculating how many frames after activating the move that any hitbox frames occur."
+  }
+}

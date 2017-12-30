@@ -431,7 +431,7 @@ class MoveInfo extends Component {
     return (
       <span>
         {rangeString.map(function(tag) {
-          return <div className="Frame-range-spacer" key={tag}>{tag}</div>;
+          return <div className="Frame-range-spacer" key={tag.props.text}>{tag}</div>;
         })}
       </span>
     );

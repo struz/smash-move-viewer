@@ -8,6 +8,7 @@ import * as Env from './Env';
 import Player from './Player.js';
 import MoveInfo from './MoveInfo.js';
 import MovePicker from './MovePicker.js';
+import MoveNotes from './MoveNotes.js';
 
 import './Move.css';
 
@@ -416,6 +417,7 @@ class Move extends Component {
                 fighter={fighter} move={move}/>
         <MoveInfo frameIndex={frameIndex - 1} moveData={moveData}
           onFrameChange={this.frameChanged} />
+        <MoveNotes fighter={fighter} move={move} />
       </div>
     );
   }
