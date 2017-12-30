@@ -31,6 +31,7 @@ const RELEVANT_MOVE_REGEXES = {
     /^(Landing|Attack)AirB.*$/,
     /^(Landing|Attack)AirHi.*$/,
     /^(Landing|Attack)AirLw.*$/,
+    /^AirCatch$/
   ],
   'Specials': [
     // Neutral special

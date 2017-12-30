@@ -78,7 +78,8 @@ class ShareModal extends Component {
         <span className="Bold-label">Share</span>
         <div>
           <input type="text" ref="shareLink" className="Text-input Share-link"
-           defaultValue={window.location.href} onFocus={this.onFocusShareLink} />
+            readOnly={true}
+            defaultValue={window.location.href} onFocus={this.onFocusShareLink} />
         </div>
         <hr/>
         <div>

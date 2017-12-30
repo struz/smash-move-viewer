@@ -45,12 +45,20 @@
       "key": "ganon"
     },
     {
+      "name": "Greninja",
+      "key": "greninja"
+    },
+    {
       "name": "Ike",
       "key": "ike"
     },
     {
       "name": "Little Mac",
       "key": "littlemac"
+    },
+    {
+      "name": "Lucario",
+      "key": "lucario"
     },
     {
       "name": "Lucina",
