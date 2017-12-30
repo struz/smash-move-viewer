@@ -63,7 +63,8 @@ class Help extends Component {
         here is a summary of the entire move. Things that might be here include
         notes about the move, it's First Actionable Frame, and summaries of when
         hurtboxes and hitboxes are present. Mouse over any of the fields to get
-        a detailed description about what they mean.
+        a detailed description about what they mean. Click on any of the frame
+        ranges to jump to the first frame in the range immediately.
         <br /><br />
         <h4 className="Section-4">4. Hitbox information</h4>
         <span className="Bold-label">Find information about specific hitboxes.</span> Always
