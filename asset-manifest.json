@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.55c8e84e.css",
-  "main.css.map": "static/css/main.55c8e84e.css.map",
-  "main.js": "static/js/main.d3002095.js",
-  "main.js.map": "static/js/main.d3002095.js.map",
+  "main.css": "static/css/main.0c41d424.css",
+  "main.css.map": "static/css/main.0c41d424.css.map",
+  "main.js": "static/js/main.5f38d5cf.js",
+  "main.js.map": "static/js/main.5f38d5cf.js.map",
   "static\\media\\BowserSpin3.gif": "static/media/BowserSpin3.baa349c5.gif",
   "static\\media\\MoveViewerInstructional.jpg": "static/media/MoveViewerInstructional.466a996e.jpg",
   "static\\media\\Town10Display-Regular.eot": "static/media/Town10Display-Regular.2b6fb14d.eot",
@@ -30,6 +30,8 @@
   "static\\media\\bwmodelica-regular-webfont.svg": "static/media/bwmodelica-regular-webfont.4a140be3.svg",
   "static\\media\\bwmodelica-regular-webfont.ttf": "static/media/bwmodelica-regular-webfont.deceeea8.ttf",
   "static\\media\\bwmodelica-regular-webfont.woff": "static/media/bwmodelica-regular-webfont.c18b37ab.woff",
+  "static\\media\\cloud_uair1.png": "static/media/cloud_uair1.5cd1ca42.png",
+  "static\\media\\cloud_uair2.png": "static/media/cloud_uair2.a3d8ff51.png",
   "static\\media\\logo_transparent_lowfi.png": "static/media/logo_transparent_lowfi.513450d2.png",
   "static\\media\\ryu_example.png": "static/media/ryu_example.b9816e23.png",
   "static\\media\\share.svg": "static/media/share.da32ba67.svg"
