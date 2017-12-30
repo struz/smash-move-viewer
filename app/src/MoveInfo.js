@@ -273,6 +273,17 @@ class MoveInfo extends Component {
     this.frameClicked = this.frameClicked.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    // Only re-render on frame change and on move data change
+    if (this.props.frameIndex !== nextProps.frameIndex) {
+      return true;
+    }
+    if (this.state.moveData !== nextState.moveData) {
+      return true;
+    }
+    return false;
+  }
+
   componentDidMount() {
     this.initData(this.state.moveData);
   }
