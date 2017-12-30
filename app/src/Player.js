@@ -205,10 +205,10 @@ class PlayerControls extends Component {
 
           <label title={frameTooltip}>Frame:</label>
           <input readOnly ref="frameNum" type="number"
-           value={displayFrame}
+           value={this.state.paused ? displayFrame : ''}
            title={frameTooltip}
            className="Move-frame Text-input"
-           disabled={disabled}/>
+           disabled={disabled || !this.state.paused}/>
 
           <div id="Frame-loop">
             <input type="checkbox" id="chkLoop" onChange={this.props.loopHandler}
@@ -448,6 +448,7 @@ class Player extends Component {
       // Hacky fix for desynced video & frame display on-pause
       this.moveFrameRelative(1, this.state.video, true);
     }
+    this.props.onPlayPause();  // Cancel sendPause if exists
   }
 
   nextFrameHandler(e) {
