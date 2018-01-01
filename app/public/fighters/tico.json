@@ -1,259 +1,259 @@
 {
   "moves": [
     {
+      "category": "no_hitbox",
       "prettyName": "Up Taunt - Left",
-      "rawName": "AppealHiL",
-      "category": "no_hitbox"
+      "rawName": "AppealHiL"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Up Taunt - Right",
-      "rawName": "AppealHiR",
-      "category": "no_hitbox"
+      "rawName": "AppealHiR"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Down Taunt - Left",
-      "rawName": "AppealLwL",
-      "category": "no_hitbox"
+      "rawName": "AppealLwL"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Down Taunt - Right",
-      "rawName": "AppealLwR",
-      "category": "no_hitbox"
+      "rawName": "AppealLwR"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Side Taunt Left",
-      "rawName": "AppealSL",
-      "category": "no_hitbox"
+      "rawName": "AppealSL"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Side Taunt Right",
-      "rawName": "AppealSR",
-      "category": "no_hitbox"
+      "rawName": "AppealSR"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Multi-jab - Continuous",
-      "rawName": "Attack100",
-      "category": "has_hitbox"
+      "rawName": "Attack100"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Jab 1",
-      "rawName": "Attack11",
-      "category": "has_hitbox"
+      "rawName": "Attack11"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Jab 2",
-      "rawName": "Attack12",
-      "category": "has_hitbox"
+      "rawName": "Attack12"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Jab 3",
-      "rawName": "Attack13",
-      "category": "has_hitbox"
+      "rawName": "Attack13"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Back Air",
-      "rawName": "AttackAirB",
-      "category": "has_hitbox"
+      "rawName": "AttackAirB"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Forward Air",
-      "rawName": "AttackAirF",
-      "category": "has_hitbox"
+      "rawName": "AttackAirF"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Up Air",
-      "rawName": "AttackAirHi",
-      "category": "has_hitbox"
+      "rawName": "AttackAirHi"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Down Air",
-      "rawName": "AttackAirLw",
-      "category": "has_hitbox"
+      "rawName": "AttackAirLw"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Neutral Air",
-      "rawName": "AttackAirN",
-      "category": "has_hitbox"
+      "rawName": "AttackAirN"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Dash Attack",
-      "rawName": "AttackDash",
-      "category": "has_hitbox"
+      "rawName": "AttackDash"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Multi-jab - Last Hit",
-      "rawName": "AttackEnd",
-      "category": "has_hitbox"
+      "rawName": "AttackEnd"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Up Tilt",
-      "rawName": "AttackHi3",
-      "category": "has_hitbox"
+      "rawName": "AttackHi3"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Up Smash",
-      "rawName": "AttackHi4",
-      "category": "has_hitbox"
+      "rawName": "AttackHi4"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Up Smash - Charge",
-      "rawName": "AttackHi4Charge",
-      "category": "no_hitbox"
+      "rawName": "AttackHi4Charge"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Down Tilt",
-      "rawName": "AttackLw3",
-      "category": "has_hitbox"
+      "rawName": "AttackLw3"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Down Smash",
-      "rawName": "AttackLw4",
-      "category": "has_hitbox"
+      "rawName": "AttackLw4"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Down Smash - Charge",
-      "rawName": "AttackLw4Charge",
-      "category": "no_hitbox"
+      "rawName": "AttackLw4Charge"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Forward Tilt",
-      "rawName": "AttackS3S",
-      "category": "has_hitbox"
+      "rawName": "AttackS3S"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Forward Smash - Charge",
-      "rawName": "AttackS4Charge",
-      "category": "no_hitbox"
+      "rawName": "AttackS4Charge"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Forward Smash - Angled Up",
-      "rawName": "AttackS4Hi",
-      "category": "has_hitbox"
+      "rawName": "AttackS4Hi"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Forward Smash - Angled Down",
-      "rawName": "AttackS4Lw",
-      "category": "has_hitbox"
+      "rawName": "AttackS4Lw"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Forward Smash",
-      "rawName": "AttackS4S",
-      "category": "has_hitbox"
+      "rawName": "AttackS4S"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Grab",
-      "rawName": "Catch",
-      "category": "no_hitbox"
+      "rawName": "Catch"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Dash",
-      "rawName": "Dash",
-      "category": "no_hitbox"
+      "rawName": "Dash"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Fall - Regular",
-      "rawName": "Fall",
-      "category": "no_hitbox"
+      "rawName": "Fall"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Fall - Helpless",
-      "rawName": "FallSpecial",
-      "category": "no_hitbox"
+      "rawName": "FallSpecial"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Jump",
-      "rawName": "Jump",
-      "category": "no_hitbox"
+      "rawName": "Jump"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Jumpsquat",
-      "rawName": "JumpSquat",
-      "category": "no_hitbox"
+      "rawName": "JumpSquat"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Landing - Helpless",
-      "rawName": "LandingFallSpecial",
-      "category": "no_hitbox"
+      "rawName": "LandingFallSpecial"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Heavy Landing",
-      "rawName": "LandingHeavy",
-      "category": "no_hitbox"
+      "rawName": "LandingHeavy"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Light Landing",
-      "rawName": "LandingLight",
-      "category": "no_hitbox"
+      "rawName": "LandingLight"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Run",
-      "rawName": "Run",
-      "category": "no_hitbox"
+      "rawName": "Run"
     },
     {
-      "prettyName": "RunBrake",
-      "rawName": "RunBrake",
-      "category": "no_hitbox"
+      "category": "no_hitbox",
+      "prettyName": "Run Skid",
+      "rawName": "RunBrake"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Up Special",
-      "rawName": "SpecialHi",
-      "category": "no_hitbox"
+      "rawName": "SpecialHi"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Up Special - End",
-      "rawName": "SpecialHiEnd",
-      "category": "no_hitbox"
+      "rawName": "SpecialHiEnd"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Up Special - Start",
-      "rawName": "SpecialHiStart",
-      "category": "no_hitbox"
+      "rawName": "SpecialHiStart"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Down Special",
-      "rawName": "SpecialLw",
-      "category": "no_hitbox"
+      "rawName": "SpecialLw"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Neutral Special - Charge",
-      "rawName": "SpecialNCharge",
-      "category": "no_hitbox"
+      "rawName": "SpecialNCharge"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Neutral Special - End",
-      "rawName": "SpecialNEnd",
-      "category": "no_hitbox"
+      "rawName": "SpecialNEnd"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Neutral Special - Fly",
-      "rawName": "SpecialNFly",
-      "category": "has_hitbox"
+      "rawName": "SpecialNFly"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Neutral Special - Start",
-      "rawName": "SpecialNStart",
-      "category": "no_hitbox"
+      "rawName": "SpecialNStart"
     },
     {
+      "category": "has_hitbox",
       "prettyName": "Side Special",
-      "rawName": "SpecialS",
-      "category": "has_hitbox"
+      "rawName": "SpecialS"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Turn",
-      "rawName": "Turn",
-      "category": "no_hitbox"
+      "rawName": "Turn"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Turn - during Run",
-      "rawName": "TurnRun",
-      "category": "no_hitbox"
+      "rawName": "TurnRun"
     },
     {
+      "category": "no_hitbox",
       "prettyName": "Idle 1",
-      "rawName": "Wait1",
-      "category": "no_hitbox"
+      "rawName": "Wait1"
     }
   ]
 }

@@ -191,6 +191,35 @@ class Help extends Component {
         The interpolated area has the hitbox stats of the hitboxes as they are on
         frame 8. This matters for some moves where the hitbox damage changes between
         frames but the area that is affected by the hitbox is still interpolated.
+        <br /><br />
+        <h2>Useful resources</h2>
+        <a href="https://twitter.com/KuroganeHammer" target="_blank" rel="noopener noreferrer">KuroganeHammer</a> has a comperehensive frame database which has a bunch of
+        extra info that this site doesn't mine. Visit it! <a href="http://kuroganehammer.com/Smash4">http://kuroganehammer.com/Smash4</a>
+        <br /><br />
+        <a href="https://twitter.com/ruben_dal" target="_blank" rel="noopener noreferrer">Ruben</a> has an amazing smash calculator that allows you to estimate in-game
+        trajectories of moves under different conditions. It's really useful, check
+        it out at <a href="http://rubendal.github.io/Sm4sh-Calculator/">http://rubendal.github.io/Sm4sh-Calculator/</a>
+        <br /><br />
+        <a href="https://ssbworld.com/">SSB World</a> is a Smash4 match database. Great for finding videos of sets of any level of gameplay.
+        <br />
+        <h4>Useful spreadsheets</h4>
+        <ul>
+          <li>
+            <a href="https://docs.google.com/spreadsheets/d/1FgOsGYfTD4nQo4jFGJ22nz5baU1xihT5lreNinY5nNQ">
+              Lots of info on Smash 4 params
+            </a> by <a href="https://twitter.com/meshima_">Meshima</a>. Parameters (params) are values in the game files which change how characters interact with the game. Advanced stuff, mainly for modders or researchers.
+          </li>
+          <li>
+            <a href="https://docs.google.com/spreadsheets/d/1Hx44PGtG5jcko1t_2VCE2QG_D8xzIv0LDMhCeZHGXjA">
+              Character param info
+            </a> by <a href="https://twitter.com/meshima_">Meshima</a>. These params are stored per character, rather than globally. They usually define info about characters and their moveset.
+          </li>
+          <li>
+            <a href="https://docs.google.com/spreadsheets/d/1jTKlBSu-tKA7RWXqQdyqcc9ocaoeegoy4SyS84Ar5n8">
+              Miscellaneous smash data
+            </a> by <a href="https://twitter.com/drafix570">DRAFIX</a>. More niche than the other spreadsheets but has some useful info.
+          </li>
+        </ul>
     		<hr />
     	</div>
     );

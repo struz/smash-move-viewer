@@ -75,7 +75,9 @@ class FighterPicker extends Component {
     if (nextProps.fighterIndexData !== this.props.fighterIndexData) {
       var options = [];
       nextProps.fighterIndexData.fighters.forEach(function(fighter) {
-        options.push(<option key={fighter.key} value={fighter.key}>{fighter.name}</option>);
+        if (!(fighter.hasOwnProperty('secret') && fighter.secret)) {
+          options.push(<option key={fighter.key} value={fighter.key}>{fighter.name}</option>);
+        }
       });
       this.setState({options: options});
     }

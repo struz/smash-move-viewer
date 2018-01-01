@@ -46,7 +46,7 @@
     },
     {
       "name": "Greninja",
-      "key": "greninja"
+      "key": "gekkouga"
     },
     {
       "name": "Ike",
@@ -81,12 +81,17 @@
       "key": "marth"
     },
     {
+      "name": "Metaknight",
+      "key": "metaknight"
+    },
+    {
       "name": "Peach",
       "key": "peach"
     },
     {
       "name": "Peach (Cat)",
-      "key": "catpeach"
+      "key": "catpeach",
+      "secret": true
     },
     {
       "name": "Rosalina",

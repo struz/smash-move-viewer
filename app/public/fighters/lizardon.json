@@ -381,7 +381,7 @@
       "category": "no_hitbox"
     },
     {
-      "prettyName": "JumpAerialF2",
+      "prettyName": "Air Jump 1",
       "rawName": "JumpAerialF2",
       "category": "no_hitbox"
     },
@@ -476,7 +476,7 @@
       "category": "no_hitbox"
     },
     {
-      "prettyName": "RunBrake",
+      "prettyName": "Run Skid",
       "rawName": "RunBrake",
       "category": "no_hitbox"
     },
