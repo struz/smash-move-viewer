@@ -1,783 +1,738 @@
 {
   "moves": [
     {
-      "prettyName": "Up Taunt",
       "rawName": "AppealHi",
+      "prettyName": "Up Taunt",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Down Taunt",
       "rawName": "AppealLw",
+      "prettyName": "Down Taunt",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Side Taunt",
       "rawName": "AppealS",
+      "prettyName": "Side Taunt",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Multi-jab - Continuous",
       "rawName": "Attack100",
+      "prettyName": "Multi-jab - Continuous",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Multi-jab - First Hit",
       "rawName": "Attack100Start",
+      "prettyName": "Multi-jab - First Hit",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Back Air",
+      "rawName": "Attack11",
+      "prettyName": "Jab 1",
+      "category": "has_hitbox"
+    },
+    {
       "rawName": "AttackAirB",
+      "prettyName": "Back Air",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Forward Air",
       "rawName": "AttackAirF",
+      "prettyName": "Forward Air",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Up Air",
       "rawName": "AttackAirHi",
+      "prettyName": "Up Air",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Down Air",
       "rawName": "AttackAirLw",
+      "prettyName": "Down Air",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Neutral Air",
       "rawName": "AttackAirN",
+      "prettyName": "Neutral Air",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Dash Attack",
       "rawName": "AttackDash",
+      "prettyName": "Dash Attack",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Multi-jab - Last Hit",
       "rawName": "AttackEnd",
+      "prettyName": "Multi-jab - Last Hit",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Up Tilt",
       "rawName": "AttackHi3",
+      "prettyName": "Up Tilt",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Up Smash",
       "rawName": "AttackHi4",
+      "prettyName": "Up Smash",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Up Smash - Charge",
       "rawName": "AttackHi4Charge",
+      "prettyName": "Up Smash - Charge",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Down Tilt",
       "rawName": "AttackLw3",
+      "prettyName": "Down Tilt",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Down Smash",
       "rawName": "AttackLw4",
+      "prettyName": "Down Smash",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Down Smash - Charge",
       "rawName": "AttackLw4Charge",
+      "prettyName": "Down Smash - Charge",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Forward Tilt",
+      "rawName": "AttackS3Hi",
+      "prettyName": "Forward Tilt - Angled Up",
+      "category": "has_hitbox"
+    },
+    {
+      "rawName": "AttackS3Lw",
+      "prettyName": "Forward Tilt - Angled Down",
+      "category": "has_hitbox"
+    },
+    {
       "rawName": "AttackS3S",
+      "prettyName": "Forward Tilt",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Forward Tilt Part 2",
-      "rawName": "AttackS3S2",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Forward Tilt Part 3",
-      "rawName": "AttackS3S3",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Forward Smash - Charge",
       "rawName": "AttackS4Charge",
+      "prettyName": "Forward Smash - Charge",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Forward Smash",
       "rawName": "AttackS4S",
+      "prettyName": "Forward Smash",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Ground Release - from Grab",
       "rawName": "CaptureCut",
+      "prettyName": "Ground Release - from Grab",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Grabbed - Pummeled by tall character",
       "rawName": "CaptureDamageHi",
+      "prettyName": "Grabbed - Pummeled by tall character",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Grabbed - Pummeled by short character",
       "rawName": "CaptureDamageLw",
+      "prettyName": "Grabbed - Pummeled by short character",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Air Release - from Grab",
       "rawName": "CaptureJump",
+      "prettyName": "Air Release - from Grab",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Grabbed - by tall character",
       "rawName": "CapturePulledHi",
+      "prettyName": "Grabbed - by tall character",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Grabbed - by short character",
       "rawName": "CapturePulledLw",
+      "prettyName": "Grabbed - by short character",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Grabbed - by tall character, Idle",
       "rawName": "CaptureWaitHi",
+      "prettyName": "Grabbed - by tall character, Idle",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Grabbed - by short character, Idle",
       "rawName": "CaptureWaitLw",
+      "prettyName": "Grabbed - by short character, Idle",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Grab",
       "rawName": "Catch",
+      "prettyName": "Grab",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Pummel",
       "rawName": "CatchAttack",
+      "prettyName": "Pummel",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Grab Release",
       "rawName": "CatchCut",
+      "prettyName": "Grab Release",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Dash Grab",
       "rawName": "CatchDash",
+      "prettyName": "Dash Grab",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Pivot Grab",
       "rawName": "CatchTurn",
+      "prettyName": "Pivot Grab",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Ledge Getup Attack",
       "rawName": "CliffAttackQuick",
+      "prettyName": "Ledge Getup Attack",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Ledge Grab",
       "rawName": "CliffCatch",
+      "prettyName": "Ledge Grab",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Ledge Getup",
       "rawName": "CliffClimbQuick",
+      "prettyName": "Ledge Getup",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Ledge Roll",
       "rawName": "CliffEscapeQuick",
+      "prettyName": "Ledge Roll",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Ledge Jump - Start",
       "rawName": "CliffJumpQuick1",
+      "prettyName": "Ledge Jump - Start",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Ledge Jump - End",
       "rawName": "CliffJumpQuick2",
+      "prettyName": "Ledge Jump - End",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Ledge Hang",
       "rawName": "CliffWait",
+      "prettyName": "Ledge Hang",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Tumble",
       "rawName": "DamageFall",
+      "prettyName": "Tumble",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Dash",
       "rawName": "Dash",
+      "prettyName": "Dash",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Getup Attack - Face Down",
       "rawName": "DownAttackD",
+      "prettyName": "Floor Getup Attack - Face Down",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Floor Getup Attack - Face Up",
       "rawName": "DownAttackU",
+      "prettyName": "Floor Getup Attack - Face Up",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Floor Roll Backward - Face Down",
       "rawName": "DownBackD",
+      "prettyName": "Floor Roll Backward - Face Down",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Roll Backward - Face Up",
       "rawName": "DownBackU",
+      "prettyName": "Floor Roll Backward - Face Up",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Missed Tech - Face Down",
       "rawName": "DownBoundD",
+      "prettyName": "Missed Tech - Face Down",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Missed Tech - Face Up",
       "rawName": "DownBoundU",
+      "prettyName": "Missed Tech - Face Up",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Damage Received - Face Down",
       "rawName": "DownDamageD",
+      "prettyName": "Floor Damage Received - Face Down",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Heavy Damage Received - Face Down",
       "rawName": "DownDamageD3",
+      "prettyName": "Floor Heavy Damage Received - Face Down",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Damage Received - Face Up",
       "rawName": "DownDamageU",
+      "prettyName": "Floor Damage Received - Face Up",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Heavy Damage Received - Face Up",
       "rawName": "DownDamageU3",
+      "prettyName": "Floor Heavy Damage Received - Face Up",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Roll Forward - Face Down",
       "rawName": "DownForwardD",
+      "prettyName": "Floor Roll Forward - Face Down",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Roll Forward - Face Up",
       "rawName": "DownForwardU",
+      "prettyName": "Floor Roll Forward - Face Up",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Neutral Getup - Face Down",
+      "rawName": "DownSpotD",
+      "prettyName": "Crumple",
+      "category": "no_hitbox"
+    },
+    {
       "rawName": "DownStandD",
+      "prettyName": "Neutral Getup - Face Down",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Neutral Getup - Face Up",
       "rawName": "DownStandU",
+      "prettyName": "Neutral Getup - Face Up",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Wait - Face Down",
       "rawName": "DownWaitD",
+      "prettyName": "Floor Wait - Face Down",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Floor Wait - Face Up",
       "rawName": "DownWaitU",
+      "prettyName": "Floor Wait - Face Up",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Air Dodge",
       "rawName": "EscapeAir",
+      "prettyName": "Air Dodge",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Roll Backward",
       "rawName": "EscapeB",
+      "prettyName": "Roll Backward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Roll Forward",
       "rawName": "EscapeF",
+      "prettyName": "Roll Forward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Spot Dodge",
       "rawName": "EscapeN",
+      "prettyName": "Spot Dodge",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall - Regular",
       "rawName": "Fall",
+      "prettyName": "Fall - Regular",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall - after last jump used",
       "rawName": "FallAerial",
+      "prettyName": "Fall - after last jump used",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall Backward - after last jump used",
       "rawName": "FallAerialB",
+      "prettyName": "Fall Backward - after last jump used",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall Forward - after last jump used",
       "rawName": "FallAerialF",
+      "prettyName": "Fall Forward - after last jump used",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall Backward",
       "rawName": "FallB",
+      "prettyName": "Fall Backward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall Forward",
       "rawName": "FallF",
+      "prettyName": "Fall Forward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall - Helpless",
       "rawName": "FallSpecial",
+      "prettyName": "Fall - Helpless",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall Backward - Helpless",
       "rawName": "FallSpecialB",
+      "prettyName": "Fall Backward - Helpless",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall Forward - Helpless",
       "rawName": "FallSpecialF",
+      "prettyName": "Fall Forward - Helpless",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Double Jump Forward",
+      "rawName": "JumpAerialB",
+      "prettyName": "Double Jump Backward",
+      "category": "no_hitbox"
+    },
+    {
       "rawName": "JumpAerialF",
+      "prettyName": "Double Jump Forward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Air Jump 1",
-      "rawName": "JumpAerialF2",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "Air Jump 2",
-      "rawName": "JumpAerialF3",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "Air Jump 3",
-      "rawName": "JumpAerialF4",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "Air Jump 4",
-      "rawName": "JumpAerialF5",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "Jump Backward",
       "rawName": "JumpB",
+      "prettyName": "Jump Backward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Jump Forward",
       "rawName": "JumpF",
+      "prettyName": "Jump Forward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Jumpsquat",
       "rawName": "JumpSquat",
+      "prettyName": "Jumpsquat",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Back Air - Landing",
       "rawName": "LandingAirB",
+      "prettyName": "Back Air - Landing",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Forward Air - Landing",
       "rawName": "LandingAirF",
+      "prettyName": "Forward Air - Landing",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Up Air - Landing",
       "rawName": "LandingAirHi",
+      "prettyName": "Up Air - Landing",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Down Air - Landing",
       "rawName": "LandingAirLw",
+      "prettyName": "Down Air - Landing",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Neutral Air - Landing",
       "rawName": "LandingAirN",
+      "prettyName": "Neutral Air - Landing",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Landing - Helpless",
       "rawName": "LandingFallSpecial",
+      "prettyName": "Landing - Helpless",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Heavy Landing",
       "rawName": "LandingHeavy",
+      "prettyName": "Heavy Landing",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Light Landing",
       "rawName": "LandingLight",
+      "prettyName": "Light Landing",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Tech in place",
       "rawName": "Passive",
+      "prettyName": "Tech in place",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Ceiling Tech",
       "rawName": "PassiveCeil",
+      "prettyName": "Ceiling Tech",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Tech Roll Backward",
       "rawName": "PassiveStandB",
+      "prettyName": "Tech Roll Backward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Tech Roll Forward",
       "rawName": "PassiveStandF",
+      "prettyName": "Tech Roll Forward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Wall Tech",
       "rawName": "PassiveWall",
+      "prettyName": "Wall Tech",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Wall Tech Jump",
       "rawName": "PassiveWallJump",
+      "prettyName": "Wall Tech Jump",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Run",
       "rawName": "Run",
+      "prettyName": "Run",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Run Skid",
       "rawName": "RunBrake",
+      "prettyName": "Run Skid",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Run to Fall - Left",
       "rawName": "RunFallL",
+      "prettyName": "Run to Fall - Left",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Run to Fall - Right",
       "rawName": "RunFallR",
+      "prettyName": "Run to Fall - Right",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Slip",
       "rawName": "Slip",
+      "prettyName": "Slip",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Slip Attack",
       "rawName": "SlipAttack",
+      "prettyName": "Slip Attack",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Slip - while down",
       "rawName": "SlipDown",
+      "prettyName": "Slip - while down",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Slip Roll Backward",
       "rawName": "SlipEscapeB",
+      "prettyName": "Slip Roll Backward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Slip Roll Forward",
       "rawName": "SlipEscapeF",
+      "prettyName": "Slip Roll Forward",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Slip Neutral Getup",
       "rawName": "SlipStand",
+      "prettyName": "Slip Neutral Getup",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Slip Wait",
       "rawName": "SlipWait",
+      "prettyName": "Slip Wait",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Up Special - Air, Start",
+      "rawName": "SpecialAirHi",
+      "prettyName": "Up Special - Air",
+      "category": "no_hitbox"
+    },
+    {
       "rawName": "SpecialAirHiStart",
+      "prettyName": "Up Special - Air, Start",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Down Special - Air",
       "rawName": "SpecialAirLw",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Down Special - Air, Backwards",
-      "rawName": "SpecialAirLwB",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Down Special - Air, End",
-      "rawName": "SpecialAirLwEnd",
+      "prettyName": "Down Special - Air",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Down Special - Air, Forwards",
-      "rawName": "SpecialAirLwF",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Down Special - Air, Start",
-      "rawName": "SpecialAirLwStart",
+      "rawName": "SpecialAirNHold",
+      "prettyName": "Neutral Special - Air, Charge, Interruptible",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Neutral Special - Air, End",
-      "rawName": "SpecialAirNEnd",
-      "category": "has_hitbox"
+      "rawName": "SpecialAirNMax",
+      "prettyName": "Neutral Special [Max Charge] - Air",
+      "category": "no_hitbox"
     },
     {
-      "prettyName": "Neutral Special - Air, Start",
+      "rawName": "SpecialAirNShoot",
+      "prettyName": "Neutral Special Shoot - Air",
+      "category": "no_hitbox"
+    },
+    {
       "rawName": "SpecialAirNStart",
+      "prettyName": "Neutral Special - Air, Start",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Side Special - End (if did not hit)",
-      "rawName": "SpecialAirSEnd",
+      "rawName": "SpecialAirS",
+      "prettyName": "Side Special - Air",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Side Special - End (if hit)",
-      "rawName": "SpecialAirSFinish",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Side Special - Air, Start",
-      "rawName": "SpecialAirSStart",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "Up Special",
       "rawName": "SpecialHi",
-      "category": "has_hitbox"
+      "prettyName": "Up Special",
+      "category": "no_hitbox"
     },
     {
-      "prettyName": "Up Special - Loop",
-      "rawName": "SpecialHiLoop",
-      "category": "has_hitbox"
+      "rawName": "SpecialHiStart",
+      "prettyName": "Up Special - Start",
+      "category": "no_hitbox"
     },
     {
-      "prettyName": "Down Special",
       "rawName": "SpecialLw",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Down Special - Backwards",
-      "rawName": "SpecialLwB",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Down Special - End",
-      "rawName": "SpecialLwEnd",
+      "prettyName": "Down Special",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Down Special - Forwards",
-      "rawName": "SpecialLwF",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Down Special - Start",
-      "rawName": "SpecialLwStart",
+      "rawName": "SpecialNHold",
+      "prettyName": "Neutral Special - Charge, Interruptible",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Neutral Special - End",
-      "rawName": "SpecialNEnd",
-      "category": "has_hitbox"
+      "rawName": "SpecialNMax",
+      "prettyName": "Neutral Special [Max Charge]",
+      "category": "no_hitbox"
     },
     {
-      "prettyName": "Neutral Special - Tornado",
-      "rawName": "SpecialNSpin",
-      "category": "has_hitbox"
+      "rawName": "SpecialNShoot",
+      "prettyName": "Neutral Special Shoot",
+      "category": "no_hitbox"
     },
     {
-      "prettyName": "Neutral Special - Start",
       "rawName": "SpecialNStart",
+      "prettyName": "Neutral Special - Start",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Side Special - Drill",
-      "rawName": "SpecialSDrill",
+      "rawName": "SpecialS",
+      "prettyName": "Side Special",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Side Special - End",
-      "rawName": "SpecialSEnd",
-      "category": "has_hitbox"
-    },
-    {
-      "prettyName": "Side Special - Start",
-      "rawName": "SpecialSStart",
-      "category": "no_hitbox"
-    },
-    {
-      "prettyName": "Crouch - from stand",
       "rawName": "Squat",
+      "prettyName": "Crouch - from stand",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Stand - from crouch",
       "rawName": "SquatRv",
+      "prettyName": "Stand - from crouch",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Crouch Idle",
       "rawName": "SquatWait",
+      "prettyName": "Crouch Idle",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Crouch Idle - Item in hand",
       "rawName": "SquatWaitItem",
+      "prettyName": "Crouch Idle - Item in hand",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Footstooled - Air",
       "rawName": "StepAirPose",
+      "prettyName": "Footstooled - Air",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Footstooled - Ground, Recovery",
       "rawName": "StepBack",
+      "prettyName": "Footstooled - Ground, Recovery",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall - Footstooled",
       "rawName": "StepFall",
+      "prettyName": "Fall - Footstooled",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Footstool Jump",
       "rawName": "StepJump",
+      "prettyName": "Footstool Jump",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Footstooled - Ground",
       "rawName": "StepPose",
+      "prettyName": "Footstooled - Ground",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Back Throw",
       "rawName": "ThrowB",
-      "category": "has_hitbox"
+      "prettyName": "Back Throw",
+      "category": "no_hitbox"
     },
     {
-      "prettyName": "Forward Throw",
       "rawName": "ThrowF",
-      "category": "has_hitbox"
+      "prettyName": "Forward Throw",
+      "category": "no_hitbox"
     },
     {
-      "prettyName": "Up Throw",
       "rawName": "ThrowHi",
-      "category": "has_hitbox"
+      "prettyName": "Up Throw",
+      "category": "no_hitbox"
     },
     {
-      "prettyName": "Down Throw",
       "rawName": "ThrowLw",
+      "prettyName": "Down Throw",
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Turn",
       "rawName": "Turn",
+      "prettyName": "Turn",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Turn - during Run",
       "rawName": "TurnRun",
+      "prettyName": "Turn - during Run",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Stop - during Turn while Running",
       "rawName": "TurnRunBrake",
+      "prettyName": "Stop - during Turn while Running",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Idle 1",
       "rawName": "Wait1",
+      "prettyName": "Idle 1",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Idle 2",
       "rawName": "Wait2",
+      "prettyName": "Idle 2",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Idle 3",
       "rawName": "Wait3",
+      "prettyName": "Idle 3",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Wait - Item in hand",
       "rawName": "WaitItem",
+      "prettyName": "Wait - Item in hand",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall - while Walking, Left",
       "rawName": "WalkFallL",
+      "prettyName": "Fall - while Walking, Left",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Fall - while Walking, Right",
       "rawName": "WalkFallR",
+      "prettyName": "Fall - while Walking, Right",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Walk - Fast",
       "rawName": "WalkFast",
+      "prettyName": "Walk - Fast",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Walk - Medium",
       "rawName": "WalkMiddle",
+      "prettyName": "Walk - Medium",
       "category": "no_hitbox"
     },
     {
-      "prettyName": "Walk - Slow",
       "rawName": "WalkSlow",
+      "prettyName": "Walk - Slow",
       "category": "no_hitbox"
     }
   ]
