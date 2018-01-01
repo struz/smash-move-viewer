@@ -260,6 +260,7 @@ class Player extends Component {
     // we do potentially want the values accessible during a render.
     this.loading = false;
     this.fudgeSliderInterval = null;
+    this.fudgeUpdateSpeed = 1000 / 30;
 
 
     // Bindings
@@ -392,7 +393,32 @@ class Player extends Component {
       this.setState(function(prevState, props) {
         prevState.frameIndex = moveFrame;
         if (prevState.fudgeSlider > -1) {
-          // If we're fudging, sync the fudge number with the real one where possible
+          // Keep track of how much the drift was and use this to try and play at
+          // the right speed for the processor
+          this.fudgeFrameDrift = moveFrame - prevState.fudgeSlider;
+          // Note that if we are looping this number could be large so we
+          // need to discount particularly large numbers until we converge on
+          // the real amount
+          if (Math.abs(this.fudgeFrameDrift) < (this.props.numFrames - this.props.numFrames * 0.4)) {
+            if (this.fudgeFrameDrift < -2 || this.fudgeFrameDrift > 2) {
+              // Use the drift difference to assert what the real FPS we should be updating at is
+              var adjustedFrameDrift = this.fudgeFrameDrift > 0 ? this.fudgeFrameDrift - 2 : this.fudgeFrameDrift + 2;
+              this.fudgeUpdateSpeed = (1000 / ((1000 / this.fudgeUpdateSpeed) + adjustedFrameDrift)) * 2;  // *2 because we skip 2 frames in the fudge
+            }
+            // TODO: Old heuristic based convergence method. Delete if not used after a while.
+            // if (this.fudgeFrameDrift > 4) {
+            //   // Try adjusting the drift speed
+            //   this.fudgeUpdateSpeed -= 0.3;
+            //   console.log('decreasing update speed ' + this.fudgeUpdateSpeed);
+            // } else if (this.fudgeFrameDrift < -4) {
+            //   this.fudgeUpdateSpeed += 0.3;
+            //   console.log('increasing update speed ' + this.fudgeUpdateSpeed);
+            // }
+          }
+          if (this.fudgeUpdateSpeed > (1000 / 25) || this.fudgeUpdateSpeed < (1000 / 35)) {
+            this.fudgeUpdateSpeed = (1000 / 30);  // Prevent runaway logic
+          }
+          // Sync the fudge number with the real one where possible
           prevState.fudgeSlider = moveFrame;
         }
         return prevState;
@@ -536,13 +562,14 @@ class Player extends Component {
 
     this.fudgeSliderInterval = setTimeout(
       this.fudgeSliderStep,
-      (1000 / 59) / this.state.playbackSpeed);  // 60fps (with error margin) / playback speed
+      this.fudgeUpdateSpeed / this.state.playbackSpeed);  // 60fps (with error margin) / playback speed
   }
 
   fudgeSliderStep() {
     if (this.state.fudgeSlider > -1) {
       this.setState(function(prevState, props){
-        prevState.fudgeSlider = prevState.fudgeSlider + 1;
+        // We fudge 2 frames at a time to save render cycles
+        prevState.fudgeSlider = prevState.fudgeSlider + 2;
         if (prevState.fudgeSlider >= props.numFrames) {
           if (prevState.loop) {
             prevState.fudgeSlider = 0;
@@ -552,7 +579,7 @@ class Player extends Component {
         }
         return prevState;
       });
-      this.fudgeSliderInterval = setTimeout(this.fudgeSliderStep, (1000 / 59) / this.state.playbackSpeed);
+      this.fudgeSliderInterval = setTimeout(this.fudgeSliderStep, this.fudgeUpdateSpeed / this.state.playbackSpeed);
     }
   }
 
