@@ -152,7 +152,7 @@
     min-width: 0;
     min-height: 500px;
     max-height: none;
-    height: 100%;
+    width: 100%;
   }
   /* Same as above except without height & min-height */
   .Video-loaded {

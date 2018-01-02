@@ -75,6 +75,10 @@ class Help extends Component {
             projectiles that are possible to visualize at some point.
           </li>
           <li>
+            <span className="Bold-label">A lot of throws are missing some data.</span> These
+            will be fixed in the near future. It was just an oversight when parsing the game scripts.
+          </li>
+          <li>
             <span className="Bold-label">Some sleeves or clothing are wrong.</span> Note that
             this is purely cosmetic, and the hitboxes and hurtboxes shown are
             accurate as seen in-game. The reason these do not work is because
