@@ -77,6 +77,8 @@ class Help extends Component {
           <li>
             <span className="Bold-label">A lot of throws are missing some data.</span> These
             will be fixed in the near future. It was just an oversight when parsing the game scripts.
+            The throws currently list all the collateral hitboxes but not the throw knockback information
+            itself.
           </li>
           <li>
             <span className="Bold-label">Some sleeves or clothing are wrong.</span> Note that
