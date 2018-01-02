@@ -97,6 +97,16 @@ const FACING_RESTRICTION = {
 
 const TOOLTIPS = {
   // Generic move info stuff
+  kh: `
+    <span class="Bold-label">KuroganeHammer</span>
+    <p>The main differences in data between this site and KH are:</p>
+    <ul>
+      <li>IASA frame data is included</li>
+      <li>Landing lag data is directly included for moves (here you need to look at landing animation FAF)</li>
+      <li>Some moves have extra descriptions on how they interact</li>
+      <li>Character general stats are listed</li>
+    </ul>`,
+
   faf: `
     <span class="Bold-label">First Actionable Frame</span>
     <p>The first frame on which this animation can be interrupted by another action or input</p>`,
@@ -465,7 +475,7 @@ class MoveInfo extends Component {
       specialBubbles = this.state.moveData.frames[frame].specialBubbles;
 
     var hitboxTable = (
-      <span>Pause while hitboxes are visible to see more specific information</span>
+      <div className="Paragraph">Pause while hitboxes are visible to see more specific information</div>
     );
     if (hitboxes.length > 0 || specialBubbles.length > 0) {
       hitboxTable = (
@@ -527,10 +537,15 @@ class MoveInfo extends Component {
         {this.state.superArmorRange}
         {this.state.intangibilityRange}
         {this.state.invincibleRange}
-        <div className="Paragraph">
-          <a href={this.props.khUrl}>KuroganeHammer frame data</a>
-        </div>
         {hitboxTable}
+        <div className="Paragraph">
+          For more/other specific frame information,
+          see <a href={this.props.khUrl} target="_blank" rel="noopener noreferrer">
+            kuroganehammer.com
+          </a>&nbsp;
+          <span className="Help-icon Bold-label"
+            style={{'vertical-align': 'super'}} data-tip={TOOLTIPS['kh']}>?</span>
+        </div>
         {/* FIXME: this tooltip also serves Player.js. We should decouple them */}
         <ReactTooltip multiline={true} delayShow={160} html={true} effect={'solid'} place={'right'} />
       </div>

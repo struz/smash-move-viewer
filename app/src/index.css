@@ -72,7 +72,15 @@ p {
 }
 
 div.Paragraph {
-	padding-bottom: 10px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+.Help-icon {
+  color: #00123e;
+  border-bottom: 1px #00123e dotted;
+  cursor:  help;
+  vertical-align: top;
 }
 
 .Image-button {
