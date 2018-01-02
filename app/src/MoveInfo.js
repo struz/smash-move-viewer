@@ -23,7 +23,8 @@ const HITBOX_TYPE = {
   1: {name: 'Grabbox', tooltip: '<span class="Bold-label">Grab hitbox</span><p>When this collides with a hurtbox the victim will be grabbed, allowing them to be thrown soon afterwards</p>'},
   2: {name: 'Windbox', tooltip: '<span class="Bold-label">Wind hitbox</span><p>When this collides with a hurtbox the victim will be pushed away based on the "angle" and other knockback properties of the hitbox</p>'},
   3: {name: 'Searchbox', tooltip: '<span class="Bold-label">Searchbox</span><p>Depending on the character scripts this can do many different things.</p><p>Generally it will search for hitboxes or hurtboxes and perform an action if any are found</p>'},
-  4: {name: 'Special', tooltip: '<span class="Bold-label">Special Bubble</span><p>Mouse over the "effect" for more info</p>'}
+  99: {name: 'Special', tooltip: '<span class="Bold-label">Special Bubble</span><p>Mouse over the "effect" for more info</p>'},
+  100: {name: 'Throw', tooltip: '<span class="Bold-label">Throw</span><p>Occurs on the frame that the held character will be thrown. Applies the given knockback properties to the character on this frame. Has no visual indicator associated.</p>'}
 }
 
 export const specialBubbleColors = [
@@ -37,6 +38,11 @@ const SPECIAL_BUBBLE_EFFECT = {
   2: {name: 'Absorb', tooltip: '<span class="Bold-label">Absorb</span><p>Triggers when a hitbox enters this zone and the hitbox is "absorbable".</p><p>The owner of the hitbox (usually a projectile) will disappear. A character specfic effect will usually trigger too</p>'},
   3: {name: 'Shield', tooltip: '<span class="Bold-label">Shield</span><p>Blocks all damage from attacks. Pushes opponents away if they are near</p>'},
   4: {name: 'Witch Time', tooltip: '<span class="Bold-label">Witchtime Slowdown</span><p>When the Witch Time trigger bubble triggers, if the owner of the triggering hitbox has any hurtbox inside this bubble they will be afflicted with witch time</p>'}
+}
+
+const THROW_ID_MEANING = {
+  0: {name: 'Throw', tooltip: '<p>The knockback and angle of the throw occurring on this frame.</p>'},
+  1: {name: 'Release', tooltip: '<p>The knockback and angle if the opponent breaks free at any point before the throw frame (i.e. this frame).</p><p>This is commonly known as a "Grab Release".</p>'}
 }
 
 // Effect types, see https://docs.google.com/spreadsheets/d/1FgOsGYfTD4nQo4jFGJ22nz5baU1xihT5lreNinY5nNQ
@@ -127,6 +133,12 @@ const TOOLTIPS = {
   hitActive: `
     <span class="Bold-label">Hitbox active frames</span>
     <p>The range(s) of frames in this move which have an active hitbox</p>`,
+
+  throwActive: `
+    <span class="Bold-label">Throw occurs on frames</span>
+    <p>The range(s) of frames in this move on which the currently held character is thrown.</p>
+    <p>For throws with the type 'Release', this is the first frame on which the release can no longer happen.</p>
+  `,
 
 
   // Table stuff
@@ -219,10 +231,11 @@ const TOOLTIPS = {
     <p>The ID of the hitbox. Hitboxes with lower IDs take precedence when calculating which hitbox has hit.</p>
     <p>Usually only one hitbox from a move can hit the victim in a single frame</p>`,
 
-  color: `
-    <span class="Bold-label">Hitbox color</span>
+  description: `
+    <span class="Bold-label">Hitbox descriptor</span>
     <p>The color of the hitbox in the visualization.</p>
-    <p>If you cannot see this colour it is likely hidden behind another hitbox with a lower ID number</p>`,
+    <p>If you cannot see this colour it is likely hidden behind another hitbox with a lower ID number</p>
+    <p>For throws, this is some text describing the type of throw instead (either 'Throw' or 'Release').`,
 
 
   // Angle stuff
@@ -277,7 +290,8 @@ class MoveInfo extends Component {
       intangibilityRange: null,
       hitboxRanges: null,
       superArmorRange: null,
-      invincibleRange: null
+      invincibleRange: null,
+      throwRange: null
     };
 
     this.frameClicked = this.frameClicked.bind(this);
@@ -323,6 +337,7 @@ class MoveInfo extends Component {
         prevState.hitboxRanges = this.getHitboxRange(moveData);
         prevState.superArmorRange = this.getSuperArmorRange(moveData);
         prevState.invincibleRange = this.getInvincibleRange(moveData);
+        prevState.throwRange = this.getThrowRange(moveData);
         return prevState;
       });
     }
@@ -403,6 +418,18 @@ class MoveInfo extends Component {
       </div>);
   }
 
+  getThrowRange(moveData) {
+    var throwRange = this.getRangesFromFrames(moveData, 'throwSpecifiers');
+    if (!throwRange)
+      return null;
+    return (
+      <div className="Paragraph">
+        <span className='Bold-label' data-tip={TOOLTIPS['throwActive']}>
+          Throw occurs on:
+        </span> {throwRange}
+      </div>);
+  }
+
   getHitboxRange(moveData) {
     var hitboxRange = this.getRangesFromFrames(moveData, 'hitboxes');
     if (!hitboxRange)
@@ -473,17 +500,20 @@ class MoveInfo extends Component {
     var specialBubbles = [];
     if ('specialBubbles' in this.state.moveData.frames[frame])
       specialBubbles = this.state.moveData.frames[frame].specialBubbles;
+    var throwData = [];
+    if ('throwSpecifiers' in this.state.moveData.frames[frame])
+      throwData = this.state.moveData.frames[frame].throwSpecifiers;
 
     var hitboxTable = (
       <div className="Paragraph">Pause while hitboxes are visible to see more specific information</div>
     );
-    if (hitboxes.length > 0 || specialBubbles.length > 0) {
+    if (hitboxes.length > 0 || specialBubbles.length > 0 || throwData.length > 0) {
       hitboxTable = (
         <div className='Hitbox-table-container'>
           <table className='Hitbox-info-table'>
             <thead>
               <tr className="Colored-table-row">
-                <th data-tip={TOOLTIPS['color']}>Color</th>
+                <th data-tip={TOOLTIPS['description']}>Desc.</th>
                 <th data-tip={TOOLTIPS['id']}>ID</th>
                 <th data-tip={TOOLTIPS['type']}>Type</th>
                 <th data-tip={TOOLTIPS['damage']}>Dmg.</th>
@@ -517,6 +547,13 @@ class MoveInfo extends Component {
                    className={index % 2 ? "Colored-table-row" : null}/>
                );
               })}
+              {throwData.map(function(throwData, index) {
+                // TODO: ideally this should be a hash function so we don't re-render unless something has changed
+                return (
+                  <ThrowInfo key={frame + "-" + throwData.id} throwData={throwData}
+                   className={index % 2 ? "Colored-table-row" : null}/>
+               );
+              })}
             </tbody>
           </table>
         </div>);
@@ -534,6 +571,7 @@ class MoveInfo extends Component {
           </div>
         </div>
         {this.state.hitboxRanges}
+        {this.state.throwRange}
         {this.state.superArmorRange}
         {this.state.intangibilityRange}
         {this.state.invincibleRange}
@@ -544,7 +582,7 @@ class MoveInfo extends Component {
             kuroganehammer.com
           </a>&nbsp;
           <span className="Help-icon Bold-label"
-            style={{'vertical-align': 'super'}} data-tip={TOOLTIPS['kh']}>?</span>
+            style={{'verticalAlign': 'super'}} data-tip={TOOLTIPS['kh']}>?</span>
         </div>
         {/* FIXME: this tooltip also serves Player.js. We should decouple them */}
         <ReactTooltip multiline={true} delayShow={160} html={true} effect={'solid'} place={'right'} />
@@ -610,10 +648,7 @@ class HitboxInfo extends Component {
     // public int disableHitlag;
     // public int flinchless;
 
-    var damageString = hitboxData.damage;
-    if (hitboxData.shieldDamage) {
-      damageString += ' (' + hitboxData.shieldDamage + ')';
-    }
+    const damageString = makeDamageString(hitboxData);
 
     var groundAir;
     switch (hitboxData.groundAir) {
@@ -794,7 +829,7 @@ class SpecialBubbleInfo extends Component {
           <div className="Hitbox-color" style={{'background': bubbleColor}}></div>
         </td>
         <td>{specialBubbleData.id}</td>
-        <td data-tip={HITBOX_TYPE[4].tooltip}>{HITBOX_TYPE[4].name}</td>
+        <td data-tip={HITBOX_TYPE[99].tooltip}>{HITBOX_TYPE[99].name}</td>
         <td></td>
         <td></td>
         <td></td>
@@ -812,6 +847,50 @@ class SpecialBubbleInfo extends Component {
       </tr>
     );
   }
+}
+
+
+class ThrowInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {throwData: props.throwData};
+  }
+
+  render() {
+    const throwData = this.state.throwData;
+    const damageString = makeDamageString(throwData);
+
+    return(
+      <tr id={"throwData-" + throwData.id} className={this.props.className}>
+        <td data-tip={THROW_ID_MEANING[throwData.id].tooltip}>{THROW_ID_MEANING[throwData.id].name}</td>
+        <td>{throwData.id}</td>
+        <td data-tip={HITBOX_TYPE[100].tooltip}>{HITBOX_TYPE[100].name}</td>
+        <td>{damageString}</td>
+        <td><HitboxAngle angle={throwData.angle} size={25}/></td>
+        <td>{throwData.knockbackGrowth}</td>
+        <td>{throwData.knockbackBase}</td>
+        <td>{throwData.weightBasedKnockback}</td>
+        <td data-tip={EFFECT_TYPE[throwData.effect].tooltip}>{EFFECT_TYPE[throwData.effect].name}</td>
+        <td data-tip={FACING_RESTRICTION[throwData.facingRestrict].tooltip}>{throwData.facingRestrict}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    );
+  }
+}
+
+
+function makeDamageString(obj) {
+  var damageString = obj.damage;
+  if (obj.hasOwnProperty('shieldDamage') && obj.shieldDamage) {
+    damageString += ' (' + obj.shieldDamage + ')';
+  }
+  return damageString;
 }
 
 export default MoveInfo;
