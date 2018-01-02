@@ -838,7 +838,8 @@ class Player extends Component {
             <video className={"Move-video " + videoClass} id={uuid} ref="moveVideo"
              style={videoStyles}
 
-             preload={isIphoneUserAgent() ? "metadata" : "auto"}
+             // We set preload to metadata because we are async loading the video elsewhere
+             preload="metadata"
              autoPlay={isIphoneUserAgent() ? true : false}
 
              onEnded={this.videoEventHandler}
