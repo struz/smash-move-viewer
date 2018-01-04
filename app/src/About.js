@@ -62,6 +62,16 @@ class Help extends Component {
             from in-game.
           </li>
           <li>
+            <span className="Bold-label">
+              No move effects.
+            </span> You know the big swishy animations that kind of most of the
+            time but not all the time hint at where the hitboxes are in-game?
+            Unfortunately those can't be displayed, so you'll have to guess where
+            they line up with the hitboxes. This is because Smash 4 displays them using a
+            "particle generator" and unfortunately these are much harder to emulate
+            than models/polygons/textures/lighting.
+          </li>
+          <li>
             <span className="Bold-label">No tether grabs (and some zairs).</span> This also extends
             to other "weapon" visualizations. Weapons have lots of unique code
             per weapon and this requires a lot of manual work to fix, but only
