@@ -1,5 +1,5 @@
 {
-  "moveName": "ThrowFJumpSquat",
+  "moveName": "Cargo Hold",
   "faf": 0,
   "intangibilityStart": 0,
   "intangibilityEnd": 0,
@@ -7,6 +7,7 @@
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -16,6 +17,7 @@
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -25,6 +27,7 @@
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -34,6 +37,7 @@
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -43,6 +47,7 @@
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
@@ -52,6 +57,7 @@
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
