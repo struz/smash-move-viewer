@@ -105,12 +105,12 @@ const TOOLTIPS = {
   // Generic move info stuff
   kh: `
     <span class="Bold-label">KuroganeHammer</span>
-    <p>The main differences in data between this site and KH are:</p>
+    <p>Visit Kurogane Hammer's database for:</p>
     <ul>
-      <li>IASA frame data is included</li>
-      <li>Landing lag data is directly included for moves (here you need to look at landing animation FAF)</li>
-      <li>Some moves have extra descriptions on how they interact</li>
-      <li>Character general stats are listed</li>
+      <li>IASA frame data</li>
+      <li>Simpler landing lag data</li>
+      <li>Extra information on some move interactions</li>
+      <li>General character stats</li>
     </ul>`,
 
   faf: `
@@ -156,7 +156,7 @@ const TOOLTIPS = {
 
   groundAir: `
     <span class="Bold-label">Ground/Air</span>
-    <p>Which types of opponent this hitbox can hit</p>`,
+    <p>Which types of opponent this hitbox can hit - grounded, aerial, or both</p>`,
 
   direct: `
     <span class="Bold-label">Direct</span>
@@ -577,10 +577,9 @@ class MoveInfo extends Component {
         {this.state.invincibleRange}
         {hitboxTable}
         <div className="Paragraph">
-          For more/other specific frame information,
-          see <a href={this.props.khUrl} target="_blank" rel="noopener noreferrer">
+          Visit <a href={this.props.khUrl} target="_blank" rel="noopener noreferrer">
             kuroganehammer.com
-          </a>&nbsp;
+          </a> for other frame information&nbsp;
           <span className="Help-icon Bold-label"
             style={{'verticalAlign': 'super'}} data-tip={TOOLTIPS['kh']}>?</span>
         </div>

@@ -160,7 +160,7 @@ class Help extends Component {
         put into hitlag for attacking. This is the same state as characters who
         have just come down from the respawn platform.
         <br /><br />
-        <h4>An example</h4>
+        <h3>An example</h3>
         <img src={ryuExample} className="Ryu-example" alt="ryu hitbox example" />
         <br />
         Here we see a frame from Ryu's strong jab. On this frame we can see his
@@ -169,7 +169,7 @@ class Help extends Component {
         hitbox around part of his leg. This is the area that is actively able
         to hurt opponents on this frame.
         <br /><br />
-        <h2>Advanced concepts</h2>
+        <h3>Advanced concepts</h3>
         <h4>Hitbox interpolation</h4>
         Earlier it was mentioned that regular (round) hitboxes can "interpolate".
         What is interpolation? In a fast paced game like Smash Bros., it is
@@ -192,7 +192,7 @@ class Help extends Component {
         frame 8. This matters for some moves where the hitbox damage changes between
         frames but the area that is affected by the hitbox is still interpolated.
         <br /><br />
-        <h2>Useful resources</h2>
+        <h3>Useful resources</h3>
         <a href="https://twitter.com/KuroganeHammer" target="_blank" rel="noopener noreferrer">KuroganeHammer</a> has a comperehensive frame database which has a bunch of
         extra info that this site doesn't mine. Visit it! <a href="http://kuroganehammer.com/Smash4">http://kuroganehammer.com/Smash4</a>
         <br /><br />
