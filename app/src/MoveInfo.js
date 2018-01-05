@@ -432,6 +432,7 @@ class MoveInfo extends Component {
 
   getHitboxRange(moveData) {
     var hitboxRange = this.getRangesFromFrames(moveData, 'hitboxes');
+    debugger;
     if (!hitboxRange)
       return null;
     return (
@@ -448,11 +449,10 @@ class MoveInfo extends Component {
     var currentFrameStart = -1;
     for (var i = 0; i < moveData.frames.length; i++) {
       let type = typeof(moveData.frames[i][frameVarName]);
-      if ((type === "boolean" && moveData.frames[i][frameVarName]) ||
-          (type === "object" && moveData.frames[i][frameVarName].length)) {
-        if (currentFrameStart < 0) {
-          currentFrameStart = i;
-        }
+      if (currentFrameStart < 0 &&
+          ((type === "boolean" && moveData.frames[i][frameVarName]) ||
+          (type === "object" && moveData.frames[i][frameVarName].length))) {
+        currentFrameStart = i;
       } else if (currentFrameStart >= 0) {
         // If we have a range in flight, this is the end of it
         if (i - currentFrameStart < 2) {
@@ -479,7 +479,8 @@ class MoveInfo extends Component {
     return (
       <span>
         {rangeString.map(function(tag) {
-          return <div className="Frame-range-spacer" key={tag}>{tag}</div>;
+          debugger;
+          return <div className="Frame-range-spacer" key={tag.props.frameNum}>{tag}</div>;
         })}
       </span>
     );
