@@ -709,6 +709,7 @@ class Player extends Component {
         prevState.video = video;
         prevState.frameIndex = defaultFrame;
         prevState.paused = true;
+        prevState.fudgeSlider = -1;
         return prevState;
       });
 
