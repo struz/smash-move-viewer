@@ -7,18 +7,32 @@
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
+    },
+    {
+      "hitboxes": [],
+      "specialBubbles": [],
+      "throwSpecifiers": [],
+      "intangibleBones": [],
+      "invincibleBones": [],
+      "bodyIntangible": false,
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [
@@ -65,34 +79,42 @@
         }
       ],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [
@@ -139,34 +161,42 @@
         }
       ],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [
@@ -213,26 +243,22 @@
         }
       ],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     },
     {
       "hitboxes": [],
       "specialBubbles": [],
+      "throwSpecifiers": [],
       "intangibleBones": [],
       "invincibleBones": [],
       "bodyIntangible": false,
-      "bodyInvincible": false
-    },
-    {
-      "hitboxes": [],
-      "specialBubbles": [],
-      "intangibleBones": [],
-      "invincibleBones": [],
-      "bodyIntangible": false,
-      "bodyInvincible": false
+      "bodyInvincible": false,
+      "bodySuperArmor": false
     }
   ],
   "camera": {

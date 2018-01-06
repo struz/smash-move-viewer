@@ -31,11 +31,6 @@
       "category": "has_hitbox"
     },
     {
-      "prettyName": "Jab 2",
-      "rawName": "Attack12",
-      "category": "no_hitbox"
-    },
-    {
       "prettyName": "Back Air",
       "rawName": "AttackAirB",
       "category": "has_hitbox"
