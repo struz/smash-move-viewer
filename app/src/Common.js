@@ -142,5 +142,9 @@ export function generateAppUrl({
     parsedQueryString['showAllMoves'] = showAllMoves;
 
   // Returns [location, search_query]
-  return [splitCurrentPath.join('/'), '?' + QueryString.stringify(parsedQueryString)];
+  var finalSearch = QueryString.stringify(parsedQueryString);
+  console.log(finalSearch);
+  if (finalSearch)
+    finalSearch = '?' + finalSearch;
+  return [splitCurrentPath.join('/'), finalSearch];
 }

@@ -144,6 +144,14 @@ class Help extends Component {
             animation rendering code in there.
           </li>
           <li>
+            <span className="Bold-label">Sammi Husky
+              (<a href="https://twitter.com/SammiHusky" target="_blank" rel="noopener noreferrer">@StruzSmash</a>):
+            </span> a smash researcher and modder that has contributed so much effort
+            to development of tools there's no way we'd be where we are as a scene right now
+            without him. His work on ACMD decompilation and compilation tools directly helped create
+            the visualizations you see on this site.
+          </li>
+          <li>
             <span className="Bold-label">Ruben
               (<a href="https://twitter.com/ruben_dal" target="_blank" rel="noopener noreferrer">@Ruben_dal</a>):
             </span> one of the best Smash scientists around. Added many helpful

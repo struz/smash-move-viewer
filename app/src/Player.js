@@ -228,7 +228,9 @@ class PlayerControls extends Component {
         {this.state.showShare &&
           <ShareModal anchor={this.refs.shareImage}
            closeHandler={this.closeShareModal} fighter={this.props.fighter}
-           move={this.props.move}/>}
+           move={this.props.move} frame={displayFrame}
+           speed={this.state.playbackSpeed}
+           showAllMoves={this.props.showAllMoves} />}
       </div>
     );
   }
@@ -899,6 +901,9 @@ class Player extends Component {
           displayFrame={displayFrame}
           loopHandler={this.loopHandler}
           loop={this.state.loop}
+
+          // For share display only
+          showAllMoves={this.props.showAllMoves}
           />
       </div>
     );

@@ -257,19 +257,6 @@ class Move extends Component {
   }
   frameChanged(frame, updateUrl = false, pauseVideo = false) {
     // Note that any frame coming from within will be 0-indexed
-    if (updateUrl) {
-      var [location, search] = Common.generateAppUrl({
-        path: this.props.location.pathname,
-        search: this.props.location.search,
-        frame: frame + 1
-      });
-      this.props.history.push({
-        pathname: location,
-        search: search
-      });
-      this.props.onMoveUpdated(location, search);
-    }
-
     this.setState(function(prevState, props) {
       prevState.frameIndex = frame + 1;
       if (pauseVideo) {
@@ -280,16 +267,6 @@ class Move extends Component {
   }
   speedChanged(speed) {
     // Speed is a string like '1x' or '0.25x'
-    var [location, search] = Common.generateAppUrl({
-      path: this.props.location.pathname,
-      search: this.props.location.search,
-      speed: speed
-    });
-    this.props.history.push({
-      pathname: location,
-      search: search
-    });
-    this.props.onMoveUpdated(location, search);
     this.setState(function(prevState, props) {
       prevState.speed = speed;
       return prevState;
@@ -437,7 +414,9 @@ class Move extends Component {
                 onSpeedChange={this.speedChanged}
                 onLoopChange={this.loopChanged}
                 // Below is just for analytics
-                fighter={fighter} move={move}/>
+                fighter={fighter} move={move}
+                // Just for sharing
+                showAllMoves={showAllMoves}/>
         <MoveInfo frameIndex={frameIndex - 1} moveData={moveData}
           onFrameChange={this.frameChanged} khUrl={this.state.khUrl} />
       </div>

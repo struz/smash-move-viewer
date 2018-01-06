@@ -18,6 +18,8 @@ _Note:_ no guarantee of move accuracy but this project strives to be 100% correc
 
 Ploaj / Furil - for his hard work on Smash Forge animations/rendering/everything and sm4sh modding in general. The first person to post hitbox visualizations of any sort for Smash4 which was my inspiration for this entire project.
 
+[@SammiHusky](https://twitter.com/SammiHusky) - a smash researcher and modder that has contributed so much effort to development of tools there's no way we'd be where we are as a scene right now without him. His work on ACMD decompilation and compilation tools directly helped create the visualizations you see on this site. Check out his amazing set of [Sm4sh-Tools](https://github.com/Sammi-Husky/Sm4sh-Tools/).
+
 ScanMountGoat - tireless work furthering rendering in Smash Forge.
 
 [@Ruben\_dal](https://twitter.com/Ruben_dal) - one of, if not the best smash scientist around. Has helped directly and indirectly in too many ways to list. Owner/creator of [the smash calculator](http://rubendal.github.io/Sm4sh-Calculator/). Walking encyclopaedia of smash knowledge.

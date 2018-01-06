@@ -3,6 +3,8 @@ import ReactGA from 'react-ga';
 import onClickOutside from "react-onclickoutside";
 import copy from 'copy-to-clipboard';
 
+import * as Common from './Common';
+
 import './ShareModal.css';
 
 class ShareModal extends Component {
@@ -62,6 +64,15 @@ class ShareModal extends Component {
     const MODAL_WIDTH_DESKTOP = 400;
     const MODAL_WIDTH_MOBILE = 300;
 
+    const [location, search] = Common.generateAppUrl({
+      path: window.location.hash,
+      search: window.location.search,
+      speed: this.props.speed,
+      frame: this.props.frame,
+      showAllMoves: this.props.showAllMoves
+    });
+    const shareLinkHref = window.location.origin + window.location.pathname + location + search;
+
     var divStyles = {
       top: anchor.offsetTop + anchor.offsetHeight,
       left: anchor.offsetLeft + anchor.offsetWidth - MODAL_WIDTH_DESKTOP,
@@ -79,7 +90,7 @@ class ShareModal extends Component {
         <div>
           <input type="text" ref="shareLink" className="Text-input Share-link"
             readOnly={true}
-            defaultValue={window.location.href} onFocus={this.onFocusShareLink} />
+            defaultValue={shareLinkHref} onFocus={this.onFocusShareLink} />
         </div>
         <hr/>
         <div>
