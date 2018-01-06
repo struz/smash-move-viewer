@@ -432,7 +432,6 @@ class MoveInfo extends Component {
 
   getHitboxRange(moveData) {
     var hitboxRange = this.getRangesFromFrames(moveData, 'hitboxes');
-    debugger;
     if (!hitboxRange)
       return null;
     return (
@@ -449,11 +448,14 @@ class MoveInfo extends Component {
     var currentFrameStart = -1;
     for (var i = 0; i < moveData.frames.length; i++) {
       let type = typeof(moveData.frames[i][frameVarName]);
+
       if (currentFrameStart < 0 &&
           ((type === "boolean" && moveData.frames[i][frameVarName]) ||
           (type === "object" && moveData.frames[i][frameVarName].length))) {
         currentFrameStart = i;
-      } else if (currentFrameStart >= 0) {
+      } else if (currentFrameStart >= 0 &&
+          !((type === "boolean" && moveData.frames[i][frameVarName]) ||
+            (type === "object" && moveData.frames[i][frameVarName].length))) {
         // If we have a range in flight, this is the end of it
         if (i - currentFrameStart < 2) {
           // 1 frame range
@@ -479,7 +481,6 @@ class MoveInfo extends Component {
     return (
       <span>
         {rangeString.map(function(tag) {
-          debugger;
           return <div className="Frame-range-spacer" key={tag.props.frameNum}>{tag}</div>;
         })}
       </span>
@@ -885,10 +886,14 @@ class ThrowInfo extends Component {
 }
 
 
+function noZerosFloat(num) {
+  return parseFloat(parseFloat(num).toFixed(3));
+}
+
 function makeDamageString(obj) {
-  var damageString = obj.damage;
+  var damageString = noZerosFloat(obj.damage);
   if (obj.hasOwnProperty('shieldDamage') && obj.shieldDamage) {
-    damageString += ' (' + obj.shieldDamage + ')';
+    damageString += ' (' + noZerosFloat(obj.shieldDamage) + ')';
   }
   return damageString;
 }

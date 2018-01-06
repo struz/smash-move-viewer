@@ -76,7 +76,13 @@ class FighterPicker extends Component {
       var options = [];
       nextProps.fighterIndexData.fighters.forEach(function(fighter) {
         if (!(fighter.hasOwnProperty('secret') && fighter.secret)) {
-          options.push(<option key={fighter.key} value={fighter.key}>{fighter.name}</option>);
+          let disabled = fighter.hasOwnProperty('disabled') && fighter.disabled;
+          let name = disabled ? fighter.name + ' [Coming Soon]' : fighter.name;
+          options.push(
+            <option key={fighter.key} value={fighter.key} disabled={disabled}>
+              {name}
+            </option>
+          );
         }
       });
       this.setState({options: options});

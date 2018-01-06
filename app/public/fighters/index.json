@@ -9,6 +9,11 @@
       "key": "koopa"
     },
     {
+      "name": "Bowser Jr.",
+      "key": "koopajr",
+      "disabled": true
+    },
+    {
       "name": "Captain Falcon",
       "key": "captain"
     },
@@ -21,6 +26,16 @@
       "key": "cloud"
     },
     {
+      "name": "Corrin",
+      "key": "kamui",
+      "disabled": true
+    },
+    {
+      "name": "Dark Pit",
+      "key": "pitb",
+      "disabled": true
+    },
+    {
       "name": "Diddy Kong",
       "key": "diddy"
     },
@@ -31,6 +46,11 @@
     {
       "name": "Dr. Mario",
       "key": "mariod"
+    },
+    {
+      "name": "Duck Hunt",
+      "key": "duckhunt",
+      "disabled": true
     },
     {
       "name": "Falco",
@@ -53,6 +73,21 @@
       "key": "ike"
     },
     {
+      "name": "Jigglypuff",
+      "key": "purin",
+      "disabled": true
+    },
+    {
+      "name": "King Dedede",
+      "key": "dedede",
+      "disabled": true
+    },
+    {
+      "name": "Kirby",
+      "key": "kirby",
+      "disabled": true
+    },
+    {
       "name": "Link",
       "key": "link"
     },
@@ -63,6 +98,10 @@
     {
       "name": "Lucario",
       "key": "lucario"
+    },
+    {
+      "name": "Lucas",
+      "key": "lucas"
     },
     {
       "name": "Lucina",
@@ -81,12 +120,57 @@
       "key": "marth"
     },
     {
+      "name": "Megaman",
+      "key": "rockman",
+      "disabled": true
+    },
+    {
       "name": "Metaknight",
       "key": "metaknight"
     },
     {
       "name": "Mewtwo",
       "key": "mewtwo"
+    },
+    {
+      "name": "Mii Brawler",
+      "key": "miifighter",
+      "disabled": true
+    },
+    {
+      "name": "Mii Gunner",
+      "key": "miigunner",
+      "disabled": true
+    },
+    {
+      "name": "Mii Swordfighter",
+      "key": "miiswordsman",
+      "disabled": true
+    },
+    {
+      "name": "Mr. Game & Watch",
+      "key": "gamewatch",
+      "disabled": true
+    },
+    {
+      "name": "Ness",
+      "key": "ness",
+      "disabled": true
+    },
+    {
+      "name": "Olimar",
+      "key": "pikmin",
+      "disabled": true
+    },
+    {
+      "name": "Pac-Man",
+      "key": "pacman",
+      "disabled": true
+    },
+    {
+      "name": "Palutena",
+      "key": "palutena",
+      "disabled": true
     },
     {
       "name": "Peach",
@@ -96,6 +180,26 @@
       "name": "Peach (Cat)",
       "key": "catpeach",
       "secret": true
+    },
+    {
+      "name": "Pikachu",
+      "key": "pikachu",
+      "disabled": true
+    },
+    {
+      "name": "Pit",
+      "key": "pit",
+      "disabled": true
+    },
+    {
+      "name": "R.O.B",
+      "key": "robot",
+      "disabled": true
+    },
+    {
+      "name": "Robin",
+      "key": "reflet",
+      "disabled": true
     },
     {
       "name": "Rosalina",
@@ -114,6 +218,11 @@
       "key": "ryu"
     },
     {
+      "name": "Samus",
+      "key": "samus",
+      "disabled": true
+    },
+    {
       "name": "Sheik",
       "key": "sheik"
     },
@@ -130,12 +239,32 @@
       "key": "toonlink"
     },
     {
+      "name": "Villager",
+      "key": "murabito",
+      "disabled": true
+    },
+    {
+      "name": "Wario",
+      "key": "wario",
+      "disabled": true
+    },
+    {
+      "name": "Wiifit",
+      "key": "wiifit",
+      "disabled": true
+    },
+    {
       "name": "Yoshi",
       "key": "yoshi"
     },
     {
       "name": "Zero Suit Samus",
       "key": "szerosuit"
+    },
+    {
+      "name": "Zelda",
+      "key": "zelda",
+      "disabled": true
     }
   ]
 }
