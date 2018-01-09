@@ -63,7 +63,7 @@ class Help extends Component {
         <span className="Bold-label">Find information about the move.</span> This
         section contains information about the move in general. Everything
         here is a summary of the entire move. Things that might be here include
-        notes about the move, it's First Actionable Frame, and summaries of when
+        notes about the move, its First Actionable Frame, and summaries of when
         hurtboxes and hitboxes are present. Mouse over any of the fields to get
         a detailed description about what they mean. Click on any of the frame
         ranges to jump to the first frame in the range immediately.
