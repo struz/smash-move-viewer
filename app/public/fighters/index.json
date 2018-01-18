@@ -101,7 +101,8 @@
     },
     {
       "name": "Lucas",
-      "key": "lucas"
+      "key": "lucas",
+      "disabled": true
     },
     {
       "name": "Lucina",
